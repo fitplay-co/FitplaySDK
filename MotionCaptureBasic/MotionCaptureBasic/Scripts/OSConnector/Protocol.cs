@@ -145,6 +145,38 @@ namespace MotionCaptureBasic.OSConnector
         JointCount = LeftFootIndex + 1,
     }
 
+    public enum EFKType
+    {
+        Neck = 0,
+        Head,
+        LShoulder,
+        RShoulder,
+        LArm,
+        RArm,
+        LWrist,
+        RWrist,
+        LHand,
+        RHand,
+        LHip,
+        RHip,
+        LKnee,
+        RKnee,
+        LAnkle,
+        RAnkle,
+        LFoot,
+        RFoot,
+        CenterHip,
+        
+        Count = RFoot + 1
+    }
+
+    public static partial class EnumExtend
+    {
+        public static int Int(this EFKType i)
+        {
+            return (int)i;
+        }
+    }
     public class Protocol
     {
         public static IKBodyMessageBase UnMarshal(string message)
@@ -172,6 +204,7 @@ namespace MotionCaptureBasic.OSConnector
     [Serializable]
     public class IKBodyUpdateMessage : IKBodyMessageBase
     {
+        public Fitting fitting;
         public PoseLandmarkItem pose_landmark;
         public TimeProfiling timeProfiling;
         public string type;
@@ -214,6 +247,39 @@ namespace MotionCaptureBasic.OSConnector
         public int GetKeyPointsCount()
         {
             return pose_landmark.keypoints?.Count ?? 0;
+        }
+    }
+    
+    [Serializable]
+    public class Fitting
+    {
+        public List<FittingPositionItem> keypoints3D;
+        public List<FittingRotationItem> rotation;
+    }
+    [Serializable]
+    public class FittingPositionItem
+    {
+        public string name;
+        public float x;
+        public float y;
+        public float z;
+
+        public Vector3 Position()
+        {
+            return new Vector3(x, y, z);
+        }
+    }
+    [Serializable]
+    public class FittingRotationItem
+    {
+        public string name;
+        public float x;
+        public float y;
+        public float z;
+        public float w;
+        public Quaternion Rotation()
+        {
+            return new Quaternion(x, y, z, w);
         }
     }
 
