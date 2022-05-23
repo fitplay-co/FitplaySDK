@@ -1,0 +1,16 @@
+{
+    "name": "FinalIK.SharedDemo",
+    "rootNamespace": "",
+    "references": [
+        "FinalIK.Shared"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

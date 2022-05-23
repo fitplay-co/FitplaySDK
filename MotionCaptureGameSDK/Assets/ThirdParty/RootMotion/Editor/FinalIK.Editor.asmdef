@@ -1,0 +1,19 @@
+{
+    "name": "FinalIK.Editor",
+    "rootNamespace": "",
+    "references": [
+        "FinalIK",
+        "FinalIK.Shared",
+        "FinalIK.Baker",
+        "FinalIK.SharedDemo"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
