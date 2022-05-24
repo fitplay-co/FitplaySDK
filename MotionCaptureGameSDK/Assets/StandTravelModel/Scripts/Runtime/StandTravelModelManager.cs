@@ -85,6 +85,20 @@ namespace StandTravelModel
 
         public int currentLeg => _currentLeg;
 
+        private bool enable;
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value;
+#if USE_FINAL_IK
+                modelIKSettings.FinalIKComponent.enabled = value;
+                modelIKSettings.FinalIKLookAtComponent.enabled = value;
+#else
+                modelIKSettings.IKScript.enabled = value;
+#endif
+            }
+        }
+
         #endregion
 
         public void Awake()
