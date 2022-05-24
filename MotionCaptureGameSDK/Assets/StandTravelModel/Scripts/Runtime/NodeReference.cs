@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor
+namespace StandTravelModel
 {
     public class NodeReference : MonoBehaviour
     {

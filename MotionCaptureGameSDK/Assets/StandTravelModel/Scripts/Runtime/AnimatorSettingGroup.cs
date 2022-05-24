@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor
+namespace StandTravelModel
 {
     [Serializable]
     public class AnimatorSettingGroup

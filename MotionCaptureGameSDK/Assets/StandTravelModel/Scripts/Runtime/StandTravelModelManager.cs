@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using MotionCapture.StandTravelModel.Editor.Core;
-using MotionCapture.StandTravelModel.Editor.Core.Interface;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
+using StandTravelModel.Core;
+using StandTravelModel.Core.Interface;
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor
+namespace StandTravelModel
 {
     public enum MotionMode
     {

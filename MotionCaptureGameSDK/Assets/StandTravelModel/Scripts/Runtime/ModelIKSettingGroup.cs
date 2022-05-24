@@ -1,9 +1,9 @@
 using System;
 using RootMotion.FinalIK;
-using MotionCapture.StandTravelModel.Editor;
+using StandTravelModel.Core;
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor
+namespace StandTravelModel
 {
     [Serializable]
     public class ModelIKSettingGroup

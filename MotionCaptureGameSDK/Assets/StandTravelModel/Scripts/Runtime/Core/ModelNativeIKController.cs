@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
-using MotionCapture.StandTravelModel.Editor;
-using MotionCapture.StandTravelModel.Editor.Core.Interface;
+using StandTravelModel.Core.Interface;
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor.Core
+namespace StandTravelModel.Core
 {
     public enum NativeIKNodeType
     {

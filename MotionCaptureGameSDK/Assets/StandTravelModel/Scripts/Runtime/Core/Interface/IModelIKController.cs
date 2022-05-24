@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor.Core.Interface
+namespace StandTravelModel.Core.Interface
 {
     public interface IModelIKController
     {

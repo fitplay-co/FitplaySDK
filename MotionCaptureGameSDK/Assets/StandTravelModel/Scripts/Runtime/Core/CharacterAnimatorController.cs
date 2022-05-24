@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor.Core
+namespace StandTravelModel.Core
 {
     public class CharacterAnimatorController
     {

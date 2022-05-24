@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MotionCapture.StandTravelModel.Editor
+namespace StandTravelModel.Core
 {
     public class UnityIKMecanimScript: MonoBehaviour
     {

@@ -1,7 +1,6 @@
-using MotionCapture.StandTravelModel.Editor;
 using UnityEngine;
 
-namespace MotionCapture.TestDemo
+namespace StandTravelModel.TestDemo
 {
     public class DisplayHud : MonoBehaviour
     {

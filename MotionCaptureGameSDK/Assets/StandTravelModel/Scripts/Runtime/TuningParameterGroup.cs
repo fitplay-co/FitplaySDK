@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MotionCapture.StandTravelModel.Editor
+namespace StandTravelModel
 {
     [Serializable]
     public class TuningParameterGroup
