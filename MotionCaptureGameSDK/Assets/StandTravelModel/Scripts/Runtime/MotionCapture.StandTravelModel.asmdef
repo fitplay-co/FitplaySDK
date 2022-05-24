@@ -2,7 +2,8 @@
     "name": "MotionCapture.StandTravelModel",
     "rootNamespace": "",
     "references": [
-        "FinalIK"
+        "FinalIK",
+        "FinalIK.Shared"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
