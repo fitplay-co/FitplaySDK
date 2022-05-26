@@ -184,9 +184,10 @@ namespace StandTravelModel
             predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
             keyPointsParent.transform.localPosition = predictHipPos;
 
-            localShift.x = -groundLocationData.x * tuningParameters.LocalShiftScale.x;
+            var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
+                -groundLocationData.z * tuningParameters.LocalShiftScale.z);
 
-            localShift.z = -groundLocationData.z;
+            localShift = standTravelAnchorController.TravelFollowPoint.transform.rotation * planeShift;
 
             var actionDetectionData = motionDataModel.GetActionDetectionData();
 
@@ -226,6 +227,14 @@ namespace StandTravelModel
         public void OnDestroy()
         {
             Destroy(keyPointsParent);
+            motionDataModel = null;
+            characterAnimatorController = null;
+            standTravelAnchorController?.DestroyObject();
+            standTravelAnchorController = null;
+            modelIKController?.ClearFakeNodes();
+            modelIKController = null;
+            animationDict?.Clear();
+            animationDict = null;
         }
 
         public MotionMode SwitchStandTravel()

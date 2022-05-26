@@ -35,7 +35,7 @@ namespace StandTravelModel.Core
             fakeNodeList = new List<GameObject>();
         }
 
-        ~ModelNativeIKController()
+        public void ClearFakeNodes()
         {
             foreach (var fakeNode in fakeNodeList)
             {

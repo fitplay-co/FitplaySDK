@@ -29,7 +29,7 @@ namespace StandTravelModel.Core
             standFollowPoint.transform.position = initialPosition;
         }
 
-        ~StandTravelAnchorController()
+        public void DestroyObject()
         {
             UnityEngine.Object.Destroy(travelFollowPoint);
             UnityEngine.Object.Destroy(standFollowPoint);

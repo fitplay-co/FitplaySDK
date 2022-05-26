@@ -38,7 +38,7 @@ namespace StandTravelModel.Core
             fbbIK.solver.rightFootEffector.positionWeight = 1;
         }
 
-        ~ModelFinalIKController()
+        public void ClearFakeNodes()
         {
             foreach (var fakeNode in fakeNodeList)
             {
