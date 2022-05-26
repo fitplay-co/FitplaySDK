@@ -50,3 +50,4 @@ _ReSharper.CSharp/
 /ProjectSettings/PackageManagerSettings.asset
 /*.vsconfig
 packages-lock.json
+*.csproj
