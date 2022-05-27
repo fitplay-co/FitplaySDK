@@ -7228,7 +7228,7 @@ MonoBehaviour:
   leftShoulder: {fileID: 2014150624}
   rightShoulder: {fileID: 2014150621}
   leftElbow: {fileID: 2014150623}
-  rightElbow: {fileID: 2014150621}
+  rightElbow: {fileID: 2014150620}
   leftHand: {fileID: 2014150622}
   rightHand: {fileID: 2014150619}
   leftIndex: {fileID: 2014150636}

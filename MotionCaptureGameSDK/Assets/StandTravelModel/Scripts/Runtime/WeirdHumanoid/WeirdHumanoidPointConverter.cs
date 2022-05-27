@@ -6,6 +6,7 @@ namespace WeirdHumanoid
 {
     public class WeirdHumanoidPointConverter : IKeyPointsConverter
     {
+        private Vector3 chestPos;
         private WeirdHumanoidPointsLocater pointsLocater;
         private WeirdHumanoidLimbSizeMapper sizeMapper;
 
@@ -17,25 +18,25 @@ namespace WeirdHumanoid
 
         public void ConvertKeyPoints(List<Vector3> keyPoints)
         {
-            var chestPos = GetChestPoint(keyPoints);
+            chestPos = GetChestPoint(keyPoints);
 
-            OverridePointType(GameKeyPointsType.Nose, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftShoulder, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightShoulder, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftElbow, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightElbow, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftHand, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightHand, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftHip, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightHip, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftKnee, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightKnee, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftFoot, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightKnee, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftFoot, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightFoot, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.LeftIndex, keyPoints, chestPos);
-            OverridePointType(GameKeyPointsType.RightIndex, keyPoints, chestPos);
+            OverridePointType(GameKeyPointsType.Nose, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftShoulder, keyPoints);
+            OverridePointType(GameKeyPointsType.RightShoulder, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftElbow, keyPoints);
+            OverridePointType(GameKeyPointsType.RightElbow, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftHand, keyPoints);
+            OverridePointType(GameKeyPointsType.RightHand, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftHip, keyPoints);
+            OverridePointType(GameKeyPointsType.RightHip, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftKnee, keyPoints);
+            OverridePointType(GameKeyPointsType.RightKnee, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftFoot, keyPoints);
+            OverridePointType(GameKeyPointsType.RightFoot, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftIndex, keyPoints);
+            OverridePointType(GameKeyPointsType.RightIndex, keyPoints);
+            OverridePointType(GameKeyPointsType.LeftFootIndex, keyPoints);
+            OverridePointType(GameKeyPointsType.RightFootIndex, keyPoints);
         }
 
         private Vector3 GetChestPoint(List<Vector3> keyPoints)
@@ -47,7 +48,7 @@ namespace WeirdHumanoid
                 keyPoints[(int)GameKeyPointsType.RightHip] ) * 0.25f;
         }
 
-        private void OverridePointType(GameKeyPointsType keyPointsType, List<Vector3> keyPoints, Vector3 chestPos)
+        private void OverridePointType(GameKeyPointsType keyPointsType, List<Vector3> keyPoints)
         {
             keyPoints[(int)keyPointsType] = ConvertPointPos(keyPointsType, keyPoints, chestPos);
         }

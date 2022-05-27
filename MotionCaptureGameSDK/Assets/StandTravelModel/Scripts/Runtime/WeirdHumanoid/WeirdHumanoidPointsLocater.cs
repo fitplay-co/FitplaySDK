@@ -26,11 +26,18 @@ namespace WeirdHumanoid
         private float[] limbOffsets;
         private Transform[] points;
 
-        public float GetLimbOffset(GameKeyPointsType keyPointsType)
-        {
+        private void Awake() {
             TryInitPoints();
             TryInitOffsets();
-            return limbOffsets[(int)keyPointsType];
+        }
+
+        public float GetLimbOffset(GameKeyPointsType keyPointsType)
+        {
+            if(limbOffsets != null)
+            {
+                return limbOffsets[(int)keyPointsType];
+            }
+            return 0;
         }
 
         private Transform GetPoint(GameKeyPointsType keyPointsType)
@@ -80,6 +87,7 @@ namespace WeirdHumanoid
                     if(point != null)
                     {
                         limbOffsets[i] = Vector3.Distance(point.position, anchorPos);
+                        Debug.Log(pointType + "->" + anchorType + "|" + limbOffsets[i]);
                     }
                 }
             }
