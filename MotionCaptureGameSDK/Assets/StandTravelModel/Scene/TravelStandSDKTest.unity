@@ -2023,6 +2023,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381889067}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &390130524 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8017789914742459209, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
+  m_PrefabInstance: {fileID: 2014150607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &396969461
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,6 +3122,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807735154}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &825343100 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1722356625652655786, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
+  m_PrefabInstance: {fileID: 2014150607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &888825779
 GameObject:
   m_ObjectHideFlags: 0
@@ -3972,6 +3982,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157184565}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1185131559 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3534188852481087812, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
+  m_PrefabInstance: {fileID: 2014150607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1191717401
 GameObject:
   m_ObjectHideFlags: 0
@@ -5083,6 +5098,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1592167537 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5996678864002440489, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
+  m_PrefabInstance: {fileID: 2014150607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1601371955
 GameObject:
   m_ObjectHideFlags: 0
@@ -6473,6 +6493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dragon
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c5ea49a9b8f917d4982f3073e32b84bb, type: 2}
     - target: {fileID: 7697547139178914226, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -6576,16 +6600,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2014150614 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4647936746085778161, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
-  m_PrefabInstance: {fileID: 2014150607}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2014150615 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3546301330756823795, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
-  m_PrefabInstance: {fileID: 2014150607}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2014150616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7561421460296406922, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -6611,11 +6625,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2137381006035446388, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2014150621 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1385845970817581814, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
-  m_PrefabInstance: {fileID: 2014150607}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2014150622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2442602003079332501, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -6624,11 +6633,6 @@ Transform:
 --- !u!4 &2014150623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6111663102665511055, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
-  m_PrefabInstance: {fileID: 2014150607}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2014150624 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1463339277209843034, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2014150625 stripped
@@ -6688,10 +6692,10 @@ MonoBehaviour:
     rightThigh: {fileID: 2014150627}
     rightCalf: {fileID: 2014150626}
     rightFoot: {fileID: 2014150625}
-    leftUpperArm: {fileID: 2014150624}
+    leftUpperArm: {fileID: 390130524}
     leftForearm: {fileID: 2014150623}
     leftHand: {fileID: 2014150622}
-    rightUpperArm: {fileID: 2014150621}
+    rightUpperArm: {fileID: 825343100}
     rightForearm: {fileID: 2014150620}
     rightHand: {fileID: 2014150619}
     head: {fileID: 2014150618}
@@ -6728,16 +6732,16 @@ MonoBehaviour:
       childConstraints:
       - pushElasticity: 0
         pullElasticity: 1
-        bone1: {fileID: 2014150624}
+        bone1: {fileID: 390130524}
         bone2: {fileID: 2014150627}
       - pushElasticity: 0
         pullElasticity: 1
-        bone1: {fileID: 2014150621}
+        bone1: {fileID: 825343100}
         bone2: {fileID: 2014150630}
       - pushElasticity: 0
         pullElasticity: 0
-        bone1: {fileID: 2014150624}
-        bone2: {fileID: 2014150621}
+        bone1: {fileID: 390130524}
+        bone2: {fileID: 825343100}
       - pushElasticity: 0
         pullElasticity: 0
         bone1: {fileID: 2014150630}
@@ -6760,7 +6764,7 @@ MonoBehaviour:
       reachSmoothing: 1
       pushSmoothing: 1
       nodes:
-      - transform: {fileID: 2014150624}
+      - transform: {fileID: 390130524}
         weight: 1
         solverPosition: {x: 0, y: 0, z: 0}
         solverRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -6810,7 +6814,7 @@ MonoBehaviour:
       reachSmoothing: 1
       pushSmoothing: 1
       nodes:
-      - transform: {fileID: 2014150621}
+      - transform: {fileID: 825343100}
         weight: 1
         solverPosition: {x: 0, y: 0, z: 0}
         solverRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -6969,7 +6973,7 @@ MonoBehaviour:
       planeBone2: {fileID: 0}
       planeBone3: {fileID: 0}
       planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 2014150624}
+    - bone: {fileID: 390130524}
       target: {fileID: 0}
       positionWeight: 1
       rotationWeight: 0
@@ -6983,7 +6987,7 @@ MonoBehaviour:
       planeBone2: {fileID: 0}
       planeBone3: {fileID: 0}
       planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 2014150621}
+    - bone: {fileID: 825343100}
       target: {fileID: 0}
       positionWeight: 1
       rotationWeight: 0
@@ -7035,8 +7039,8 @@ MonoBehaviour:
       effectChildNodes: 1
       maintainRelativePositionWeight: 0
       childBones: []
-      planeBone1: {fileID: 2014150624}
-      planeBone2: {fileID: 2014150621}
+      planeBone1: {fileID: 390130524}
+      planeBone2: {fileID: 825343100}
       planeBone3: {fileID: 2014150616}
       planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
     - bone: {fileID: 2014150619}
@@ -7049,8 +7053,8 @@ MonoBehaviour:
       effectChildNodes: 1
       maintainRelativePositionWeight: 0
       childBones: []
-      planeBone1: {fileID: 2014150621}
-      planeBone2: {fileID: 2014150624}
+      planeBone1: {fileID: 825343100}
+      planeBone2: {fileID: 390130524}
       planeBone3: {fileID: 2014150616}
       planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
     - bone: {fileID: 2014150628}
@@ -7086,8 +7090,8 @@ MonoBehaviour:
       - {fileID: 2014150631}
       - {fileID: 2014150617}
       - {fileID: 2014150616}
-      leftUpperArmBone: {fileID: 2014150624}
-      rightUpperArmBone: {fileID: 2014150621}
+      leftUpperArmBone: {fileID: 390130524}
+      rightUpperArmBone: {fileID: 825343100}
       leftThighBone: {fileID: 2014150630}
       rightThighBone: {fileID: 2014150627}
       iterations: 3
@@ -7096,14 +7100,14 @@ MonoBehaviour:
     - bone: {fileID: 2014150618}
       maintainRotationWeight: 0
     limbMappings:
-    - parentBone: {fileID: 2014150615}
-      bone1: {fileID: 2014150624}
+    - parentBone: {fileID: 1592167537}
+      bone1: {fileID: 390130524}
       bone2: {fileID: 2014150623}
       bone3: {fileID: 2014150622}
       maintainRotationWeight: 0
       weight: 1
-    - parentBone: {fileID: 2014150614}
-      bone1: {fileID: 2014150621}
+    - parentBone: {fileID: 1185131559}
+      bone1: {fileID: 825343100}
       bone2: {fileID: 2014150620}
       bone3: {fileID: 2014150619}
       maintainRotationWeight: 0
@@ -7225,8 +7229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nose: {fileID: 2014150618}
-  leftShoulder: {fileID: 2014150624}
-  rightShoulder: {fileID: 2014150621}
+  leftShoulder: {fileID: 390130524}
+  rightShoulder: {fileID: 825343100}
   leftElbow: {fileID: 2014150623}
   rightElbow: {fileID: 2014150620}
   leftHand: {fileID: 2014150622}

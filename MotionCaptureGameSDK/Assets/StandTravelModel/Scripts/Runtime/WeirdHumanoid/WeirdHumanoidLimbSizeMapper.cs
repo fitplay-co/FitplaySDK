@@ -14,8 +14,8 @@ public class WeirdHumanoidLimbSizeMapper
         var limbOffsetRightHand = 0.3f;
         var limbOffsetLeftIndex = 0.08f;
         var limbOffsetRightIndex = 0.08f;
-        var limbOffsetLeftHip = 0.4f;
-        var limbOffsetRightHip = 0.4f;
+        var limbOffsetLeftHip = 0.5f;
+        var limbOffsetRightHip = 0.5f;
         var limbOffsetLeftKnee = 0.55f;
         var limbOffsetRightKnee = 0.55f;
         var limbOffsetLeftFoot = 0.55f;
