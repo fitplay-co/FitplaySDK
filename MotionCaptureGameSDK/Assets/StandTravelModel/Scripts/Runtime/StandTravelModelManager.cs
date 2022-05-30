@@ -6,6 +6,7 @@ using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Core;
 using StandTravelModel.Core.Interface;
 using UnityEngine;
+using WeirdHumanoid;
 
 namespace StandTravelModel
 {
@@ -107,6 +108,8 @@ namespace StandTravelModel
 
         #endregion
 
+        private IKeyPointsConverter keyPointsConverter;
+
         public void Awake()
         {
             motionDataModel = MotionDataModelHttp.GetInstance();
@@ -153,6 +156,8 @@ namespace StandTravelModel
             keyPointsParent.transform.parent = standTravelAnchorController.TravelFollowPoint.transform;
 
             currentMode = initialMode;
+
+            TryInitWeirdHumanConverter();
         }
 
         public void Start()
@@ -179,6 +184,8 @@ namespace StandTravelModel
             {
                 return;
             }
+
+            TryConvertKeyPoints(keyPointsList);
 
             modelIKController.UpdateIKTargetsData(keyPointsList);
 
@@ -219,6 +226,8 @@ namespace StandTravelModel
                     selfTransform.rotation = standTravelAnchorController.TravelFollowPoint.transform.rotation;
                     break;
             }
+
+            Debug.Log(selfTransform + "|" + tuningParameters + "|" + characterHipNode + "|" + standTravelAnchorController);
 
             selfTransform.position += Vector3.Scale(predictHipPos, tuningParameters.ScaleMotionPos) +
                                       tuningParameters.HipPosOffset - characterHipNode.position +
@@ -366,6 +375,23 @@ namespace StandTravelModel
             bodyForwardOriginal = Vector3.Normalize(bodyForwardOriginal);
 
             predictBodyRotation = Quaternion.FromToRotation(Vector3.forward, bodyForwardOriginal);
+        }
+
+        private void TryConvertKeyPoints(List<Vector3> keyPoints)
+        {
+            if(keyPointsConverter != null)
+            {
+                keyPointsConverter.ConvertKeyPoints(keyPoints);
+            }
+        }
+
+        private void TryInitWeirdHumanConverter()
+        {
+            var locater = GetComponent<WeirdHumanoidPointsLocater>();
+            if(locater != null)
+            {
+                keyPointsConverter = new WeirdHumanoidPointConverter(locater);
+            }
         }
     }
 }
