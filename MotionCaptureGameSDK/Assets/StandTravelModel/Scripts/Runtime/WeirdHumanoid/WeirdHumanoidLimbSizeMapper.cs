@@ -8,8 +8,8 @@ public class WeirdHumanoidLimbSizeMapper
     {
         var limbOffsetLeftShoulder = 0.35f;
         var limbOffsetRightShoulder = 0.35f;
-        var limbOffsetLeftElbow = 0.35f;
-        var limbOffsetRightElbow = 0.35f;
+        var limbOffsetLeftElbow = 0.4f;
+        var limbOffsetRightElbow = 0.4f;
         var limbOffsetLeftHand = 0.3f;
         var limbOffsetRightHand = 0.3f;
         var limbOffsetLeftIndex = 0.08f;

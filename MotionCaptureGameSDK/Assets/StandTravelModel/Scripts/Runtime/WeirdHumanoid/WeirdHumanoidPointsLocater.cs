@@ -87,7 +87,6 @@ namespace WeirdHumanoid
                     if(point != null)
                     {
                         limbOffsets[i] = Vector3.Distance(point.position, anchorPos);
-                        Debug.Log(pointType + "->" + anchorType + "|" + limbOffsets[i]);
                     }
                 }
             }

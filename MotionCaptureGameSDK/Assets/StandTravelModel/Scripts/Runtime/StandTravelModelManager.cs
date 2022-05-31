@@ -102,6 +102,7 @@ namespace StandTravelModel
 
         #endregion
 
+        private List<Vector3> keyPointsList;
         private IKeyPointsConverter keyPointsConverter;
 
         public void Awake()
@@ -172,7 +173,7 @@ namespace StandTravelModel
         {
             var currentDeltaTime = Time.deltaTime;
             
-            var keyPointsList = motionDataModel.GetIKPointsData(true, true);
+            keyPointsList = motionDataModel.GetIKPointsData(true, true);
 
             if (keyPointsList == null)
             {
@@ -220,8 +221,6 @@ namespace StandTravelModel
                     selfTransform.rotation = standTravelAnchorController.TravelFollowPoint.transform.rotation;
                     break;
             }
-
-            Debug.Log(selfTransform + "|" + tuningParameters + "|" + characterHipNode + "|" + standTravelAnchorController);
 
             selfTransform.position += Vector3.Scale(predictHipPos, tuningParameters.ScaleMotionPos) +
                                       tuningParameters.HipPosOffset - characterHipNode.position +
@@ -279,6 +278,11 @@ namespace StandTravelModel
         {
             var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
             standTravelAnchorController.TurnControlPoints(deltaRotation);
+        }
+
+        public List<Vector3> GetKeyPointsList()
+        {
+            return keyPointsList;
         }
 
         private void ChangeIKModelWeight(int weight)
