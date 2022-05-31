@@ -1,11 +1,8 @@
 {
-    "name": "FinalIK.Editor",
+    "name": "MotionCapture.StandTravelModel.Editor",
     "rootNamespace": "",
     "references": [
-        "FinalIK",
-        "FinalIK.Shared",
-        "FinalIK.Baker",
-        "FinalIK.SharedDemo"
+        "GUID:ff1eeb7b7198f4240b5cded5333c1733"
     ],
     "includePlatforms": [
         "Editor"

@@ -1,7 +1,6 @@
 using StandTravelModel;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.GameObject;
 
 namespace MotionCapture.StandTravelModel.Editor
 {
