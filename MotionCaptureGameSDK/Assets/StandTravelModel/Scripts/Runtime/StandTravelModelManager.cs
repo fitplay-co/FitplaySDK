@@ -50,7 +50,13 @@ namespace StandTravelModel
 
         private Transform characterHipNode;
 
-        private Transform selfTransform;
+        private Transform _selfTransform;
+
+        public Transform selfTransform
+        {
+            get => _selfTransform;
+            set => _selfTransform = value;
+        }
 
         private GameObject keyPointsParent;
 
