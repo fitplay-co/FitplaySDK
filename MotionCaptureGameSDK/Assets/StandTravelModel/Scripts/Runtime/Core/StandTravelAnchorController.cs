@@ -10,7 +10,6 @@ namespace StandTravelModel.Core
 
     public class StandTravelAnchorController
     {
-        private Vector3 initialPosition;
         private GameObject travelFollowPoint;
         public GameObject TravelFollowPoint => travelFollowPoint;
         
@@ -20,8 +19,6 @@ namespace StandTravelModel.Core
 
         public StandTravelAnchorController(Vector3 initialPosition)
         {
-            this.initialPosition = initialPosition;
-
             this.travelFollowPoint = new GameObject("TravelFollowPoint");
             travelFollowPoint.transform.position = initialPosition;
 
