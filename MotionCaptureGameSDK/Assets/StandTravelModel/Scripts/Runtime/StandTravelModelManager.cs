@@ -20,6 +20,8 @@ namespace StandTravelModel
     {
         #region Serializable Variables
         
+        public bool monsterMappingEnable;
+
         public MotionMode initialMode = MotionMode.Stand;
 
         public TuningParameterGroup tuningParameters;
@@ -385,10 +387,13 @@ namespace StandTravelModel
 
         private void TryInitWeirdHumanConverter()
         {
-            var locater = GetComponent<WeirdHumanoidPointsLocater>();
-            if(locater != null)
+            if(monsterMappingEnable)
             {
-                keyPointsConverter = new WeirdHumanoidPointConverter(locater);
+                var locater = GetComponent<WeirdHumanoidPointsLocater>();
+                if(locater != null)
+                {
+                    keyPointsConverter = new WeirdHumanoidPointConverter(locater);
+                }
             }
         }
     }
