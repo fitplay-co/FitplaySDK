@@ -15,7 +15,7 @@ namespace StandTravelModel.Core
         private string prevAnimationTransitionState;
         private IMotionDataModel motionDataModel;
         private AnimatorSettingGroup animatorSettings;
-        private StandTravelAnchorController anchorController;
+        private AnchorController anchorController;
         private CharacterAnimatorController characterAnimatorController;
         private Dictionary<int, AnimationStatement> animationDict;
 

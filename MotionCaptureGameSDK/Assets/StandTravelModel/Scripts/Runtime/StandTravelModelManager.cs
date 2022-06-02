@@ -19,32 +19,22 @@ namespace StandTravelModel
         #region Serializable Variables
         
         public bool monsterMappingEnable;
-
         public MotionMode initialMode = MotionMode.Stand;
-
         public TuningParameterGroup tuningParameters;
-
         public ModelIKSettingGroup modelIKSettings;
-
         public AnimatorSettingGroup animatorSettings;
 
         #endregion
         
-        
          
         #region Unserializable Variables
         private IMotionModel motionModel;
-
         private IMotionDataModel motionDataModel;
-
         private IModelIKController modelIKController;
-
-        private StandTravelAnchorController standTravelAnchorController;
 
         private StandModel standModel;
         private TravelModel travelModel;
         private GameObject keyPointsParent;
-
 
         private MotionMode _currentMode = MotionMode.Stand;
         public MotionMode currentMode
@@ -90,8 +80,8 @@ namespace StandTravelModel
         {
             InitMotionDataModel();
             InitModelIKController();
-            InitTraveAnchorController();
-            InitMotionModels();
+            var anchorController = InitTraveAnchorController();
+            InitMotionModels(anchorController);
 
             currentMode = initialMode;
 
@@ -147,8 +137,6 @@ namespace StandTravelModel
         {
             Destroy(keyPointsParent);
             motionDataModel = null;
-            standTravelAnchorController?.DestroyObject();
-            standTravelAnchorController = null;
             modelIKController?.ClearFakeNodes();
             modelIKController = null;
 
@@ -188,18 +176,29 @@ namespace StandTravelModel
 
         public Transform GetTravelAnchor()
         {
-            return standTravelAnchorController.TravelFollowPoint.transform;
+            if(motionModel != null)
+            {
+                return motionModel.GetAnchorController().TravelFollowPoint.transform;
+            }
+            return null;
         }
 
         public Transform GetStandAnchor()
         {
-            return standTravelAnchorController.StandFollowPoint.transform;
+            if(motionModel != null)
+            {
+                return motionModel.GetAnchorController().StandFollowPoint.transform;
+            }
+            return null;
         }
 
         public void TurnCharacter(float angle, float dt)
         {
-            var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
-            standTravelAnchorController.TurnControlPoints(deltaRotation);
+            if(motionModel != null)
+            {
+                var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
+                motionModel.GetAnchorController().TurnControlPoints(deltaRotation);
+            }
         }
 
         public List<Vector3> GetKeyPointsList()
@@ -240,29 +239,30 @@ namespace StandTravelModel
             }
         }
 
-        private void InitMotionModels()
+        private void InitMotionModels(AnchorController anchorController)
         {
             var modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
-            InitStandModel(characterHipNode);
-            InitTravelModel(characterHipNode);
+            InitStandModel(characterHipNode, anchorController);
+            InitTravelModel(characterHipNode, anchorController);
         }
 
-        private void InitTravelModel(Transform characterHipNode)
+        private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
         {
-            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, standTravelAnchorController, animatorSettings);
+            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings);
         }
 
-        private void InitStandModel(Transform characterHipNode)
+        private void InitStandModel(Transform characterHipNode, AnchorController anchorController)
         {
-            standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, standTravelAnchorController);
+            standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
         }
 
-        private void InitTraveAnchorController()
+        private AnchorController InitTraveAnchorController()
         {
-            standTravelAnchorController = new StandTravelAnchorController(transform.position);
+            var anchorController = new AnchorController(transform.position);
             keyPointsParent = new GameObject("KeyPointsParent");
-            keyPointsParent.transform.parent = standTravelAnchorController.TravelFollowPoint.transform;
+            keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            return anchorController;
         }
 
         private void InitModelIKController()

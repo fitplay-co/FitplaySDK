@@ -8,7 +8,7 @@ namespace StandTravelModel.Core
     {
         private Quaternion predictBodyRotation;
 
-        public StandModel(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, StandTravelAnchorController anchorController) : base(selfTransform, characterHipNode, keyPointsParent, tuningParameters, motionDataModel, anchorController)
+        public StandModel(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController) : base(selfTransform, characterHipNode, keyPointsParent, tuningParameters, motionDataModel, anchorController)
         {
         }
 
@@ -25,10 +25,6 @@ namespace StandTravelModel.Core
         {
             base.OnUpdate(keyPoints);
             CalculateBodyRotation(keyPoints);
-        }
-
-        public override void Clear()
-        {
         }
 
         private void CalculateBodyRotation(List<Vector3> keyPoints)

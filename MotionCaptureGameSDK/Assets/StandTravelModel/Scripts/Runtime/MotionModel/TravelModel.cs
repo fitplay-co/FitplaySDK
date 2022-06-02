@@ -17,7 +17,7 @@ namespace StandTravelModel.Core
             Transform keyPointsParent,
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
-            StandTravelAnchorController anchorController,
+            AnchorController anchorController,
             AnimatorSettingGroup animatorSettingGroup
             ) : base(
                 selfTransform,
@@ -53,6 +53,7 @@ namespace StandTravelModel.Core
 
         public override void Clear()
         {
+            base.Clear();
             animatorController.Clear();
             animatorController = null;
         }

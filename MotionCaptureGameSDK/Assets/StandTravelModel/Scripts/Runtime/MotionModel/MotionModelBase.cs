@@ -9,14 +9,14 @@ namespace StandTravelModel.Core
         protected Vector3 localShift;
         protected Transform selfTransform;
         protected Transform characterHipNode;
+        protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
-        protected StandTravelAnchorController anchorController;
 
         private Vector3 predictHipPos;
         private Transform keyPointsParent;
         private IMotionDataModel motionDataModel;
 
-        public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, StandTravelAnchorController anchorController)
+        public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController)
         {
             this.selfTransform = selfTransform;
             this.keyPointsParent = keyPointsParent;
@@ -40,6 +40,8 @@ namespace StandTravelModel.Core
 
         public virtual void Clear()
         {
+            anchorController?.DestroyObject();
+            anchorController = null;
         }
 
         private void PrepareData()
@@ -54,6 +56,11 @@ namespace StandTravelModel.Core
                 -groundLocationData.z * tuningParameters.LocalShiftScale.z);
 
             localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
+        }
+
+        public AnchorController GetAnchorController()
+        {
+            return anchorController;
         }
     }
 }

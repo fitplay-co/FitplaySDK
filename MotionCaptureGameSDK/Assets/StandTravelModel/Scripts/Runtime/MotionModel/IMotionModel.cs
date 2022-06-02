@@ -8,5 +8,6 @@ namespace StandTravelModel.Core
         void OnUpdate(List<Vector3> keyPoints);
         void OnLateUpdate();
         void Clear();
+        AnchorController GetAnchorController();
     }
 }
