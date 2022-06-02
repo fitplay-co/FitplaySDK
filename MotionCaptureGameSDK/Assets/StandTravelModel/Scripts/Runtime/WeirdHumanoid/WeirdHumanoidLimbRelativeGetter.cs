@@ -4,45 +4,39 @@ namespace WeirdHumanoid
 {
     public static class WeirdHumanoidLimbRelativeGetter
     {
+        private static GameKeyPointsType[] pointsRelatives;
+
         public static GameKeyPointsType GetAnchorKeyPointType(GameKeyPointsType keyPointsType)
         {
-            switch(keyPointsType)
+            if(pointsRelatives == null)
             {
-                case GameKeyPointsType.Nose:
-                    return GameKeyPointsType.Nose;
-                case GameKeyPointsType.LeftShoulder:
-                    return GameKeyPointsType.LeftShoulder;
-                case GameKeyPointsType.RightShoulder:
-                    return GameKeyPointsType.RightShoulder;
-                case GameKeyPointsType.LeftHip:
-                    return GameKeyPointsType.LeftHip;
-                case GameKeyPointsType.RightHip:
-                    return GameKeyPointsType.RightHip;
-                case GameKeyPointsType.LeftElbow:
-                    return GameKeyPointsType.LeftShoulder;
-                case GameKeyPointsType.RightElbow:
-                    return GameKeyPointsType.RightShoulder;
-                case GameKeyPointsType.LeftHand:
-                    return GameKeyPointsType.LeftElbow;
-                case GameKeyPointsType.RightHand:
-                    return GameKeyPointsType.RightElbow;
-                case GameKeyPointsType.LeftIndex:
-                    return GameKeyPointsType.LeftHand;
-                case GameKeyPointsType.RightIndex:
-                    return GameKeyPointsType.RightHand;
-                case GameKeyPointsType.LeftKnee:
-                    return GameKeyPointsType.LeftHip;
-                case GameKeyPointsType.RightKnee:
-                    return GameKeyPointsType.RightHip;
-                case GameKeyPointsType.LeftFoot:
-                    return GameKeyPointsType.LeftKnee;
-                case GameKeyPointsType.RightFoot:
-                    return GameKeyPointsType.RightKnee;
-                case GameKeyPointsType.LeftFootIndex:
-                    return GameKeyPointsType.LeftFoot;
-                case GameKeyPointsType.RightFootIndex:
-                    return GameKeyPointsType.RightFoot;
+                var pointsTypes = System.Enum.GetNames(typeof(GameKeyPointsType));
+                pointsRelatives = new GameKeyPointsType[pointsRelatives.Length];
+                pointsRelatives[(int)GameKeyPointsType.Nose] = GameKeyPointsType.Nose;
+                pointsRelatives[(int)GameKeyPointsType.LeftShoulder] = GameKeyPointsType.LeftShoulder;
+                pointsRelatives[(int)GameKeyPointsType.RightShoulder] = GameKeyPointsType.RightShoulder;
+                pointsRelatives[(int)GameKeyPointsType.LeftHip] = GameKeyPointsType.LeftHip;
+                pointsRelatives[(int)GameKeyPointsType.RightHip] = GameKeyPointsType.RightHip;
+                pointsRelatives[(int)GameKeyPointsType.LeftElbow] = GameKeyPointsType.LeftShoulder;
+                pointsRelatives[(int)GameKeyPointsType.RightElbow] = GameKeyPointsType.RightShoulder;
+                pointsRelatives[(int)GameKeyPointsType.LeftHand] = GameKeyPointsType.LeftElbow;
+                pointsRelatives[(int)GameKeyPointsType.RightHand] = GameKeyPointsType.RightElbow;
+                pointsRelatives[(int)GameKeyPointsType.LeftIndex] = GameKeyPointsType.LeftHand;
+                pointsRelatives[(int)GameKeyPointsType.RightIndex] = GameKeyPointsType.RightHand;
+                pointsRelatives[(int)GameKeyPointsType.LeftKnee] = GameKeyPointsType.LeftHip;
+                pointsRelatives[(int)GameKeyPointsType.RightKnee] = GameKeyPointsType.RightHip;
+                pointsRelatives[(int)GameKeyPointsType.LeftFoot] = GameKeyPointsType.LeftKnee;
+                pointsRelatives[(int)GameKeyPointsType.RightFoot] = GameKeyPointsType.RightKnee;
+                pointsRelatives[(int)GameKeyPointsType.LeftFootIndex] = GameKeyPointsType.LeftFoot;
+                pointsRelatives[(int)GameKeyPointsType.RightFootIndex] = GameKeyPointsType.RightFoot;
             }
+
+            var index = (int)keyPointsType;
+            if(index >= 0 && index < pointsRelatives.Length)
+            {
+                return pointsRelatives[index];
+            }
+            
             return GameKeyPointsType.Count;
         }
     }
