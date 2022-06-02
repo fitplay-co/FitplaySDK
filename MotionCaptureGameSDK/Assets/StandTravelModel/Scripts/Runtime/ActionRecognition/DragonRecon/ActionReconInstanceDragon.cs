@@ -4,9 +4,12 @@ public class ActionReconInstanceDragon : ActionReconInstance
 {
     private float lastEvent;
     private ActionId actionId;
+    private OnActionDetect onActionDetect;
 
-    public ActionReconInstanceDragon() : base()
+    public ActionReconInstanceDragon(OnActionDetect onActionDetect) : base()
     {
+        this.onActionDetect = onActionDetect;
+
         recognizer.AddRecon(new ActionReconArmExtendHorizon(true, OnActionRecon, false));
         recognizer.AddRecon(new ActionReconArmExtendHorizon(false, OnActionRecon, false));
         recognizer.AddRecon(new ActionReconArmExtendVerticle(true, OnActionRecon, false));
@@ -26,5 +29,10 @@ public class ActionReconInstanceDragon : ActionReconInstance
     {
         this.actionId = actionId;
         this.lastEvent = Time.time;
+
+        if(onActionDetect != null)
+        {
+            onActionDetect(actionId);
+        }
     }
 }
