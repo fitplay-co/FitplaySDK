@@ -36,7 +36,7 @@ namespace StandTravelModel
         private TravelModel travelModel;
         private GameObject keyPointsParent;
 
-        private MotionMode _currentMode = MotionMode.Stand;
+        private MotionMode _currentMode;
         public MotionMode currentMode
         {
             get => _currentMode;
@@ -81,9 +81,10 @@ namespace StandTravelModel
             InitMotionDataModel();
             InitModelIKController();
             var anchorController = InitTraveAnchorController();
-            InitMotionModels(anchorController);
 
+            InitMotionModels(anchorController);
             currentMode = initialMode;
+            SwitchMotionMode(currentMode);
 
             TryInitWeirdHumanConverter();
         }
@@ -159,14 +160,28 @@ namespace StandTravelModel
             {
                 case MotionMode.Stand:
                     currentMode = MotionMode.Travel;
-                    motionModel = standModel;
                     break;
                 case MotionMode.Travel:
                     currentMode = MotionMode.Stand;
+                    break;
+            }
+
+            SwitchMotionMode(currentMode);
+
+            return currentMode;
+        }
+
+        private void SwitchMotionMode(MotionMode mode)
+        {
+            switch (currentMode)
+            {
+                case MotionMode.Stand:
+                    motionModel = standModel;
+                    break;
+                case MotionMode.Travel:
                     motionModel = travelModel;
                     break;
             }
-            return currentMode;
         }
 
         public MotionMode GetCurrentMode()
@@ -245,15 +260,6 @@ namespace StandTravelModel
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
             InitStandModel(characterHipNode, anchorController);
             InitTravelModel(characterHipNode, anchorController);
-            switch (currentMode)
-            {
-                case MotionMode.Stand:
-                    motionModel = standModel;
-                    break;
-                case MotionMode.Travel:
-                    motionModel = travelModel;
-                    break;
-            }
         }
 
         private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)

@@ -28,7 +28,7 @@ namespace StandTravelModel.Core
                 anchorController
             )
         {
-            animatorController = new TravelModelAnimatorController(selfTransform.GetComponent<Animator>(), motionDataModel, animatorSettingGroup);
+            animatorController = new TravelModelAnimatorController(selfTransform.GetComponent<Animator>(), motionDataModel, anchorController, animatorSettingGroup);
         }
 
         public override void OnLateUpdate()

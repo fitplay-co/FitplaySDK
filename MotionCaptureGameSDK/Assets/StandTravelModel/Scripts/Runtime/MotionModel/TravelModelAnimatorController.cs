@@ -14,14 +14,15 @@ namespace StandTravelModel.Core
         private float _currentFrequency;
         private string prevAnimationTransitionState;
         private IMotionDataModel motionDataModel;
-        private AnimatorSettingGroup animatorSettings;
         private AnchorController anchorController;
+        private AnimatorSettingGroup animatorSettings;
         private CharacterAnimatorController characterAnimatorController;
         private Dictionary<int, AnimationStatement> animationDict;
 
-        public TravelModelAnimatorController(Animator modelAnimator, IMotionDataModel motionDataModel, AnimatorSettingGroup animatorSettings)
+        public TravelModelAnimatorController(Animator modelAnimator, IMotionDataModel motionDataModel, AnchorController anchorController, AnimatorSettingGroup animatorSettings)
         {
             this.motionDataModel = motionDataModel;
+            this.anchorController = anchorController;
             this.animatorSettings = animatorSettings;
             characterAnimatorController = new CharacterAnimatorController(modelAnimator);
 
