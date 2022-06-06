@@ -52,7 +52,7 @@ public abstract class ActionReconArmExtend : ActionReconArm
     {
         var upperAngle = GetUpperarmAngle();
 
-        return upperAngle > 80 && upperAngle < 100;
+        return upperAngle > 50 && upperAngle < 100;
     }
 
     protected bool IsForearmExpanding(float forearmAngle)
