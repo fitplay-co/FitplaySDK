@@ -8,9 +8,8 @@ namespace StandTravelModel.Core
         Travel
     }
 
-    public class StandTravelAnchorController
+    public class AnchorController
     {
-        private Vector3 initialPosition;
         private GameObject travelFollowPoint;
         public GameObject TravelFollowPoint => travelFollowPoint;
         
@@ -18,10 +17,8 @@ namespace StandTravelModel.Core
 
         public GameObject StandFollowPoint => standFollowPoint;
 
-        public StandTravelAnchorController(Vector3 initialPosition)
+        public AnchorController(Vector3 initialPosition)
         {
-            this.initialPosition = initialPosition;
-
             this.travelFollowPoint = new GameObject("TravelFollowPoint");
             travelFollowPoint.transform.position = initialPosition;
 
@@ -31,8 +28,17 @@ namespace StandTravelModel.Core
 
         public void DestroyObject()
         {
-            UnityEngine.Object.Destroy(travelFollowPoint);
-            UnityEngine.Object.Destroy(standFollowPoint);
+            if(travelFollowPoint != null)
+            {
+                UnityEngine.Object.Destroy(travelFollowPoint);
+                travelFollowPoint = null;
+            }
+
+            if(standFollowPoint != null)
+            {
+                UnityEngine.Object.Destroy(standFollowPoint);
+                standFollowPoint = null;
+            }
         }
 
         public void MoveTravelPoint(Vector3 deltaDistance)

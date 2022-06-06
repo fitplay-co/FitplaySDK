@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
-using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Core;
 using StandTravelModel.Core.Interface;
 using UnityEngine;
@@ -21,46 +19,24 @@ namespace StandTravelModel
         #region Serializable Variables
         
         public bool monsterMappingEnable;
-
         public MotionMode initialMode = MotionMode.Stand;
-
         public TuningParameterGroup tuningParameters;
-
         public ModelIKSettingGroup modelIKSettings;
-
         public AnimatorSettingGroup animatorSettings;
 
         #endregion
         
-        
          
         #region Unserializable Variables
-
+        private IMotionModel motionModel;
         private IMotionDataModel motionDataModel;
-
-        private CharacterAnimatorController characterAnimatorController;
-
         private IModelIKController modelIKController;
 
-        private StandTravelAnchorController standTravelAnchorController;
-
-        private Dictionary<int, AnimationStatement> animationDict;
-
-        private Vector3 initialPosition;
-
-        private Transform characterHipNode;
-
-        private Transform _selfTransform;
-
-        public Transform selfTransform
-        {
-            get => _selfTransform;
-            set => _selfTransform = value;
-        }
-
+        private StandModel standModel;
+        private TravelModel travelModel;
         private GameObject keyPointsParent;
 
-        private MotionMode _currentMode = MotionMode.Stand;
+        private MotionMode _currentMode;
         public MotionMode currentMode
         {
             get => _currentMode;
@@ -72,27 +48,14 @@ namespace StandTravelModel
                     ChangeIKModelWeight((int)value);
                     if (value == MotionMode.Stand)
                     {
-                        StopPrevAnimation("");
+                        travelModel.StopPrevAnimation("");
                     }
                 }
             }
         }
 
-        private Vector3 predictHipPos = Vector3.zero;
-
-        private Vector3 localShift = Vector3.zero;
-
-        private String prevAnimationTransitionState;
-
-        private Quaternion predictBodyRotation;
-
-        private float _currentFrequency;
-
-        public float currentFrequency => _currentFrequency;
-
-        private int _currentLeg;
-
-        public int currentLeg => _currentLeg;
+        public int currentLeg => travelModel.currentLeg;
+        public float currentFrequency => travelModel.currentFrequency;
 
         private bool enable;
         public bool Enabled
@@ -115,50 +78,13 @@ namespace StandTravelModel
 
         public void Awake()
         {
-            motionDataModel = MotionDataModelHttp.GetInstance();
-            motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
-            
-            var modelAnimator = this.GetComponent<Animator>();
-            characterAnimatorController = new CharacterAnimatorController(modelAnimator);
-#if USE_FINAL_IK
-            modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab,
-                modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
-#else
-            modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
-#endif
-            animationDict = new Dictionary<int, AnimationStatement>()
-            {
-                {
-                    0,
-                    new AnimationStatement
-                    {
-                        AnimationState = "BasicMotions@Run01 - Forwards", TransitionParameter = "isRun",
-                        AnimationPlaySpeedMultiplier = "runPlaySpeed"
-                    }
-                },
-                {
-                    1,
-                    new AnimationStatement
-                    {
-                        AnimationState = "BasicMotions@Sprint01 - Forwards", TransitionParameter = "isDash",
-                        AnimationPlaySpeedMultiplier = "dashPlaySpeed"
-                    }
-                }
-            };
-            
-            characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
+            InitMotionDataModel();
+            InitModelIKController();
+            var anchorController = InitTraveAnchorController();
 
-            selfTransform = this.transform;
-            
-            initialPosition = selfTransform.position;
-            
-            standTravelAnchorController = new StandTravelAnchorController(initialPosition);
-
-            keyPointsParent = new GameObject("KeyPointsParent");
-
-            keyPointsParent.transform.parent = standTravelAnchorController.TravelFollowPoint.transform;
-
+            InitMotionModels(anchorController);
             currentMode = initialMode;
+            SwitchMotionMode(currentMode);
 
             TryInitWeirdHumanConverter();
         }
@@ -171,16 +97,13 @@ namespace StandTravelModel
             modelIKSettings.FinalIKComponent.enabled = false;
             modelIKSettings.FinalIKLookAtComponent.enabled = false;
 #endif
-            selfTransform.position = initialPosition;
-            selfTransform.rotation = Quaternion.identity;
+            transform.rotation = Quaternion.identity;
 
             modelIKController.InitializeIKTargets(keyPointsParent.transform);
         }
 
         public void Update()
         {
-            var currentDeltaTime = Time.deltaTime;
-            
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
 
             if (keyPointsList == null)
@@ -192,47 +115,18 @@ namespace StandTravelModel
 
             modelIKController.UpdateIKTargetsData(keyPointsList);
 
-            CalculateBodyRotation(keyPointsList);
-
-            var groundLocationData = motionDataModel.GetGroundLocationData();
-            //Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
-
-            predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
-            keyPointsParent.transform.localPosition = predictHipPos;
-
-            var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
-                -groundLocationData.z * tuningParameters.LocalShiftScale.z);
-
-            localShift = standTravelAnchorController.TravelFollowPoint.transform.rotation * planeShift;
-
-            var actionDetectionData = motionDataModel.GetActionDetectionData();
-
-            if (currentMode == MotionMode.Travel)
+            if(motionModel != null)
             {
-                UpdateCharacterAnimation(actionDetectionData, currentDeltaTime);
+                motionModel.OnUpdate(keyPointsList);
             }
         }
 
         public void LateUpdate()
         {
-            switch (currentMode)
+            if(motionModel != null)
             {
-                case MotionMode.Stand:
-                    standTravelAnchorController.TravelFollowPoint.transform.position =
-                        standTravelAnchorController.StandFollowPoint.transform.position + localShift;
-                    selfTransform.rotation = standTravelAnchorController.TravelFollowPoint.transform.rotation *
-                                             predictBodyRotation;
-                    break;
-                case MotionMode.Travel:
-                    standTravelAnchorController.StandFollowPoint.transform.position =
-                        standTravelAnchorController.TravelFollowPoint.transform.position - localShift;
-                    selfTransform.rotation = standTravelAnchorController.TravelFollowPoint.transform.rotation;
-                    break;
+                motionModel.OnLateUpdate();
             }
-
-            selfTransform.position += Vector3.Scale(predictHipPos, tuningParameters.ScaleMotionPos) +
-                                      tuningParameters.HipPosOffset - characterHipNode.position +
-                                      standTravelAnchorController.TravelFollowPoint.transform.position;
         }
 
         public void OnValidate()
@@ -244,13 +138,20 @@ namespace StandTravelModel
         {
             Destroy(keyPointsParent);
             motionDataModel = null;
-            characterAnimatorController = null;
-            standTravelAnchorController?.DestroyObject();
-            standTravelAnchorController = null;
             modelIKController?.ClearFakeNodes();
             modelIKController = null;
-            animationDict?.Clear();
-            animationDict = null;
+
+            if(standModel != null)
+            {
+                standModel.Clear();
+                standModel = null;
+            }
+
+            if(travelModel != null)
+            {
+                travelModel.Clear();
+                travelModel = null;
+            }
         }
 
         public MotionMode SwitchStandTravel()
@@ -264,7 +165,23 @@ namespace StandTravelModel
                     currentMode = MotionMode.Stand;
                     break;
             }
+
+            SwitchMotionMode(currentMode);
+
             return currentMode;
+        }
+
+        private void SwitchMotionMode(MotionMode mode)
+        {
+            switch (currentMode)
+            {
+                case MotionMode.Stand:
+                    motionModel = standModel;
+                    break;
+                case MotionMode.Travel:
+                    motionModel = travelModel;
+                    break;
+            }
         }
 
         public MotionMode GetCurrentMode()
@@ -274,18 +191,29 @@ namespace StandTravelModel
 
         public Transform GetTravelAnchor()
         {
-            return standTravelAnchorController.TravelFollowPoint.transform;
+            if(motionModel != null)
+            {
+                return motionModel.GetAnchorController().TravelFollowPoint.transform;
+            }
+            return null;
         }
 
         public Transform GetStandAnchor()
         {
-            return standTravelAnchorController.StandFollowPoint.transform;
+            if(motionModel != null)
+            {
+                return motionModel.GetAnchorController().StandFollowPoint.transform;
+            }
+            return null;
         }
 
         public void TurnCharacter(float angle, float dt)
         {
-            var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
-            standTravelAnchorController.TurnControlPoints(deltaRotation);
+            if(motionModel != null)
+            {
+                var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
+                motionModel.GetAnchorController().TurnControlPoints(deltaRotation);
+            }
         }
 
         public List<Vector3> GetKeyPointsList()
@@ -298,89 +226,12 @@ namespace StandTravelModel
             modelIKController.ChangeLowerBodyIKWeight(weight);
         }
 
-        private void UpdateCharacterAnimation(ActionDetectionItem actionDetectionData, float dt)
-        {
-            
-            var walkDetectionData = actionDetectionData.walk;
-
-            if (walkDetectionData != null)
-            {
-                int runLevels = animatorSettings.runAnimationSettings.Count;
-
-                string animationToPlay = "";
-                string animationTransition = "";
-                string animationPlaySpeedParam = "";
-                float animationPlaySpeed = 0f;
-                float movingSpeed = 0f;
-
-                _currentLeg = walkDetectionData.legUp;
-                _currentFrequency = walkDetectionData.frequency / 60f;
-
-                for (int i = 0; i < runLevels; i++)
-                {
-                    var setting = animatorSettings.runAnimationSettings[i];
-
-                    if (_currentFrequency < setting.cadenceThreshold)
-                    {
-                        break;
-                    }
-
-                    animationToPlay = animationDict[(int)setting.animation].AnimationState;
-                    animationTransition = animationDict[(int) setting.animation].TransitionParameter;
-                    animationPlaySpeedParam = animationDict[(int) setting.animation].AnimationPlaySpeedMultiplier;
-
-                    animationPlaySpeed = setting.playBackSpeed;
-                    movingSpeed = setting.movingSpeed;
-                }
-
-                if (animationToPlay != "")
-                {
-                    characterAnimatorController.SetAnimationPlaySpeed(animationPlaySpeedParam, animationPlaySpeed);
-                    characterAnimatorController.PlayAnimation(animationToPlay, animationTransition);
-                    StopPrevAnimation(animationTransition);
-
-                    MoveCharacter(movingSpeed, dt);
-                }
-                else
-                {
-                    StopPrevAnimation("");
-                }
-            }
-        }
-
-        private void StopPrevAnimation(string currentState)
-        {
-            if (prevAnimationTransitionState != currentState)
-            {
-                characterAnimatorController.StopAnimation(prevAnimationTransitionState);
-                prevAnimationTransitionState = currentState;
-            }
-        }
-
-        private void MoveCharacter(float speed, float dt)
-        {
-            var deltaMovement = standTravelAnchorController.TravelFollowPoint.transform.rotation * Vector3.forward *
-                                speed * dt;
-            standTravelAnchorController.MoveTravelPoint(deltaMovement);
-        }
-
         private void UpdateModelParameters()
         {
             if (motionDataModel != null)
             {
                 motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
             }
-        }
-
-        private void CalculateBodyRotation(List<Vector3> keyPoints)
-        {
-            Vector3 bodyForwardOriginal =
-                Vector3.Cross(
-                    keyPoints[(int) GameKeyPointsType.LeftShoulder] - keyPoints[(int) GameKeyPointsType.RightHip],
-                    keyPoints[(int) GameKeyPointsType.LeftHip] - keyPoints[(int) GameKeyPointsType.RightShoulder]);
-            bodyForwardOriginal = Vector3.Normalize(bodyForwardOriginal);
-
-            predictBodyRotation = Quaternion.FromToRotation(Vector3.forward, bodyForwardOriginal);
         }
 
         private void TryConvertKeyPoints(List<Vector3> keyPoints)
@@ -401,6 +252,48 @@ namespace StandTravelModel
                     keyPointsConverter = new WeirdHumanoidPointConverter(locater);
                 }
             }
+        }
+
+        private void InitMotionModels(AnchorController anchorController)
+        {
+            var modelAnimator = this.GetComponent<Animator>();
+            var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
+            InitStandModel(characterHipNode, anchorController);
+            InitTravelModel(characterHipNode, anchorController);
+        }
+
+        private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
+        {
+            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings);
+        }
+
+        private void InitStandModel(Transform characterHipNode, AnchorController anchorController)
+        {
+            standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
+        }
+
+        private AnchorController InitTraveAnchorController()
+        {
+            var anchorController = new AnchorController(transform.position);
+            keyPointsParent = new GameObject("KeyPointsParent");
+            keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            return anchorController;
+        }
+
+        private void InitModelIKController()
+        {
+#if USE_FINAL_IK
+            modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab,
+                modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
+#else
+            modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
+#endif
+        }
+
+        private void InitMotionDataModel()
+        {
+            motionDataModel = MotionDataModelHttp.GetInstance();
+            motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
         }
     }
 }
