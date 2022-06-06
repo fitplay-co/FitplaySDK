@@ -245,7 +245,15 @@ namespace StandTravelModel
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
             InitStandModel(characterHipNode, anchorController);
             InitTravelModel(characterHipNode, anchorController);
-            currentMode = _currentMode;
+            switch (currentMode)
+            {
+                case MotionMode.Stand:
+                    motionModel = standModel;
+                    break;
+                case MotionMode.Travel:
+                    motionModel = travelModel;
+                    break;
+            }
         }
 
         private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
