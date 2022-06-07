@@ -72,6 +72,8 @@ namespace FK
         {
             /* var message = ProtoHandler.Instance.BodyMessageBase;
             var fitting = message?.fitting; */
+            if(motionDataModel == null) return;
+
             var fitting = motionDataModel.GetFitting();
             if(fitting == null) return;
             //print("fitting:" + JsonUtility.ToJson(fitting));

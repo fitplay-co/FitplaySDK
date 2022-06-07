@@ -184,7 +184,7 @@ namespace MotionCaptureBasic
 
         public Fitting GetFitting()
         {
-            return httpProtocolHandler.BodyMessageBase.fitting;
+            return httpProtocolHandler.BodyMessageBase?.fitting;
         }
     }
 }
