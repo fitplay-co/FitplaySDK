@@ -34,7 +34,7 @@ namespace FK
             EFKType.LAnkle
         };
 
-        private void Start()
+        public void Initialize()
         {
             anim = gameObject.GetComponent<Animator>();
 
@@ -124,7 +124,7 @@ namespace FK
                     
                     if(index > 0 && index < jointPoints.Length && index < fitting.rotation.Count)
                     {
-                        jointPoints[index].Transform.rotation = fitting.rotation[index].Rotation();
+                        jointPoints[index].Transform.rotation = Quaternion.Euler(0, 180, 0) * anim.transform.rotation * fitting.rotation[index].Rotation();
 
                         if(rotationCorrects != null && index < rotationCorrects.Length)
                         {
@@ -174,7 +174,8 @@ namespace FK
             var boneTran = animator.GetBoneTransform(boneType);
             var stanAngs = FKStandardPoseAnglesContainer.GetPosAngles(eFKType);
             var stanRota = Quaternion.Euler(stanAngs);
-            var quaterni = Quaternion.Inverse(stanRota) * boneTran.rotation;
+            var quaterni = Quaternion.Inverse(stanRota) * (Quaternion.Euler(0, -eulerAgY, 0) * boneTran.rotation);
+            //var quaterni = Quaternion.Inverse(stanRota) * boneTran.rotation;
             rotationCorrects[eFKType.Int()] = quaterni;
         }
 

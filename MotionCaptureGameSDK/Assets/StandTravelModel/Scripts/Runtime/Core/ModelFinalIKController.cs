@@ -87,11 +87,37 @@ namespace StandTravelModel.Core
         public void ChangeLowerBodyIKWeight(float weight)
         {
             fbbIK.solver.leftThighEffector.positionWeight = weight;
+            fbbIK.solver.leftFootEffector.rotationWeight = weight;
+
             fbbIK.solver.rightThighEffector.positionWeight = weight;
+            fbbIK.solver.rightThighEffector.rotationWeight = weight;
+            
             fbbIK.solver.leftFootEffector.positionWeight = weight;
+            fbbIK.solver.leftFootEffector.rotationWeight = weight;
+
             fbbIK.solver.rightFootEffector.positionWeight = weight;
+            fbbIK.solver.rightFootEffector.rotationWeight = weight;
+
             fbbIK.solver.leftLegChain.bendConstraint.weight = weight;
             fbbIK.solver.rightLegChain.bendConstraint.weight = weight;
+        }
+
+        public void ChangeUpperBodyIKWeight(float weight)
+        {
+            fbbIK.solver.leftShoulderEffector.positionWeight = weight;
+            fbbIK.solver.leftShoulderEffector.rotationWeight = weight;
+
+            fbbIK.solver.rightShoulderEffector.positionWeight = weight;
+            fbbIK.solver.rightShoulderEffector.rotationWeight = weight;
+
+            fbbIK.solver.leftArmChain.bendConstraint.weight = weight;
+            fbbIK.solver.rightArmChain.bendConstraint.weight = weight;
+
+            fbbIK.solver.leftHandEffector.positionWeight = weight;
+            fbbIK.solver.leftHandEffector.rotationWeight = weight;
+            
+            fbbIK.solver.rightHandEffector.positionWeight = weight;
+            fbbIK.solver.rightHandEffector.rotationWeight = weight;
         }
     }
 }

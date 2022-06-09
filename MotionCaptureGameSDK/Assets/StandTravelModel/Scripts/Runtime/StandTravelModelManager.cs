@@ -96,15 +96,15 @@ namespace StandTravelModel
         {
 #if USE_FINAL_IK
             modelIKSettings.IKScript.enabled = false;
-            transform.rotation = Quaternion.identity;
 #else
-            modelIKSettings.IKScript.enabled = false;
             modelIKSettings.FinalIKComponent.enabled = false;
             modelIKSettings.FinalIKLookAtComponent.enabled = false;
-            transform.rotation = Quaternion.identity;
 #endif
+            transform.rotation = Quaternion.identity;
 
             modelIKController.InitializeIKTargets(keyPointsParent.transform);
+
+            TryInitFKModel();
         }
 
         public void Update()
@@ -276,8 +276,9 @@ namespace StandTravelModel
 #if USE_FINAL_IK
             modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab,
             modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
-#endif
+#else
             modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
+#endif
         }
 
         public bool IsFKEnabled()
@@ -291,13 +292,20 @@ namespace StandTravelModel
 
         public void EnableFK()
         {
-            TryInitFKModel();
-            fKPoseModel.SetEnable(true);
+            if(fKPoseModel != null)
+            {
+                fKPoseModel.SetEnable(true);
+                modelIKController.ChangeUpperBodyIKWeight(0);
+            }
         }
 
         public void DisableFK()
         {
-            fKPoseModel.SetEnable(false);
+            if(fKPoseModel != null)
+            {
+                fKPoseModel.SetEnable(false);
+                modelIKController.ChangeUpperBodyIKWeight(1);
+            }
         }
 
         private void TryInitFKModel()
@@ -305,6 +313,7 @@ namespace StandTravelModel
             if(fKPoseModel == null)
             {
                 fKPoseModel = gameObject.AddComponent<FKPoseModel>();
+                fKPoseModel.SetEnable(false);
                 fKPoseModel.SetActiveEFKTypes(
                     EFKType.Neck,
                     EFKType.Head,
@@ -323,6 +332,8 @@ namespace StandTravelModel
                     EFKType.RAnkle,
                     EFKType.LAnkle */
                 );
+
+                fKPoseModel.Initialize();
             }
         }
 
