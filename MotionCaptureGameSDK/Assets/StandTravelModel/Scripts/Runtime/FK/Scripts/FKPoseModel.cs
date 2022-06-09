@@ -13,9 +13,10 @@ namespace FK
         private FKSkeleton skeleton;
         private IMotionDataModel motionDataModel;
         
-        private EFKType[] activeEFKTypes;
+        [SerializeField] private EFKType[] activeEFKTypes;
         private FKJointPoint[] jointPoints;
         private static readonly EFKType[] defaultEFKTypes = {
+            EFKType.Head,
             EFKType.RHip,
             EFKType.LHip,
             EFKType.Neck,
@@ -43,7 +44,7 @@ namespace FK
             InitCorrects(anim);
         }
 
-        public void SetEFKTypes(params EFKType[] eFKTypes)
+        public void SetActiveEFKTypes(params EFKType[] eFKTypes)
         {
             this.activeEFKTypes = eFKTypes;
         }
@@ -51,6 +52,11 @@ namespace FK
         public void SetEnable(bool active)
         {
             this.enabled = active;
+        }
+
+        public bool IsEnabled()
+        {
+            return this.enabled;
         }
 
         public void LateUpdate()
@@ -111,9 +117,11 @@ namespace FK
 
             if(activeEFKTypes != null)
             {
+                var eulerAgY = anim.transform.eulerAngles.y;
                 for(int i = 0; i < activeEFKTypes.Length; i++)
                 {
                     var index = activeEFKTypes[i].Int();
+                    
                     if(index > 0 && index < jointPoints.Length && index < fitting.rotation.Count)
                     {
                         jointPoints[index].Transform.rotation = fitting.rotation[index].Rotation();
@@ -131,7 +139,7 @@ namespace FK
         {
             if(activeEFKTypes == null)
             {
-                SetEFKTypes(defaultEFKTypes);
+                SetActiveEFKTypes(defaultEFKTypes);
             }
         }
 
@@ -161,7 +169,7 @@ namespace FK
 
         private void InitCorrect(Animator animator, EFKType eFKType)
         {
-            var charTran = animator.transform;
+            var eulerAgY = animator.transform.eulerAngles.y;
             var boneType = FKHumanBodyBonesToEFKTypesMapper.GetHumanBodyBone(eFKType);
             var boneTran = animator.GetBoneTransform(boneType);
             var stanAngs = FKStandardPoseAnglesContainer.GetPosAngles(eFKType);

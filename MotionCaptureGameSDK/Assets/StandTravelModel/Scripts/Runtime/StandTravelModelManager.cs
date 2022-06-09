@@ -68,7 +68,6 @@ namespace StandTravelModel
 #if USE_FINAL_IK
                 modelIKSettings.FinalIKComponent.enabled = value;
                 modelIKSettings.FinalIKLookAtComponent.enabled = value;
-#elif USE_FK
                 fKPoseModel.SetEnable(value);
 #else
                 modelIKSettings.IKScript.enabled = value;
@@ -98,11 +97,8 @@ namespace StandTravelModel
 #if USE_FINAL_IK
             modelIKSettings.IKScript.enabled = false;
             transform.rotation = Quaternion.identity;
-#elif USE_FK
-            modelIKSettings.IKScript.enabled = false;
-            modelIKSettings.FinalIKComponent.enabled = false;
-            modelIKSettings.FinalIKLookAtComponent.enabled = false;
 #else
+            modelIKSettings.IKScript.enabled = false;
             modelIKSettings.FinalIKComponent.enabled = false;
             modelIKSettings.FinalIKLookAtComponent.enabled = false;
             transform.rotation = Quaternion.identity;
@@ -280,28 +276,54 @@ namespace StandTravelModel
 #if USE_FINAL_IK
             modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab,
             modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
-#elif USE_FK
-            fKPoseModel = gameObject.AddComponent<FKPoseModel>();
-            fKPoseModel.SetEFKTypes(
-                EFKType.Neck,
-                EFKType.Head,
-                EFKType.LShoulder,
-                EFKType.RShoulder,
-                EFKType.LArm,
-                EFKType.RArm,
-                EFKType.LWrist,
-                EFKType.RWrist,
-                EFKType.LHand,
-                EFKType.RHand/* ,
-                EFKType.RHip,
-                EFKType.LHip,
-                EFKType.RKnee,
-                EFKType.LKnee,
-                EFKType.RAnkle,
-                EFKType.LAnkle */
-            );
 #endif
             modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
+        }
+
+        public bool IsFKEnabled()
+        {
+            if(fKPoseModel != null)
+            {
+                return fKPoseModel.IsEnabled();
+            }
+            return false;
+        }
+
+        public void EnableFK()
+        {
+            TryInitFKModel();
+            fKPoseModel.SetEnable(true);
+        }
+
+        public void DisableFK()
+        {
+            fKPoseModel.SetEnable(false);
+        }
+
+        private void TryInitFKModel()
+        {
+            if(fKPoseModel == null)
+            {
+                fKPoseModel = gameObject.AddComponent<FKPoseModel>();
+                fKPoseModel.SetActiveEFKTypes(
+                    EFKType.Neck,
+                    EFKType.Head,
+                    EFKType.LShoulder,
+                    EFKType.RShoulder,
+                    EFKType.LArm,
+                    EFKType.RArm,
+                    EFKType.LWrist,
+                    EFKType.RWrist,
+                    EFKType.LHand,
+                    EFKType.RHand/* ,
+                    EFKType.RHip,
+                    EFKType.LHip,
+                    EFKType.RKnee,
+                    EFKType.LKnee,
+                    EFKType.RAnkle,
+                    EFKType.LAnkle */
+                );
+            }
         }
 
         private void InitMotionDataModel()
