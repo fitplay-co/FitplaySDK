@@ -8,19 +8,21 @@ namespace FK
 {
     public class FKSkeleton : MonoBehaviour
     {
-        //火柴人
         [SerializeField] private Material SkeletonMaterial;
 
         private IMotionDataModel motionDataModel;
-        private List<FKSkeletonNode> skeletonList = new List< FKSkeletonNode>();
+        private List<FKSkeletonNode> skeletonList;
         
         [SerializeField] private float SkeletonX = -1;
         [SerializeField] private float SkeletonY = 1;
         [SerializeField] private float SkeletonZ = 0;
         [SerializeField] private float SkeletonScale = 1;
 
+        private EFKType[] eFKTypeAnchors;
+
         private void Start()
         {
+            InitEFKAnchors();
             InitSkeletons();
             InitMotionDataModel();
         }
@@ -31,6 +33,23 @@ namespace FK
             if(fitting == null) return;
 
             UpdataSkeletons(fitting);
+        }
+
+        private void ResetSkeletons(params EFKType[] eFKTypes)
+        {
+            if(skeletonList == null)
+            {
+                skeletonList = new List<FKSkeletonNode>();
+            }
+            else
+            {
+                skeletonList.Clear();
+            }
+
+            foreach(var efk in eFKTypes)
+            {
+                AddSkeleton(efk);
+            }
         }
 
         private void UpdataSkeletons(Fitting fitting)
@@ -56,7 +75,6 @@ namespace FK
                 sk.Line.SetPosition(0, new Vector3(startX * SkeletonScale * SkeletonX, startY * SkeletonScale * SkeletonY, startZ * SkeletonScale * SkeletonZ));
                 sk.Line.SetPosition(1, new Vector3(endX * SkeletonScale * SkeletonX, endY * SkeletonScale * SkeletonY, endZ * SkeletonScale * SkeletonZ));
             }
-            
         }
 
         private void InitMotionDataModel()
@@ -64,35 +82,72 @@ namespace FK
             motionDataModel = MotionDataModelHttp.GetInstance();
         }
 
-        private void InitSkeletons()
+        private void InitEFKAnchors()
         {
+            var efkTypes = System.Enum.GetNames(typeof(EFKType));
+            eFKTypeAnchors = new EFKType[efkTypes.Length];
+
             // Right Arm
-            AddSkeleton(EFKType.RShoulder, EFKType.RArm);
-            AddSkeleton(EFKType.RArm, EFKType.RWrist);
-            AddSkeleton(EFKType.RWrist, EFKType.RHand);
+            SetEFKTypeAnchor(EFKType.RShoulder, EFKType.RArm);
+            SetEFKTypeAnchor(EFKType.RArm, EFKType.RWrist);
+            SetEFKTypeAnchor(EFKType.RWrist, EFKType.RHand);
 
             // Left Arm
-            AddSkeleton(EFKType.LShoulder, EFKType.LArm);
-            AddSkeleton(EFKType.LArm, EFKType.LWrist);
-            AddSkeleton(EFKType.LWrist, EFKType.LHand);
-            
+            SetEFKTypeAnchor(EFKType.LShoulder, EFKType.LArm);
+            SetEFKTypeAnchor(EFKType.LArm, EFKType.LWrist);
+            SetEFKTypeAnchor(EFKType.LWrist, EFKType.LHand);
+
             // Right Leg
-            AddSkeleton(EFKType.RHip, EFKType.RKnee);
-            AddSkeleton(EFKType.RKnee, EFKType.RAnkle);
-            AddSkeleton(EFKType.RAnkle, EFKType.RFoot);
-            
+            SetEFKTypeAnchor(EFKType.RHip, EFKType.RKnee);
+            SetEFKTypeAnchor(EFKType.RKnee, EFKType.RAnkle);
+            SetEFKTypeAnchor(EFKType.RAnkle, EFKType.RFoot);
+
             // Left Leg
-            AddSkeleton(EFKType.LHip, EFKType.LKnee);
-            AddSkeleton(EFKType.LKnee, EFKType.LAnkle);
-            AddSkeleton(EFKType.LAnkle, EFKType.LFoot);
+            SetEFKTypeAnchor(EFKType.LHip, EFKType.LKnee);
+            SetEFKTypeAnchor(EFKType.LKnee, EFKType.LAnkle);
+            SetEFKTypeAnchor(EFKType.LAnkle, EFKType.LFoot);
             
             // etc
-            AddSkeleton(EFKType.Head, EFKType.Neck);
-            AddSkeleton(EFKType.Neck, EFKType.RShoulder);
-            AddSkeleton(EFKType.Neck, EFKType.LShoulder);
-            AddSkeleton(EFKType.Neck, EFKType.CenterHip);
-            AddSkeleton(EFKType.CenterHip, EFKType.RHip);
-            AddSkeleton(EFKType.CenterHip, EFKType.LHip);
+            SetEFKTypeAnchor(EFKType.Head, EFKType.Neck);
+            SetEFKTypeAnchor(EFKType.Neck, EFKType.RShoulder);
+            SetEFKTypeAnchor(EFKType.Neck, EFKType.LShoulder);
+            SetEFKTypeAnchor(EFKType.Neck, EFKType.CenterHip);
+            SetEFKTypeAnchor(EFKType.CenterHip, EFKType.RHip);
+            SetEFKTypeAnchor(EFKType.CenterHip, EFKType.LHip);
+        }
+
+        private void SetEFKTypeAnchor(EFKType key, EFKType value)
+        {
+            eFKTypeAnchors[(int)key] = value;
+        }
+
+        private EFKType GetEFKTypeAnchor(EFKType key)
+        {
+            return eFKTypeAnchors[(int)key];
+        }
+
+        private void InitSkeletons()
+        {
+            if(skeletonList == null)
+            {
+                ResetSkeletons(
+                    EFKType.RShoulder,
+                    EFKType.RArm,
+                    EFKType.RWrist,
+                    EFKType.LShoulder,
+                    EFKType.LArm,
+                    EFKType.LWrist,
+                    EFKType.RHip,
+                    EFKType.RKnee,
+                    EFKType.RAnkle,
+                    EFKType.LHip,
+                    EFKType.LKnee,
+                    EFKType.LAnkle,
+                    EFKType.Head,
+                    EFKType.Neck,
+                    EFKType.CenterHip
+                );
+            }
         }
 
         private void AddSkeleton(EFKType s, EFKType e)
@@ -113,6 +168,11 @@ namespace FK
             sk.Line.material = SkeletonMaterial;
 
             skeletonList.Add(sk);
+        }
+
+        private void AddSkeleton(EFKType s)
+        {
+            AddSkeleton(s, GetEFKTypeAnchor(s));
         }
     }
 }

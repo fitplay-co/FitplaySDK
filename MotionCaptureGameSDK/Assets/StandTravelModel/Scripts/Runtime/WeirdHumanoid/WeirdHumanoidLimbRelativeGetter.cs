@@ -11,7 +11,7 @@ namespace WeirdHumanoid
             if(pointsRelatives == null)
             {
                 var pointsTypes = System.Enum.GetNames(typeof(GameKeyPointsType));
-                pointsRelatives = new GameKeyPointsType[pointsRelatives.Length];
+                pointsRelatives = new GameKeyPointsType[pointsTypes.Length];
                 pointsRelatives[(int)GameKeyPointsType.Nose] = GameKeyPointsType.Nose;
                 pointsRelatives[(int)GameKeyPointsType.LeftShoulder] = GameKeyPointsType.LeftShoulder;
                 pointsRelatives[(int)GameKeyPointsType.RightShoulder] = GameKeyPointsType.RightShoulder;
