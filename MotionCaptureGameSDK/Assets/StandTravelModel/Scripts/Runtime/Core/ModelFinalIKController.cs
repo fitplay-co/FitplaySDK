@@ -110,6 +110,9 @@ namespace StandTravelModel.Core
             fbbIK.solver.rightShoulderEffector.positionWeight = weight;
             fbbIK.solver.rightShoulderEffector.rotationWeight = weight;
 
+            fbbIK.solver.leftArmMapping.weight = weight;
+            fbbIK.solver.rightArmMapping.weight = weight;
+
             fbbIK.solver.leftArmChain.bendConstraint.weight = weight;
             fbbIK.solver.rightArmChain.bendConstraint.weight = weight;
 
