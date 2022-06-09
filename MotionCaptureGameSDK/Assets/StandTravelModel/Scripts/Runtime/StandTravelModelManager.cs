@@ -39,7 +39,7 @@ namespace StandTravelModel
         private GameObject keyPointsParent;
         private IFKPoseModel fKPoseModel;
 
-        private MotionMode _currentMode = MotionMode.Stand;
+        private MotionMode _currentMode;
         public MotionMode currentMode
         {
             get => _currentMode;
@@ -85,9 +85,10 @@ namespace StandTravelModel
             InitMotionDataModel();
             InitModelIKOrFKController();
             var anchorController = InitTraveAnchorController();
-            InitMotionModels(anchorController);
 
+            InitMotionModels(anchorController);
             currentMode = initialMode;
+            SwitchMotionMode(currentMode);
 
             TryInitWeirdHumanConverter();
         }
@@ -165,14 +166,28 @@ namespace StandTravelModel
             {
                 case MotionMode.Stand:
                     currentMode = MotionMode.Travel;
-                    motionModel = standModel;
                     break;
                 case MotionMode.Travel:
                     currentMode = MotionMode.Stand;
+                    break;
+            }
+
+            SwitchMotionMode(currentMode);
+
+            return currentMode;
+        }
+
+        private void SwitchMotionMode(MotionMode mode)
+        {
+            switch (currentMode)
+            {
+                case MotionMode.Stand:
+                    motionModel = standModel;
+                    break;
+                case MotionMode.Travel:
                     motionModel = travelModel;
                     break;
             }
-            return currentMode;
         }
 
         public MotionMode GetCurrentMode()
