@@ -181,5 +181,10 @@ namespace MotionCaptureBasic
             //TODO: OS层API实现注册后SDK再补上
             return false;
         }
+
+        public Fitting GetFitting()
+        {
+            return httpProtocolHandler.BodyMessageBase?.fitting;
+        }
     }
 }

@@ -40,5 +40,6 @@ namespace MotionCaptureBasic.Interface
         bool SubscribeGroundLocation();
         bool SubscribeHandPoseture();
         void SetPreprocessorParameters(Vector3 motionScaling);
+        Fitting GetFitting();
     }
 }

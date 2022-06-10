@@ -30,6 +30,7 @@ namespace StandTravelModel.Core
         private const int CountOfNativeIKReference = 13;
         public ModelNativeIKController(GameObject fakeNodePrefab, UnityIKMecanimScript unityIKMecanimScript)
         {
+            Debug.Log("!!!!!");
             this.fakeNodePrefab = fakeNodePrefab;
             this.unityIKMecanimScript = unityIKMecanimScript;
             fakeNodeList = new List<GameObject>();
@@ -110,6 +111,16 @@ namespace StandTravelModel.Core
             unityIKMecanimScript.IK_rightFootRotationWeight = weight;
             unityIKMecanimScript.IK_leftKneePositionWeight = weight;
             unityIKMecanimScript.IK_rightKneePositionWeight = weight;
+        }
+
+        public void ChangeUpperBodyIKWeight(float weight)
+        {
+            unityIKMecanimScript.IK_leftHandPositionWeight = weight;
+            unityIKMecanimScript.IK_leftHandRotationWeight = weight;
+            unityIKMecanimScript.IK_rightHandPositionWeight = weight;
+            unityIKMecanimScript.IK_rightHandRotationWeight = weight;
+            unityIKMecanimScript.IK_leftElbowPositionWeight = weight;
+            unityIKMecanimScript.IK_rightElbowPositionWeight = weight;
         }
     }
 }

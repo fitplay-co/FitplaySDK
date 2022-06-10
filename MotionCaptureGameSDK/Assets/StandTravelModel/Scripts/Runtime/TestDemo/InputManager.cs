@@ -23,7 +23,17 @@ namespace StandTravelModel.TestDemo
 
         public void Update()
         {
-            ProcessInput();
+            var changed = false;
+
+            if(!changed)
+            {
+                changed = ProcessInput();
+            }
+
+            if(!changed)
+            {
+                changed = ProcessFK();
+            }
         }
 
         public void LateUpdate()
@@ -31,7 +41,7 @@ namespace StandTravelModel.TestDemo
             
         }
 
-        private void ProcessInput()
+        private bool ProcessInput()
         {
             bool isChangeMode = false;
             float deltaTime = Time.deltaTime;
@@ -62,6 +72,25 @@ namespace StandTravelModel.TestDemo
             
                 standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
             }
+
+            return isChangeMode;
+        }
+
+        private bool ProcessFK()
+        {
+            var changed = Input.GetKeyDown(KeyCode.X);
+            if(changed)
+            {
+                if(standTravelModelManager.IsFKEnabled())
+                {
+                    standTravelModelManager.DisableFK();
+                }
+                else
+                {
+                    standTravelModelManager.EnableFK();
+                }
+            }
+            return changed;
         }
     }
 }
