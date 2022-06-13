@@ -289,8 +289,7 @@ namespace StandTravelModel
         private void InitModelIKOrFKController()
         {
 #if USE_FINAL_IK
-            modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab,
-            modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
+            modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
 #else
             modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
 #endif

@@ -33,7 +33,6 @@ namespace FK
 
         public void PrintPoseAngles()
         {
-            Debug.Log("---------------------------");
             var anim = GetComponent<Animator>();
             foreach(var eFKType in eFKTypes)
             {
@@ -54,14 +53,12 @@ namespace FK
         {
             var boneBody = FKHumanBodyBonesToEFKTypesMapper.GetHumanBodyBone(eFKType);
             var boneTran = animator.GetBoneTransform(boneBody);
-            Debug.Log(eFKType + "|" + boneTran.eulerAngles);
         }
 
         private void PrintBoneForward(EFKType eFKType, Animator animator)
         {
             var boneBody = FKHumanBodyBonesToEFKTypesMapper.GetHumanBodyBone(eFKType);
             var boneTran = animator.GetBoneTransform(boneBody);
-            Debug.Log(eFKType + "|" + boneTran.forward);
         }
     }
 }

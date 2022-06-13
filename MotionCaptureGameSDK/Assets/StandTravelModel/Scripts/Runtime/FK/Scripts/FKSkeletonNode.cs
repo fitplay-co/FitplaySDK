@@ -1,11 +1,14 @@
 using UnityEngine;
 using MotionCaptureBasic.OSConnector;
 
-public class FKSkeletonNode
+namespace FK
 {
-    public GameObject LineObject;
-    public LineRenderer Line;
+    public class FKSkeletonNode
+    {
+        public GameObject LineObject;
+        public LineRenderer Line;
 
-    public EFKType start;
-    public EFKType end;
+        public EFKType start;
+        public EFKType end;
+    }
 }

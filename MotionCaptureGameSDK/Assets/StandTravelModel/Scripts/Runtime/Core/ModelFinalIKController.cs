@@ -13,6 +13,7 @@ namespace StandTravelModel.Core
         private FullBodyBipedIK fbbIK;
         private LookAtIK lookAtIK;
         private const int CountOfFinalIKReference = 17;
+        
         public ModelFinalIKController(GameObject fakeNodePrefab, FullBodyBipedIK fbbIK, LookAtIK lookAtIK)
         {
             this.fakeNodePrefab = fakeNodePrefab;

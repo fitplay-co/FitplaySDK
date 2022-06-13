@@ -4,22 +4,11 @@ namespace StandTravelModel.TestDemo
 {
     public class InputManager : MonoBehaviour
     {
+        private const string L_Stick_H = "L_Stick_H";
+        private const string Horizontal = "Horizontal";
+        private const string joystick_button_0 = "joystick button 0";
+
         public StandTravelModelManager standTravelModelManager;
-
-        public void Awake()
-        {
-            
-        }
-
-        public void Start()
-        {
-            
-        }
-
-        public void FixedUpdate()
-        {
-            
-        }
 
         public void Update()
         {
@@ -36,17 +25,12 @@ namespace StandTravelModel.TestDemo
             }
         }
 
-        public void LateUpdate()
-        {
-            
-        }
-
         private bool ProcessInput()
         {
             bool isChangeMode = false;
             float deltaTime = Time.deltaTime;
 
-            isChangeMode |= Input.GetKeyDown("joystick button 0");
+            isChangeMode |= Input.GetKeyDown(joystick_button_0);
             isChangeMode |= Input.GetKeyDown(KeyCode.Z);
 
             if (isChangeMode)
@@ -59,8 +43,8 @@ namespace StandTravelModel.TestDemo
             if (mode == MotionMode.Travel)
             {
                 float horizontalAngle = 0;
-                var lsh = Input.GetAxis("L_Stick_H");
-                var horizontal = Input.GetAxis("Horizontal");
+                var lsh = Input.GetAxis(L_Stick_H);
+                var horizontal = Input.GetAxis(Horizontal);
                 if (lsh != 0)
                 {
                     horizontalAngle = lsh;
