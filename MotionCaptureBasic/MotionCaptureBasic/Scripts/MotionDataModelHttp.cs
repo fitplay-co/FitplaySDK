@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -63,16 +64,32 @@ namespace MotionCaptureBasic
             {
                 return null;
             }
+
+            if (ikBodyUpdateMessage.pose_landmark == null)
+            {
+                return null;
+            }
             
-            List<KeyPointItem> filteredKeyPoints;
+            List<KeyPointItem> filteredKeyPoints = null;
 
             if (isLocalCoordinates)
             {
-                filteredKeyPoints = montionDataPreprocessor.FilteringKeyPoints(ikBodyUpdateMessage.pose_landmark.keypoints3D);
+                if (ikBodyUpdateMessage.pose_landmark.keypoints3D != null)
+                {
+                    filteredKeyPoints = montionDataPreprocessor.FilteringKeyPoints(ikBodyUpdateMessage.pose_landmark.keypoints3D);
+                }
             }
             else
             {
-                filteredKeyPoints = montionDataPreprocessor.FilteringKeyPoints(ikBodyUpdateMessage.pose_landmark.keypoints);
+                if (ikBodyUpdateMessage.pose_landmark.keypoints != null)
+                {
+                    filteredKeyPoints = montionDataPreprocessor.FilteringKeyPoints(ikBodyUpdateMessage.pose_landmark.keypoints);
+                }
+            }
+
+            if (filteredKeyPoints == null)
+            {
+                return null;
             }
 
             int length = (int) GameKeyPointsType.Count;
@@ -160,20 +177,32 @@ namespace MotionCaptureBasic
 
         public bool SubscribeGazeTracking()
         {
-            //TODO: OS层API实现注册后SDK再补上
-            return false;
+            return WebsocketOSClient.GetInstance().SubscribeGazeTracking(true);
         }
 
         public bool SubscribeActionDetection()
         {
-            //TODO: OS层API实现注册后SDK再补上
-            return false;
+            return WebsocketOSClient.GetInstance().SubscribeActionDetection(true);
         }
 
         public bool SubscribeGroundLocation()
         {
-            //TODO: OS层API实现注册后SDK再补上
-            return false;
+            return WebsocketOSClient.GetInstance().SubscribeGroundLocation(true);
+        }
+
+        public bool ReleaseGazeTracking()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeGazeTracking(false);
+        }
+
+        public bool ReleaseActionDetection()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeActionDetection(false);
+        }
+
+        public bool ReleaseGroundLocation()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeGroundLocation(false);
         }
 
         public bool SubscribeHandPoseture()
@@ -185,6 +214,16 @@ namespace MotionCaptureBasic
         public Fitting GetFitting()
         {
             return httpProtocolHandler.BodyMessageBase?.fitting;
+        }
+
+        public void AddConnectEvent(Action onConnect)
+        {
+            httpProtocolHandler.AddConnectEvent(onConnect);
+        }
+
+        public void SetDebug(bool isDebug)
+        {
+            httpProtocolHandler.SetDebug(isDebug);
         }
     }
 }

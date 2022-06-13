@@ -9,7 +9,7 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>MotionCaptureBasic</RootNamespace>
         <AssemblyName>MotionCaptureBasic</AssemblyName>
-        <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,6 +50,12 @@
         <Compile Include="Scripts\FSM\State.cs" />
         <Compile Include="Scripts\FSM\StateMachine.cs" />
         <Compile Include="Scripts\Interface\IMotionDataModel.cs" />
+        <Compile Include="Scripts\MessageSubscribe\MessageSubscriber.cs" />
+        <Compile Include="Scripts\MessageSubscribe\Messages\MessageBody.cs" />
+        <Compile Include="Scripts\MessageSubscribe\Messages\MessageControlAction.cs" />
+        <Compile Include="Scripts\MessageSubscribe\Messages\MessageControlFeatureId.cs" />
+        <Compile Include="Scripts\MessageSubscribe\Messages\MessageFactory.cs" />
+        <Compile Include="Scripts\MessageSubscribe\Messages\MessageType.cs" />
         <Compile Include="Scripts\MotionDataModelHttp.cs" />
         <Compile Include="Scripts\MotionDataPreprocessor.cs" />
         <Compile Include="Scripts\OSConnector\HttpProtocolHandler.cs" />

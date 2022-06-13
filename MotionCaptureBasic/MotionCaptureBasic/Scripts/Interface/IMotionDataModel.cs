@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
@@ -41,5 +42,10 @@ namespace MotionCaptureBasic.Interface
         bool SubscribeHandPoseture();
         void SetPreprocessorParameters(Vector3 motionScaling);
         Fitting GetFitting();
+        void AddConnectEvent(Action onConnect);
+        bool ReleaseGazeTracking();
+        bool ReleaseActionDetection();
+        bool ReleaseGroundLocation();
+        void SetDebug(bool isDebug);
     }
 }
