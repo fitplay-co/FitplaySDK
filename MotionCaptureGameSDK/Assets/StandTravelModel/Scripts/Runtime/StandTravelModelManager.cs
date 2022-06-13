@@ -20,6 +20,7 @@ namespace StandTravelModel
     {
         #region Serializable Variables
         
+        public bool isDebug;
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
         public TuningParameterGroup tuningParameters;
@@ -83,7 +84,7 @@ namespace StandTravelModel
         public void Awake()
         {
             InitMotionDataModel();
-            InitModelIKOrFKController();
+            InitModelIKController();
             var anchorController = InitTraveAnchorController();
 
             InitMotionModels(anchorController);
@@ -110,8 +111,25 @@ namespace StandTravelModel
 
         public void Update()
         {
-            keyPointsList = motionDataModel.GetIKPointsData(true, true);
+            if(isDebug)
+            {
+                if(motionDataModel.GetGazeTrackingData() != null)
+                {
+                    Debug.Log("gaze ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -> " + (motionDataModel.GetGazeTrackingData()));
+                }
 
+                if(motionDataModel.GetGroundLocationData() != null)
+                {
+                    Debug.Log("ground --- " + motionDataModel.GetGroundLocationData().tracing);
+                }
+
+                if(motionDataModel.GetActionDetectionData() != null)
+                {
+                    Debug.Log("action --- " + motionDataModel.GetActionDetectionData().version);
+                }
+            }
+
+            keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
                 return;
@@ -286,7 +304,7 @@ namespace StandTravelModel
             return anchorController;
         }
 
-        private void InitModelIKOrFKController()
+        private void InitModelIKController()
         {
 #if USE_FINAL_IK
             modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);

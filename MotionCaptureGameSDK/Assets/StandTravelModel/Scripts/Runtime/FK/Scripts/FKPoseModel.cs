@@ -114,7 +114,7 @@ namespace FK
             if(motionDataModel == null) return;
 
             var fitting = motionDataModel.GetFitting();
-            if(fitting == null) return;
+            if(fitting == null || fitting.rotation == null) return;
 
             if(activeEFKTypes != null)
             {

@@ -30,7 +30,6 @@ namespace StandTravelModel.Core
         private const int CountOfNativeIKReference = 13;
         public ModelNativeIKController(GameObject fakeNodePrefab, UnityIKMecanimScript unityIKMecanimScript)
         {
-            Debug.Log("!!!!!");
             this.fakeNodePrefab = fakeNodePrefab;
             this.unityIKMecanimScript = unityIKMecanimScript;
             fakeNodeList = new List<GameObject>();
