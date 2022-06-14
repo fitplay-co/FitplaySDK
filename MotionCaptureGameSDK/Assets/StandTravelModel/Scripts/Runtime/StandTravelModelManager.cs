@@ -328,6 +328,7 @@ namespace StandTravelModel
             {
                 fKPoseModel.SetEnable(true);
                 modelIKController.ChangeUpperBodyIKWeight(0);
+                MotionDataModelHttp.GetInstance().SubscribeFitting();
             }
         }
 
@@ -337,6 +338,7 @@ namespace StandTravelModel
             {
                 fKPoseModel.SetEnable(false);
                 modelIKController.ChangeUpperBodyIKWeight(1);
+                MotionDataModelHttp.GetInstance().ReleaseFitting();
             }
         }
 

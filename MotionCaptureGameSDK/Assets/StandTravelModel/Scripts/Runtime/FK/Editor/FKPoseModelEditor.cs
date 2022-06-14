@@ -11,11 +11,14 @@ namespace FK
         {
             base.OnInspectorGUI();
 
-            if(Application.isPlaying && GUILayout.Button("ShowSkeleton"))
+            if(Application.isPlaying)
             {
-                var poseModel = target as FKPoseModel;
-                poseModel.ShowSkeleton();
-            }    
+                if(GUILayout.Button("ShowSkeleton"))
+                {
+                    var poseModel = target as FKPoseModel;
+                    poseModel.ShowSkeleton();
+                }
+            }
         }
     }
 }

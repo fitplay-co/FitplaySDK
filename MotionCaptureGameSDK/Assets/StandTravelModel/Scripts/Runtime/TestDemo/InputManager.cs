@@ -18,11 +18,6 @@ namespace StandTravelModel.TestDemo
             {
                 changed = ProcessInput();
             }
-
-            if(!changed)
-            {
-                changed = ProcessFK();
-            }
         }
 
         private bool ProcessInput()
@@ -58,23 +53,6 @@ namespace StandTravelModel.TestDemo
             }
 
             return isChangeMode;
-        }
-
-        private bool ProcessFK()
-        {
-            var changed = Input.GetKeyDown(KeyCode.X);
-            if(changed)
-            {
-                if(standTravelModelManager.IsFKEnabled())
-                {
-                    standTravelModelManager.DisableFK();
-                }
-                else
-                {
-                    standTravelModelManager.EnableFK();
-                }
-            }
-            return changed;
         }
     }
 }

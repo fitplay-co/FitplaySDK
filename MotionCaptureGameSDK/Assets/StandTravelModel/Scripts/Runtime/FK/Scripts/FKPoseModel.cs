@@ -7,6 +7,7 @@ namespace FK
 {
     public class FKPoseModel : MonoBehaviour, IFKPoseModel
     {
+        [SerializeField] private bool debug;
         [SerializeField] private bool pauseFix;
         [SerializeField] private Quaternion[] rotationCorrects;
 
@@ -114,6 +115,7 @@ namespace FK
             if(motionDataModel == null) return;
 
             var fitting = motionDataModel.GetFitting();
+
             if(fitting == null || fitting.rotation == null) return;
 
             if(activeEFKTypes != null)
@@ -122,7 +124,7 @@ namespace FK
                 for(int i = 0; i < activeEFKTypes.Length; i++)
                 {
                     var index = activeEFKTypes[i].Int();
-                    
+
                     if(index > 0 && index < jointPoints.Length && index < fitting.rotation.Count)
                     {
                         jointPoints[index].Transform.rotation = Quaternion.Euler(0, 180, 0) * anim.transform.rotation * fitting.rotation[index].Rotation();
