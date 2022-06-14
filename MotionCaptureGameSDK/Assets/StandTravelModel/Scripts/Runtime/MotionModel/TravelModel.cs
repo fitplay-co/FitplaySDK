@@ -83,11 +83,13 @@ namespace StandTravelModel.MotionModel
 
         public override void OnLateUpdate()
         {
-            anchorController.StandFollowPoint.transform.position =
-                        anchorController.TravelFollowPoint.transform.position - localShift;
-                    selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            anchorController.StandFollowPoint.transform.position = anchorController.TravelFollowPoint.transform.position - localShift;
 
-            base.OnLateUpdate();
+            if(_selfAnimator.applyRootMotion)
+            {
+                selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+                base.OnLateUpdate();
+            }
         }
 
         public override void OnUpdate(List<Vector3> keyPoints)
