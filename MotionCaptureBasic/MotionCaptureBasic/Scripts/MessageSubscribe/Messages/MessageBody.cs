@@ -18,6 +18,6 @@ namespace MotionCaptureBasic.MessageSubscribe
 
     public class MessageFitting : MessageBody
     {
-        public string data = "camera";
+        public string data;
     }
 }

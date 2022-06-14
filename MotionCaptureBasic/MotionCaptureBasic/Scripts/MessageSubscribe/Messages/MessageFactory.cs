@@ -34,6 +34,7 @@ namespace MotionCaptureBasic.MessageSubscribe
                 type = MessageType.application_control.ToString(),
                 action = action.ToString(),
                 feature_id = MessageControlFeatureId.fitting.ToString(),
+                data = MessageFittingType.camera.ToString(),
             };
         }
     }
