@@ -87,6 +87,16 @@ namespace MotionCaptureBasic.OSConnector
             }
             return false;
         }
+
+        public bool SubscribeFitting(bool active)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SubscribeFitting(active);
+            }
+
+            return false;
+        }
         
         //start
         private void InitConnect()

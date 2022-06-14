@@ -25,5 +25,16 @@ namespace MotionCaptureBasic.MessageSubscribe
             var action = active ? MessageControlAction.subsribe : MessageControlAction.release;
             return CreateMessageControl(controlFeatureId, action);
         }
+
+        public static object CreateMessageFitting(bool active)
+        {
+            var action = active ? MessageControlAction.subsribe : MessageControlAction.release;
+            return new MessageFitting()
+            {
+                type = MessageType.application_control.ToString(),
+                action = action.ToString(),
+                feature_id = MessageControlFeatureId.fitting.ToString(),
+            };
+        }
     }
 }

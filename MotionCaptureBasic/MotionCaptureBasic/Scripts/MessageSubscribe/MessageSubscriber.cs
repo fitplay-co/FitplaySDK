@@ -33,6 +33,11 @@ namespace MotionCaptureBasic.MessageSubscribe
             return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.action_detection, active));
         }
 
+        public bool SubscribeFitting(bool active)
+        {
+            return SendAsync(MessageFactory.CreateMessageFitting(active));
+        }
+
         private bool SendAsync(object message)
         {
             if (socket != null)

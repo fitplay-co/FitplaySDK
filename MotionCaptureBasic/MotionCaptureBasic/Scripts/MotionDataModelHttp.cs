@@ -190,6 +190,11 @@ namespace MotionCaptureBasic
             return WebsocketOSClient.GetInstance().SubscribeGroundLocation(true);
         }
 
+        public bool SubscribeFitting()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeFitting(true);
+        }
+
         public bool ReleaseGazeTracking()
         {
             return WebsocketOSClient.GetInstance().SubscribeGazeTracking(false);
@@ -203,6 +208,11 @@ namespace MotionCaptureBasic
         public bool ReleaseGroundLocation()
         {
             return WebsocketOSClient.GetInstance().SubscribeGroundLocation(false);
+        }
+
+        public bool ReleaseFitting()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeFitting(false);
         }
 
         public bool SubscribeHandPoseture()

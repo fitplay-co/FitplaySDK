@@ -5,6 +5,7 @@ namespace MotionCaptureBasic.MessageSubscribe
         none,
         ground_loccation,
         action_detection,
-        gaze_tracking
+        gaze_tracking,
+        fitting
     }
 }

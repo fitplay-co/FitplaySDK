@@ -55,6 +55,7 @@
         <Compile Include="Scripts\MessageSubscribe\Messages\MessageControlAction.cs" />
         <Compile Include="Scripts\MessageSubscribe\Messages\MessageControlFeatureId.cs" />
         <Compile Include="Scripts\MessageSubscribe\Messages\MessageFactory.cs" />
+        <Compile Include="Scripts\MessageSubscribe\Messages\MessageFittingType.cs" />
         <Compile Include="Scripts\MessageSubscribe\Messages\MessageType.cs" />
         <Compile Include="Scripts\MotionDataModelHttp.cs" />
         <Compile Include="Scripts\MotionDataPreprocessor.cs" />

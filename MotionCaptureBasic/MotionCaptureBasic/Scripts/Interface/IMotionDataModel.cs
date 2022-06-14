@@ -40,12 +40,14 @@ namespace MotionCaptureBasic.Interface
         bool SubscribeActionDetection();
         bool SubscribeGroundLocation();
         bool SubscribeHandPoseture();
+        bool SubscribeFitting();
         void SetPreprocessorParameters(Vector3 motionScaling);
         Fitting GetFitting();
         void AddConnectEvent(Action onConnect);
         bool ReleaseGazeTracking();
         bool ReleaseActionDetection();
         bool ReleaseGroundLocation();
+        bool ReleaseFitting();
         void SetDebug(bool isDebug);
     }
 }
