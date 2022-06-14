@@ -88,6 +88,10 @@ namespace StandTravelModel.MotionModel
             if(_selfAnimator.applyRootMotion)
             {
                 selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            }
+            else
+            {
+                anchorController.TravelFollowPoint.transform.position = selfTransform.position;
                 base.OnLateUpdate();
             }
         }
