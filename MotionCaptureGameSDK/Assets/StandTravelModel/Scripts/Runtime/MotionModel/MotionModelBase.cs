@@ -1,8 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
+using MotionCaptureBasic.FSM;
 using MotionCaptureBasic.Interface;
+using StandTravelModel.Core;
+using UnityEngine;
 
-namespace StandTravelModel.Core
+namespace StandTravelModel.MotionModel
 {
     public abstract class MotionModelBase : IMotionModel
     {
@@ -14,9 +16,13 @@ namespace StandTravelModel.Core
 
         private Vector3 predictHipPos;
         private Transform keyPointsParent;
-        private IMotionDataModel motionDataModel;
 
-        public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController)
+        protected IMotionDataModel motionDataModel;
+        protected StateMachine<MotionModelBase> stateMachine;
+        protected Dictionary<AnimationList, State<MotionModelBase>> animationStates;
+
+        public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent,
+            TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController)
         {
             this.selfTransform = selfTransform;
             this.keyPointsParent = keyPointsParent;
@@ -61,6 +67,31 @@ namespace StandTravelModel.Core
         public AnchorController GetAnchorController()
         {
             return anchorController;
+        }
+
+        public void ChangeState(AnimationList animationState)
+        {
+            if (animationStates == null) return;
+            if (animationStates.TryGetValue(animationState, out var nextState))
+            {
+                stateMachine.ChangeState(nextState);
+            }
+        }
+
+        public void ChangePrevState()
+        {
+            if (stateMachine == null) return;
+            stateMachine.ChangePrevState();
+        }
+
+        public State<MotionModelBase> GetCurrentState()
+        {
+            return stateMachine.CurrentState;
+        }
+
+        public State<MotionModelBase> GetPrevState()
+        {
+            return stateMachine.PrevState;
         }
     }
 }

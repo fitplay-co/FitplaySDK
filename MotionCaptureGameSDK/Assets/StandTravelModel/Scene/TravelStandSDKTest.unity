@@ -6493,6 +6493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dragon
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
       propertyPath: m_Controller
       value: 
@@ -6569,6 +6573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterMappingEnable: 0
   initialMode: 1
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
@@ -6581,15 +6586,43 @@ MonoBehaviour:
     FinalIKComponent: {fileID: 2014150632}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
   animatorSettings:
-    runAnimationSettings:
-    - animation: 0
-      playBackSpeed: 1
-      movingSpeed: 1
-      cadenceThreshold: 0.1
-    - animation: 1
-      playBackSpeed: 1
-      movingSpeed: 2
-      cadenceThreshold: 4
+    animationMap:
+    - animType: 0
+      animParam:
+        stateName: Idle
+        stateTransition: 
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 1
+      animParam:
+        stateName: LeftStep
+        stateTransition: isLeftStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 2
+      animParam:
+        stateName: RightStep
+        stateTransition: isRightStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 3
+      animParam:
+        stateName: Run
+        stateTransition: isRun
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 4
+      animParam:
+        stateName: Jump
+        stateTransition: isJump
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 5
+      animParam:
+        stateName: Squat
+        stateTransition: isSquat
+        playSpeedMultiplier: 
+        playBackSpeed: 1
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -9465,7 +9498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialMode: 1
+  monsterMappingEnable: 0
+  initialMode: 0
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
     HipPosOffset: {x: 0, y: 0.1, z: 0}
@@ -9477,15 +9511,43 @@ MonoBehaviour:
     FinalIKComponent: {fileID: 2753468361735440057}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
   animatorSettings:
-    runAnimationSettings:
-    - animation: 0
-      playBackSpeed: 1
-      movingSpeed: 1
-      cadenceThreshold: 0.1
-    - animation: 1
-      playBackSpeed: 1
-      movingSpeed: 2
-      cadenceThreshold: 4
+    animationMap:
+    - animType: 0
+      animParam:
+        stateName: Idle
+        stateTransition: 
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 1
+      animParam:
+        stateName: LeftStep
+        stateTransition: isLeftStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 2
+      animParam:
+        stateName: RightStep
+        stateTransition: isRightStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 3
+      animParam:
+        stateName: Run
+        stateTransition: isRun
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 4
+      animParam:
+        stateName: Jump
+        stateTransition: isJump
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 5
+      animParam:
+        stateName: Squat
+        stateTransition: isSquat
+        playSpeedMultiplier: 
+        playBackSpeed: 1
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12507,7 +12569,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c5ea49a9b8f917d4982f3073e32b84bb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

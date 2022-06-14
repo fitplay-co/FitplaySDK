@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
+using StandTravelModel.Core;
 using UnityEngine;
 
-namespace StandTravelModel.Core
+namespace StandTravelModel.MotionModel
 {
     public class StandModel : MotionModelBase
     {

@@ -3,6 +3,7 @@ using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using StandTravelModel.Core;
 using StandTravelModel.Core.Interface;
+using StandTravelModel.MotionModel;
 using UnityEngine;
 using WeirdHumanoid;
 
@@ -36,7 +37,7 @@ namespace StandTravelModel
         private TravelModel travelModel;
         private GameObject keyPointsParent;
 
-        private MotionMode _currentMode;
+        private MotionMode _currentMode = MotionMode.Stand;
         public MotionMode currentMode
         {
             get => _currentMode;
@@ -48,7 +49,9 @@ namespace StandTravelModel
                     ChangeIKModelWeight((int)value);
                     if (value == MotionMode.Stand)
                     {
-                        travelModel.StopPrevAnimation("");
+                        //T强制切回idlestate
+                        travelModel.ChangeState(AnimationList.Idle);
+                        //travelModel.StopPrevAnimation("");
                     }
                 }
             }
@@ -56,6 +59,7 @@ namespace StandTravelModel
 
         public int currentLeg => travelModel.currentLeg;
         public float currentFrequency => travelModel.currentFrequency;
+        public bool isJump => travelModel.isJump;
 
         private bool enable;
         public bool Enabled
@@ -80,7 +84,7 @@ namespace StandTravelModel
         {
             InitMotionDataModel();
             InitModelIKController();
-            var anchorController = InitTraveAnchorController();
+            var anchorController = InitTravelAnchorController();
 
             InitMotionModels(anchorController);
             currentMode = initialMode;
@@ -225,7 +229,7 @@ namespace StandTravelModel
         {
             modelIKController.ChangeLowerBodyIKWeight(weight);
         }
-
+        
         private void UpdateModelParameters()
         {
             if (motionDataModel != null)
@@ -272,7 +276,7 @@ namespace StandTravelModel
             standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
         }
 
-        private AnchorController InitTraveAnchorController()
+        private AnchorController InitTravelAnchorController()
         {
             var anchorController = new AnchorController(transform.position);
             keyPointsParent = new GameObject("KeyPointsParent");
