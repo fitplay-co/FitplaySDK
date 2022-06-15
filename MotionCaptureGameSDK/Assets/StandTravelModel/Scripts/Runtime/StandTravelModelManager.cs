@@ -236,6 +236,12 @@ namespace StandTravelModel
             {
                 motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
             }
+
+            if (travelModel != null)
+            {
+                travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
+                travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
+            }
         }
 
         private void TryConvertKeyPoints(List<Vector3> keyPoints)
@@ -280,7 +286,9 @@ namespace StandTravelModel
         {
             var anchorController = new AnchorController(transform.position);
             keyPointsParent = new GameObject("KeyPointsParent");
-            keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            //keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            //TODO: 暂时将keyPoints父节点设置为角色模型的transform。后续还需要测试优化确认有没其他问题
+            keyPointsParent.transform.parent = transform;
             return anchorController;
         }
 

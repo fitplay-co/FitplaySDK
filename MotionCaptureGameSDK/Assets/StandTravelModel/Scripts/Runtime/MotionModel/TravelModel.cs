@@ -29,9 +29,20 @@ namespace StandTravelModel.MotionModel
         private static readonly int Cadence = Animator.StringToHash("cadence");
 
         //抬腿交互缓存队列的总长度
-        private const int CacheQueueMax = 11;
+        private int _cacheQueueMax = 11;
+        public int cacheQueueMax
+        {
+            set => _cacheQueueMax = value;
+            get => _cacheQueueMax;
+        }
+
         //判断抬腿CacheQueueMax次总时长是否进入跑步模式的阈值
-        private const float StepMaxInterval = 5;
+        private float _stepMaxInterval = 5;
+        public float stepMaxInterval
+        {
+            set => _stepMaxInterval = value;
+            get => _stepMaxInterval;
+        }
 
         //private TravelModelAnimatorController animatorController;
 
@@ -79,6 +90,9 @@ namespace StandTravelModel.MotionModel
             };
             
             stateMachine = new StateMachine<MotionModelBase>(animationStates[AnimationList.Idle]);
+
+            cacheQueueMax = tuningParameters.CacheStepCount;
+            stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
         }
 
         public override void OnLateUpdate()
@@ -123,6 +137,7 @@ namespace StandTravelModel.MotionModel
                 var stepStct = stepCacheQueue[length - 1];
                 if (stepStct.LegUp == leg)
                 {
+                    stepCacheQueue[length - 1] = stepStct;
                     return;
                 }
             }
@@ -130,27 +145,27 @@ namespace StandTravelModel.MotionModel
             stepCacheQueue.Add(new StepStct{LegUp = leg, TimeStemp = Time.time});
 
             length = stepCacheQueue.Count;
-            if (length > CacheQueueMax)
+            if (length > _cacheQueueMax)
             {
                 stepCacheQueue.RemoveAt(0);
             }
         }
 
         /// <summary>
-        /// 利用11次交互抬腿的队列记录，计算11次抬腿的总时长
-        /// 小于StepMaxInterval定义的时长才进入跑步模式(返回true)，否则为单步模式(返回false)
+        /// 利用cacheQueueMax次交互抬腿的队列记录，计算cacheQueueMax次抬腿的总时长
+        /// 小于stepMaxInterval定义的时长才进入跑步模式(返回true)，否则为单步模式(返回false)
         /// </summary>
         /// <returns></returns>
         public bool IsEnterRunReady()
         {
             var length = stepCacheQueue.Count;
-            if (length < CacheQueueMax)
+            if (length < _cacheQueueMax)
             {
                 return false;
             }
 
             var interval = stepCacheQueue[length - 1].TimeStemp - stepCacheQueue[0].TimeStemp;
-            if (interval < StepMaxInterval)
+            if (interval < _stepMaxInterval)
             {
                 return true;
             }

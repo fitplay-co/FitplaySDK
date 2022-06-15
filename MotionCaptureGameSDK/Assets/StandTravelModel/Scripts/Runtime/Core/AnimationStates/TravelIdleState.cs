@@ -23,15 +23,15 @@ namespace StandTravelModel.Core.AnimationStates
         public override void Tick(float deltaTime)
         {
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
-            if (actionDetectionData.jump != null)
+            /*if (actionDetectionData.jump != null)
             {
-                Debug.LogError($"Leg: {actionDetectionData.jump.up}, Strength: {actionDetectionData.jump.strength}");
+                Debug.LogError($"Jump: {actionDetectionData.jump.up}, Strength: {actionDetectionData.jump.strength}");
                 if (actionDetectionData.jump.up == 1)
                 {
                     travelOwner.ChangeState(AnimationList.Jump);
                     return;
                 }
-            }
+            }*/
 
             //TODO: 等os完善数据
             /*if (actionDetectionData.squat != null)
@@ -45,7 +45,7 @@ namespace StandTravelModel.Core.AnimationStates
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.frequency / 60f;
-                Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
+                //Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
 
                 var isRunReady = travelOwner.IsEnterRunReady();
                 if (actionDetectionData.walk.legUp != 0 && isRunReady)

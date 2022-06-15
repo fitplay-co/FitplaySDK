@@ -17,5 +17,11 @@ namespace StandTravelModel
         
         //局部位移缩放量
         public Vector3 LocalShiftScale = Vector3.one;
+
+        //计步器记录步数
+        public int CacheStepCount = 5;
+
+        //计步器满足run启动条件的总时长阈值(单位：秒)
+        public float StepToRunTimeThreshold = 3;
     }
 }
