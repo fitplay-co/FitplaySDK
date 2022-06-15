@@ -98,10 +98,10 @@ namespace StandTravelModel.MotionModel
         public override void OnLateUpdate()
         {
             anchorController.StandFollowPoint.transform.position = anchorController.TravelFollowPoint.transform.position - localShift;
+            selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
 
             if(_selfAnimator.applyRootMotion)
             {
-                selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
                 anchorController.TravelFollowPoint.transform.position = selfTransform.position;
             }
             else
@@ -137,6 +137,7 @@ namespace StandTravelModel.MotionModel
                 var stepStct = stepCacheQueue[length - 1];
                 if (stepStct.LegUp == leg)
                 {
+                    stepStct.TimeStemp = Time.time;
                     stepCacheQueue[length - 1] = stepStct;
                     return;
                 }
@@ -165,6 +166,7 @@ namespace StandTravelModel.MotionModel
             }
 
             var interval = stepCacheQueue[length - 1].TimeStemp - stepCacheQueue[0].TimeStemp;
+            Debug.LogError($"step cache interval： {interval}");
             if (interval < _stepMaxInterval)
             {
                 return true;
