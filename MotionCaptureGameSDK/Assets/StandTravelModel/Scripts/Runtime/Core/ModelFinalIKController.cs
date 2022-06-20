@@ -14,6 +14,14 @@ namespace StandTravelModel.Core
         private LookAtIK lookAtIK;
         private const int CountOfFinalIKReference = 17;
         
+        private float _skewCorrection;
+
+        public float skewCorrection
+        {
+            set => _skewCorrection = value;
+            get => _skewCorrection;
+        }
+        
         public ModelFinalIKController(GameObject fakeNodePrefab, FullBodyBipedIK fbbIK, LookAtIK lookAtIK)
         {
             this.fakeNodePrefab = fakeNodePrefab;
@@ -81,49 +89,24 @@ namespace StandTravelModel.Core
         {
             for (int i = 0; i < CountOfFinalIKReference; i++)
             {
+                var keyPoint = keyPointsList[i];
+                keyPoint.z += keyPoint.y * _skewCorrection;
                 fakeNodeList[i].transform.localPosition = keyPointsList[i];
             }
         }
 
         public void ChangeLowerBodyIKWeight(float weight)
         {
+            /*fbbIK.solver.leftArmChain.bendConstraint.weight = weight;
+            fbbIK.solver.rightArmChain.bendConstraint.weight = weight;
             fbbIK.solver.leftShoulderEffector.positionWeight = weight;
-            fbbIK.solver.rightShoulderEffector.positionWeight = weight;
+            fbbIK.solver.rightShoulderEffector.positionWeight = weight;*/
             fbbIK.solver.leftThighEffector.positionWeight = weight;
-            fbbIK.solver.leftFootEffector.rotationWeight = weight;
-
             fbbIK.solver.rightThighEffector.positionWeight = weight;
-            fbbIK.solver.rightThighEffector.rotationWeight = weight;
-            
             fbbIK.solver.leftFootEffector.positionWeight = weight;
-            fbbIK.solver.leftFootEffector.rotationWeight = weight;
-
             fbbIK.solver.rightFootEffector.positionWeight = weight;
-            fbbIK.solver.rightFootEffector.rotationWeight = weight;
-
             fbbIK.solver.leftLegChain.bendConstraint.weight = weight;
             fbbIK.solver.rightLegChain.bendConstraint.weight = weight;
-        }
-
-        public void ChangeUpperBodyIKWeight(float weight)
-        {
-            fbbIK.solver.leftShoulderEffector.positionWeight = weight;
-            fbbIK.solver.leftShoulderEffector.rotationWeight = weight;
-
-            fbbIK.solver.rightShoulderEffector.positionWeight = weight;
-            fbbIK.solver.rightShoulderEffector.rotationWeight = weight;
-
-            fbbIK.solver.leftArmMapping.weight = weight;
-            fbbIK.solver.rightArmMapping.weight = weight;
-
-            fbbIK.solver.leftArmChain.bendConstraint.weight = weight;
-            fbbIK.solver.rightArmChain.bendConstraint.weight = weight;
-
-            fbbIK.solver.leftHandEffector.positionWeight = weight;
-            fbbIK.solver.leftHandEffector.rotationWeight = weight;
-            
-            fbbIK.solver.rightHandEffector.positionWeight = weight;
-            fbbIK.solver.rightHandEffector.rotationWeight = weight;
         }
     }
 }

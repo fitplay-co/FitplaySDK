@@ -23,5 +23,8 @@ namespace StandTravelModel
 
         //计步器满足run启动条件的总时长阈值(单位：秒)
         public float StepToRunTimeThreshold = 3;
+        
+        //矫正倾斜
+        public float SkewCorrection = 0;
     }
 }

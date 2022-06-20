@@ -22,6 +22,7 @@ namespace StandTravelModel
         #region Serializable Variables
         
         public bool isDebug;
+        public bool isFKEnabled;
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
         public TuningParameterGroup tuningParameters;
@@ -111,7 +112,11 @@ namespace StandTravelModel
 
             TryInitFKModel();
             SubscribeMessage();
-            EnableFK();
+
+            if (isFKEnabled)
+            {
+                EnableFK();
+            }
         }
 
         public void Update()
@@ -267,6 +272,11 @@ namespace StandTravelModel
                 travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
                 travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
             }
+            
+            if (modelIKController is ModelFinalIKController modelFinalIKController)
+            {
+                modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
+            }
         }
 
         private void TryConvertKeyPoints(List<Vector3> keyPoints)
@@ -324,6 +334,10 @@ namespace StandTravelModel
 #else
             modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
 #endif
+            if (modelIKController is ModelFinalIKController modelFinalIKController)
+            {
+                modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
+            }
         }
 
         public bool IsFKEnabled()
@@ -392,7 +406,7 @@ namespace StandTravelModel
 
         private void SubscribeMessage()
         {
-            MotionDataModelHttp.GetInstance().SubscribeGazeTracking();
+            MotionDataModelHttp.GetInstance().SubscribeActionDetection();
             MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
         }
     }

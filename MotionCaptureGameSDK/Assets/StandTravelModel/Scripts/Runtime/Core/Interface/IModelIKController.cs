@@ -9,6 +9,5 @@ namespace StandTravelModel.Core.Interface
         public void ClearFakeNodes();
         public void UpdateIKTargetsData(List<Vector3> keyPointsList);
         public void ChangeLowerBodyIKWeight(float weight);
-        public void ChangeUpperBodyIKWeight(float weight);
     }
 }

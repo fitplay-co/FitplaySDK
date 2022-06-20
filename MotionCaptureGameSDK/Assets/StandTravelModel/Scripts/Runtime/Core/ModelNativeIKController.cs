@@ -111,20 +111,5 @@ namespace StandTravelModel.Core
             unityIKMecanimScript.IK_leftKneePositionWeight = weight;
             unityIKMecanimScript.IK_rightKneePositionWeight = weight;
         }
-
-        public void ChangeUpperBodyIKWeight(float weight)
-        {
-            unityIKMecanimScript.IK_leftHandPositionWeight = weight;
-            unityIKMecanimScript.IK_leftHandRotationWeight = weight;
-            unityIKMecanimScript.IK_rightHandPositionWeight = weight;
-            unityIKMecanimScript.IK_rightHandRotationWeight = weight;
-            unityIKMecanimScript.IK_leftElbowPositionWeight = weight;
-            unityIKMecanimScript.IK_rightElbowPositionWeight = weight;
-        }
-
-        public void Enable()
-        {
-            
-        }
     }
 }

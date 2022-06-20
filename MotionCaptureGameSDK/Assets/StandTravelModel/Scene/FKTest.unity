@@ -2440,21 +2440,52 @@ MonoBehaviour:
     HipPosOffset: {x: 0, y: 0.1, z: 0}
     RotationSensitivity: 100
     LocalShiftScale: {x: 1.5, y: 1, z: 1.5}
+    CacheStepCount: 5
+    StepToRunTimeThreshold: 3
+    SkewCorrection: 0
   modelIKSettings:
     NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 299789581}
     FinalIKComponent: {fileID: 299789579}
     FinalIKLookAtComponent: {fileID: 299789578}
   animatorSettings:
-    runAnimationSettings:
-    - animation: 0
-      playBackSpeed: 1
-      movingSpeed: 1
-      cadenceThreshold: 0.1
-    - animation: 1
-      playBackSpeed: 1
-      movingSpeed: 2
-      cadenceThreshold: 4
+    animationMap:
+    - animType: 0
+      animParam:
+        stateName: Idle
+        stateTransition: 
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 1
+      animParam:
+        stateName: LeftStep
+        stateTransition: isLeftStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 2
+      animParam:
+        stateName: RightStep
+        stateTransition: isRightStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 3
+      animParam:
+        stateName: Run
+        stateTransition: isRun
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 4
+      animParam:
+        stateName: Jump
+        stateTransition: isJump
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 5
+      animParam:
+        stateName: Squat
+        stateTransition: isSquat
+        playSpeedMultiplier: 
+        playBackSpeed: 1
 --- !u!114 &299789581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8286,21 +8317,52 @@ MonoBehaviour:
     HipPosOffset: {x: 0, y: 0.1, z: 0}
     RotationSensitivity: 100
     LocalShiftScale: {x: 1.5, y: 1, z: 1.5}
+    CacheStepCount: 5
+    StepToRunTimeThreshold: 3
+    SkewCorrection: 0
   modelIKSettings:
     NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2014150610}
     FinalIKComponent: {fileID: 2014150632}
     FinalIKLookAtComponent: {fileID: 2014150633}
   animatorSettings:
-    runAnimationSettings:
-    - animation: 0
-      playBackSpeed: 1
-      movingSpeed: 1
-      cadenceThreshold: 0.1
-    - animation: 1
-      playBackSpeed: 1
-      movingSpeed: 2
-      cadenceThreshold: 4
+    animationMap:
+    - animType: 0
+      animParam:
+        stateName: Idle
+        stateTransition: 
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 1
+      animParam:
+        stateName: LeftStep
+        stateTransition: isLeftStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 2
+      animParam:
+        stateName: RightStep
+        stateTransition: isRightStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 3
+      animParam:
+        stateName: Run
+        stateTransition: isRun
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 4
+      animParam:
+        stateName: Jump
+        stateTransition: isJump
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 5
+      animParam:
+        stateName: Squat
+        stateTransition: isSquat
+        playSpeedMultiplier: 
+        playBackSpeed: 1
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -11237,8 +11299,6 @@ GameObject:
   - component: {fileID: 2753468361735440064}
   - component: {fileID: 2753468361735440066}
   - component: {fileID: 2753468361735440065}
-  - component: {fileID: 2753468361735440068}
-  - component: {fileID: 2753468361735440067}
   m_Layer: 0
   m_Name: TestMan
   m_TagString: Untagged
@@ -11266,21 +11326,52 @@ MonoBehaviour:
     HipPosOffset: {x: 0, y: 0.1, z: 0}
     RotationSensitivity: 100
     LocalShiftScale: {x: 1.5, y: 1, z: 1.5}
+    CacheStepCount: 5
+    StepToRunTimeThreshold: 3
+    SkewCorrection: 0
   modelIKSettings:
     NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2753468361735440056}
     FinalIKComponent: {fileID: 2753468361735440057}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
   animatorSettings:
-    runAnimationSettings:
-    - animation: 0
-      playBackSpeed: 1
-      movingSpeed: 1
-      cadenceThreshold: 0.1
-    - animation: 1
-      playBackSpeed: 1
-      movingSpeed: 2
-      cadenceThreshold: 4
+    animationMap:
+    - animType: 0
+      animParam:
+        stateName: Idle
+        stateTransition: 
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 1
+      animParam:
+        stateName: LeftStep
+        stateTransition: isLeftStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 2
+      animParam:
+        stateName: RightStep
+        stateTransition: isRightStep
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 3
+      animParam:
+        stateName: Run
+        stateTransition: isRun
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 4
+      animParam:
+        stateName: Jump
+        stateTransition: isJump
+        playSpeedMultiplier: 
+        playBackSpeed: 1
+    - animType: 5
+      animParam:
+        stateName: Squat
+        stateTransition: isSquat
+        playSpeedMultiplier: 
+        playBackSpeed: 1
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11307,116 +11398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 2753468361735440064}
---- !u!114 &2753468361735440067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2753468361735440063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d9643e11c77c0d4fb27fbcf6ff4839c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    executedInEditor: 0
-    IKPosition: {x: 0, y: 0, z: 0}
-    IKPositionWeight: 1
-    root: {fileID: 0}
-    IKRotationWeight: 1
-    IKRotation: {x: 0, y: 0, z: 0, w: 1}
-    chest:
-      transform: {fileID: 0}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0, y: 0, z: 0}
-      defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-    shoulder:
-      transform: {fileID: 0}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0, y: 0, z: 0}
-      defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-    upperArm:
-      transform: {fileID: 0}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0, y: 0, z: 0}
-      defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-    forearm:
-      transform: {fileID: 0}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0, y: 0, z: 0}
-      defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-    hand:
-      transform: {fileID: 0}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0, y: 0, z: 0}
-      defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-    isLeft: 0
-    arm:
-      bones: []
-      target: {fileID: 0}
-      positionWeight: 1
-      rotationWeight: 1
-      shoulderRotationWeight: 1
-      shoulderRotationMode: 0
-      shoulderTwistWeight: 1
-      shoulderYawOffset: 45
-      shoulderPitchOffset: -30
-      bendGoal: {fileID: 0}
-      bendGoalWeight: 0
-      swivelOffset: 0
-      wristToPalmAxis: {x: 0, y: 0, z: 0}
-      palmToThumbAxis: {x: 0, y: 0, z: 0}
-      armLengthMlp: 1
-      stretchCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
---- !u!114 &2753468361735440068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2753468361735440063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5013856973b27429d937d256dc082f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    executedInEditor: 0
-    IKPosition: {x: 0, y: 0, z: 0}
-    IKPositionWeight: 1
-    root: {fileID: 0}
-    target: {fileID: 0}
-    tolerance: 0
-    maxIterations: 4
-    useRotationLimits: 1
-    XY: 0
-    bones: []
-    transform: {fileID: 0}
-    axis: {x: 0, y: 0, z: 1}
-    poleAxis: {x: 0, y: 1, z: 0}
-    polePosition: {x: 0, y: 0, z: 0}
-    poleWeight: 0
-    poleTarget: {fileID: 0}
-    clampWeight: 0.1
-    clampSmoothing: 2
 --- !u!4 &2787233591588614682
 Transform:
   m_ObjectHideFlags: 0

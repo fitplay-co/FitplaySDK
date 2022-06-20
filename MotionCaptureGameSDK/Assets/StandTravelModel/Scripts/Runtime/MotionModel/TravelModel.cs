@@ -166,7 +166,7 @@ namespace StandTravelModel.MotionModel
             }
 
             var interval = stepCacheQueue[length - 1].TimeStemp - stepCacheQueue[0].TimeStemp;
-            Debug.LogError($"step cache interval： {interval}");
+            //Debug.LogError($"step cache interval： {interval}");
             if (interval < _stepMaxInterval)
             {
                 return true;
