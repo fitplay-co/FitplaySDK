@@ -25,7 +25,7 @@ namespace MotionCaptureBasic.MessageSubscribe
 
         public bool SubscribeGroundLocation(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_loccation, active));
+            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location, active));
         }
 
         public bool SubscribeActionDetection(bool active)

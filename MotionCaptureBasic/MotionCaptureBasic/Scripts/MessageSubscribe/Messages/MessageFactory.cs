@@ -22,13 +22,13 @@ namespace MotionCaptureBasic.MessageSubscribe
 
         public static object CreateMessageControl(MessageControlFeatureId controlFeatureId, bool active)
         {
-            var action = active ? MessageControlAction.subsribe : MessageControlAction.release;
+            var action = active ? MessageControlAction.subscribe : MessageControlAction.release;
             return CreateMessageControl(controlFeatureId, action);
         }
 
         public static object CreateMessageFitting(bool active)
         {
-            var action = active ? MessageControlAction.subsribe : MessageControlAction.release;
+            var action = active ? MessageControlAction.subscribe : MessageControlAction.release;
             return new MessageFitting()
             {
                 type = MessageType.application_control.ToString(),

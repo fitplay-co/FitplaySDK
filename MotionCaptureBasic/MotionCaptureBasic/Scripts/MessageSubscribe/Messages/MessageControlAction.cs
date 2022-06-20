@@ -4,6 +4,6 @@ namespace MotionCaptureBasic.MessageSubscribe
     {
         none,
         release,                //关闭
-        subsribe                //开启
+        subscribe                //开启
     }
 }
