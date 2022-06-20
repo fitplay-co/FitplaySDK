@@ -36,6 +36,15 @@ namespace StandTravelModel.TestDemo
                     GUI.Label(new Rect(Screen.width * 0.1f, Screen.height * 0.3f, 300, 80), "Travel模式", labelStyle);
                     break;
             }
+
+            if (standTravelModelManager.isJump)
+            {
+                GUI.Label(new Rect(Screen.width * 0.1f, Screen.height * 0.4f, 300, 80), "有起跳", labelStyle);
+            }
+            else
+            {
+                GUI.Label(new Rect(Screen.width * 0.1f, Screen.height * 0.4f, 300, 80), "没起跳", labelStyle);
+            }
         }
     }
 }

@@ -7,6 +7,9 @@ namespace MotionCaptureBasic.FSM
         private State<TOwner> _currentState; // 当前state
         private State<TOwner> _prevState;    // 前一个state
 
+        public State<TOwner> CurrentState => _currentState;
+        public State<TOwner> PrevState => _prevState;
+
         public StateMachine()
         {
             

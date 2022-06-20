@@ -3,6 +3,7 @@ using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using StandTravelModel.Core;
 using StandTravelModel.Core.Interface;
+using StandTravelModel.MotionModel;
 using UnityEngine;
 using WeirdHumanoid;
 using MotionCaptureBasic.OSConnector;
@@ -40,7 +41,7 @@ namespace StandTravelModel
         private GameObject keyPointsParent;
         private IFKPoseModel fKPoseModel;
 
-        private MotionMode _currentMode;
+        private MotionMode _currentMode = MotionMode.Stand;
         public MotionMode currentMode
         {
             get => _currentMode;
@@ -52,7 +53,9 @@ namespace StandTravelModel
                     ChangeIKModelWeight((int)value);
                     if (value == MotionMode.Stand)
                     {
-                        travelModel.StopPrevAnimation("");
+                        //T强制切回idlestate
+                        travelModel.ChangeState(AnimationList.Idle);
+                        //travelModel.StopPrevAnimation("");
                     }
                 }
             }
@@ -60,6 +63,7 @@ namespace StandTravelModel
 
         public int currentLeg => travelModel.currentLeg;
         public float currentFrequency => travelModel.currentFrequency;
+        public bool isJump => travelModel.isJump;
 
         private bool enable;
         public bool Enabled
@@ -85,7 +89,7 @@ namespace StandTravelModel
         {
             InitMotionDataModel();
             InitModelIKController();
-            var anchorController = InitTraveAnchorController();
+            var anchorController = InitTravelAnchorController();
 
             InitMotionModels(anchorController);
             currentMode = initialMode;
@@ -249,12 +253,18 @@ namespace StandTravelModel
         {
             modelIKController.ChangeLowerBodyIKWeight(weight);
         }
-
+        
         private void UpdateModelParameters()
         {
             if (motionDataModel != null)
             {
                 motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
+            }
+
+            if (travelModel != null)
+            {
+                travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
+                travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
             }
         }
 
@@ -296,11 +306,13 @@ namespace StandTravelModel
             standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
         }
 
-        private AnchorController InitTraveAnchorController()
+        private AnchorController InitTravelAnchorController()
         {
             var anchorController = new AnchorController(transform.position);
             keyPointsParent = new GameObject("KeyPointsParent");
-            keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            //keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            //TODO: 暂时将keyPoints父节点设置为角色模型的transform。后续还需要测试优化确认有没其他问题
+            keyPointsParent.transform.parent = transform;
             return anchorController;
         }
 

@@ -87,6 +87,8 @@ namespace StandTravelModel.Core
 
         public void ChangeLowerBodyIKWeight(float weight)
         {
+            fbbIK.solver.leftShoulderEffector.positionWeight = weight;
+            fbbIK.solver.rightShoulderEffector.positionWeight = weight;
             fbbIK.solver.leftThighEffector.positionWeight = weight;
             fbbIK.solver.leftFootEffector.rotationWeight = weight;
 

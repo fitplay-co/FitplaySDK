@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
+using StandTravelModel.Core;
+using UnityEngine;
 
-namespace StandTravelModel.Core
+namespace StandTravelModel.MotionModel
 {
     public class TravelModelAnimatorController
     {
@@ -26,7 +27,7 @@ namespace StandTravelModel.Core
             this.animatorSettings = animatorSettings;
             characterAnimatorController = new CharacterAnimatorController(modelAnimator);
 
-            animationDict = new Dictionary<int, AnimationStatement>()
+            /*animationDict = new Dictionary<int, AnimationStatement>()
             {
                 {
                     0,
@@ -44,7 +45,7 @@ namespace StandTravelModel.Core
                         AnimationPlaySpeedMultiplier = "dashPlaySpeed"
                     }
                 }
-            };
+            };*/
         }
 
         public void UpdateTravelAnimator()
@@ -64,8 +65,6 @@ namespace StandTravelModel.Core
 
             if (walkDetectionData != null)
             {
-                int runLevels = animatorSettings.runAnimationSettings.Count;
-
                 string animationToPlay = "";
                 string animationTransition = "";
                 string animationPlaySpeedParam = "";
@@ -75,7 +74,7 @@ namespace StandTravelModel.Core
                 _currentLeg = walkDetectionData.legUp;
                 _currentFrequency = walkDetectionData.frequency / 60f;
 
-                for (int i = 0; i < runLevels; i++)
+                /*for (int i = 0; i < runLevels; i++)
                 {
                     var setting = animatorSettings.runAnimationSettings[i];
 
@@ -90,7 +89,7 @@ namespace StandTravelModel.Core
 
                     animationPlaySpeed = setting.playBackSpeed;
                     movingSpeed = setting.movingSpeed;
-                }
+                }*/
 
                 if (animationToPlay != "")
                 {
