@@ -17,5 +17,11 @@ namespace StandTravelModel
         //final ik component
         public FullBodyBipedIK FinalIKComponent;
         public LookAtIK FinalIKLookAtComponent;
+
+        public void SetEnable(bool active)
+        {
+            FinalIKComponent.enabled = active;
+            FinalIKLookAtComponent.enabled = active;
+        }
     }
 }

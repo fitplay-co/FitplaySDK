@@ -71,9 +71,8 @@ namespace StandTravelModel
             get { return enabled; }
             set { enabled = value;
 #if USE_FINAL_IK
-                modelIKSettings.FinalIKComponent.enabled = value;
-                modelIKSettings.FinalIKLookAtComponent.enabled = value;
                 fKPoseModel.SetEnable(value);
+                modelIKSettings.SetEnable(value);
 #else
                 modelIKSettings.IKScript.enabled = value;
 #endif
@@ -111,6 +110,8 @@ namespace StandTravelModel
             modelIKController.InitializeIKTargets(keyPointsParent.transform);
 
             TryInitFKModel();
+            SubscribeMessage();
+            EnableFK();
         }
 
         public void Update()
@@ -339,7 +340,7 @@ namespace StandTravelModel
             if(fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(true);
-                modelIKController.ChangeUpperBodyIKWeight(0);
+                modelIKSettings.SetEnable(false);
                 MotionDataModelHttp.GetInstance().SubscribeFitting();
             }
         }
@@ -349,7 +350,7 @@ namespace StandTravelModel
             if(fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(false);
-                modelIKController.ChangeUpperBodyIKWeight(1);
+                modelIKSettings.SetEnable(true);
                 MotionDataModelHttp.GetInstance().ReleaseFitting();
             }
         }
@@ -387,6 +388,12 @@ namespace StandTravelModel
         {
             motionDataModel = MotionDataModelHttp.GetInstance();
             motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
+        }
+
+        private void SubscribeMessage()
+        {
+            MotionDataModelHttp.GetInstance().SubscribeGazeTracking();
+            MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
         }
     }
 }
