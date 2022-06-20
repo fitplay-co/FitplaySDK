@@ -28,7 +28,7 @@ namespace StandTravelModel
         public TuningParameterGroup tuningParameters;
         public ModelIKSettingGroup modelIKSettings;
         public AnimatorSettingGroup animatorSettings;
-
+        public Transform selfTransform;
         #endregion
         
          
@@ -408,6 +408,12 @@ namespace StandTravelModel
         {
             MotionDataModelHttp.GetInstance().SubscribeActionDetection();
             MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
+        }
+        
+        public void ResetAnchorPosition()
+        {
+            GetTravelAnchor().position = selfTransform.position;
+            GetStandAnchor().position =  selfTransform.position;
         }
     }
 }

@@ -48,6 +48,8 @@ namespace MotionCaptureBasic
             montionDataPreprocessor.ChangeScaleFactor(motionScaling);
         }
 
+        public EventImuHandler OnImuReceived { get; }
+
         /// <summary>
         /// 获取动捕数据17个关键结点
         /// </summary>

@@ -28,8 +28,11 @@ namespace MotionCaptureBasic.Interface
         Count = RightFootIndex + 1
     }
 
+    public delegate void EventImuHandler(IMUItem imuData);
+
     public interface IMotionDataModel
     {
+        EventImuHandler OnImuReceived { get; }
         List<Vector3> GetIKPointsData(bool isLocalCoordinates, bool isPreprocessed);
         GroundLocationItem GetGroundLocationData();
         ActionDetectionItem GetActionDetectionData();
@@ -49,5 +52,6 @@ namespace MotionCaptureBasic.Interface
         bool ReleaseGroundLocation();
         bool ReleaseFitting();
         void SetDebug(bool isDebug);
+        
     }
 }
