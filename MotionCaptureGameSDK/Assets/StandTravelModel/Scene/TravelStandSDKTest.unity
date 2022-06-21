@@ -2832,12 +2832,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635080927}
-  m_LocalRotation: {x: 0.20286955, y: -0.014384317, z: 0.0029796774, w: 0.9790956}
-  m_LocalPosition: {x: 0.26268148, y: 3.0509086, z: -4.8632274}
+  m_LocalRotation: {x: 0.15388627, y: 0.0029637963, z: -0.0004615886, w: 0.988084}
+  m_LocalPosition: {x: -2.9225776, y: 2.261541, z: -3.4926052}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3277943566369086469}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -6628,6 +6628,7 @@ MonoBehaviour:
         stateTransition: isSquat
         playSpeedMultiplier: 
         playBackSpeed: 1
+  selfTransform: {fileID: 0}
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -9549,7 +9550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebug: 0
-  isFKEnabled: 1
+  isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 0
   tuningParameters:
@@ -9603,6 +9604,7 @@ MonoBehaviour:
         stateTransition: isSquat
         playSpeedMultiplier: 
         playBackSpeed: 1
+  selfTransform: {fileID: 0}
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10085,7 +10087,6 @@ Transform:
   m_Children:
   - {fileID: 5651554892728942414}
   - {fileID: 1685914221789206417}
-  - {fileID: 635080931}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

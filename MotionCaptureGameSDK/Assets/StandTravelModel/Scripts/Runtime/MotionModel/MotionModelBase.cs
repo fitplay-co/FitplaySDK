@@ -52,16 +52,40 @@ namespace StandTravelModel.MotionModel
 
         private void PrepareData()
         {
-            var groundLocationData = motionDataModel.GetGroundLocationData();
+            //var groundLocationData = motionDataModel.GetGroundLocationData();
             //Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
 
-            predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
+            //predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
+            predictHipPos.y = (0 - GetMinY(motionDataModel.GetIKPointsData(true, true))) *
+                              tuningParameters.LocalShiftScale.y;
             keyPointsParent.transform.localPosition = predictHipPos;
 
-            var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
-                -groundLocationData.z * tuningParameters.LocalShiftScale.z);
+            /*var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
+                -groundLocationData.z * tuningParameters.LocalShiftScale.z);*/
+
+            var keyPoints = motionDataModel.GetIKPointsData(false, true);
+            var shiftX = (keyPoints[(int) GameKeyPointsType.LeftHip].x + keyPoints[(int) GameKeyPointsType.LeftHip].x) /
+                         2 - 0.5f;
+            var planeShift = new Vector3(shiftX * tuningParameters.LocalShiftScale.x, 0, 0);
+            
+            Debug.Log($"Local Shift: {shiftX}, Hip Height: {predictHipPos.y}");
 
             localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
+        }
+
+        private float GetMinY(List<Vector3> keyPoints3D)
+        {
+            float minY = 1;
+            foreach (var point in keyPoints3D)
+            {
+                var y = point.y;
+                if (y < minY)
+                {
+                    minY = y;
+                }
+            }
+
+            return minY;
         }
 
         public AnchorController GetAnchorController()
