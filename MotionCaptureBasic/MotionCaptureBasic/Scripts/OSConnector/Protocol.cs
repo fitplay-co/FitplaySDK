@@ -183,7 +183,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             try
             {
-                Debug.Log("message:"+message);
+                //Debug.Log("message:"+message);
                 return UpdateMessageHandler(message);
             }
             catch (Exception e)
@@ -201,6 +201,7 @@ namespace MotionCaptureBasic.OSConnector
 
     public interface IKBodyMessageBase { }
 
+    public interface HandleMessageBase { }
     [Serializable]
     public class IKBodyUpdateMessage : IKBodyMessageBase
     {
@@ -212,24 +213,7 @@ namespace MotionCaptureBasic.OSConnector
         public GazeTracking gaze_tracking;
         public ActionDetectionItem action_detection;
         public MonitorItem monitor;
-        
-        public string sensor_type;
-        public string version;
-        public uint device_id;
-        public uint timestamp;
-        public uint seq;
-        
-        public Keys keys;
-        public LinearKey linear_key;
-        public Joystick joystick;
-        public int heart_rate;
-        public int blood_oxygen;
-        
-        public Vector3 accelerometer;
-        public Gyroscope gyroscope;
-        public Magnetometer magnetometer;
-        public Quaternions quaternions;
-        
+       
 
         public KeyPointItem GetJointMessage3D(EJointType jointType)
         {
@@ -267,7 +251,31 @@ namespace MotionCaptureBasic.OSConnector
             return pose_landmark.keypoints?.Count ?? 0;
         }
     }
-    
+
+    [Serializable]
+    public class HandleUpdateMessage : HandleMessageBase
+    {
+        public string type;
+        public string sensor_type;
+        public string version;
+        public uint device_id;
+        public uint timestamp;
+        public uint seq;
+
+        public Keys keys;
+        public LinearKey linear_key;
+        public Joystick joystick;
+        public int heart_rate;
+        public int blood_oxygen;
+
+        public Vector3 accelerometer;
+        public Gyroscope gyroscope;
+        public Magnetometer magnetometer;
+        public Quaternions quaternions;
+
+    }
+
+    # region Motion Capture Data
     [Serializable]
     public class Fitting
     {
@@ -400,15 +408,12 @@ namespace MotionCaptureBasic.OSConnector
         public int up;
         public float strength;
     }
+    #endregion
 
-    [Serializable]
-    public class Accelerometer
-    {
-        public float x;
-        public float y;
-        public float z;
-    }
-
+    /// <summary>
+    /// IMU 数据块
+    /// </summary>
+    #region IMU Data
     [Serializable]
     public class Gyroscope
     {
@@ -456,15 +461,12 @@ namespace MotionCaptureBasic.OSConnector
         public float y;
         public KeyStatus Key;
     }
-    
-    public interface HandleMessageBase
-    {
-    }
-    
+
     public enum KeyStatus
     {
         Down = 0,
         Up = 1,
         Hold = 2
     }
+    #endregion    
 }
