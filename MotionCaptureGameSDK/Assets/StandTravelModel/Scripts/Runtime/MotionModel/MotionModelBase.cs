@@ -64,11 +64,11 @@ namespace StandTravelModel.MotionModel
                 -groundLocationData.z * tuningParameters.LocalShiftScale.z);*/
 
             var keyPoints = motionDataModel.GetIKPointsData(false, true);
-            var shiftX = (keyPoints[(int) GameKeyPointsType.LeftHip].x + keyPoints[(int) GameKeyPointsType.LeftHip].x) /
+            var shiftX = (keyPoints[(int) GameKeyPointsType.LeftHip].x + keyPoints[(int) GameKeyPointsType.RightHip].x) /
                          2 - 0.5f;
             var planeShift = new Vector3(shiftX * tuningParameters.LocalShiftScale.x, 0, 0);
             
-            Debug.Log($"Local Shift: {shiftX}, Hip Height: {predictHipPos.y}");
+            //Debug.Log($"Local Shift: {shiftX}, Hip Height: {predictHipPos.y}");
 
             localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
         }

@@ -9555,9 +9555,9 @@ MonoBehaviour:
   initialMode: 0
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
-    HipPosOffset: {x: 0, y: 0.1, z: 0}
+    HipPosOffset: {x: 0, y: 0, z: 0}
     RotationSensitivity: 100
-    LocalShiftScale: {x: 1.5, y: 0.9, z: 1.5}
+    LocalShiftScale: {x: 1.5, y: 0.8, z: 1.5}
     CacheStepCount: 8
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
