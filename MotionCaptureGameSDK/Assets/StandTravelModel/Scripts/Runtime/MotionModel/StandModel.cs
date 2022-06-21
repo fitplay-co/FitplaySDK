@@ -17,15 +17,15 @@ namespace StandTravelModel.MotionModel
         {
             anchorController.TravelFollowPoint.transform.position =
                 anchorController.StandFollowPoint.transform.position + localShift;
-            selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation *
-                                        predictBodyRotation;
+            /*selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation *
+                                        predictBodyRotation;*/
             base.OnLateUpdate();
         }
 
         public override void OnUpdate(List<Vector3> keyPoints)
         {
             base.OnUpdate(keyPoints);
-            CalculateBodyRotation(keyPoints);
+            //CalculateBodyRotation(keyPoints);
         }
 
         private void CalculateBodyRotation(List<Vector3> keyPoints)

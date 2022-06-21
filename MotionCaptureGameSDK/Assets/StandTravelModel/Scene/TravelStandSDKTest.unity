@@ -9549,7 +9549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebug: 0
-  isFKEnabled: 1
+  isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 0
   tuningParameters:
