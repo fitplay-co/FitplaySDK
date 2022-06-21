@@ -58,13 +58,20 @@ namespace MotionCaptureBasic.OSConnector
             var diff = Time.time - lastTime;
             lastTime = Time.time;
             
-            _bodyMessageBase = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
+            var osData = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
 
-            if (_bodyMessageBase == null)
+            if (osData == null)
             {
                 return;
             }
 
+            if (osData.sensor_type != null && (osData.sensor_type == "imu" || osData.sensor_type == "input" ))
+            {
+                //MotionDataModelHttp.GetInstance().OnImuReceived(osData);
+                return;
+            }
+
+            _bodyMessageBase = osData;
             var d  = _bodyMessageBase.timeProfiling.beforeSendTime - _bodyMessageBase.timeProfiling.startTime;
 
             var nowTime = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000;

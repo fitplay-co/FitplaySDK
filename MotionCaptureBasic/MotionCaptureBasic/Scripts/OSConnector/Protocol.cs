@@ -212,6 +212,24 @@ namespace MotionCaptureBasic.OSConnector
         public GazeTracking gaze_tracking;
         public ActionDetectionItem action_detection;
         public MonitorItem monitor;
+        
+        public string sensor_type;
+        public string version;
+        public uint device_id;
+        public uint timestamp;
+        public uint seq;
+        
+        public Keys keys;
+        public LinearKey linear_key;
+        public Joystick joystick;
+        public int heart_rate;
+        public int blood_oxygen;
+        
+        public Vector3 accelerometer;
+        public Gyroscope gyroscope;
+        public Magnetometer magnetometer;
+        public Quaternions quaternions;
+        
 
         public KeyPointItem GetJointMessage3D(EJointType jointType)
         {
@@ -382,29 +400,7 @@ namespace MotionCaptureBasic.OSConnector
         public int up;
         public float strength;
     }
-    
-    [Serializable]
-    public class IMUItem
-    {
-        public string type;
-        public string sensor_type;
-        public string version;
-        public uint device_id;
-        public uint timestamp;
-        public uint seq;
-        
-        public Keys keys;
-        public LinearKey linear_key;
-        public Joystick joystick;
-        public int heart_rate;
-        public int blood_oxygen;
-        
-        public Vector3 accelerometer;
-        public Gyroscope gyroscope;
-        public Magnetometer magnetometer;
-        public Quaternions quaternions;
-    }
-    
+
     [Serializable]
     public class Accelerometer
     {

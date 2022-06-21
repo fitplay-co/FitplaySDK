@@ -28,7 +28,7 @@ namespace MotionCaptureBasic.Interface
         Count = RightFootIndex + 1
     }
 
-    public delegate void EventImuHandler(IMUItem imuData);
+    public delegate void EventImuHandler(IKBodyUpdateMessage imuData);
 
     public interface IMotionDataModel
     {
