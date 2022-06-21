@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace MotionCaptureBasic.OSConnector
@@ -57,15 +58,16 @@ namespace MotionCaptureBasic.OSConnector
         {
             var diff = Time.time - lastTime;
             lastTime = Time.time;
-
-            HandleUpdateMessage imuData = Protocol.UnMarshal(message) as HandleUpdateMessage;
-            if (imuData != null)
+            if (string.IsNullOrEmpty(message)) return;
+            //TODO:临时方案，需要在OS更新后，优化json数据和数据的解析
+            //HandleUpdateMessage imuData = Protocol.UnMarshal(message) as HandleUpdateMessage;
+            if (message.Contains("sensor_type"))
             {
-                if (imuData.sensor_type != null && (imuData.sensor_type == "imu" || imuData.sensor_type == "input"))
-                {
+                //if (imuData.sensor_type != null && (imuData.sensor_type == "imu" || imuData.sensor_type == "input"))
+                //{
                     BasicEventHandler.DispatchImuDataEvent(message);
                     return;
-                }
+                //}
             }
 
             _bodyMessageBase = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
