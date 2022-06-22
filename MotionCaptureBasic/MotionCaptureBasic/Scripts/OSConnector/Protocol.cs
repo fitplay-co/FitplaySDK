@@ -170,6 +170,12 @@ namespace MotionCaptureBasic.OSConnector
         Count = RFoot + 1
     }
 
+    public class SensorType
+    {
+        public static string CAMERA = "camera";
+        public static string IMU = "imu";
+        public static string INPUT = "input";
+    }
     public static partial class EnumExtend
     {
         public static int Int(this EFKType i)
@@ -192,11 +198,36 @@ namespace MotionCaptureBasic.OSConnector
                 return null;
             }
         }
+        
+        public static MessageType UnMarshalType(string message)
+        {
+            try
+            {
+                return UpdateMessageTypeHandler(message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("e:" + e);
+                return null;
+            }
+        }
+        
         private static IKBodyUpdateMessage UpdateMessageHandler(string message)
         {
             var body = JsonUtility.FromJson<IKBodyUpdateMessage>(message);
             return body;
         }
+        
+        private static MessageType UpdateMessageTypeHandler(string message)
+        {
+            return JsonUtility.FromJson<MessageType>(message);
+        }
+    }
+    
+    [Serializable]
+    public class MessageType : HandleMessageBase
+    {
+        public string sensor_type;
     }
 
     public interface IKBodyMessageBase { }

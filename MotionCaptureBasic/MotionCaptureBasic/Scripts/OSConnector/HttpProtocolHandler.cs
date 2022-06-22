@@ -59,29 +59,28 @@ namespace MotionCaptureBasic.OSConnector
             var diff = Time.time - lastTime;
             lastTime = Time.time;
             if (string.IsNullOrEmpty(message)) return;
-            //TODO:临时方案，需要在OS更新后，优化json数据和数据的解析
-            //HandleUpdateMessage imuData = Protocol.UnMarshal(message) as HandleUpdateMessage;
-            if (message.Contains("sensor_type"))
+            if (isDebug) Debug.Log(message);
+            //只解析数据类型
+            //目前有三种类型数据，camera, imu, input
+            MessageType dataType = Protocol.UnMarshalType(message);
+            if (dataType == null)
             {
-                //if (imuData.sensor_type != null && (imuData.sensor_type == "imu" || imuData.sensor_type == "input"))
-                //{
+                Debug.LogError("Data Error, don't include sensor_type!");
+                return;
+            }
+            //imu和input数据处理通道
+            if (dataType.sensor_type.ToLower() != SensorType.CAMERA)
+            {
                     BasicEventHandler.DispatchImuDataEvent(message);
                     return;
-                //}
             }
-
+            //动捕数据处理通道
             _bodyMessageBase = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
             var d  = _bodyMessageBase.timeProfiling.beforeSendTime - _bodyMessageBase.timeProfiling.startTime;
-
             var nowTime = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000;
            
             //     Console.WriteLine("本级时间戳-startTime:" + (nowTime -  _bodyMessageBase.timeProfiling.startTime) + "，" + nowTime + " ，" + _bodyMessageBase.timeProfiling.startTime);
             //     Console.WriteLine($"上一帧和当前帧相差时间：{diff * 1000} 毫秒,服务器处理的时间：{d } 毫秒");
-
-            if (isDebug)
-            {
-                Debug.Log(message);
-            }
         }
 
         private void OnConnect()
