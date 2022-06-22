@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.SharedDemo", "Final
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{c9a8660d-625f-a633-a0b6-38b86e661d8f}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.Editor", "FinalIK.Editor.csproj", "{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionCapture.StandTravelModel.Editor", "MotionCapture.StandTravelModel.Editor.csproj", "{3990038c-02c1-0e9e-8387-fa86f6ae0082}"
@@ -47,6 +49,10 @@ Global
 		{c9a8660d-625f-a633-a0b6-38b86e661d8f}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c9a8660d-625f-a633-a0b6-38b86e661d8f}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{c9a8660d-625f-a633-a0b6-38b86e661d8f}.Release|Any CPU.Build.0 = Release|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Release|Any CPU.ActiveCfg = Release|Any CPU
