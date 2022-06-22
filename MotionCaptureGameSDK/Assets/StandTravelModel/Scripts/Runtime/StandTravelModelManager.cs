@@ -118,6 +118,8 @@ namespace StandTravelModel
             {
                 DisableFK();
             }
+            
+            //motionDataModel.SetDebug(true);
 
             OnStandTraveSwitch();
         }

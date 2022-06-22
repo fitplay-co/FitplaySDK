@@ -69,10 +69,11 @@ namespace MotionCaptureBasic.OSConnector
                 return;
             }
             //imu和input数据处理通道
-            if (dataType.sensor_type.ToLower() != SensorType.CAMERA)
+            string sType = dataType.sensor_type.ToLower();
+            if (sType == SensorType.IMU || sType == SensorType.INPUT)
             {
-                    BasicEventHandler.DispatchImuDataEvent(message);
-                    return;
+                BasicEventHandler.DispatchImuDataEvent(message);
+                return;
             }
             //动捕数据处理通道
             _bodyMessageBase = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
