@@ -91,7 +91,7 @@ namespace StandTravelModel.Core
             {
                 var keyPoint = keyPointsList[i];
                 keyPoint.z += keyPoint.y * _skewCorrection;
-                fakeNodeList[i].transform.localPosition = keyPointsList[i];
+                fakeNodeList[i].transform.localPosition = keyPoint;
             }
         }
 
