@@ -2432,7 +2432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 1
   tuningParameters:
@@ -4141,6 +4141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1854368273, guid: 141458a5e881c934a97e688bf3b38b07, type: 3}
+      propertyPath: isFKEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6604225175783356169, guid: 141458a5e881c934a97e688bf3b38b07, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -8309,7 +8313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 1
   tuningParameters:
@@ -10766,7 +10770,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2753468361735440063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a70e525c82ce9413fa4d940ad7fcf1db, type: 3}
   m_Name: 
@@ -11318,7 +11322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isFKEnabled: 1
   monsterMappingEnable: 0
   initialMode: 1
   tuningParameters:

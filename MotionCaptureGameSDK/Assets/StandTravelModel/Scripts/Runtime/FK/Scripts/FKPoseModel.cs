@@ -7,7 +7,6 @@ namespace FK
 {
     public class FKPoseModel : MonoBehaviour, IFKPoseModel
     {
-        [SerializeField] private bool debug;
         [SerializeField] private bool pauseFix;
         [SerializeField] private Quaternion[] rotationCorrects;
 
@@ -18,7 +17,7 @@ namespace FK
         [SerializeField] private EFKType[] activeEFKTypes;
         private FKJointPoint[] jointPoints;
         private static readonly EFKType[] defaultEFKTypes = {
-            EFKType.Head,
+            //EFKType.Head,
             EFKType.RHip,
             EFKType.LHip,
             EFKType.Neck,
@@ -26,15 +25,23 @@ namespace FK
             EFKType.LShoulder,
             EFKType.RArm,
             EFKType.RWrist,
-            EFKType.RHand,
+            //EFKType.RHand,
             EFKType.LArm,
             EFKType.LWrist,
-            EFKType.LHand,
+            //EFKType.LHand,
             EFKType.RKnee,
             EFKType.RAnkle,
             EFKType.LKnee,
             EFKType.LAnkle
         };
+
+        public void LateUpdate()
+        {
+            if (jointPoints != null)
+            {
+                PoseUpdate();
+            }
+        }
 
         public void Initialize()
         {
@@ -51,6 +58,11 @@ namespace FK
             this.activeEFKTypes = eFKTypes;
         }
 
+        public void SetFullBodyEFKTypes()
+        {
+            this.activeEFKTypes = defaultEFKTypes;
+        }
+
         public void SetEnable(bool active)
         {
             this.enabled = active;
@@ -59,14 +71,6 @@ namespace FK
         public bool IsEnabled()
         {
             return this.enabled;
-        }
-
-        public void LateUpdate()
-        {
-            if (jointPoints != null)
-            {
-                PoseUpdate();
-            }
         }
 
         private void InitMotionDataModel()

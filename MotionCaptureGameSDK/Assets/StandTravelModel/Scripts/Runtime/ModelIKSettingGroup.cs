@@ -21,7 +21,11 @@ namespace StandTravelModel
         public void SetEnable(bool active)
         {
             FinalIKComponent.enabled = active;
-            FinalIKLookAtComponent.enabled = active;
+            //FinalIKLookAtComponent.enabled = active;
+            if(!active)
+            {
+                FinalIKLookAtComponent.enabled = active;
+            }
         }
     }
 }
