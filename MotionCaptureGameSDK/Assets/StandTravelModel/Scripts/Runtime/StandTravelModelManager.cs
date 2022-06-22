@@ -21,7 +21,6 @@ namespace StandTravelModel
     {
         #region Serializable Variables
         
-        public bool isDebug;
         public bool isFKEnabled;
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
@@ -93,7 +92,6 @@ namespace StandTravelModel
 
             InitMotionModels(anchorController);
             currentMode = initialMode;
-            SwitchMotionMode(currentMode);
 
             TryInitWeirdHumanConverter();
         }
@@ -103,8 +101,7 @@ namespace StandTravelModel
 #if USE_FINAL_IK
             modelIKSettings.IKScript.enabled = false;
 #else
-            modelIKSettings.FinalIKComponent.enabled = false;
-            modelIKSettings.FinalIKLookAtComponent.enabled = false;
+            modelIKSettings.SetEnable(false);
 #endif
             transform.rotation = Quaternion.identity;
 
@@ -117,28 +114,16 @@ namespace StandTravelModel
             {
                 EnableFK();
             }
+            else
+            {
+                DisableFK();
+            }
+
+            OnStandTraveSwitch();
         }
 
         public void Update()
         {
-            if(isDebug)
-            {
-                if(motionDataModel.GetGazeTrackingData() != null)
-                {
-                    Debug.Log("gaze ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -> " + (motionDataModel.GetGazeTrackingData()));
-                }
-
-                if(motionDataModel.GetGroundLocationData() != null)
-                {
-                    Debug.Log("ground --- " + motionDataModel.GetGroundLocationData().tracing);
-                }
-
-                if(motionDataModel.GetActionDetectionData() != null)
-                {
-                    Debug.Log("action --- " + motionDataModel.GetActionDetectionData().version);
-                }
-            }
-
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -200,20 +185,39 @@ namespace StandTravelModel
                     break;
             }
 
-            SwitchMotionMode(currentMode);
+            OnStandTraveSwitch();
 
             return currentMode;
         }
 
+        private void OnStandTraveSwitch()
+        {
+            SwitchMotionMode(currentMode);
+            SwitchFKBody(currentMode);
+        }
+
         private void SwitchMotionMode(MotionMode mode)
         {
-            switch (currentMode)
+            switch (mode)
             {
                 case MotionMode.Stand:
                     motionModel = standModel;
                     break;
                 case MotionMode.Travel:
                     motionModel = travelModel;
+                    break;
+            }
+        }
+
+        private void SwitchFKBody(MotionMode mode)
+        {
+            switch (mode)
+            {
+                case MotionMode.Stand:
+                    FKBodyFull();
+                    break;
+                case MotionMode.Travel:
+                    FKBodyUpper();
                     break;
             }
         }
@@ -375,27 +379,27 @@ namespace StandTravelModel
             {
                 fKPoseModel = gameObject.AddComponent<FKPoseModel>();
                 fKPoseModel.SetEnable(false);
-                fKPoseModel.SetActiveEFKTypes(
-                    EFKType.Neck,
-                    EFKType.Head,
-                    EFKType.LShoulder,
-                    EFKType.RShoulder,
-                    EFKType.LArm,
-                    EFKType.RArm,
-                    EFKType.LWrist,
-                    EFKType.RWrist/* ,
-                    EFKType.LHand,
-                    EFKType.RHand,
-                    EFKType.RHip,
-                    EFKType.LHip,
-                    EFKType.RKnee,
-                    EFKType.LKnee,
-                    EFKType.RAnkle,
-                    EFKType.LAnkle */
-                );
-
                 fKPoseModel.Initialize();
             }
+        }
+
+        private void FKBodyUpper()
+        {
+            fKPoseModel.SetActiveEFKTypes(
+                EFKType.Neck,
+                //EFKType.Head,
+                EFKType.LShoulder,
+                EFKType.RShoulder,
+                EFKType.LArm,
+                EFKType.RArm,
+                EFKType.LWrist,
+                EFKType.RWrist
+            );
+        }
+
+        private void FKBodyFull()
+        {
+            fKPoseModel.SetFullBodyEFKTypes();
         }
 
         private void InitMotionDataModel()
