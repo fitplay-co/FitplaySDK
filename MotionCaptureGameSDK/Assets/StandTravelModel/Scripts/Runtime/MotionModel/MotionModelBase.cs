@@ -14,7 +14,7 @@ namespace StandTravelModel.MotionModel
         protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
 
-        private Vector3 predictHipPos;
+        private Vector3 predictHipPos = Vector3.zero;
         private Transform keyPointsParent;
 
         protected IMotionDataModel motionDataModel;
@@ -68,6 +68,7 @@ namespace StandTravelModel.MotionModel
             //Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
 
             predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
+            keyPointsParent.transform.localPosition = predictHipPos;
             var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
                 -groundLocationData.z * tuningParameters.LocalShiftScale.z);
 #endif

@@ -6573,7 +6573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
   isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 1
@@ -9549,10 +9548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
-  isFKEnabled: 0
+  isFKEnabled: 1
   monsterMappingEnable: 0
-  initialMode: 0
+  initialMode: 1
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
     HipPosOffset: {x: 0, y: 0, z: 0}
