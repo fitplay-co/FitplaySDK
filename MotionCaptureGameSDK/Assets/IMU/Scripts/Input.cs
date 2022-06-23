@@ -40,10 +40,10 @@ namespace IMU
         /// </summary>
         public static Dictionary<KeyCode, float> KeyValueMap = new Dictionary<KeyCode, float>()
         {
-            {KeyCode.L_JoyStack_H, 0},
-            {KeyCode.L_JoyStack_V, 0},
-            {KeyCode.R_JoyStack_H, 0},
-            {KeyCode.R_JoyStack_V, 0},
+            {KeyCode.L_JoyStick_H, 0},
+            {KeyCode.L_JoyStick_V, 0},
+            {KeyCode.R_JoyStick_H, 0},
+            {KeyCode.R_JoyStick_V, 0},
             {KeyCode.L_L1Key, 0},
             {KeyCode.L_L2Key, 0},
             {KeyCode.R_L1Key, 0},

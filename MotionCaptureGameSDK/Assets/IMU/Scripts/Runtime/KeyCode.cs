@@ -1984,14 +1984,9 @@ namespace IMU
         L_L2Key = 520,
         R_L2Key = 521,
         
-        L_JoyStack_H = 522,
-        L_JoyStack_V = 523,
-        R_JoyStack_H = 524,
-        R_JoyStack_V = 525,
-        //JoyStickXLeft,
-        //JoyStickXRight,
-        //JoyStickYUp,
-        //JoyStickYDown,
-        //JoyStickCenter,
+        L_JoyStick_H = 522,
+        L_JoyStick_V = 523,
+        R_JoyStick_H = 524,
+        R_JoyStick_V = 525,
     }
 }

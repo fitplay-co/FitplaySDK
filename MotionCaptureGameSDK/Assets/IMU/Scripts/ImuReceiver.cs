@@ -19,7 +19,7 @@ namespace IMU
             //var app = ImuManager.Create();
             //app.OnReceived += this.OnReceived;
             BasicEventHandler.OnImuDataRecieved += this.OnReceived;
-            HttpProtocolHandler.GetInstance().SetDebug(true);
+            //HttpProtocolHandler.GetInstance().SetDebug(true);
         }
 
         void Update()
@@ -163,8 +163,8 @@ namespace IMU
                             
                             Input.KeyValueMap[KeyCode.L_L1Key] = linearKey.L1;
                             Input.KeyValueMap[KeyCode.L_L2Key] = linearKey.L2;
-                            Input.KeyValueMap[KeyCode.L_JoyStack_H] = joystick.x;
-                            Input.KeyValueMap[KeyCode.L_JoyStack_V] = joystick.y;
+                            Input.KeyValueMap[KeyCode.L_JoyStick_H] = joystick.x;
+                            Input.KeyValueMap[KeyCode.L_JoyStick_V] = joystick.y;
                         }
                         else
                         {
@@ -175,8 +175,8 @@ namespace IMU
                             
                             Input.KeyValueMap[KeyCode.R_L1Key] = linearKey.L1;
                             Input.KeyValueMap[KeyCode.R_L2Key] = linearKey.L2;
-                            Input.KeyValueMap[KeyCode.R_JoyStack_H] = joystick.x;
-                            Input.KeyValueMap[KeyCode.R_JoyStack_V] = joystick.y;
+                            Input.KeyValueMap[KeyCode.R_JoyStick_H] = joystick.x;
+                            Input.KeyValueMap[KeyCode.R_JoyStick_V] = joystick.y;
                         }
                         CheckAllKeyDown();
                         break;
