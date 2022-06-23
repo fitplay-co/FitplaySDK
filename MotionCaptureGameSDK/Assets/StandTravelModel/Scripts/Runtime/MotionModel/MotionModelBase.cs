@@ -14,7 +14,7 @@ namespace StandTravelModel.MotionModel
         protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
 
-        private Vector3 predictHipPos;
+        private Vector3 predictHipPos = Vector3.zero;
         private Transform keyPointsParent;
 
         protected IMotionDataModel motionDataModel;
@@ -52,24 +52,26 @@ namespace StandTravelModel.MotionModel
 
         private void PrepareData()
         {
-            //var groundLocationData = motionDataModel.GetGroundLocationData();
-            //Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
-
-            //predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
+#if NOT_USE_GROUND_LOCATION
             predictHipPos.y = (0 - GetMinY(motionDataModel.GetIKPointsData(true, true))) *
                               tuningParameters.LocalShiftScale.y;
             keyPointsParent.transform.localPosition = predictHipPos;
-
-            /*var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
-                -groundLocationData.z * tuningParameters.LocalShiftScale.z);*/
-
+            
             var keyPoints = motionDataModel.GetIKPointsData(false, true);
             var shiftX = (keyPoints[(int) GameKeyPointsType.LeftHip].x + keyPoints[(int) GameKeyPointsType.RightHip].x) /
-                         2 - 0.5f;
+                2 - 0.5f;
             var planeShift = new Vector3(shiftX * tuningParameters.LocalShiftScale.x, 0, 0);
             
             //Debug.Log($"Local Shift: {shiftX}, Hip Height: {predictHipPos.y}");
+#else
+            var groundLocationData = motionDataModel.GetGroundLocationData();
+            //Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
 
+            predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
+            keyPointsParent.transform.localPosition = predictHipPos;
+            var planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
+                -groundLocationData.z * tuningParameters.LocalShiftScale.z);
+#endif
             localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
         }
 
