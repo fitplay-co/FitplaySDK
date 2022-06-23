@@ -1,4 +1,4 @@
-namespace MotionCaptureBasic.MessageSubscribe
+namespace MotionCaptureBasic.MessageSend
 {
     public enum MessageFittingType
     {

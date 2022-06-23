@@ -2,13 +2,13 @@ using System.Text;
 using UnityEngine;
 using UnityWebSocket;
 
-namespace MotionCaptureBasic.MessageSubscribe
+namespace MotionCaptureBasic.MessageSend
 {
-    public class MessageSubscriber
+    public class MessageSender
     {
         private IWebSocket socket;
 
-        public MessageSubscriber(IWebSocket socket)
+        public MessageSender(IWebSocket socket)
         {
             this.socket = socket;
         }

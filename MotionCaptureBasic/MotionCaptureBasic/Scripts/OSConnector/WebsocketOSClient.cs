@@ -1,6 +1,6 @@
 using System;
 using UnityWebSocket;
-using MotionCaptureBasic.MessageSubscribe;
+using MotionCaptureBasic.MessageSend;
 using UnityEngine;
 
 namespace MotionCaptureBasic.OSConnector
@@ -15,7 +15,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private string url = "ws://127.0.0.1:8181/";
         private IWebSocket socket;
-        private MessageSubscriber messageSubscriber;  
+        private MessageSender messageSubscriber;  
 
         private WebsocketOSClient()
         {
@@ -111,7 +111,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private void InitMessageSubscriber(IWebSocket webSocket)
         {
-            messageSubscriber = new MessageSubscriber(webSocket);
+            messageSubscriber = new MessageSender(webSocket);
         }
         
         private void Socket_OnOpen(object sender, OpenEventArgs e)

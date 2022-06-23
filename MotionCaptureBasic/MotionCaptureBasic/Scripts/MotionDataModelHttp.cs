@@ -216,6 +216,8 @@ namespace MotionCaptureBasic
         {
             return WebsocketOSClient.GetInstance().SubscribeFitting(false);
         }
+        
+        
 
         public bool SubscribeHandPoseture()
         {
