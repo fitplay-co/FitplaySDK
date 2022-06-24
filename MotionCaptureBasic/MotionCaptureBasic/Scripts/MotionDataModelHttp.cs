@@ -217,6 +217,47 @@ namespace MotionCaptureBasic
             return WebsocketOSClient.GetInstance().SubscribeFitting(false);
         }
         
+        /// <summary>
+        /// 设置FPS
+        /// </summary>
+        /// <param name="fps"></param>
+        /// <returns></returns>
+        public bool SendFrameRateControl(int fps)
+        {
+            return WebsocketOSClient.GetInstance().SendFrameRateControl(fps);
+        }
+        /// <summary>
+        ///  震动
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="vibrationType"></param>
+        /// <param name="strength"></param>
+        /// <returns></returns>
+        public bool SendVibrationControl(int deviceId, int vibrationType, int strength)
+        {
+            return WebsocketOSClient.GetInstance().SendVibrationControl(deviceId, vibrationType, strength);
+        }
+        
+        /// <summary>
+        ///重置imu
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        public bool SendImuResetControl(int deviceId)
+        {
+            return WebsocketOSClient.GetInstance().SendImuResetControl(deviceId);
+        }
+
+        /// <summary>
+        /// 心率计控制
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public bool SendHeartControl(int deviceId, int command)
+        {
+            return WebsocketOSClient.GetInstance().SendHeartControl(deviceId, command);
+        }
         
 
         public bool SubscribeHandPoseture()

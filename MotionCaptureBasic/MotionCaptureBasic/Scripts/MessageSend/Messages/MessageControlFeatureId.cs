@@ -6,6 +6,8 @@ namespace MotionCaptureBasic.MessageSend
         ground_location,
         action_detection,
         gaze_tracking,
-        fitting
+        fitting,
+        imu,
+        
     }
 }
