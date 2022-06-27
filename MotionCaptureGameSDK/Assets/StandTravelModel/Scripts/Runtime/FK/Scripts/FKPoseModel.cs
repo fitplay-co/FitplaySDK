@@ -15,7 +15,7 @@ namespace FK
         private IMotionDataModel motionDataModel;
         
         [SerializeField] private EFKType[] activeEFKTypes;
-        private FKJointPoint[] jointPoints;
+        [SerializeField] private FKJointPoint[] jointPoints;
         private static readonly EFKType[] defaultEFKTypes = {
             //EFKType.Head,
             EFKType.RHip,
@@ -95,7 +95,6 @@ namespace FK
 
             SetJointPoint(EFKType.Head, anim);
             SetJointPoint(EFKType.Neck, anim);
-            SetJointPoint(EFKType.CenterHip, anim);
 
             SetJointPoint(EFKType.RHip, anim);
             SetJointPoint(EFKType.RKnee, anim);
@@ -129,7 +128,7 @@ namespace FK
                 {
                     var index = activeEFKTypes[i].Int();
 
-                    if(index > 0 && index < jointPoints.Length && index < fitting.rotation.Count)
+                    if(index >= 0 && index < jointPoints.Length && index < fitting.rotation.Count)
                     {
                         jointPoints[index].Transform.rotation = Quaternion.Euler(0, 180, 0) * anim.transform.rotation * fitting.rotation[index].Rotation();
 
@@ -160,29 +159,16 @@ namespace FK
 
         private void InitCorrects(Animator animator)
         {
-            InitCorrects(animator, defaultEFKTypes);
-        }
-
-        private void InitCorrects(Animator animator, params EFKType[] eFKTypes)
-        {
-            var totalTypes = System.Enum.GetNames(typeof(EFKType));
-            rotationCorrects = new Quaternion[totalTypes.Length];
-
-            foreach(var eFKType in eFKTypes)
+            var preparedData = transform.GetComponent<FKPoseModelPreparedData>();
+            if(preparedData != null)
             {
-                InitCorrect(animator, eFKType);
+                rotationCorrects = preparedData.GetRotationCorrects();
             }
-        }
+            else
+            {
+                rotationCorrects = FKPoseModelRotateCorrectsGetter.GetCorrects(animator, defaultEFKTypes);
+            }
 
-        private void InitCorrect(Animator animator, EFKType eFKType)
-        {
-            var eulerAgY = animator.transform.eulerAngles.y;
-            var boneType = FKHumanBodyBonesToEFKTypesMapper.GetHumanBodyBone(eFKType);
-            var boneTran = animator.GetBoneTransform(boneType);
-            var stanAngs = FKStandardPoseAnglesContainer.GetPosAngles(eFKType);
-            var stanRota = Quaternion.Euler(stanAngs);
-            var quaterni = Quaternion.Inverse(stanRota) * (Quaternion.Euler(0, -eulerAgY, 0) * boneTran.rotation);
-            rotationCorrects[eFKType.Int()] = quaterni;
         }
 
         private Vector3 TriangleNormal(Vector3 a, Vector3 b, Vector3 c)
