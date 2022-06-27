@@ -2,6 +2,7 @@ using UnityEngine;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
+using StandTravelModel.Core;
 
 namespace FK
 {
@@ -40,6 +41,7 @@ namespace FK
             if (jointPoints != null)
             {
                 PoseUpdate();
+                MotionCaptureEvent.DispatchAfterSetIKEvent();
             }
         }
 
