@@ -203,6 +203,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             try
             {
+                //Debug.Log("message:"+message);
                 return UpdateMessageTypeHandler(message);
             }
             catch (Exception e)

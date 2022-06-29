@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK", "FinalIK.csproj", "{d489bbd6-f6a0-6d89-6359-61c782305f94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionCapture.StandTravelModel", "MotionCapture.StandTravelModel.csproj", "{f594b386-7592-c036-fbde-ebe2d6068588}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.Baker", "FinalIK.Baker.csproj", "{8dc6a378-5215-db3d-3f90-ff4c22fd20c7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.Shared", "FinalIK.Shared.csproj", "{4578e353-ff02-9b8a-f1a0-048cf0ce8b50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionCapture.StandTravelModel", "MotionCapture.StandTravelModel.csproj", "{f594b386-7592-c036-fbde-ebe2d6068588}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.SharedDemo", "FinalIK.SharedDemo.csproj", "{d735a9ff-c148-98b2-a89f-d00a2044b053}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{c9a8660d-625f-a633-a0b6-38b86e661d8f}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.Editor", "FinalIK.Editor.csproj", "{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}"
 EndProject
@@ -29,6 +29,14 @@ Global
 		{d489bbd6-f6a0-6d89-6359-61c782305f94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{d489bbd6-f6a0-6d89-6359-61c782305f94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{d489bbd6-f6a0-6d89-6359-61c782305f94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Release|Any CPU.Build.0 = Release|Any CPU
+		{f594b386-7592-c036-fbde-ebe2d6068588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{f594b386-7592-c036-fbde-ebe2d6068588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{f594b386-7592-c036-fbde-ebe2d6068588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{f594b386-7592-c036-fbde-ebe2d6068588}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8dc6a378-5215-db3d-3f90-ff4c22fd20c7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8dc6a378-5215-db3d-3f90-ff4c22fd20c7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8dc6a378-5215-db3d-3f90-ff4c22fd20c7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,10 +45,6 @@ Global
 		{4578e353-ff02-9b8a-f1a0-048cf0ce8b50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4578e353-ff02-9b8a-f1a0-048cf0ce8b50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4578e353-ff02-9b8a-f1a0-048cf0ce8b50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{f594b386-7592-c036-fbde-ebe2d6068588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{f594b386-7592-c036-fbde-ebe2d6068588}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{f594b386-7592-c036-fbde-ebe2d6068588}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{f594b386-7592-c036-fbde-ebe2d6068588}.Release|Any CPU.Build.0 = Release|Any CPU
 		{d735a9ff-c148-98b2-a89f-d00a2044b053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{d735a9ff-c148-98b2-a89f-d00a2044b053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{d735a9ff-c148-98b2-a89f-d00a2044b053}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,10 +53,6 @@ Global
 		{c9a8660d-625f-a633-a0b6-38b86e661d8f}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c9a8660d-625f-a633-a0b6-38b86e661d8f}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{c9a8660d-625f-a633-a0b6-38b86e661d8f}.Release|Any CPU.Build.0 = Release|Any CPU
-		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Release|Any CPU.ActiveCfg = Release|Any CPU

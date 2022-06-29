@@ -9548,7 +9548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFKEnabled: 1
+  isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 1
   tuningParameters:

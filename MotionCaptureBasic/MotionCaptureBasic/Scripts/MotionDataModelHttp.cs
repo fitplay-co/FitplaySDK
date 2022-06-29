@@ -216,7 +216,12 @@ namespace MotionCaptureBasic
         {
             return WebsocketOSClient.GetInstance().SubscribeFitting(false);
         }
-        
+
+        public bool ResetGroundLocation()
+        {
+            return WebsocketOSClient.GetInstance().ResetGroundLocation();
+        }
+
         /// <summary>
         /// 设置FPS
         /// </summary>

@@ -97,7 +97,17 @@ namespace MotionCaptureBasic.OSConnector
 
             return false;
         }
-        
+
+        public bool ResetGroundLocation()
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.ResetGroundLocation();
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// 设置FPS
         /// </summary>

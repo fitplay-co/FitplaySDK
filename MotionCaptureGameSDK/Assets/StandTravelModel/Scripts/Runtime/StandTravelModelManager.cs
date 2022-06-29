@@ -256,6 +256,11 @@ namespace StandTravelModel
             }
         }
 
+        public void ResetGroundLocation()
+        {
+            motionDataModel.ResetGroundLocation();
+        }
+
         public List<Vector3> GetKeyPointsList()
         {
             return keyPointsList;
@@ -406,14 +411,14 @@ namespace StandTravelModel
 
         private void InitMotionDataModel()
         {
-            motionDataModel = MotionDataModelHttp.GetInstance();
+            motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
             motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
         }
 
         private void SubscribeMessage()
         {
-            MotionDataModelHttp.GetInstance().SubscribeActionDetection();
-            MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
+            motionDataModel.SubscribeActionDetection();
+            motionDataModel.SubscribeGroundLocation();
         }
         
         public void ResetAnchorPosition()

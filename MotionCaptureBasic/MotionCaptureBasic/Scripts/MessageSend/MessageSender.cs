@@ -13,31 +13,61 @@ namespace MotionCaptureBasic.MessageSend
             this.socket = socket;
         }
 
+        /// <summary>
+        /// 发送注册帧
+        /// </summary>
+        /// <returns></returns>
         public bool SendMessageRegister()
         {
             return SendAsync(MessageFactory.CreateMessageRegister());
         }
 
+        /// <summary>
+        /// 订阅GazeTracking的控制帧
+        /// </summary>
+        /// <param name="active">true: 订阅 false: 释放</param>
+        /// <returns></returns>
         public bool SubscribeGazeTracking(bool active)
         {
             return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.gaze_tracking, active));
         }
 
+        /// <summary>
+        /// 订阅Ground Location的控制帧
+        /// </summary>
+        /// <param name="active">true: 订阅 false: 释放</param>
+        /// <returns></returns>
         public bool SubscribeGroundLocation(bool active)
         {
             return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location, active));
         }
 
+        /// <summary>
+        /// 订阅Action Detection的控制帧
+        /// </summary>
+        /// <param name="active">true: 订阅 false: 释放</param>
+        /// <returns></returns>
         public bool SubscribeActionDetection(bool active)
         {
             return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.action_detection, active));
         }
 
+        /// <summary>
+        /// 订阅FK数据的控制帧
+        /// </summary>
+        /// <param name="active">true: 订阅 false: 释放</param>
+        /// <returns></returns>
         public bool SubscribeFitting(bool active)
         {
             return SendAsync(MessageFactory.CreateMessageFitting(active));
         }
-        
+
+        public bool ResetGroundLocation()
+        {
+            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location,
+                MessageControlAction.reset));
+        }
+
         /// <summary>
         /// 控制帧率
         /// </summary>
