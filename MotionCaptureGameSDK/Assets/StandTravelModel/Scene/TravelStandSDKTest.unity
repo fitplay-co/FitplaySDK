@@ -3127,6 +3127,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1722356625652655786, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &886378781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 886378784}
+  - component: {fileID: 886378783}
+  - component: {fileID: 886378782}
+  m_Layer: 0
+  m_Name: KeyPointsRecorder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &886378782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886378781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868ba4a638939254bab746fc437d215e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2269
+  keyPointsRecorder: {fileID: 886378783}
+  showerElements:
+  - angle: 25.898554
+    keyPointsTypeFor: 13
+    keyPointsTypeMid: 11
+    keyPointsTypeBak: 9
+  showerElementWithDirects:
+  - angle: 149.01083
+    keyPointsTypeFor: 13
+    keyPointsTypeMid: 11
+    direct: {x: 0, y: 1, z: 0}
+--- !u!114 &886378783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886378781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a080f9ebb3f52c54fa7c4879b25d376c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gettingIndex: 0
+  enableRecord: 0
+  recordedAcc: 0
+  recordDelay: 0
+  recordLength: 0
+--- !u!4 &886378784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886378781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.9490247, y: 1.0843488, z: -0.011746973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888825779
 GameObject:
   m_ObjectHideFlags: 0
@@ -9529,6 +9602,7 @@ GameObject:
   - component: {fileID: 2753468361735440064}
   - component: {fileID: 2753468361735440066}
   - component: {fileID: 2753468361735440065}
+  - component: {fileID: 2753468361735440067}
   m_Layer: 0
   m_Name: TestMan
   m_TagString: Untagged
@@ -9629,6 +9703,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 2753468361735440064}
+--- !u!114 &2753468361735440067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753468361735440063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76d06b6514358449beedc63b2c32f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  useRecordData: 0
+  simulat: 1
 --- !u!4 &2787233591588614682
 Transform:
   m_ObjectHideFlags: 0

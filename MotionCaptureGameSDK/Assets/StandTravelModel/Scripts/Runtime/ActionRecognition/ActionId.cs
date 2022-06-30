@@ -6,5 +6,11 @@ public enum ActionId
     ArmExtensionLeftUp,
     ArmExtensionLeftDown,
     ArmExtensionRightUp,
-    ArmExtensionRightDown
+    ArmExtensionRightDown,
+    LegUpLeft,
+    LegUpRight,
+    LegDownLeft,
+    LegDownRight,
+    LegIdleLeft,
+    LegIdleRight
 }

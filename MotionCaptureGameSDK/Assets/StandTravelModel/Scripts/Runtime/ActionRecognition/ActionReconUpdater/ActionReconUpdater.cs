@@ -1,22 +1,55 @@
 using UnityEngine;
 using StandTravelModel;
+using Recorder;
+
+public delegate void OnActionDetect(ActionId actionId);
 
 [RequireComponent(typeof(StandTravelModelManager))]
-public class ActionReconUpdater : MonoBehaviour
+public partial class ActionReconUpdater : MonoBehaviour
 {
+    [SerializeField] private bool debug;
+    [SerializeField] private bool useRecordData;
+
+    public event OnActionDetect onActionDetect;
+
+    private KeyPointsRecorder keyPointsRecorder;
     private IActionReconInstance reconInstance;
     private StandTravelModelManager standTravelModelManager;
 
+    private void OnValidate() {
+        if(reconInstance != null)
+        {
+            reconInstance.SetDebug(debug);
+        }
+    }
+
     private void Awake() {
-        reconInstance = CreateReconInstance();
-        standTravelModelManager = GetComponent<StandTravelModelManager>();
+        this.reconInstance = CreateReconInstance(OnActionDetect);
+        this.reconInstance.SetDebug(debug);
+
+        this.standTravelModelManager = GetComponent<StandTravelModelManager>();
         this.enabled = standTravelModelManager != null;
+
+        InitRecorder();
     }
 
     private void Update() {
-        if(reconInstance != null && standTravelModelManager)
+        if(reconInstance != null)
         {
-            reconInstance.OnUpdate(standTravelModelManager.GetKeyPointsList());
+            if(useRecordData)
+            {
+                if(keyPointsRecorder != null)
+                {
+                    reconInstance.OnUpdate(keyPointsRecorder.GetRecordKeyPoints());
+                }
+            }
+            else
+            {
+                if(standTravelModelManager != null)
+                {
+                    reconInstance.OnUpdate(standTravelModelManager.GetKeyPointsList());
+                }
+            }
         }
     }
 
@@ -25,8 +58,28 @@ public class ActionReconUpdater : MonoBehaviour
         return reconInstance.GetActionId();
     }
 
-    protected virtual IActionReconInstance CreateReconInstance()
+    protected virtual IActionReconInstance CreateReconInstance(OnActionDetect onActionDetect)
     {
-        return new ActionReconInstance();
+        return new ActionReconInstance(onActionDetect);
+    }
+
+    private void OnActionDetect(ActionId actionId)
+    {
+        if(onActionDetect != null)
+        {
+            onActionDetect(actionId);
+        }
+    }
+
+    private void InitRecorder()
+    {
+        if(useRecordData)
+        {
+            keyPointsRecorder = GetComponent<KeyPointsRecorder>();
+            if(keyPointsRecorder == null)
+            {
+                keyPointsRecorder = gameObject.AddComponent<KeyPointsRecorder>();
+            }
+        }
     }
 }

@@ -22,4 +22,12 @@ public class ActionRecognizer
     {
         reconList.Add(recon);
     }
+
+    public void SetDebug(bool isDebug)
+    {
+        foreach(var recon in reconList)
+        {
+            recon.SetDebug(isDebug);
+        }
+    }
 }
