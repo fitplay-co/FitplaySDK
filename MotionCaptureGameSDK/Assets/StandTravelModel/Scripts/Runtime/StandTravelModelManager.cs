@@ -194,7 +194,6 @@ namespace StandTravelModel
 
         private void OnStandTraveSwitch()
         {
-            transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             SwitchMotionMode(currentMode);
             SwitchFKBody(currentMode);
         }
