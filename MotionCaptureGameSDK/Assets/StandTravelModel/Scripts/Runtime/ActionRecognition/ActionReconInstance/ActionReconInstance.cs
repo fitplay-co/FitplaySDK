@@ -3,20 +3,45 @@ using UnityEngine;
 
 public class ActionReconInstance : IActionReconInstance
 {
-    protected ActionRecognizer recognizer;
+    private ActionId lastActionId;
+    private OnActionDetect onActionDetect;
+    private ActionRecognizer recognizer;
 
-    public ActionReconInstance()
+    public ActionReconInstance(OnActionDetect onActionDetect)
     {
-        recognizer = new ActionRecognizer();
+        this.recognizer = new ActionRecognizer();
+        this.onActionDetect = onActionDetect;
     }
 
     public virtual ActionId GetActionId()
     {
-        return ActionId.None;
+        return lastActionId;
     }
 
     public void OnUpdate(List<Vector3> keyPoints)
     {
-        recognizer.OnUpdate(keyPoints);
+        if(keyPoints != null)
+        {
+            recognizer.OnUpdate(keyPoints);
+        }
+    }
+
+    public void SetDebug(bool isDebug)
+    {
+        recognizer.SetDebug(isDebug);
+    }
+
+    protected void AddRecon(IActionRecon recon)
+    {
+        recognizer.AddRecon(recon);
+    }
+
+    protected virtual void OnActionRecon(ActionId actionId)
+    {
+        lastActionId = actionId;
+        if(onActionDetect != null)
+        {
+            onActionDetect(actionId);
+        }
     }
 }

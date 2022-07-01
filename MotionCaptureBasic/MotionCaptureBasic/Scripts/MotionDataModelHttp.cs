@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
@@ -11,7 +12,8 @@ namespace MotionCaptureBasic
         private static MotionDataModelHttp instance;
         
         private static readonly object _Synchronized = new object();
-        
+
+        private ActionDetectionItem simulatActionDetectionItem;
         private HttpProtocolHandler httpProtocolHandler;
         private MotionDataPreprocessor montionDataPreprocessor;
         private List<Vector3> ikPointsDataList;
@@ -129,8 +131,18 @@ namespace MotionCaptureBasic
             return ikBodyUpdateMessage.ground_location;
         }
 
+        public void SetSimulatActionDetectionData(ActionDetectionItem simulatActionDetectionItem)
+        {
+            this.simulatActionDetectionItem = simulatActionDetectionItem;
+        }
+
         public ActionDetectionItem GetActionDetectionData()
         {
+            if (simulatActionDetectionItem != null)
+            {
+                return simulatActionDetectionItem;
+            }
+            
             var bodymessage = httpProtocolHandler.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))

@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IActionReconInstance
+public interface IActionReconComp
 {
     void OnUpdate(List<Vector3> keyPoints);
-    ActionId GetActionId();
+    void SetAction(Action<bool> onAction);
     void SetDebug(bool isDebug);
 }

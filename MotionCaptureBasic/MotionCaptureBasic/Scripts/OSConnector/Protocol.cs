@@ -432,6 +432,8 @@ namespace MotionCaptureBasic.OSConnector
         public int legUp;
         public int frequency;
         public float strength;
+        public int leftLeg;
+        public int rightLeg;
     }
     
     [Serializable]
