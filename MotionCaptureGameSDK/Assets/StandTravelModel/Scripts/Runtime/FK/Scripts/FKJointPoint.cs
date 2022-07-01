@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FK
 {
+    [System.Serializable]
     public class FKJointPoint
     {
         // Bones

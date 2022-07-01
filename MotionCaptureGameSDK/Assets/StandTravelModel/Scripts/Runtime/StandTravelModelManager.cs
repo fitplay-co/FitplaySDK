@@ -194,6 +194,7 @@ namespace StandTravelModel
 
         private void OnStandTraveSwitch()
         {
+            transform.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             SwitchMotionMode(currentMode);
             SwitchFKBody(currentMode);
         }
@@ -231,18 +232,18 @@ namespace StandTravelModel
 
         public Transform GetTravelAnchor()
         {
-            if(motionModel != null)
+            if(standModel != null)
             {
-                return motionModel.GetAnchorController().TravelFollowPoint.transform;
+                return standModel.GetAnchorController().TravelFollowPoint.transform;
             }
             return null;
         }
 
         public Transform GetStandAnchor()
         {
-            if(motionModel != null)
+            if(travelModel != null)
             {
-                return motionModel.GetAnchorController().StandFollowPoint.transform;
+                return travelModel.GetAnchorController().StandFollowPoint.transform;
             }
             return null;
         }

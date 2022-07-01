@@ -65,7 +65,7 @@ namespace StandTravelModel.MotionModel
             //Debug.Log($"Local Shift: {shiftX}, Hip Height: {predictHipPos.y}");
 #else
             var groundLocationData = motionDataModel.GetGroundLocationData();
-            //Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
+            Debug.Log($"Ground Location: x = {groundLocationData.x}, y = {groundLocationData.y}, z = {groundLocationData.z}");
 
             predictHipPos.y = groundLocationData.y * tuningParameters.LocalShiftScale.y;
             keyPointsParent.transform.localPosition = predictHipPos;

@@ -55,13 +55,13 @@ namespace StandTravelModel.Core.AnimationStates
                     return;
                 }
                 
-                if (actionDetectionData.walk.legUp == 1)
+                if (actionDetectionData.walk.legUp == -1)
                 {
                     travelOwner.ChangeState(AnimationList.LeftStep);
                     return;
                 }
                 
-                if (actionDetectionData.walk.legUp == -1)
+                if (actionDetectionData.walk.legUp == 1)
                 {
                     travelOwner.ChangeState(AnimationList.RightStep);
                     return;
