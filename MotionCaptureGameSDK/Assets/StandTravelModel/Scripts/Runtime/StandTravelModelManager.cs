@@ -19,6 +19,9 @@ namespace StandTravelModel
 
     public class StandTravelModelManager : MonoBehaviour
     {
+        [Range(0, 1)]
+        public float progress;
+
         #region Serializable Variables
         
         public bool isFKEnabled;
@@ -283,6 +286,8 @@ namespace StandTravelModel
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
             }
+
+            GetComponent<Animator>().SetFloat("progress", progress);
         }
 
         private void TryConvertKeyPoints(List<Vector3> keyPoints)

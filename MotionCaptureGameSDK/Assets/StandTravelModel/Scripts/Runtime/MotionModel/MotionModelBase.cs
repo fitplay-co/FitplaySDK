@@ -14,7 +14,7 @@ namespace StandTravelModel.MotionModel
         protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
 
-        private Vector3 predictHipPos = Vector3.zero;
+        private Vector3 predictHipPos;
         private Transform keyPointsParent;
 
         protected IMotionDataModel motionDataModel;
