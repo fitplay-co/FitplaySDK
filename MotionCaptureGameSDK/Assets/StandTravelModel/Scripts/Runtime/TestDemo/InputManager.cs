@@ -7,6 +7,7 @@ namespace StandTravelModel.TestDemo
         private const string L_Stick_H = "L_Stick_H";
         private const string Horizontal = "Horizontal";
         private const string joystick_button_0 = "joystick button 0";
+        private const string joystick_button_2 = "joystick button 2";
 
         public StandTravelModelManager standTravelModelManager;
 
@@ -50,6 +51,18 @@ namespace StandTravelModel.TestDemo
                 }
             
                 standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
+            }
+            else if (mode == MotionMode.Stand)
+            {
+                bool isResetLocalShift = false;
+                
+                isResetLocalShift |= Input.GetKeyDown(joystick_button_2);
+                isResetLocalShift |= Input.GetKeyDown(KeyCode.X);
+                
+                if (isResetLocalShift)
+                {
+                    standTravelModelManager.ResetGroundLocation();
+                }
             }
 
             return isChangeMode;

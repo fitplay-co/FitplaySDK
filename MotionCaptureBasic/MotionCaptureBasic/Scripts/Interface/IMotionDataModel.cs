@@ -52,6 +52,6 @@ namespace MotionCaptureBasic.Interface
         bool ReleaseGroundLocation();
         bool ReleaseFitting();
         void SetDebug(bool isDebug);
-        
+        bool ResetGroundLocation();
     }
 }

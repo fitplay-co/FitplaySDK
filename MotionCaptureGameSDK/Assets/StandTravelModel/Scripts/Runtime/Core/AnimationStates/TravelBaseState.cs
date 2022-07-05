@@ -37,7 +37,7 @@ namespace StandTravelModel.Core.AnimationStates
                     return;
                 }
 
-                if (actionDetectionData.walk.legUp == -1)
+                if (actionDetectionData.walk.legUp != GetCurrentLeg())
                 {
                     travelOwner.ChangeState(GetLegAnimationListOpps());
                     return;
@@ -50,5 +50,6 @@ namespace StandTravelModel.Core.AnimationStates
 
         protected abstract AnimationList GetLegAnimationListSelf();
         protected abstract AnimationList GetLegAnimationListOpps();
+        protected abstract int GetCurrentLeg();
     }
 }

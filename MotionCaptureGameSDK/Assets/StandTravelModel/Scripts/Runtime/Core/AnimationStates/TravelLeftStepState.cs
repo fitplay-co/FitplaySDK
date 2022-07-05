@@ -18,5 +18,10 @@ namespace StandTravelModel.Core.AnimationStates
         {
             return AnimationList.LeftStep;
         }
+
+        protected override int GetCurrentLeg()
+        {
+            return -1;
+        }
     }
 }

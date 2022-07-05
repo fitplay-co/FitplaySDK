@@ -1,6 +1,6 @@
 using System;
 using UnityWebSocket;
-using MotionCaptureBasic.MessageSubscribe;
+using MotionCaptureBasic.MessageSend;
 using UnityEngine;
 
 namespace MotionCaptureBasic.OSConnector
@@ -15,7 +15,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private string url = "ws://127.0.0.1:8181/";
         private IWebSocket socket;
-        private MessageSubscriber messageSubscriber;  
+        private MessageSender messageSubscriber;  
 
         private WebsocketOSClient()
         {
@@ -97,7 +97,74 @@ namespace MotionCaptureBasic.OSConnector
 
             return false;
         }
+
+        public bool ResetGroundLocation()
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.ResetGroundLocation();
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 设置FPS
+        /// </summary>
+        /// <param name="fps"></param>
+        /// <returns></returns>
+        public bool SendFrameRateControl(int fps)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SendFrameRateControl(fps);
+            }
+            return false;
+        }
+        /// <summary>
+        ///  震动
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="vibrationType"></param>
+        /// <param name="strength"></param>
+        /// <returns></returns>
+        public bool SendVibrationControl(int deviceId, int vibrationType, int strength)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SendVibrationControl(deviceId, vibrationType, strength);
+            }
+            return false;
+        }
         
+        /// <summary>
+        ///重置imu
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        public bool SendImuResetControl(int deviceId)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SendImuResetControl(deviceId);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 心率计控制
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public bool SendHeartControl(int deviceId, int command)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SendHeartControl(deviceId, command);
+            }
+            return false;
+        }
         //start
         private void InitConnect()
         {
@@ -111,7 +178,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private void InitMessageSubscriber(IWebSocket webSocket)
         {
-            messageSubscriber = new MessageSubscriber(webSocket);
+            messageSubscriber = new MessageSender(webSocket);
         }
         
         private void Socket_OnOpen(object sender, OpenEventArgs e)

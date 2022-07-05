@@ -234,18 +234,18 @@ namespace StandTravelModel
 
         public Transform GetTravelAnchor()
         {
-            if(motionModel != null)
+            if(standModel != null)
             {
-                return motionModel.GetAnchorController().TravelFollowPoint.transform;
+                return standModel.GetAnchorController().TravelFollowPoint.transform;
             }
             return null;
         }
 
         public Transform GetStandAnchor()
         {
-            if(motionModel != null)
+            if(travelModel != null)
             {
-                return motionModel.GetAnchorController().StandFollowPoint.transform;
+                return travelModel.GetAnchorController().StandFollowPoint.transform;
             }
             return null;
         }
@@ -257,6 +257,11 @@ namespace StandTravelModel
                 var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
                 motionModel.GetAnchorController().TurnControlPoints(deltaRotation);
             }
+        }
+
+        public void ResetGroundLocation()
+        {
+            motionDataModel.ResetGroundLocation();
         }
 
         public List<Vector3> GetKeyPointsList()
@@ -411,14 +416,14 @@ namespace StandTravelModel
 
         private void InitMotionDataModel()
         {
-            motionDataModel = MotionDataModelHttp.GetInstance();
+            motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
             motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
         }
 
         private void SubscribeMessage()
         {
-            MotionDataModelHttp.GetInstance().SubscribeActionDetection();
-            MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
+            motionDataModel.SubscribeActionDetection();
+            motionDataModel.SubscribeGroundLocation();
         }
         
         public void ResetAnchorPosition()

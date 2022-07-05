@@ -203,6 +203,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             try
             {
+                //Debug.Log("message:"+message);
                 return UpdateMessageTypeHandler(message);
             }
             catch (Exception e)
@@ -433,6 +434,8 @@ namespace MotionCaptureBasic.OSConnector
         public float strength;
         public int leftLeg;
         public int rightLeg;
+        public float leftStrength;
+        public float rightStrength;
     }
     
     [Serializable]

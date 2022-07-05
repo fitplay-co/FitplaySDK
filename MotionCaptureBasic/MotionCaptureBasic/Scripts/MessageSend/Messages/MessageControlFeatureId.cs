@@ -1,4 +1,4 @@
-namespace MotionCaptureBasic.MessageSubscribe
+namespace MotionCaptureBasic.MessageSend
 {
     public enum MessageControlFeatureId
     {
@@ -6,6 +6,8 @@ namespace MotionCaptureBasic.MessageSubscribe
         ground_location,
         action_detection,
         gaze_tracking,
-        fitting
+        fitting,
+        imu,
+        
     }
 }
