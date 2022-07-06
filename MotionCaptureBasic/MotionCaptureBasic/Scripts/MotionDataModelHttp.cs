@@ -17,6 +17,7 @@ namespace MotionCaptureBasic
         private HttpProtocolHandler httpProtocolHandler;
         private MotionDataPreprocessor montionDataPreprocessor;
         private List<Vector3> ikPointsDataList;
+        private List<Vector3> ikPointsDataListSimulat;
 
         private MotionDataModelHttp()
         {
@@ -62,6 +63,11 @@ namespace MotionCaptureBasic
         /// <returns></returns>
         public List<Vector3> GetIKPointsData(bool isLocalCoordinates, bool isPreprocessed)
         {
+            if (ikPointsDataListSimulat != null)
+            {
+                return ikPointsDataListSimulat;
+            }
+            
             var bodymessage = httpProtocolHandler.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
@@ -73,7 +79,7 @@ namespace MotionCaptureBasic
             {
                 return null;
             }
-            
+
             List<KeyPointItem> filteredKeyPoints = null;
 
             if (isLocalCoordinates)
@@ -296,6 +302,16 @@ namespace MotionCaptureBasic
         public void SetDebug(bool isDebug)
         {
             httpProtocolHandler.SetDebug(isDebug);
+        }
+
+        public void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat)
+        {
+            this.ikPointsDataListSimulat = ikPointsDataListSimulat;
+        }
+
+        public void ClearIKDataListSimulat()
+        {
+            this.ikPointsDataListSimulat = null;
         }
     }
 }
