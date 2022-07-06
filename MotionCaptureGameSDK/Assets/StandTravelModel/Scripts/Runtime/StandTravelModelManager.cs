@@ -72,7 +72,7 @@ namespace StandTravelModel
             get { return enabled; }
             set { enabled = value;
 #if USE_FINAL_IK
-                fKPoseModel.SetEnable(value);
+                fKPoseModel?.SetEnable(value);
                 modelIKSettings.SetEnable(value);
 #else
                 modelIKSettings.IKScript.enabled = value;
