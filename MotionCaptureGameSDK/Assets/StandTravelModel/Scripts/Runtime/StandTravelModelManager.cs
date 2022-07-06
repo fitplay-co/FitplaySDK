@@ -20,7 +20,8 @@ namespace StandTravelModel
     public class StandTravelModelManager : MonoBehaviour
     {
         #region Serializable Variables
-        
+
+        public bool isDebug;
         public bool isFKEnabled;
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
@@ -118,8 +119,11 @@ namespace StandTravelModel
             {
                 DisableFK();
             }
-            
-            //motionDataModel.SetDebug(true);
+
+            if (isDebug)
+            {
+                motionDataModel.SetDebug(true);
+            }
 
             OnStandTraveSwitch();
         }
@@ -340,10 +344,20 @@ namespace StandTravelModel
 
         private void InitModelIKController()
         {
+            GameObject fakeNodeObj;
+            if (isDebug)
+            {
+                fakeNodeObj = Resources.Load<GameObject>("FakeNode");
+            }
+            else
+            {
+                fakeNodeObj = new GameObject("FakeNodeObj");
+            }
+
 #if USE_FINAL_IK
-            modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
+            modelIKController = new ModelFinalIKController(fakeNodeObj, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
 #else
-            modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
+            modelIKController = new ModelNativeIKController(fakeNodeObj, modelIKSettings.IKScript);
 #endif
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
