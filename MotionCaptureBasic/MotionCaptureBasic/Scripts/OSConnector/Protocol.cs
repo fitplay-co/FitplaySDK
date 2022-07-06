@@ -436,6 +436,10 @@ namespace MotionCaptureBasic.OSConnector
         public int rightLeg;
         public float leftStrength;
         public float rightStrength;
+        public float leftStepLength;
+        public float rightStepLength;
+        public float leftHipAng;
+        public float rightHipAng;
     }
     
     [Serializable]
