@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
@@ -99,6 +100,7 @@ namespace StandTravelModel
             currentMode = initialMode;
 
             TryInitWeirdHumanConverter();
+            TryInitFKModel();
         }
 
         public void Start()
@@ -111,8 +113,6 @@ namespace StandTravelModel
             transform.rotation = Quaternion.identity;
 
             modelIKController.InitializeIKTargets(keyPointsParent.transform);
-
-            TryInitFKModel();
 
             if (isFKEnabled)
             {
@@ -129,6 +129,14 @@ namespace StandTravelModel
             }
 
             OnStandTravelSwitch();
+        }
+
+        public void FixedUpdate()
+        {
+            if (motionModel != null)
+            {
+                motionModel.OnFixedUpdate();
+            }
         }
 
         public void Update()
@@ -236,15 +244,6 @@ namespace StandTravelModel
                     FKBodyUpper();
                     break;
             }
-        }
-
-        /// <summary>
-        /// 获取当前模式
-        /// </summary>
-        /// <returns>当前模式</returns>
-        public MotionMode GetCurrentMode()
-        {
-            return currentMode;
         }
 
         /// <summary>

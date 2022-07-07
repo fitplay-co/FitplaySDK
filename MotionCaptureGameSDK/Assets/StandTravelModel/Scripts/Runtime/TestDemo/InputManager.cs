@@ -34,7 +34,7 @@ namespace StandTravelModel.TestDemo
                 standTravelModelManager.SwitchStandTravel();
             }
 
-            var mode = standTravelModelManager.GetCurrentMode();
+            var mode = standTravelModelManager.currentMode;
 
             if (mode == MotionMode.Travel)
             {

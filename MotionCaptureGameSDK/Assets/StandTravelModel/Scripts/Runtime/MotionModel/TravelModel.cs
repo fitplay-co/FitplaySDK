@@ -102,7 +102,9 @@ namespace StandTravelModel.MotionModel
 
             if(_selfAnimator.applyRootMotion)
             {
-                anchorController.TravelFollowPoint.transform.position = selfTransform.position;
+                var newPos = selfTransform.position;
+                newPos.y = groundHeight;
+                anchorController.TravelFollowPoint.transform.position = newPos;
             }
             else
             {
