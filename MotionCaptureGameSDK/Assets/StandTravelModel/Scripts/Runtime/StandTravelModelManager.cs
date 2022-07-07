@@ -9,6 +9,7 @@ using WeirdHumanoid;
 using MotionCaptureBasic.OSConnector;
 using FK;
 
+
 namespace StandTravelModel
 {
     public enum MotionMode
@@ -17,10 +18,14 @@ namespace StandTravelModel
         Stand
     }
 
+    /// <summary>
+    /// stand travel sdk的主脚本。该脚本直接挂载到指定角色模型上，连接os后可实现基本的动捕驱动功能
+    /// </summary>
     public class StandTravelModelManager : MonoBehaviour
     {
         #region Serializable Variables
-        
+
+        public bool isDebug;
         public bool isFKEnabled;
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
@@ -71,7 +76,7 @@ namespace StandTravelModel
             get { return enabled; }
             set { enabled = value;
 #if USE_FINAL_IK
-                fKPoseModel.SetEnable(value);
+                fKPoseModel?.SetEnable(value);
                 modelIKSettings.SetEnable(value);
 #else
                 modelIKSettings.IKScript.enabled = value;
@@ -88,7 +93,7 @@ namespace StandTravelModel
         {
             InitMotionDataModel();
             InitModelIKController();
-            var anchorController = InitTravelAnchorController();
+            var anchorController = InitAnchorController();
 
             InitMotionModels(anchorController);
             currentMode = initialMode;
@@ -108,7 +113,6 @@ namespace StandTravelModel
             modelIKController.InitializeIKTargets(keyPointsParent.transform);
 
             TryInitFKModel();
-            SubscribeMessage();
 
             if (isFKEnabled)
             {
@@ -118,10 +122,13 @@ namespace StandTravelModel
             {
                 DisableFK();
             }
-            
-            //motionDataModel.SetDebug(true);
 
-            OnStandTraveSwitch();
+            if (isDebug)
+            {
+                motionDataModel.SetDebug(true);
+            }
+
+            OnStandTravelSwitch();
         }
 
         public void Update()
@@ -175,6 +182,10 @@ namespace StandTravelModel
             }
         }
 
+        /// <summary>
+        /// 用于提供给外部调用，切换stand travel模式
+        /// </summary>
+        /// <returns>切换以后的模式</returns>
         public MotionMode SwitchStandTravel()
         {
             switch (currentMode)
@@ -187,12 +198,15 @@ namespace StandTravelModel
                     break;
             }
 
-            OnStandTraveSwitch();
+            OnStandTravelSwitch();
 
             return currentMode;
         }
 
-        private void OnStandTraveSwitch()
+        /// <summary>
+        /// 切换模式时需要做的一些处理
+        /// </summary>
+        private void OnStandTravelSwitch()
         {
             SwitchMotionMode(currentMode);
             SwitchFKBody(currentMode);
@@ -224,11 +238,19 @@ namespace StandTravelModel
             }
         }
 
+        /// <summary>
+        /// 获取当前模式
+        /// </summary>
+        /// <returns>当前模式</returns>
         public MotionMode GetCurrentMode()
         {
             return currentMode;
         }
 
+        /// <summary>
+        /// 获取travel锚点transform
+        /// </summary>
+        /// <returns></returns>
         public Transform GetTravelAnchor()
         {
             if(standModel != null)
@@ -238,6 +260,10 @@ namespace StandTravelModel
             return null;
         }
 
+        /// <summary>
+        /// 获取stand锚点transform
+        /// </summary>
+        /// <returns></returns>
         public Transform GetStandAnchor()
         {
             if(travelModel != null)
@@ -247,6 +273,11 @@ namespace StandTravelModel
             return null;
         }
 
+        /// <summary>
+        /// 旋转锚点，实现模型object的全局转向
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="dt"></param>
         public void TurnCharacter(float angle, float dt)
         {
             if(motionModel != null)
@@ -256,11 +287,18 @@ namespace StandTravelModel
             }
         }
 
+        /// <summary>
+        /// 重置ground location
+        /// </summary>
         public void ResetGroundLocation()
         {
             motionDataModel.ResetGroundLocation();
         }
 
+        /// <summary>
+        /// 获取骨骼点信息
+        /// </summary>
+        /// <returns></returns>
         public List<Vector3> GetKeyPointsList()
         {
             return keyPointsList;
@@ -328,7 +366,7 @@ namespace StandTravelModel
             standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
         }
 
-        private AnchorController InitTravelAnchorController()
+        private AnchorController InitAnchorController()
         {
             var anchorController = new AnchorController(transform.position);
             keyPointsParent = new GameObject("KeyPointsParent");
@@ -340,10 +378,20 @@ namespace StandTravelModel
 
         private void InitModelIKController()
         {
+            GameObject fakeNodeObj;
+            if (isDebug)
+            {
+                fakeNodeObj = Resources.Load<GameObject>("FakeNode");
+            }
+            else
+            {
+                fakeNodeObj = new GameObject("FakeNodeObj");
+            }
+
 #if USE_FINAL_IK
-            modelIKController = new ModelFinalIKController(modelIKSettings.NodePrefab, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
+            modelIKController = new ModelFinalIKController(fakeNodeObj, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
 #else
-            modelIKController = new ModelNativeIKController(modelIKSettings.NodePrefab, modelIKSettings.IKScript);
+            modelIKController = new ModelNativeIKController(fakeNodeObj, modelIKSettings.IKScript);
 #endif
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
@@ -366,7 +414,6 @@ namespace StandTravelModel
             {
                 fKPoseModel.SetEnable(true);
                 modelIKSettings.SetEnable(false);
-                MotionDataModelHttp.GetInstance().SubscribeFitting();
             }
         }
 
@@ -409,16 +456,21 @@ namespace StandTravelModel
             fKPoseModel.SetFullBodyEFKTypes();
         }
 
+        /// <summary>
+        /// 初始化basic sdk的数据基础模块。所有动捕基础数据都会从motionDataModel里面取。并且通过该类的方法实现和os交互
+        /// </summary>
         private void InitMotionDataModel()
         {
             motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
             motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
+            motionDataModel.AddConnectEvent(SubscribeMessage);
         }
 
         private void SubscribeMessage()
         {
             motionDataModel.SubscribeActionDetection();
             motionDataModel.SubscribeGroundLocation();
+            motionDataModel.SubscribeFitting();
         }
         
         public void ResetAnchorPosition()

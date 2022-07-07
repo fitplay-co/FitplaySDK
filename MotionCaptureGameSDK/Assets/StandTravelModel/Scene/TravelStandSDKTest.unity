@@ -6573,6 +6573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
   isFKEnabled: 0
   monsterMappingEnable: 0
   initialMode: 1
@@ -6585,7 +6586,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 5
     SkewCorrection: 0
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2014150610}
     FinalIKComponent: {fileID: 2014150632}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
@@ -9548,6 +9548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
   initialMode: 1
@@ -9560,7 +9561,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2753468361735440056}
     FinalIKComponent: {fileID: 2753468361735440057}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
