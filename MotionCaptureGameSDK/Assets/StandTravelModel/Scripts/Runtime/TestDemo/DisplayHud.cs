@@ -1,10 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace StandTravelModel.TestDemo
 {
     public class DisplayHud : MonoBehaviour
     {
-        public StandTravelModelManager standTravelModelManager;
+        private StandTravelModelManager standTravelModelManager;
+
+        public void Awake()
+        {
+            standTravelModelManager = this.GetComponent<StandTravelModelManager>();
+        }
 
         public void OnGUI()
         {

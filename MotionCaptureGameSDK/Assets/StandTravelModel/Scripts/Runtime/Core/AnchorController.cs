@@ -14,7 +14,6 @@ namespace StandTravelModel.Core
         public GameObject TravelFollowPoint => travelFollowPoint;
         
         private GameObject standFollowPoint;
-
         public GameObject StandFollowPoint => standFollowPoint;
 
         public AnchorController(Vector3 initialPosition)

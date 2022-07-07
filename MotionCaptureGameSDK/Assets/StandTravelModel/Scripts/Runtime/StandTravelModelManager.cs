@@ -477,5 +477,10 @@ namespace StandTravelModel
             GetTravelAnchor().position = selfTransform.position;
             GetStandAnchor().position =  selfTransform.position;
         }
+
+        public Vector3 GetMovement()
+        {
+            return travelModel.moveVelocity;
+        }
     }
 }

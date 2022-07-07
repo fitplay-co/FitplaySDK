@@ -44,6 +44,9 @@ namespace StandTravelModel.MotionModel
             get => _stepMaxInterval;
         }
 
+        private Vector3 _moveVelocity;
+        public Vector3 moveVelocity => _moveVelocity;
+
         //private TravelModelAnimatorController animatorController;
 
         public TravelModel(
@@ -180,6 +183,11 @@ namespace StandTravelModel.MotionModel
         public void UpdateAnimatorCadence()
         {
             selfAnimator.SetFloat(Cadence, currentFrequency);
+        }
+
+        public void UpdateVelocity(Vector3 v)
+        {
+            _moveVelocity = v;
         }
 
         /*public void StopPrevAnimation(string currentState)
