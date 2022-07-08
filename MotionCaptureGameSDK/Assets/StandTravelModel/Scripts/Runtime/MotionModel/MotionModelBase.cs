@@ -46,7 +46,7 @@ namespace StandTravelModel.MotionModel
 
         public virtual void OnFixedUpdate()
         {
-            var startPos = selfTransform.position + new Vector3(0, 5, 0);
+            var startPos = selfTransform.position + new Vector3(0, 1, 0);
 
             if (Physics.Raycast(startPos, Vector3.down, out var hit, 100, layerMask))
             {
@@ -55,7 +55,7 @@ namespace StandTravelModel.MotionModel
             }
             else
             {
-                groundHeight = anchorController.StandFollowPoint.transform.position.y;
+                groundHeight = 0;
             }
         }
 

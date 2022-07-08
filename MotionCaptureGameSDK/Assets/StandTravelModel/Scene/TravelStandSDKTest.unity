@@ -9585,7 +9585,7 @@ MonoBehaviour:
   isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
-  hasExController: 0
+  hasExController: 1
   initialMode: 1
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
@@ -12688,7 +12688,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c5ea49a9b8f917d4982f3073e32b84bb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
