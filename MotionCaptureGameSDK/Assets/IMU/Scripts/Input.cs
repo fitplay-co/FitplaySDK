@@ -34,7 +34,7 @@ namespace IMU
         private static Gyroscope _gyroscope_R = new Gyroscope();
         private static Magnetometer _magnetometer_L = new Magnetometer();
         private static Magnetometer _magnetometer_R = new Magnetometer();
-        
+       
         /// <summary>
         /// 使用float定义取值的手柄按键
         /// </summary>
@@ -44,10 +44,10 @@ namespace IMU
             {KeyCode.L_JoyStick_V, 0},
             {KeyCode.R_JoyStick_H, 0},
             {KeyCode.R_JoyStick_V, 0},
-            {KeyCode.L_L1Key, 0},
-            {KeyCode.L_L2Key, 0},
-            {KeyCode.R_L1Key, 0},
-            {KeyCode.R_L2Key, 0}
+            {KeyCode.L_Key_L1, 0},
+            {KeyCode.L_Key_L2, 0},
+            {KeyCode.R_Key_L1, 0},
+            {KeyCode.R_Key_L2, 0}
         };
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace IMU
             {
                 return (KeyCode) Enum.Parse(typeof(KeyCode), str);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return KeyCode.None;
             }
@@ -94,7 +94,7 @@ namespace IMU
         /// <summary>
         /// 是否有键按下
         /// </summary>
-        public static bool anyKeyDown
+        public new static bool anyKeyDown
         {
             get
             {
@@ -182,6 +182,24 @@ namespace IMU
         {
             get => _magnetometer_R;
             set => _magnetometer_R = value;
+        }
+
+        /// <summary>
+        /// 修正后的Quaternion数据
+        /// </summary>
+        public static Quaternion ImuRotBase_L
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        ///  修正后的Quaternion数据
+        /// </summary>
+        public static Quaternion ImuRotBase_R
+        {
+            get;
+            set;
         }
 
         /// <summary>
