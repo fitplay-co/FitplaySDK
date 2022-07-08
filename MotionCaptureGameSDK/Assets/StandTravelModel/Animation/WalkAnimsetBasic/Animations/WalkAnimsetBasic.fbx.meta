@@ -539,26 +539,17 @@ ModelImporter:
       137: 13700000
     second: DummyMESH
   - first:
-      74: -2385857947664657887
-    second: WalkFwdStart_Left
-  - first:
-      74: 9136053248346510117
-    second: WalkFwdLoop_Right_Up
-  - first:
-      74: -2242622028130550148
-    second: WalkFwdLoop_Right
-  - first:
-      74: -2242622028130550148
+      74: -266818101010757731
     second: WalkFwdLoop_Left_Up
-  - first:
-      74: -1398577281599704626
-    second: WalkFwdLoop_Right_Down
   - first:
       74: -3671762789685328719
     second: WalkFwdLoop_Left_Down
   - first:
-      74: -356223133655031956
-    second: WalkFwdStart_Right_Up
+      74: -1826718268445261877
+    second: WalkFwdLoop_Right_Up
+  - first:
+      74: -2601878565380061105
+    second: WalkFwdLoop _Right_Down
   - first:
       74: -5313974760745930292
     second: WalkFwdStart_Left_Up
@@ -566,8 +557,11 @@ ModelImporter:
       74: -7121706512619264574
     second: WalkFwdStart_Left_Down
   - first:
-      74: -8023313306256428081
-    second: WalkFwdStart_Right_Down
+      74: -144200764341309508
+    second: WalkFwdStart_Right_Up
+  - first:
+      74: 3467816139302329784
+    second: WalkFwdStart _Right_Down
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -4579,192 +4573,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: WalkFwdStart_Left
-      takeName: WalkFwdStart
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 15.2
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: DummyMESH
-        weight: 0
-      - path: Root
-        weight: 1
-      - path: Root/Hips
-        weight: 1
-      - path: Root/Hips/LeftUpLeg
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftToeBase_END
-        weight: 0
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftLegRoll
-        weight: 0
-      - path: Root/Hips/LeftUpLeg/LeftUpLegRoll
-        weight: 0
-      - path: Root/Hips/RightUpLeg
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightToeBase_END
-        weight: 0
-      - path: Root/Hips/RightUpLeg/RightLeg/RightLegRoll
-        weight: 0
-      - path: Root/Hips/RightUpLeg/RightUpLegRoll
-        weight: 0
-      - path: Root/Hips/Spine
-        weight: 1
-      - path: Root/Hips/Spine/Spine1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftForeArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandProp
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/Neck
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/Neck/Head
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightForeArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3/RightHandIndex4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3/RightHandMiddle4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3/RightHandPinky4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandProp
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3/RightHandRing4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3/RightHandThumb4
-        weight: 0
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
       name: WalkFwdLoop_Left_Up
       takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 9.8
-      lastFrame: 16
+      firstFrame: 8
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4782,369 +4595,68 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: DummyMESH
-        weight: 0
-      - path: Root
-        weight: 1
-      - path: Root/Hips
-        weight: 1
-      - path: Root/Hips/LeftUpLeg
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftToeBase_END
-        weight: 0
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftLegRoll
-        weight: 0
-      - path: Root/Hips/LeftUpLeg/LeftUpLegRoll
-        weight: 0
-      - path: Root/Hips/RightUpLeg
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightToeBase_END
-        weight: 0
-      - path: Root/Hips/RightUpLeg/RightLeg/RightLegRoll
-        weight: 0
-      - path: Root/Hips/RightUpLeg/RightUpLegRoll
-        weight: 0
-      - path: Root/Hips/Spine
-        weight: 1
-      - path: Root/Hips/Spine/Spine1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftForeArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandProp
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/Neck
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/Neck/Head
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightForeArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3/RightHandIndex4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3/RightHandMiddle4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3/RightHandPinky4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandProp
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3/RightHandRing4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3/RightHandThumb4
-        weight: 0
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WalkFwdLoop_Right_Up
-      takeName: WalkFwdLoop
-      internalID: 0
-      firstFrame: 9.8
-      lastFrame: 16
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 1
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: DummyMESH
-        weight: 0
-      - path: Root
-        weight: 1
-      - path: Root/Hips
-        weight: 1
-      - path: Root/Hips/LeftUpLeg
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
-        weight: 1
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftToeBase_END
-        weight: 0
-      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftLegRoll
-        weight: 0
-      - path: Root/Hips/LeftUpLeg/LeftUpLegRoll
-        weight: 0
-      - path: Root/Hips/RightUpLeg
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
-        weight: 1
-      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightToeBase_END
-        weight: 0
-      - path: Root/Hips/RightUpLeg/RightLeg/RightLegRoll
-        weight: 0
-      - path: Root/Hips/RightUpLeg/RightUpLegRoll
-        weight: 0
-      - path: Root/Hips/Spine
-        weight: 1
-      - path: Root/Hips/Spine/Spine1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftForeArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandProp
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/Neck
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/Neck/Head
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightForeArmRoll
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3/RightHandIndex4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3/RightHandMiddle4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3/RightHandPinky4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandProp
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3/RightHandRing4
-        weight: 0
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3
-        weight: 1
-      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3/RightHandThumb4
-        weight: 0
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WalkFwdLoop_Right_Down
-      takeName: WalkFwdLoop
-      internalID: 0
-      firstFrame: 16
-      lastFrame: 25.5
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 1
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 2
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1
+            value: 2
+            inSlope: 0
+            outSlope: -3.115582
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.21
+            value: 0.5
+            inSlope: -4.401502
+            outSlope: 0
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.45
+            value: 0.5
+            inSlope: 0
+            outSlope: 149.9997
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.46
+            value: 2
+            inSlope: 149.9997
+            outSlope: 0
+            tangentMode: 69
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 2
+            inSlope: 0
+            outSlope: -861.74426
+            tangentMode: 69
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
@@ -5306,8 +4818,8 @@ ModelImporter:
       name: WalkFwdLoop_Left_Down
       takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 16
-      lastFrame: 25.5
+      firstFrame: 15
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5325,7 +4837,50 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: -0.1
+            value: 4
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.6
+            value: 4
+            inSlope: 0
+            outSlope: -79.29268
+            tangentMode: 69
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.65
+            value: 0.035369873
+            inSlope: -7.252564
+            outSlope: -0.10105678
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.40392092
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
@@ -5484,11 +5039,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: WalkFwdStart_Right_Up
-      takeName: WalkFwdStart
+      name: WalkFwdLoop_Right_Up
+      takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 0
-      lastFrame: 7
+      firstFrame: 8
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5506,7 +5061,292 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 2
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1
+            value: 2
+            inSlope: -0
+            outSlope: -3.115582
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.21
+            value: 0.5
+            inSlope: -4.401502
+            outSlope: 0
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.45
+            value: 0.5
+            inSlope: 0
+            outSlope: 149.9997
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.46
+            value: 2
+            inSlope: 149.9997
+            outSlope: 0
+            tangentMode: 69
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 2
+            inSlope: -0
+            outSlope: -861.74426
+            tangentMode: 69
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DummyMESH
+        weight: 0
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/LeftUpLeg
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftToeBase_END
+        weight: 0
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftLegRoll
+        weight: 0
+      - path: Root/Hips/LeftUpLeg/LeftUpLegRoll
+        weight: 0
+      - path: Root/Hips/RightUpLeg
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightToeBase_END
+        weight: 0
+      - path: Root/Hips/RightUpLeg/RightLeg/RightLegRoll
+        weight: 0
+      - path: Root/Hips/RightUpLeg/RightUpLegRoll
+        weight: 0
+      - path: Root/Hips/Spine
+        weight: 1
+      - path: Root/Hips/Spine/Spine1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftForeArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandProp
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/Neck
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/Neck/Head
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightForeArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3/RightHandIndex4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3/RightHandMiddle4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3/RightHandPinky4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandProp
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3/RightHandRing4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3/RightHandThumb4
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WalkFwdLoop _Right_Down
+      takeName: WalkFwdLoop
+      internalID: 0
+      firstFrame: 15
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 1
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: -0.1
+            value: 4
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.6
+            value: 4
+            inSlope: -0
+            outSlope: -79.29268
+            tangentMode: 69
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.65
+            value: 0.035369873
+            inSlope: -7.252564
+            outSlope: -0.10105678
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.40392092
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
@@ -5687,7 +5527,59 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.48
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5
+            value: 3
+            inSlope: 2.243497
+            outSlope: 3.737864
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.76753247
+            value: 4
+            inSlope: 3.737864
+            outSlope: 0
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
@@ -5850,7 +5742,7 @@ ModelImporter:
       takeName: WalkFwdStart
       internalID: 0
       firstFrame: 7
-      lastFrame: 23
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5868,7 +5760,50 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.55
+            value: 3
+            inSlope: 0
+            outSlope: -0.4295771
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.56
+            value: 0
+            inSlope: -0.5230581
+            outSlope: 0
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
@@ -6027,11 +5962,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: WalkFwdStart_Right_Down
+      name: WalkFwdStart_Right_Up
       takeName: WalkFwdStart
       internalID: 0
-      firstFrame: 7
-      lastFrame: 23
+      firstFrame: 0
+      lastFrame: 7
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -6049,7 +5984,283 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.48
+            value: 0
+            inSlope: -0
+            outSlope: 0
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5
+            value: 3
+            inSlope: 2.243497
+            outSlope: 3.737864
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.76753247
+            value: 4
+            inSlope: 3.737864
+            outSlope: 0
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DummyMESH
+        weight: 0
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/LeftUpLeg
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+        weight: 1
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/LeftToeBase_END
+        weight: 0
+      - path: Root/Hips/LeftUpLeg/LeftLeg/LeftLegRoll
+        weight: 0
+      - path: Root/Hips/LeftUpLeg/LeftUpLegRoll
+        weight: 0
+      - path: Root/Hips/RightUpLeg
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+        weight: 1
+      - path: Root/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/RightToeBase_END
+        weight: 0
+      - path: Root/Hips/RightUpLeg/RightLeg/RightLegRoll
+        weight: 0
+      - path: Root/Hips/RightUpLeg/RightUpLegRoll
+        weight: 0
+      - path: Root/Hips/Spine
+        weight: 1
+      - path: Root/Hips/Spine/Spine1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftForeArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3/LeftHandIndex4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandMiddle1/LeftHandMiddle2/LeftHandMiddle3/LeftHandMiddle4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandPinky1/LeftHandPinky2/LeftHandPinky3/LeftHandPinky4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandProp
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandRing1/LeftHandRing2/LeftHandRing3/LeftHandRing4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/LeftShoulder/LeftArm/LeftForeArm/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/Neck
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/Neck/Head
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightForeArmRoll
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3/RightHandIndex4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandMiddle1/RightHandMiddle2/RightHandMiddle3/RightHandMiddle4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandPinky1/RightHandPinky2/RightHandPinky3/RightHandPinky4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandProp
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandRing1/RightHandRing2/RightHandRing3/RightHandRing4
+        weight: 0
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3
+        weight: 1
+      - path: Root/Hips/Spine/Spine1/RightShoulder/RightArm/RightForeArm/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3/RightHandThumb4
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WalkFwdStart _Right_Down
+      takeName: WalkFwdStart
+      internalID: 0
+      firstFrame: 7
+      lastFrame: 17
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 1
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: moveSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 3
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.55
+            value: 3
+            inSlope: -0
+            outSlope: -0.4295771
+            tangentMode: 5
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.56
+            value: 0
+            inSlope: -0.5230581
+            outSlope: 0
+            tangentMode: 65
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
       events: []
       transformMask:
       - path: 
