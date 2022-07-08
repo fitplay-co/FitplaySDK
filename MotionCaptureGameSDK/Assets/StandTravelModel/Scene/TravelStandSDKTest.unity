@@ -6576,6 +6576,7 @@ MonoBehaviour:
   isDebug: 0
   isFKEnabled: 0
   monsterMappingEnable: 0
+  hasExController: 0
   initialMode: 1
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
@@ -7243,7 +7244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 2014150611}
 --- !u!4 &2014150635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6172720843864236375, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -9561,6 +9561,8 @@ GameObject:
   - component: {fileID: 2753468361735440064}
   - component: {fileID: 2753468361735440066}
   - component: {fileID: 2753468361735440065}
+  - component: {fileID: 2753468361735440067}
+  - component: {fileID: 2753468361735440068}
   m_Layer: 0
   m_Name: TestMan
   m_TagString: Untagged
@@ -9583,6 +9585,7 @@ MonoBehaviour:
   isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
+  hasExController: 1
   initialMode: 1
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
@@ -9660,7 +9663,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 2753468361735440064}
+--- !u!143 &2753468361735440067
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753468361735440063}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.8
+  m_Radius: 0.28
+  m_SlopeLimit: 45
+  m_StepOffset: 0.25
+  m_SkinWidth: 0.02
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &2753468361735440068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753468361735440063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2787233591588614682
 Transform:
   m_ObjectHideFlags: 0
@@ -12656,7 +12688,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c5ea49a9b8f917d4982f3073e32b84bb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

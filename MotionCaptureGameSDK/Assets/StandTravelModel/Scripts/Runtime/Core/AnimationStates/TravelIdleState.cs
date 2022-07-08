@@ -67,6 +67,8 @@ namespace StandTravelModel.Core.AnimationStates
                     return;
                 }
             }
+            
+            travelOwner.UpdateVelocity(Vector3.zero);
         }
 
         public override void Exit()

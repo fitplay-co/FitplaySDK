@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
@@ -26,9 +25,14 @@ namespace StandTravelModel
     {
         #region Serializable Variables
 
+        [Tooltip("Debug模式开关。如果打开可以打印额外Debug信息，并且显示骨骼点")]
         public bool isDebug;
+        [Tooltip("是否启用FK。如果启用IK将无效")]
         public bool isFKEnabled;
+        [Tooltip("是否启用非对称映射。如果开启可以匹配非标准人体骨骼的模型")]
         public bool monsterMappingEnable;
+        [Tooltip("是否通过外部逻辑控制速度。如果开启，sdk本身对模型的移动控制将失效")]
+        public bool hasExController;
         public MotionMode initialMode = MotionMode.Stand;
         public TuningParameterGroup tuningParameters;
         public ModelIKSettingGroup modelIKSettings;
@@ -357,7 +361,7 @@ namespace StandTravelModel
 
         private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
         {
-            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings);
+            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, hasExController);
         }
 
         private void InitStandModel(Transform characterHipNode, AnchorController anchorController)
@@ -478,9 +482,16 @@ namespace StandTravelModel
             GetStandAnchor().position =  selfTransform.position;
         }
 
-        public Vector3 GetMovement()
+        public Vector3 GetMoveVelocity()
         {
-            return travelModel.moveVelocity;
+            if (hasExController)
+            {
+                return travelModel.moveVelocity;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
         }
     }
 }

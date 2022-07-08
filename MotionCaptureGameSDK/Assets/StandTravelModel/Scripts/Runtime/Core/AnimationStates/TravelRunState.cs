@@ -5,7 +5,8 @@ namespace StandTravelModel.Core.AnimationStates
 {
     public class TravelRunState : AnimationStateBase
     {
-
+        private Vector3 velocity;
+        private float speedMultipler = 0.6f;
         
         public TravelRunState(MotionModelBase owner) : base(owner)
         {
@@ -60,6 +61,11 @@ namespace StandTravelModel.Core.AnimationStates
                         return;
                     }
                 }
+                
+                velocity = travelOwner.GetAnchorController().TravelFollowPoint.transform.rotation * Vector3.forward * 
+                           travelOwner.currentFrequency * 2 * speedMultipler;
+                
+                travelOwner.UpdateVelocity(velocity);
             }
         }
 

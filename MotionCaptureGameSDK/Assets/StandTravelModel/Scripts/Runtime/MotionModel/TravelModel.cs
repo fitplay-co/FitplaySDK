@@ -47,6 +47,8 @@ namespace StandTravelModel.MotionModel
         private Vector3 _moveVelocity;
         public Vector3 moveVelocity => _moveVelocity;
 
+        private bool isExControlMode;
+
         //private TravelModelAnimatorController animatorController;
 
         public TravelModel(
@@ -56,7 +58,8 @@ namespace StandTravelModel.MotionModel
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
             AnchorController anchorController,
-            AnimatorSettingGroup animatorSettingGroup
+            AnimatorSettingGroup animatorSettingGroup,
+            bool isExControl
             ) : base(
                 selfTransform,
                 characterHipNode,
@@ -96,6 +99,8 @@ namespace StandTravelModel.MotionModel
 
             cacheQueueMax = tuningParameters.CacheStepCount;
             stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
+
+            isExControlMode = isExControl;
         }
 
         public override void OnLateUpdate()
@@ -103,7 +108,7 @@ namespace StandTravelModel.MotionModel
             anchorController.StandFollowPoint.transform.position = anchorController.TravelFollowPoint.transform.position - localShift;
             selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
 
-            if(_selfAnimator.applyRootMotion)
+            if(isExControlMode)
             {
                 var newPos = selfTransform.position;
                 newPos.y = groundHeight;
@@ -123,6 +128,11 @@ namespace StandTravelModel.MotionModel
             var deltaTime = Time.deltaTime;
 
             stateMachine.OnTick(deltaTime);
+
+            if (!isExControlMode)
+            {
+                anchorController.TravelFollowPoint.transform.position += _moveVelocity * deltaTime;
+            }
         }
 
         /// <summary>
@@ -187,6 +197,7 @@ namespace StandTravelModel.MotionModel
 
         public void UpdateVelocity(Vector3 v)
         {
+            //Debug.LogError($"Current Velocity: {v}");
             _moveVelocity = v;
         }
 

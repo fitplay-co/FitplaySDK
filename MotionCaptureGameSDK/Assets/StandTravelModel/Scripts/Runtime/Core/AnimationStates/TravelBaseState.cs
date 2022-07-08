@@ -6,6 +6,8 @@ namespace StandTravelModel.Core.AnimationStates
     public abstract class TravelBaseState : AnimationStateBase
     {
         private int animStrideId;
+        private Vector3 velocity;
+        private float speedMultipler = 0.6f;
 
         public TravelBaseState(MotionModelBase owner) : base(owner)
         {
@@ -42,6 +44,11 @@ namespace StandTravelModel.Core.AnimationStates
                     travelOwner.ChangeState(GetLegAnimationListOpps());
                     return;
                 }
+
+                velocity = travelOwner.GetAnchorController().TravelFollowPoint.transform.rotation * Vector3.forward * 
+                           travelOwner.currentFrequency * speedMultipler;
+                
+                travelOwner.UpdateVelocity(velocity);
 
                 //Debug.Log("strength -> " + actionDetectionData.walk.strength);
                 travelOwner.selfAnimator.SetFloat(animStrideId, Mathf.Clamp01(actionDetectionData.walk.strength * 10));

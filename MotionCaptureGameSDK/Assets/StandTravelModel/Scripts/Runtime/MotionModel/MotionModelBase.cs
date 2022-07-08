@@ -66,9 +66,19 @@ namespace StandTravelModel.MotionModel
 
         public virtual void OnLateUpdate()
         {
+            //利用打线获取到的地面高度修正两个锚点的y
+            var standPos = anchorController.StandFollowPoint.transform.position;
+            var travelPos = anchorController.TravelFollowPoint.transform.position;
+
+            standPos.y = groundHeight;
+            travelPos.y = groundHeight;
+
+            anchorController.StandFollowPoint.transform.position = standPos;
+            anchorController.TravelFollowPoint.transform.position = travelPos;
+
             selfTransform.position += Vector3.Scale(predictHipPos, tuningParameters.ScaleMotionPos) +
                                       tuningParameters.HipPosOffset - characterHipNode.position +
-                                      anchorController.TravelFollowPoint.transform.position;
+                                      travelPos;
         }
 
         public virtual void Clear()
