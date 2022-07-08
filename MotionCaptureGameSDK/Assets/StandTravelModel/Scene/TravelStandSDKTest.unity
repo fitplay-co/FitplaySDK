@@ -9585,7 +9585,7 @@ MonoBehaviour:
   isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
-  hasExController: 1
+  hasExController: 0
   initialMode: 1
   tuningParameters:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
@@ -9672,7 +9672,7 @@ CharacterController:
   m_GameObject: {fileID: 2753468361735440063}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1.8
   m_Radius: 0.28
@@ -9688,7 +9688,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2753468361735440063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
   m_Name: 

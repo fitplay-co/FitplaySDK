@@ -15,6 +15,12 @@ namespace StandTravelModel.Core
         
         private GameObject standFollowPoint;
         public GameObject StandFollowPoint => standFollowPoint;
+        
+        private GameObject travelLookAtPoint;
+        public GameObject TravelLookAtPoint => travelLookAtPoint;
+        
+        private GameObject standLookAtPoint;
+        public GameObject StandLookAtPoint => standLookAtPoint;
 
         public AnchorController(Vector3 initialPosition)
         {
@@ -23,10 +29,31 @@ namespace StandTravelModel.Core
 
             this.standFollowPoint = new GameObject("StandFollowPoint");
             standFollowPoint.transform.position = initialPosition;
+            
+            this.travelLookAtPoint = new GameObject("TravelLookAtPoint");
+            travelLookAtPoint.transform.position = initialPosition;
+
+            this.standLookAtPoint = new GameObject("StandLookAtPoint");
+            standLookAtPoint.transform.position = initialPosition;
+            
+            travelLookAtPoint.transform.SetParent(travelFollowPoint.transform);
+            standLookAtPoint.transform.SetParent(standFollowPoint.transform);
         }
 
         public void DestroyObject()
         {
+            if(travelLookAtPoint != null)
+            {
+                UnityEngine.Object.Destroy(travelLookAtPoint);
+                travelLookAtPoint = null;
+            }
+
+            if(standLookAtPoint != null)
+            {
+                UnityEngine.Object.Destroy(standLookAtPoint);
+                standLookAtPoint = null;
+            }
+            
             if(travelFollowPoint != null)
             {
                 UnityEngine.Object.Destroy(travelFollowPoint);

@@ -46,6 +46,7 @@ namespace StandTravelModel
         private IMotionDataModel motionDataModel;
         private IModelIKController modelIKController;
 
+        private AnchorController anchorController;
         private StandModel standModel;
         private TravelModel travelModel;
         private GameObject keyPointsParent;
@@ -98,9 +99,9 @@ namespace StandTravelModel
         {
             InitMotionDataModel();
             InitModelIKController();
-            var anchorController = InitAnchorController();
+            InitAnchorController();
 
-            InitMotionModels(anchorController);
+            InitMotionModels();
             currentMode = initialMode;
 
             TryInitWeirdHumanConverter();
@@ -256,9 +257,9 @@ namespace StandTravelModel
         /// <returns></returns>
         public Transform GetTravelAnchor()
         {
-            if(standModel != null)
+            if(anchorController != null)
             {
-                return standModel.GetAnchorController().TravelFollowPoint.transform;
+                return anchorController.TravelFollowPoint.transform;
             }
             return null;
         }
@@ -269,9 +270,35 @@ namespace StandTravelModel
         /// <returns></returns>
         public Transform GetStandAnchor()
         {
-            if(travelModel != null)
+            if(anchorController != null)
             {
-                return travelModel.GetAnchorController().StandFollowPoint.transform;
+                return anchorController.StandFollowPoint.transform;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取stand注视点
+        /// </summary>
+        /// <returns></returns>
+        public Transform GetStandLookAt()
+        {
+            if (anchorController != null)
+            {
+                return anchorController.StandLookAtPoint.transform;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取travel注视点
+        /// </summary>
+        /// <returns></returns>
+        public Transform GetTravelLookAt()
+        {
+            if (anchorController != null)
+            {
+                return anchorController.TravelLookAtPoint.transform;
             }
             return null;
         }
@@ -351,32 +378,31 @@ namespace StandTravelModel
             }
         }
 
-        private void InitMotionModels(AnchorController anchorController)
+        private void InitMotionModels()
         {
             var modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
-            InitStandModel(characterHipNode, anchorController);
-            InitTravelModel(characterHipNode, anchorController);
+            InitStandModel(characterHipNode);
+            InitTravelModel(characterHipNode);
         }
 
-        private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
+        private void InitTravelModel(Transform characterHipNode)
         {
             travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, hasExController);
         }
 
-        private void InitStandModel(Transform characterHipNode, AnchorController anchorController)
+        private void InitStandModel(Transform characterHipNode)
         {
             standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
         }
 
-        private AnchorController InitAnchorController()
+        private void InitAnchorController()
         {
-            var anchorController = new AnchorController(transform.position);
+            anchorController = new AnchorController(transform.position);
             keyPointsParent = new GameObject("KeyPointsParent");
             //keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
             //TODO: 暂时将keyPoints父节点设置为角色模型的transform。后续还需要测试优化确认有没其他问题
             keyPointsParent.transform.parent = transform;
-            return anchorController;
         }
 
         private void InitModelIKController()

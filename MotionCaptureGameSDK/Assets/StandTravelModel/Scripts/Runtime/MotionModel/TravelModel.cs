@@ -131,7 +131,7 @@ namespace StandTravelModel.MotionModel
 
             if (!isExControlMode)
             {
-                anchorController.TravelFollowPoint.transform.position += _moveVelocity * deltaTime;
+                anchorController.MoveTravelPoint(_moveVelocity * deltaTime);
             }
         }
 
