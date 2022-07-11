@@ -30,6 +30,7 @@ namespace StandTravelModel.MotionModel
 
         //抬腿交互缓存队列的总长度
         private int _cacheQueueMax = 11;
+
         public int cacheQueueMax
         {
             set => _cacheQueueMax = value;
@@ -38,6 +39,7 @@ namespace StandTravelModel.MotionModel
 
         //判断抬腿CacheQueueMax次总时长是否进入跑步模式的阈值
         private float _stepMaxInterval = 5;
+
         public float stepMaxInterval
         {
             set => _stepMaxInterval = value;
@@ -54,20 +56,22 @@ namespace StandTravelModel.MotionModel
         public TravelModel(
             Transform selfTransform,
             Transform characterHipNode,
+            Transform characterHeadNode,
             Transform keyPointsParent,
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
             AnchorController anchorController,
             AnimatorSettingGroup animatorSettingGroup,
             bool isExControl
-            ) : base(
-                selfTransform,
-                characterHipNode,
-                keyPointsParent,
-                tuningParameters,
-                motionDataModel,
-                anchorController
-            )
+        ) : base(
+            selfTransform,
+            characterHipNode,
+            characterHeadNode,
+            keyPointsParent,
+            tuningParameters,
+            motionDataModel,
+            anchorController
+        )
         {
             /*animatorController = new TravelModelAnimatorController(selfTransform.GetComponent<Animator>(),
                 motionDataModel, anchorController, animatorSettingGroup);*/
@@ -94,7 +98,7 @@ namespace StandTravelModel.MotionModel
                 {AnimationList.RightStep, new TravelRightStepState(this)},
                 {AnimationList.Squat, new TravelSquatState(this)}
             };
-            
+
             stateMachine = new StateMachine<MotionModelBase>(animationStates[AnimationList.Idle]);
 
             cacheQueueMax = tuningParameters.CacheStepCount;
@@ -105,10 +109,11 @@ namespace StandTravelModel.MotionModel
 
         public override void OnLateUpdate()
         {
-            anchorController.StandFollowPoint.transform.position = anchorController.TravelFollowPoint.transform.position - localShift;
+            anchorController.StandFollowPoint.transform.position =
+                anchorController.TravelFollowPoint.transform.position - localShift;
             selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
 
-            if(isExControlMode)
+            if (isExControlMode)
             {
                 var newPos = selfTransform.position;
                 newPos.y = groundHeight;
@@ -157,8 +162,8 @@ namespace StandTravelModel.MotionModel
                     return;
                 }
             }
-            
-            stepCacheQueue.Add(new StepStct{LegUp = leg, TimeStemp = Time.time});
+
+            stepCacheQueue.Add(new StepStct {LegUp = leg, TimeStemp = Time.time});
 
             length = stepCacheQueue.Count;
             if (length > _cacheQueueMax)

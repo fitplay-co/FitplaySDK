@@ -10,11 +10,12 @@ namespace StandTravelModel.MotionModel
     {
         protected Vector3 localShift;
         protected Transform selfTransform;
-        protected Transform characterHipNode;
         protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
-        protected float groundHeight;
+        protected static float groundHeight;
 
+        private Transform characterHipNode;
+        private Transform characterHeadNode;
         private Vector3 predictHipPos = Vector3.zero;
         private Transform keyPointsParent;
         private int layerMask;
@@ -23,7 +24,7 @@ namespace StandTravelModel.MotionModel
         protected StateMachine<MotionModelBase> stateMachine;
         protected Dictionary<AnimationList, State<MotionModelBase>> animationStates;
 
-        public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent,
+        public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform characterHeadNode, Transform keyPointsParent,
             TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController)
         {
             this.selfTransform = selfTransform;
@@ -31,6 +32,7 @@ namespace StandTravelModel.MotionModel
             this.motionDataModel = motionDataModel;
             this.tuningParameters = tuningParameters;
             this.characterHipNode = characterHipNode;
+            this.characterHeadNode = characterHeadNode;
             this.anchorController = anchorController;
 
             var layerIndex = LayerMask.NameToLayer("Ground");
@@ -46,7 +48,7 @@ namespace StandTravelModel.MotionModel
 
         public virtual void OnFixedUpdate()
         {
-            var startPos = selfTransform.position + new Vector3(0, 1, 0);
+            var startPos = characterHeadNode.position;
 
             if (Physics.Raycast(startPos, Vector3.down, out var hit, 100, layerMask))
             {

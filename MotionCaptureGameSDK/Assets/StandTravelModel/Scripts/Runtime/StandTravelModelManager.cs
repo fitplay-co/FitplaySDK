@@ -382,18 +382,19 @@ namespace StandTravelModel
         {
             var modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
-            InitStandModel(characterHipNode);
-            InitTravelModel(characterHipNode);
+            var characterHeadNode = modelAnimator.GetBoneTransform(HumanBodyBones.Head);
+            InitStandModel(characterHipNode, characterHeadNode);
+            InitTravelModel(characterHipNode, characterHeadNode);
         }
 
-        private void InitTravelModel(Transform characterHipNode)
+        private void InitTravelModel(Transform hip, Transform head)
         {
-            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, hasExController);
+            travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, hasExController);
         }
 
-        private void InitStandModel(Transform characterHipNode)
+        private void InitStandModel(Transform hip, Transform head)
         {
-            standModel = new StandModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
+            standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
         }
 
         private void InitAnchorController()

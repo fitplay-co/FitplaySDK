@@ -9,7 +9,22 @@ namespace StandTravelModel.MotionModel
     {
         private Quaternion predictBodyRotation;
 
-        public StandModel(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController) : base(selfTransform, characterHipNode, keyPointsParent, tuningParameters, motionDataModel, anchorController)
+        public StandModel(
+            Transform selfTransform,
+            Transform characterHipNode,
+            Transform characterHeadNode,
+            Transform keyPointsParent,
+            TuningParameterGroup tuningParameters,
+            IMotionDataModel motionDataModel,
+            AnchorController anchorController)
+            : base(
+                selfTransform,
+                characterHipNode,
+                characterHeadNode,
+                keyPointsParent,
+                tuningParameters,
+                motionDataModel,
+                anchorController)
         {
         }
 
