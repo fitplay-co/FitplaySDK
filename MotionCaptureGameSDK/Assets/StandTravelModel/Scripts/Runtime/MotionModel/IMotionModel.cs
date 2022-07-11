@@ -10,5 +10,6 @@ namespace StandTravelModel.MotionModel
         void OnLateUpdate();
         void Clear();
         AnchorController GetAnchorController();
+        List<Vector3> GetKeyPoints();
     }
 }

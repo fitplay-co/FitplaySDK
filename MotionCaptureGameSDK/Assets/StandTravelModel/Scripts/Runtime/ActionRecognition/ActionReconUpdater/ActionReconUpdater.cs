@@ -1,14 +1,23 @@
 using UnityEngine;
 using StandTravelModel;
 using Recorder;
+using MotionCaptureBasic;
 
 public delegate void OnActionDetect(ActionId actionId);
 
 [RequireComponent(typeof(StandTravelModelManager))]
 public partial class ActionReconUpdater : MonoBehaviour
 {
+    protected enum ReconState
+    {
+        None,
+        Simulat,
+        Fake
+    }
+
     [SerializeField] private bool debug;
     [SerializeField] private bool useRecordData;
+    [SerializeField] protected ReconState reconState;
 
     public event OnActionDetect onActionDetect;
 
@@ -28,24 +37,22 @@ public partial class ActionReconUpdater : MonoBehaviour
         this.reconInstance.SetDebug(debug);
 
         this.standTravelModelManager = GetComponent<StandTravelModelManager>();
-        this.enabled = standTravelModelManager != null;
+        //this.enabled = standTravelModelManager != null;
 
         InitRecorder();
     }
 
-    private void Update() {
+    protected virtual void Update() {
         if(reconInstance != null)
         {
-            if(useRecordData)
+            if(reconState != ReconState.None)
             {
-                if(keyPointsRecorder != null)
+                if(useRecordData)
                 {
-                    reconInstance.OnUpdate(keyPointsRecorder.GetRecordKeyPoints());
+                    MotionDataModelHttp.GetInstance().SetIKDataListSimulat(keyPointsRecorder.GetRecordKeyPoints());
                 }
-            }
-            else
-            {
-                if(standTravelModelManager != null)
+
+                if(reconState == ReconState.Simulat)
                 {
                     reconInstance.OnUpdate(standTravelModelManager.GetKeyPointsList());
                 }
@@ -73,7 +80,7 @@ public partial class ActionReconUpdater : MonoBehaviour
 
     private void InitRecorder()
     {
-        if(useRecordData)
+        if(reconState != ReconState.None)
         {
             keyPointsRecorder = GetComponent<KeyPointsRecorder>();
             if(keyPointsRecorder == null)

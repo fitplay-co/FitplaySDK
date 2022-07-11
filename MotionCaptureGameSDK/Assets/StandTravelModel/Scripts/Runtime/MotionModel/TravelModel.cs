@@ -53,7 +53,8 @@ namespace StandTravelModel.MotionModel
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
             AnchorController anchorController,
-            AnimatorSettingGroup animatorSettingGroup
+            AnimatorSettingGroup animatorSettingGroup,
+            AnimationCurve speedCurve
             ) : base(
                 selfTransform,
                 characterHipNode,
@@ -79,13 +80,15 @@ namespace StandTravelModel.MotionModel
 
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve);
+
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
-                {AnimationList.Idle, new TravelIdleState(this)},
+                {AnimationList.Idle, new TravelIdleState(this, parametersSetter)},
                 {AnimationList.Run, new TravelRunState(this)},
                 {AnimationList.Jump, new TravelJumpState(this)},
-                {AnimationList.LeftStep, new TravelLeftStepState(this)},
-                {AnimationList.RightStep, new TravelRightStepState(this)},
+                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter)},
+                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter)},
                 {AnimationList.Squat, new TravelSquatState(this)}
             };
             

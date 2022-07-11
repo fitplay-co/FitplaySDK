@@ -27,6 +27,8 @@ namespace StandTravelModel
         public bool isFKEnabled;
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
+        public AnimationCurve speedCurve;
+        public AnimationCurve backupCurve;
         public TuningParameterGroup tuningParameters;
         public ModelIKSettingGroup modelIKSettings;
         public AnimatorSettingGroup animatorSettings;
@@ -292,7 +294,10 @@ namespace StandTravelModel
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
             }
 
-            GetComponent<Animator>().SetFloat("progress", progress);
+            if(progress > 0.0001f)
+            {
+                GetComponent<Animator>().SetFloat("progress", progress);
+            }
         }
 
         private void TryConvertKeyPoints(List<Vector3> keyPoints)
@@ -325,7 +330,7 @@ namespace StandTravelModel
 
         private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
         {
-            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings);
+            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, speedCurve);
         }
 
         private void InitStandModel(Transform characterHipNode, AnchorController anchorController)
@@ -422,8 +427,12 @@ namespace StandTravelModel
 
         private void SubscribeMessage()
         {
-            motionDataModel.SubscribeActionDetection();
-            motionDataModel.SubscribeGroundLocation();
+            MotionDataModelHttp.GetInstance().AddConnectEvent(
+            () => {
+                    motionDataModel.SubscribeActionDetection();
+                    motionDataModel.SubscribeGroundLocation();;
+                }
+            );
         }
         
         public void ResetAnchorPosition()

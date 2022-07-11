@@ -1,12 +1,25 @@
-using UnityEngine;
 using MotionCaptureBasic;
 using MotionCaptureBasic.OSConnector;
 
 public class ActionReconUpdaterHuman : ActionReconUpdater
 {
-    [SerializeField] private bool simulat;
-
     private ActionDetectionItem simulatActionDetectionItem;
+    [UnityEngine.SerializeField] private ActionReconUpdaterHumanMessageFaker humanMessageFaker;
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if(reconState == ReconState.Fake)
+        {
+            if(humanMessageFaker == null)
+            {
+                humanMessageFaker = new ActionReconUpdaterHumanMessageFaker();
+            }
+
+            humanMessageFaker.OnUpdate();
+        }
+    }
 
     protected override IActionReconInstance CreateReconInstance(OnActionDetect onActionDetect)
     {
@@ -14,7 +27,7 @@ public class ActionReconUpdaterHuman : ActionReconUpdater
             actionId => {
                 onActionDetect(actionId);
 
-                if(simulat)
+                if(reconState == ReconState.Simulat)
                 {
                     SetSimulatData(actionId);
                 }

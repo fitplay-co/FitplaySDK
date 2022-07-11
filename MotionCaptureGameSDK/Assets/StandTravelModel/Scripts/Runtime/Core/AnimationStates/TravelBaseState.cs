@@ -1,5 +1,5 @@
-using StandTravelModel.MotionModel;
 using UnityEngine;
+using StandTravelModel.MotionModel;
 
 namespace StandTravelModel.Core.AnimationStates
 {
