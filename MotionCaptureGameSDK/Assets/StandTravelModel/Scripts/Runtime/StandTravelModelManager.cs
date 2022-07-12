@@ -89,6 +89,9 @@ namespace StandTravelModel
 #endif
             }
         }
+        
+        private bool _osConnected = false;
+        public bool osConnected => _osConnected;
 
         #endregion
 
@@ -501,12 +504,14 @@ namespace StandTravelModel
             motionDataModel.SubscribeActionDetection();
             motionDataModel.SubscribeGroundLocation();
             motionDataModel.SubscribeFitting();
+            _osConnected = true;
         }
         
         public void ResetAnchorPosition()
         {
             GetTravelAnchor().position = selfTransform.position;
             GetStandAnchor().position =  selfTransform.position;
+            
         }
 
         public Vector3 GetMoveVelocity()
