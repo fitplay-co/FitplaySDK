@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using MotionCaptureBasic.FSM;
 using MotionCaptureBasic.Interface;
-using StandTravelModel.Core;
-using StandTravelModel.Core.AnimationStates;
+using StandTravelModel.Scripts.Runtime.Core;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
 
-namespace StandTravelModel.MotionModel
+namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public class TravelModel : MotionModelBase
     {

@@ -1,19 +1,22 @@
-using StandTravelModel.Core.AnimationStates;
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 
-public abstract class StepStateBase : TravelBaseState
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
-    private StepStateAnimatorParametersSetter parametersSetter;
-
-    protected StepStateBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
+    public abstract class StepStateBase : TravelBaseState
     {
-        this.parametersSetter = parametersSetter;
-    }
+        private StepStateAnimatorParametersSetter parametersSetter;
 
-    protected void TrySetStepParameters()
-    {
-        parametersSetter.TrySetParametersLegs();
-        parametersSetter.TrySetParametersHipAngles();
-        parametersSetter.TrySetParammeterFootHeightDiff();
+        protected StepStateBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
+        {
+            this.parametersSetter = parametersSetter;
+        }
+
+        protected void TrySetStepParameters()
+        {
+            parametersSetter.TrySetParametersLegs();
+            parametersSetter.TrySetParametersHipAngles();
+            parametersSetter.TrySetParammeterFootHeightDiff();
+        }
     }
 }

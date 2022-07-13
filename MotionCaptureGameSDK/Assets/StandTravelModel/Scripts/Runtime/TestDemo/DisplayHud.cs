@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace StandTravelModel.TestDemo
+namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
     public class DisplayHud : MonoBehaviour
     {

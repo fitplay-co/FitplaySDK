@@ -2,71 +2,74 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionReconCompAngle : IActionReconComp
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents
 {
-    private bool isDebug;
-    private float angleMin;
-    private float angleMax;
-    private float curAngle;
-    private float lastAngle;
-    private Action<bool> onAction;
-    private ReconCompAngleGetter angleGetter;
-
-    public ActionReconCompAngle(float angleMin, float angleMax, ReconCompAngleGetter angleGetter)
+    public class ActionReconCompAngle : IActionReconComp
     {
-        this.angleMin = angleMin;
-        this.angleMax = angleMax;
-        this.angleGetter = angleGetter;
-    }
+        private bool isDebug;
+        private float angleMin;
+        private float angleMax;
+        private float curAngle;
+        private float lastAngle;
+        private Action<bool> onAction;
+        private ReconCompAngleGetter angleGetter;
 
-    public void OnUpdate(List<Vector3> keyPoints)
-    {
-        this.lastAngle = this.curAngle;
-
-        this.curAngle = angleGetter.GetAngle(keyPoints);
-        var isInAngle = WeatherInAngle(curAngle);
-
-        if(isInAngle != WasInAgnle())
+        public ActionReconCompAngle(float angleMin, float angleMax, ReconCompAngleGetter angleGetter)
         {
-            OnStateFlip(isInAngle);
+            this.angleMin = angleMin;
+            this.angleMax = angleMax;
+            this.angleGetter = angleGetter;
         }
-    }
 
-    public void SetDebug(bool isDebug)
-    {
-        this.isDebug = isDebug;
-    }
-
-    public void SetAction(Action<bool> onAction)
-    {
-        this.onAction = onAction;
-    }
-
-    public float GetCurAngle()
-    {
-        return curAngle;
-    }
-
-    protected virtual void OnStateFlip(bool isInAngle)
-    {
-        if(onAction != null)
+        public void OnUpdate(List<Vector3> keyPoints)
         {
-            onAction(isInAngle);
+            this.lastAngle = this.curAngle;
+
+            this.curAngle = angleGetter.GetAngle(keyPoints);
+            var isInAngle = WeatherInAngle(curAngle);
+
+            if(isInAngle != WasInAgnle())
+            {
+                OnStateFlip(isInAngle);
+            }
         }
-    }
 
-    protected bool IsExpanding()
-    {
-        return curAngle > lastAngle;
-    }
+        public void SetDebug(bool isDebug)
+        {
+            this.isDebug = isDebug;
+        }
 
-    private bool WasInAgnle()
-    {
-        return WeatherInAngle(lastAngle);
-    }
+        public void SetAction(Action<bool> onAction)
+        {
+            this.onAction = onAction;
+        }
 
-    private bool WeatherInAngle(float angle)
-    {
-        return angle <= angleMax && angle >= angleMin;
+        public float GetCurAngle()
+        {
+            return curAngle;
+        }
+
+        protected virtual void OnStateFlip(bool isInAngle)
+        {
+            if(onAction != null)
+            {
+                onAction(isInAngle);
+            }
+        }
+
+        protected bool IsExpanding()
+        {
+            return curAngle > lastAngle;
+        }
+
+        private bool WasInAgnle()
+        {
+            return WeatherInAngle(lastAngle);
+        }
+
+        private bool WeatherInAngle(float angle)
+        {
+            return angle <= angleMax && angle >= angleMin;
+        }
     }
 }

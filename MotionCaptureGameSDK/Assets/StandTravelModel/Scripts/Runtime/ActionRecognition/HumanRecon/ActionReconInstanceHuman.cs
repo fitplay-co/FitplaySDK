@@ -1,26 +1,30 @@
-using UnityEngine;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.Recongizers.Leg;
 
-public class ActionReconInstanceHuman : ActionReconInstance
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon
 {
-    public ActionReconInstanceHuman(OnActionDetect onActionDetect, bool isDebug) : base(onActionDetect)
+    public class ActionReconInstanceHuman : ActionReconInstance.ActionReconInstance
     {
-        AddRecon(new ActionReconLegUp(true, OnActionReconLeft));
-        AddRecon(new ActionReconLegUp(false, OnActionReconRight));
-        AddRecon(new ActionReconLegDown(true, OnActionReconLeft));
-        AddRecon(new ActionReconLegDown(false, OnActionReconRight));
-        AddRecon(new ActionReconLegIdle(true, OnActionReconLeft));
-        AddRecon(new ActionReconLegIdle(false, OnActionReconRight));
+        public ActionReconInstanceHuman(OnActionDetect onActionDetect, bool isDebug) : base(onActionDetect)
+        {
+            AddRecon(new ActionReconLegUp(true, OnActionReconLeft));
+            AddRecon(new ActionReconLegUp(false, OnActionReconRight));
+            AddRecon(new ActionReconLegDown(true, OnActionReconLeft));
+            AddRecon(new ActionReconLegDown(false, OnActionReconRight));
+            AddRecon(new ActionReconLegIdle(true, OnActionReconLeft));
+            AddRecon(new ActionReconLegIdle(false, OnActionReconRight));
 
-        SetDebug(isDebug);
-    }
+            SetDebug(isDebug);
+        }
 
-    private void OnActionReconLeft(ActionId actionId)
-    {
-        OnActionRecon(actionId);
-    }
+        private void OnActionReconLeft(ActionId actionId)
+        {
+            OnActionRecon(actionId);
+        }
 
-    private void OnActionReconRight(ActionId actionId)
-    {
-        OnActionRecon(actionId);
+        private void OnActionReconRight(ActionId actionId)
+        {
+            OnActionRecon(actionId);
+        }
     }
 }

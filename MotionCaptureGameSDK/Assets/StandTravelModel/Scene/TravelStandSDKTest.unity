@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 42743311}
   - component: {fileID: 42743310}
   - component: {fileID: 42743309}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 59452490}
   - component: {fileID: 59452489}
   - component: {fileID: 59452488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 79562387}
   - component: {fileID: 79562386}
   - component: {fileID: 79562385}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 85999223}
   - component: {fileID: 85999222}
   - component: {fileID: 85999221}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 110968133}
   - component: {fileID: 110968132}
   - component: {fileID: 110968131}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 148235065}
   - component: {fileID: 148235064}
   - component: {fileID: 148235063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 158794489}
   - component: {fileID: 158794488}
   - component: {fileID: 158794487}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1107,7 @@ GameObject:
   - component: {fileID: 164176759}
   - component: {fileID: 164176758}
   - component: {fileID: 164176757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1202,7 +1202,7 @@ GameObject:
   - component: {fileID: 165999094}
   - component: {fileID: 165999093}
   - component: {fileID: 165999092}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1328,7 +1328,7 @@ GameObject:
   - component: {fileID: 234705106}
   - component: {fileID: 234705105}
   - component: {fileID: 234705104}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1423,7 +1423,7 @@ GameObject:
   - component: {fileID: 240508266}
   - component: {fileID: 240508265}
   - component: {fileID: 240508264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1518,7 +1518,7 @@ GameObject:
   - component: {fileID: 254837284}
   - component: {fileID: 254837283}
   - component: {fileID: 254837282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1613,7 +1613,7 @@ GameObject:
   - component: {fileID: 256458870}
   - component: {fileID: 256458869}
   - component: {fileID: 256458868}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1738,7 +1738,7 @@ GameObject:
   - component: {fileID: 266095911}
   - component: {fileID: 266095910}
   - component: {fileID: 266095909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1833,7 +1833,7 @@ GameObject:
   - component: {fileID: 276239735}
   - component: {fileID: 276239734}
   - component: {fileID: 276239733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1928,7 +1928,7 @@ GameObject:
   - component: {fileID: 283044725}
   - component: {fileID: 283044724}
   - component: {fileID: 283044723}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2170,7 +2170,7 @@ GameObject:
   - component: {fileID: 297543941}
   - component: {fileID: 297543940}
   - component: {fileID: 297543939}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2358,7 +2358,7 @@ GameObject:
   - component: {fileID: 358277620}
   - component: {fileID: 358277619}
   - component: {fileID: 358277618}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2453,7 +2453,7 @@ GameObject:
   - component: {fileID: 367709989}
   - component: {fileID: 367709988}
   - component: {fileID: 367709987}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2579,7 +2579,7 @@ GameObject:
   - component: {fileID: 381889071}
   - component: {fileID: 381889070}
   - component: {fileID: 381889069}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2770,7 +2770,7 @@ GameObject:
   - component: {fileID: 447246518}
   - component: {fileID: 447246517}
   - component: {fileID: 447246516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2865,7 +2865,7 @@ GameObject:
   - component: {fileID: 462193797}
   - component: {fileID: 462193796}
   - component: {fileID: 462193795}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2960,7 +2960,7 @@ GameObject:
   - component: {fileID: 465730650}
   - component: {fileID: 465730649}
   - component: {fileID: 465730648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3110,7 +3110,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -89.656, z: 0}
 --- !u!114 &514070925
 MonoBehaviour:
@@ -3151,7 +3151,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514070923}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &514070927
 Camera:
   m_ObjectHideFlags: 0
@@ -3223,7 +3223,7 @@ GameObject:
   - component: {fileID: 524678966}
   - component: {fileID: 524678965}
   - component: {fileID: 524678964}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3318,7 +3318,7 @@ GameObject:
   - component: {fileID: 550821488}
   - component: {fileID: 550821487}
   - component: {fileID: 550821486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3446,7 +3446,7 @@ GameObject:
   - component: {fileID: 571232417}
   - component: {fileID: 571232416}
   - component: {fileID: 571232415}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3627,7 +3627,7 @@ GameObject:
   - component: {fileID: 618135311}
   - component: {fileID: 618135310}
   - component: {fileID: 618135309}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3856,7 +3856,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &635080932
 MonoBehaviour:
@@ -4195,7 +4195,7 @@ GameObject:
   - component: {fileID: 729834594}
   - component: {fileID: 729834593}
   - component: {fileID: 729834592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4445,7 +4445,7 @@ GameObject:
   - component: {fileID: 807735158}
   - component: {fileID: 807735157}
   - component: {fileID: 807735156}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4762,7 +4762,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888825779
 GameObject:
@@ -4776,7 +4776,7 @@ GameObject:
   - component: {fileID: 888825783}
   - component: {fileID: 888825782}
   - component: {fileID: 888825781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4968,7 +4968,7 @@ GameObject:
   - component: {fileID: 953319883}
   - component: {fileID: 953319882}
   - component: {fileID: 953319881}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5279,7 +5279,7 @@ GameObject:
   - component: {fileID: 992088349}
   - component: {fileID: 992088348}
   - component: {fileID: 992088347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5374,7 +5374,7 @@ GameObject:
   - component: {fileID: 1012665379}
   - component: {fileID: 1012665378}
   - component: {fileID: 1012665377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5469,7 +5469,7 @@ GameObject:
   - component: {fileID: 1034565312}
   - component: {fileID: 1034565311}
   - component: {fileID: 1034565310}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5564,7 +5564,7 @@ GameObject:
   - component: {fileID: 1050435884}
   - component: {fileID: 1050435883}
   - component: {fileID: 1050435882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5659,7 +5659,7 @@ GameObject:
   - component: {fileID: 1054136257}
   - component: {fileID: 1054136256}
   - component: {fileID: 1054136255}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5754,7 +5754,7 @@ GameObject:
   - component: {fileID: 1102561662}
   - component: {fileID: 1102561661}
   - component: {fileID: 1102561660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5911,7 +5911,7 @@ GameObject:
   - component: {fileID: 1157184569}
   - component: {fileID: 1157184568}
   - component: {fileID: 1157184567}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6011,7 +6011,7 @@ GameObject:
   - component: {fileID: 1191717405}
   - component: {fileID: 1191717404}
   - component: {fileID: 1191717403}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6106,7 +6106,7 @@ GameObject:
   - component: {fileID: 1210761189}
   - component: {fileID: 1210761188}
   - component: {fileID: 1210761187}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6201,7 +6201,7 @@ GameObject:
   - component: {fileID: 1232848551}
   - component: {fileID: 1232848550}
   - component: {fileID: 1232848549}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6296,7 +6296,7 @@ GameObject:
   - component: {fileID: 1247400111}
   - component: {fileID: 1247400110}
   - component: {fileID: 1247400109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6391,7 +6391,7 @@ GameObject:
   - component: {fileID: 1262041640}
   - component: {fileID: 1262041639}
   - component: {fileID: 1262041638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6499,7 +6499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7275,7 +7275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 1264596608}
 --- !u!114 &1264596608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7289,8 +7288,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
+  hasExController: 1
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -7344,12 +7345,11 @@ MonoBehaviour:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
     HipPosOffset: {x: 0, y: 0, z: 0}
     RotationSensitivity: 100
-    LocalShiftScale: {x: 1.5, y: 0.8, z: 1.5}
+    LocalShiftScale: {x: 1.5, y: 0.9, z: 1.5}
     CacheStepCount: 8
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 1264596582}
     FinalIKComponent: {fileID: 1264596583}
     FinalIKLookAtComponent: {fileID: 1264596604}
@@ -7456,6 +7456,22 @@ MonoBehaviour:
   anchorPos: {x: 0, y: 0, z: 0}
   footLeft: {fileID: 0}
   footRight: {fileID: 0}
+--- !u!54 &1264596612
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264596580}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0.1
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1288720176
 GameObject:
   m_ObjectHideFlags: 0
@@ -7468,7 +7484,7 @@ GameObject:
   - component: {fileID: 1288720180}
   - component: {fileID: 1288720179}
   - component: {fileID: 1288720178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7655,7 +7671,7 @@ GameObject:
   - component: {fileID: 1351519468}
   - component: {fileID: 1351519467}
   - component: {fileID: 1351519466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7812,7 +7828,7 @@ GameObject:
   - component: {fileID: 1422898946}
   - component: {fileID: 1422898945}
   - component: {fileID: 1422898944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7907,7 +7923,7 @@ GameObject:
   - component: {fileID: 1444455919}
   - component: {fileID: 1444455918}
   - component: {fileID: 1444455917}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8002,7 +8018,7 @@ GameObject:
   - component: {fileID: 1448620366}
   - component: {fileID: 1448620365}
   - component: {fileID: 1448620364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8159,7 +8175,7 @@ GameObject:
   - component: {fileID: 1515815935}
   - component: {fileID: 1515815934}
   - component: {fileID: 1515815933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8368,7 +8384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1592167537 stripped
 Transform:
@@ -8449,7 +8465,7 @@ GameObject:
   - component: {fileID: 1601371959}
   - component: {fileID: 1601371958}
   - component: {fileID: 1601371957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8544,7 +8560,7 @@ GameObject:
   - component: {fileID: 1622229189}
   - component: {fileID: 1622229188}
   - component: {fileID: 1622229187}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8639,7 +8655,7 @@ GameObject:
   - component: {fileID: 1626811737}
   - component: {fileID: 1626811736}
   - component: {fileID: 1626811735}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8796,7 +8812,7 @@ GameObject:
   - component: {fileID: 1664161630}
   - component: {fileID: 1664161629}
   - component: {fileID: 1664161628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8891,7 +8907,7 @@ GameObject:
   - component: {fileID: 1705049593}
   - component: {fileID: 1705049592}
   - component: {fileID: 1705049591}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9017,7 +9033,7 @@ GameObject:
   - component: {fileID: 1721643205}
   - component: {fileID: 1721643204}
   - component: {fileID: 1721643203}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9112,7 +9128,7 @@ GameObject:
   - component: {fileID: 1724130976}
   - component: {fileID: 1724130975}
   - component: {fileID: 1724130974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9238,7 +9254,7 @@ GameObject:
   - component: {fileID: 1777179253}
   - component: {fileID: 1777179252}
   - component: {fileID: 1777179251}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9333,13 +9349,13 @@ GameObject:
   - component: {fileID: 1777460044}
   - component: {fileID: 1777460043}
   - component: {fileID: 1777460042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1777460042
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9410,12 +9426,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777460041}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1979658750}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1788018365
 GameObject:
@@ -9490,7 +9506,7 @@ GameObject:
   - component: {fileID: 1813601569}
   - component: {fileID: 1813601568}
   - component: {fileID: 1813601567}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9616,7 +9632,7 @@ GameObject:
   - component: {fileID: 1884103554}
   - component: {fileID: 1884103553}
   - component: {fileID: 1884103552}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9742,7 +9758,7 @@ GameObject:
   - component: {fileID: 1934681704}
   - component: {fileID: 1934681703}
   - component: {fileID: 1934681702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9898,7 +9914,7 @@ GameObject:
   - component: {fileID: 1970485813}
   - component: {fileID: 1970485812}
   - component: {fileID: 1970485811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9993,7 +10009,7 @@ GameObject:
   - component: {fileID: 1979059421}
   - component: {fileID: 1979059420}
   - component: {fileID: 1979059419}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightmilestone (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10076,6 +10092,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979059417}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1979658749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979658750}
+  m_Layer: 8
+  m_Name: GroundObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979658750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979658749}
+  m_LocalRotation: {x: -0.030015228, y: 0, z: 0, w: 0.99954945}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1777460045}
+  - {fileID: 2089092433}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: -3.44, y: 0, z: 0}
 --- !u!1 &1999901327
 GameObject:
   m_ObjectHideFlags: 0
@@ -10178,7 +10226,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10309,8 +10357,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  isDebug: 0
   isFKEnabled: 0
   monsterMappingEnable: 0
+  hasExController: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -10333,7 +10383,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 5
     SkewCorrection: 0
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2014150610}
     FinalIKComponent: {fileID: 2014150632}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
@@ -10991,7 +11040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 2014150611}
 --- !u!4 &2014150635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6172720843864236375, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -11176,7 +11224,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2089092432
 GameObject:
@@ -11187,13 +11235,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089092433}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: milestones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2089092433
 Transform:
   m_ObjectHideFlags: 0
@@ -11201,7 +11249,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089092432}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.037248775, y: -8.95, z: 23.156614}
   m_LocalScale: {x: 1.2, y: 1, z: 1}
   m_Children:
@@ -11269,8 +11317,8 @@ Transform:
   - {fileID: 266095908}
   - {fileID: 618135308}
   - {fileID: 571232414}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1979658750}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2112877008
 GameObject:
@@ -11315,7 +11363,7 @@ GameObject:
   - component: {fileID: 2119898636}
   - component: {fileID: 2119898635}
   - component: {fileID: 2119898634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11441,7 +11489,7 @@ GameObject:
   - component: {fileID: 2143068722}
   - component: {fileID: 2143068721}
   - component: {fileID: 2143068720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftmilestone (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13422,8 +13470,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
+  hasExController: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -13446,7 +13496,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2753468361735440056}
     FinalIKComponent: {fileID: 2753468361735440057}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
@@ -13514,7 +13563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 2753468361735440064}
 --- !u!114 &2753468361735440067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13993,7 +14041,7 @@ Transform:
   - {fileID: 5651554892728942414}
   - {fileID: 1685914221789206417}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3319413955709574096
 Transform:

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StandTravelModel.Core
+namespace StandTravelModel.Scripts.Runtime.Core
 {
     public enum MotionMode
     {

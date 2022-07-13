@@ -1,6 +1,6 @@
 using MotionCaptureBasic.OSConnector;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 {
     public interface IFKPoseModel
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StandTravelModel
+namespace StandTravelModel.Scripts.Runtime
 {
     [Serializable]
     public class AnimatorSettingGroup

@@ -1,43 +1,46 @@
 using System;
 using System.Collections.Generic;
 
-public class ActionReconCompContainerAnd : ActionReconCompContainerBase
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents.Containers
 {
-    private Dictionary<IActionReconComp, bool> compsActiveCache;
-
-    public ActionReconCompContainerAnd(Action<bool> onAction) : base(onAction)
+    public class ActionReconCompContainerAnd : ActionReconCompContainerBase
     {
-        compsActiveCache = new Dictionary<IActionReconComp, bool>();
-    }
+        private Dictionary<IActionReconComp, bool> compsActiveCache;
 
-    public override void AddReconComp(IActionReconComp comp)
-    {
-        base.AddReconComp(comp);
-        compsActiveCache.Add(comp, false);
-    }
-
-    protected override void OnActionDetect(IActionReconComp comp, bool active)
-    {
-        RefreshCache(comp, active);
-
-        foreach(var item in compsActiveCache)
+        public ActionReconCompContainerAnd(Action<bool> onAction) : base(onAction)
         {
-            if(!item.Value)
-            {
-                SendEvent(false);
-                return;
-            }
+            compsActiveCache = new Dictionary<IActionReconComp, bool>();
         }
 
-        SendEvent(true);
-    }
+        public override void AddReconComp(IActionReconComp comp)
+        {
+            base.AddReconComp(comp);
+            compsActiveCache.Add(comp, false);
+        }
 
-    private void RefreshCache(IActionReconComp comp, bool active)
-    {
-        try {
-            compsActiveCache[comp] = active;
-        } catch(Exception e) {
-            UnityEngine.Debug.LogError("Can not find IActionReconComp !");
+        protected override void OnActionDetect(IActionReconComp comp, bool active)
+        {
+            RefreshCache(comp, active);
+
+            foreach(var item in compsActiveCache)
+            {
+                if(!item.Value)
+                {
+                    SendEvent(false);
+                    return;
+                }
+            }
+
+            SendEvent(true);
+        }
+
+        private void RefreshCache(IActionReconComp comp, bool active)
+        {
+            try {
+                compsActiveCache[comp] = active;
+            } catch(Exception e) {
+                UnityEngine.Debug.LogError("Can not find IActionReconComp !");
+            }
         }
     }
 }

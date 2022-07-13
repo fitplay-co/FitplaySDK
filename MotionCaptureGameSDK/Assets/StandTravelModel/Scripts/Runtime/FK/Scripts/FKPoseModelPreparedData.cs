@@ -1,7 +1,7 @@
-using UnityEngine;
 using MotionCaptureBasic.OSConnector;
+using UnityEngine;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 {
     [RequireComponent(typeof(Animator))]
     public class FKPoseModelPreparedData : MonoBehaviour

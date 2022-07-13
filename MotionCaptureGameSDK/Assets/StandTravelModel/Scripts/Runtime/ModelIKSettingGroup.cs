@@ -1,9 +1,8 @@
 using System;
 using RootMotion.FinalIK;
-using StandTravelModel.Core;
-using UnityEngine;
+using StandTravelModel.Scripts.Runtime.Core;
 
-namespace StandTravelModel
+namespace StandTravelModel.Scripts.Runtime
 {
     [Serializable]
     public class ModelIKSettingGroup

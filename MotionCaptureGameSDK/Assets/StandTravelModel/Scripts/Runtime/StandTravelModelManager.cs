@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
-using StandTravelModel.Core;
-using StandTravelModel.Core.Interface;
-using StandTravelModel.MotionModel;
-using UnityEngine;
-using WeirdHumanoid;
 using MotionCaptureBasic.OSConnector;
-using FK;
+using StandTravelModel.Scripts.Runtime.Core;
+using StandTravelModel.Scripts.Runtime.Core.Interface;
+using StandTravelModel.Scripts.Runtime.FK.Scripts;
+using StandTravelModel.Scripts.Runtime.MotionModel;
+using StandTravelModel.Scripts.Runtime.WeirdHumanoid;
+using UnityEngine;
 
-
-namespace StandTravelModel
+namespace StandTravelModel.Scripts.Runtime
 {
     public enum MotionMode
     {

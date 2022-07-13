@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IActionReconComp
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents
 {
-    void OnUpdate(List<Vector3> keyPoints);
-    void SetAction(Action<bool> onAction);
-    void SetDebug(bool isDebug);
+    public interface IActionReconComp
+    {
+        void OnUpdate(List<Vector3> keyPoints);
+        void SetAction(Action<bool> onAction);
+        void SetDebug(bool isDebug);
+    }
 }

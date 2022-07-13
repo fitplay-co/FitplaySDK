@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StandTravelModel.Core.Interface
+namespace StandTravelModel.Scripts.Runtime.Core.Interface
 {
     public interface IModelIKController
     {

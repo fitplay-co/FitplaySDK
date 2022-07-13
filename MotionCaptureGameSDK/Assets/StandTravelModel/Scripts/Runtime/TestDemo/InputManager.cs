@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StandTravelModel.TestDemo
+namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
     public class InputManager : MonoBehaviour
     {

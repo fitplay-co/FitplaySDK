@@ -1,8 +1,8 @@
 using MotionCaptureBasic.FSM;
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 using UnityEngine;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class AnimationStateBase : State<MotionModelBase>
     {

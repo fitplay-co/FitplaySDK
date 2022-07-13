@@ -1,32 +1,35 @@
 using System;
 
-public abstract class ActionReconLimb : ActionReconBase
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recongizers
 {
-    private ActionId curActionId;
-
-    public ActionReconLimb(bool isLeft, Action<ActionId> onAction) : base(isLeft, onAction)
+    public abstract class ActionReconLimb : ActionReconBase
     {
-    }
+        private ActionId curActionId;
 
-    protected abstract ActionId GetActionIdLeft();
-    protected abstract ActionId GetActionIdRight();
-
-
-    protected override void OnAction(bool active)
-    {
-        var actionId = ActionId.None;
-        if(active)
+        public ActionReconLimb(bool isLeft, Action<ActionId> onAction) : base(isLeft, onAction)
         {
-            actionId = IsLeft() ? GetActionIdLeft() : GetActionIdRight();
-            SendAction(actionId);
         }
+
+        protected abstract ActionId GetActionIdLeft();
+        protected abstract ActionId GetActionIdRight();
+
+
+        protected override void OnAction(bool active)
+        {
+            var actionId = ActionId.None;
+            if(active)
+            {
+                actionId = IsLeft() ? GetActionIdLeft() : GetActionIdRight();
+                SendAction(actionId);
+            }
         
-        /* if(curActionId != actionId)
+            /* if(curActionId != actionId)
         {
             SendAction(curActionId);
         } */
 
-        curActionId = actionId;
-        //SendAction(actionId);
+            curActionId = actionId;
+            //SendAction(actionId);
+        }
     }
 }

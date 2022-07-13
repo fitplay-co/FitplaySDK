@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace StandTravelModel
+namespace StandTravelModel.Scripts.Runtime
 {
     [Serializable]
     public class TuningParameterGroup

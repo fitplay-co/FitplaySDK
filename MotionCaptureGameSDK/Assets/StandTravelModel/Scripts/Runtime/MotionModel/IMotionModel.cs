@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using StandTravelModel.Core;
+using StandTravelModel.Scripts.Runtime.Core;
 using UnityEngine;
 
-namespace StandTravelModel.MotionModel
+namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public interface IMotionModel
     {

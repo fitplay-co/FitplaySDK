@@ -1,7 +1,8 @@
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 using UnityEngine;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class TravelIdleState : AnimationStateBase
     {

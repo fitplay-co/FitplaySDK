@@ -1,7 +1,7 @@
-using UnityEngine;
 using MotionCaptureBasic.Interface;
+using UnityEngine;
 
-namespace WeirdHumanoid
+namespace StandTravelModel.Scripts.Runtime.WeirdHumanoid
 {
     public class WeirdHumanoidPointsLocater : MonoBehaviour
     {

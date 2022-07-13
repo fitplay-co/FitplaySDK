@@ -1,29 +1,34 @@
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.Recongizers.Arm;
 using UnityEngine;
 
-public class ActionReconInstanceDragon : ActionReconInstance
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.DragonRecon
 {
-    private float lastEvent;
-
-    public ActionReconInstanceDragon(OnActionDetect onActionDetect) : base(onActionDetect)
+    public class ActionReconInstanceDragon : ActionReconInstance.ActionReconInstance
     {
-        AddRecon(new ActionReconArmExtendHorizon(true, OnActionRecon, false));
-        AddRecon(new ActionReconArmExtendHorizon(false, OnActionRecon, false));
-        AddRecon(new ActionReconArmExtendVerticle(true, OnActionRecon, false));
-        AddRecon(new ActionReconArmExtendVerticle(false, OnActionRecon, false));
-    }
+        private float lastEvent;
 
-    public override ActionId GetActionId()
-    {
-        if(Time.time < lastEvent + 3)
+        public ActionReconInstanceDragon(OnActionDetect onActionDetect) : base(onActionDetect)
         {
-            return base.GetActionId();
+            AddRecon(new ActionReconArmExtendHorizon(true, OnActionRecon, false));
+            AddRecon(new ActionReconArmExtendHorizon(false, OnActionRecon, false));
+            AddRecon(new ActionReconArmExtendVerticle(true, OnActionRecon, false));
+            AddRecon(new ActionReconArmExtendVerticle(false, OnActionRecon, false));
         }
-        return ActionId.None;
-    }
 
-    protected override void OnActionRecon(ActionId actionId)
-    {
-        this.lastEvent = Time.time;
-        base.OnActionRecon(actionId);
+        public override ActionId GetActionId()
+        {
+            if(Time.time < lastEvent + 3)
+            {
+                return base.GetActionId();
+            }
+            return ActionId.None;
+        }
+
+        protected override void OnActionRecon(ActionId actionId)
+        {
+            this.lastEvent = Time.time;
+            base.OnActionRecon(actionId);
+        }
     }
 }
