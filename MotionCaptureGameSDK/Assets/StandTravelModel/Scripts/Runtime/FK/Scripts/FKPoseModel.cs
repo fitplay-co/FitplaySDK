@@ -133,6 +133,7 @@ namespace FK
                     if(index >= 0 && index < jointPoints.Length && index < fitting.rotation.Count)
                     {
                         jointPoints[index].Transform.rotation = Quaternion.Euler(0, 180, 0) * anim.transform.rotation * fitting.rotation[index].Rotation();
+                        //jointPoints[index].Transform.rotation = anim.transform.rotation * fitting.rotation[index].Rotation();
 
                         if(!pauseFix && rotationCorrects != null && index < rotationCorrects.Length)
                         {

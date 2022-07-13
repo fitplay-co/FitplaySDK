@@ -5,10 +5,12 @@ namespace StandTravelModel.Core.AnimationStates
 {
     public class TravelIdleState : AnimationStateBase
     {
-        
-        public TravelIdleState(MotionModelBase owner) : base(owner)
+        private StepStateAnimatorParametersSetter parametersSetter;
+
+        public TravelIdleState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
         {
             InitFields(AnimationList.Idle);
+            this.parametersSetter = parametersSetter;
         }
 
         public override void Enter()
@@ -40,8 +42,11 @@ namespace StandTravelModel.Core.AnimationStates
                 return;
             }*/
 
-            if (actionDetectionData.walk != null)
+            if (actionDetectionData != null && actionDetectionData.walk != null)
             {
+                parametersSetter.TrySetParametersLegs();
+                parametersSetter.TrySetParammeterFootHeightDiff();
+
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.frequency / 60f;
@@ -49,19 +54,21 @@ namespace StandTravelModel.Core.AnimationStates
                 //Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
 
                 var isRunReady = travelOwner.IsEnterRunReady();
+                isRunReady = false;         //for debuging
+
                 if (actionDetectionData.walk.legUp != 0 && isRunReady)
                 {
                     travelOwner.ChangeState(AnimationList.Run);
                     return;
                 }
-                
-                if (actionDetectionData.walk.legUp == -1)
+
+                if (actionDetectionData.walk.leftLeg != 0)
                 {
                     travelOwner.ChangeState(AnimationList.LeftStep);
                     return;
                 }
                 
-                if (actionDetectionData.walk.legUp == 1)
+                if (actionDetectionData.walk.rightLeg != 0)
                 {
                     travelOwner.ChangeState(AnimationList.RightStep);
                     return;

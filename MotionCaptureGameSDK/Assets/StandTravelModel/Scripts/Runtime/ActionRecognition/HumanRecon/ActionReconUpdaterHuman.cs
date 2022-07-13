@@ -1,0 +1,78 @@
+using MotionCaptureBasic;
+using MotionCaptureBasic.OSConnector;
+
+public class ActionReconUpdaterHuman : ActionReconUpdater
+{
+    private ActionDetectionItem simulatActionDetectionItem;
+    [UnityEngine.SerializeField] private ActionReconUpdaterHumanMessageFaker humanMessageFaker;
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if(reconState == ReconState.Fake)
+        {
+            if(humanMessageFaker == null)
+            {
+                humanMessageFaker = new ActionReconUpdaterHumanMessageFaker();
+            }
+
+            humanMessageFaker.OnUpdate();
+        }
+    }
+
+    protected override IActionReconInstance CreateReconInstance(OnActionDetect onActionDetect)
+    {
+        return new ActionReconInstanceHuman(
+            actionId => {
+                onActionDetect(actionId);
+
+                if(reconState == ReconState.Simulat)
+                {
+                    SetSimulatData(actionId);
+                }
+            },
+            false
+        );
+    }
+
+    private void SetSimulatData(ActionId actionId)
+    {
+        if(simulatActionDetectionItem == null)
+        {
+            simulatActionDetectionItem = new ActionDetectionItem();
+            simulatActionDetectionItem.walk = new WalkActionItem();
+            MotionDataModelHttp.GetInstance().SetSimulatActionDetectionData(simulatActionDetectionItem);
+        }
+
+        if(actionId == ActionId.LegDownLeft)
+        {
+            simulatActionDetectionItem.walk.leftLeg = -1;
+        }
+
+        if(actionId == ActionId.LegUpLeft)
+        {
+            simulatActionDetectionItem.walk.leftLeg = 1;
+        }
+
+        if(actionId == ActionId.LegIdleLeft)
+        {
+            simulatActionDetectionItem.walk.leftLeg = 0;
+        }
+
+        if(actionId == ActionId.LegDownRight)
+        {
+            simulatActionDetectionItem.walk.rightLeg = -1;
+        }
+
+        if(actionId == ActionId.LegUpRight)
+        {
+            simulatActionDetectionItem.walk.rightLeg = 1;
+        }
+
+        if(actionId == ActionId.LegIdleRight)
+        {
+            simulatActionDetectionItem.walk.rightLeg = 0;
+        }
+    }
+}

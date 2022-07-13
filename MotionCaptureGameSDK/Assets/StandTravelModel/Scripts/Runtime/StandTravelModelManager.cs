@@ -23,25 +23,34 @@ namespace StandTravelModel
     /// </summary>
     public class StandTravelModelManager : MonoBehaviour
     {
+        [Range(0, 1)] public float progress;
+
         #region Serializable Variables
 
         [Tooltip("Debug模式开关。如果打开可以打印额外Debug信息，并且显示骨骼点")]
         public bool isDebug;
-        [Tooltip("是否启用FK。如果启用IK将无效")]
-        public bool isFKEnabled;
+
+        [Tooltip("是否启用FK。如果启用IK将无效")] public bool isFKEnabled;
+
         [Tooltip("是否启用非对称映射。如果开启可以匹配非标准人体骨骼的模型")]
         public bool monsterMappingEnable;
+
         [Tooltip("是否通过外部逻辑控制速度。如果开启，sdk本身对模型的移动控制将失效")]
         public bool hasExController;
+
         public MotionMode initialMode = MotionMode.Stand;
+        public AnimationCurve speedCurve;
+        public AnimationCurve downCurve;
         public TuningParameterGroup tuningParameters;
         public ModelIKSettingGroup modelIKSettings;
         public AnimatorSettingGroup animatorSettings;
         public Transform selfTransform;
+
         #endregion
-        
-         
+
+
         #region Unserializable Variables
+
         private IMotionModel motionModel;
         private IMotionDataModel motionDataModel;
         private IModelIKController modelIKController;
@@ -53,6 +62,7 @@ namespace StandTravelModel
         private IFKPoseModel fKPoseModel;
 
         private MotionMode _currentMode = MotionMode.Stand;
+
         public MotionMode currentMode
         {
             get => _currentMode;
@@ -61,7 +71,7 @@ namespace StandTravelModel
                 if (_currentMode != value)
                 {
                     _currentMode = value;
-                    ChangeIKModelWeight((int)value);
+                    ChangeIKModelWeight((int) value);
                     if (value == MotionMode.Stand)
                     {
                         //T强制切回idlestate
@@ -77,10 +87,13 @@ namespace StandTravelModel
         public bool isJump => travelModel.isJump;
 
         private bool enable;
+
         public bool Enabled
         {
             get { return enabled; }
-            set { enabled = value;
+            set
+            {
+                enabled = value;
 #if USE_FINAL_IK
                 fKPoseModel?.SetEnable(value);
                 modelIKSettings.SetEnable(value);
@@ -89,7 +102,7 @@ namespace StandTravelModel
 #endif
             }
         }
-        
+
         private bool _osConnected = false;
         public bool osConnected => _osConnected;
 
@@ -159,7 +172,7 @@ namespace StandTravelModel
 
             modelIKController.UpdateIKTargetsData(keyPointsList);
 
-            if(motionModel != null)
+            if (motionModel != null)
             {
                 motionModel.OnUpdate(keyPointsList);
             }
@@ -167,7 +180,7 @@ namespace StandTravelModel
 
         public void LateUpdate()
         {
-            if(motionModel != null)
+            if (motionModel != null)
             {
                 motionModel.OnLateUpdate();
             }
@@ -185,13 +198,13 @@ namespace StandTravelModel
             modelIKController?.ClearFakeNodes();
             modelIKController = null;
 
-            if(standModel != null)
+            if (standModel != null)
             {
                 standModel.Clear();
                 standModel = null;
             }
 
-            if(travelModel != null)
+            if (travelModel != null)
             {
                 travelModel.Clear();
                 travelModel = null;
@@ -260,10 +273,11 @@ namespace StandTravelModel
         /// <returns></returns>
         public Transform GetTravelAnchor()
         {
-            if(anchorController != null)
+            if (anchorController != null)
             {
                 return anchorController.TravelFollowPoint.transform;
             }
+
             return null;
         }
 
@@ -273,10 +287,11 @@ namespace StandTravelModel
         /// <returns></returns>
         public Transform GetStandAnchor()
         {
-            if(anchorController != null)
+            if (anchorController != null)
             {
                 return anchorController.StandFollowPoint.transform;
             }
+
             return null;
         }
 
@@ -290,6 +305,7 @@ namespace StandTravelModel
             {
                 return anchorController.StandLookAtPoint.transform;
             }
+
             return null;
         }
 
@@ -303,6 +319,7 @@ namespace StandTravelModel
             {
                 return anchorController.TravelLookAtPoint.transform;
             }
+
             return null;
         }
 
@@ -313,9 +330,9 @@ namespace StandTravelModel
         /// <param name="dt"></param>
         public void TurnCharacter(float angle, float dt)
         {
-            if(motionModel != null)
+            if (motionModel != null)
             {
-                var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
+                var deltaRotation = Quaternion.Euler(0, tuningParameters.RotationSensitivity * angle * dt, 0);
                 motionModel.GetAnchorController().TurnControlPoints(deltaRotation);
             }
         }
@@ -341,7 +358,7 @@ namespace StandTravelModel
         {
             modelIKController.ChangeLowerBodyIKWeight(weight);
         }
-        
+
         private void UpdateModelParameters()
         {
             if (motionDataModel != null)
@@ -354,16 +371,21 @@ namespace StandTravelModel
                 travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
                 travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
             }
-            
+
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
+            }
+
+            if (progress > 0.0001f)
+            {
+                GetComponent<Animator>().SetFloat("progress", progress);
             }
         }
 
         private void TryConvertKeyPoints(List<Vector3> keyPoints)
         {
-            if(keyPointsConverter != null)
+            if (keyPointsConverter != null)
             {
                 keyPointsConverter.ConvertKeyPoints(keyPoints);
             }
@@ -371,10 +393,10 @@ namespace StandTravelModel
 
         private void TryInitWeirdHumanConverter()
         {
-            if(monsterMappingEnable)
+            if (monsterMappingEnable)
             {
                 var locater = GetComponent<WeirdHumanoidPointsLocater>();
-                if(locater != null)
+                if (locater != null)
                 {
                     keyPointsConverter = new WeirdHumanoidPointConverter(locater);
                 }
@@ -392,12 +414,14 @@ namespace StandTravelModel
 
         private void InitTravelModel(Transform hip, Transform head)
         {
-            travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, hasExController);
+            travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
+                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve);
         }
 
         private void InitStandModel(Transform hip, Transform head)
         {
-            standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController);
+            standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
+                motionDataModel, anchorController);
         }
 
         private void InitAnchorController()
@@ -422,7 +446,8 @@ namespace StandTravelModel
             }
 
 #if USE_FINAL_IK
-            modelIKController = new ModelFinalIKController(fakeNodeObj, modelIKSettings.FinalIKComponent, modelIKSettings.FinalIKLookAtComponent);
+            modelIKController = new ModelFinalIKController(fakeNodeObj, modelIKSettings.FinalIKComponent,
+                modelIKSettings.FinalIKLookAtComponent);
 #else
             modelIKController = new ModelNativeIKController(fakeNodeObj, modelIKSettings.IKScript);
 #endif
@@ -434,16 +459,17 @@ namespace StandTravelModel
 
         public bool IsFKEnabled()
         {
-            if(fKPoseModel != null)
+            if (fKPoseModel != null)
             {
                 return fKPoseModel.IsEnabled();
             }
+
             return false;
         }
 
         public void EnableFK()
         {
-            if(fKPoseModel != null)
+            if (fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(true);
                 modelIKSettings.SetEnable(false);
@@ -452,7 +478,7 @@ namespace StandTravelModel
 
         public void DisableFK()
         {
-            if(fKPoseModel != null)
+            if (fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(false);
                 modelIKSettings.SetEnable(true);
@@ -462,7 +488,7 @@ namespace StandTravelModel
 
         private void TryInitFKModel()
         {
-            if(fKPoseModel == null)
+            if (fKPoseModel == null)
             {
                 fKPoseModel = gameObject.AddComponent<FKPoseModel>();
                 fKPoseModel.SetEnable(false);
@@ -506,12 +532,11 @@ namespace StandTravelModel
             motionDataModel.SubscribeFitting();
             _osConnected = true;
         }
-        
+
         public void ResetAnchorPosition()
         {
             GetTravelAnchor().position = selfTransform.position;
-            GetStandAnchor().position =  selfTransform.position;
-            
+            GetStandAnchor().position = selfTransform.position;
         }
 
         public Vector3 GetMoveVelocity()

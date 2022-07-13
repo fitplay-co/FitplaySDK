@@ -1,11 +1,10 @@
 using StandTravelModel.MotionModel;
-using UnityEngine;
 
 namespace StandTravelModel.Core.AnimationStates
 {
-    public class TravelRightStepState : TravelBaseState
+    public class TravelRightStepState : TravelStepBase
     {
-        public TravelRightStepState(MotionModelBase owner) : base(owner)
+        public TravelRightStepState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner, parametersSetter)
         {
         }
 

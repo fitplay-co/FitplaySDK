@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace StandTravelModel.Core
@@ -49,6 +48,5 @@ namespace StandTravelModel.Core
             int parameterHash = Animator.StringToHash(parameterName);
             animator.SetFloat(parameterName, speed);
         }
-        
     }
 }

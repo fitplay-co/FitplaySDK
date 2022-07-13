@@ -77,6 +77,5 @@ namespace StandTravelModel.Core
             standFollowPoint.transform.rotation *= deltaAngle;
             travelFollowPoint.transform.rotation *= deltaAngle;
         }
-
     }
 }
