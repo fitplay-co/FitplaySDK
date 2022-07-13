@@ -16,7 +16,11 @@ public class StepProgressCacher
     public void GetLegProgress(float hipAngle, out float progressUp, out float progressDown, out float angleDelta)
     {
         progressUp = ConvertHipAngleToProgress(hipAngle);
-        progressDown = downCurve.Evaluate(1 - progressUp);
+        //progressDown = downCurve.Evaluate(1 - progressUp);
+        //progressUp = downCurve.Evaluate(progressUp);
+
+        progressDown = ConvertHipAngleToProgress(Mathf.Max(hipAngle - 120, 0));
+        //progressDown = downCurve.Evaluate(progressDown);
         angleDelta = Mathf.Abs(lastAngle - hipAngle) * 0.1f;
         lastAngle = hipAngle;
     }
@@ -25,7 +29,7 @@ public class StepProgressCacher
     {
         cacheAngle = Mathf.LerpAngle(cacheAngle, angle, Time.deltaTime * 10);
 
-        var progress = (190f - cacheAngle) / 90f;
+        var progress = (180f - cacheAngle) / 90f;
         return speedCurve.Evaluate(progress);
     }
 }

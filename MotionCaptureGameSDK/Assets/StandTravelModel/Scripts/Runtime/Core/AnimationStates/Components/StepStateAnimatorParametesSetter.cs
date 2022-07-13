@@ -21,7 +21,7 @@ public class StepStateAnimatorParametersSetter
 
     public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve)
     {
-        travelOwner.selfAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        ///.selfAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
 
         this.travelOwner = travelOwner;
         this.progressLeft = new StepProgressCacher(speedCurve, downCurve);
@@ -52,12 +52,16 @@ public class StepStateAnimatorParametersSetter
     {
         if(actionDetectionItem != null && actionDetectionItem.walk != null)
         {
-            var angleDelta = 0f;
-            SetLegParameters(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDelta);
-            SetLegParameters(actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDelta);
+            var angleDeltaLeft = 0f;
+            var angleDeltaRight = 0f;
+            SetLegParameters(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDeltaLeft);
+            SetLegParameters(actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDeltaRight);
 
-            travelOwner.selfAnimator.Update(Time.deltaTime * angleDelta);
+            var angleDelta = Mathf.Max(angleDeltaLeft, angleDeltaRight);
+            //travelOwner.selfAnimator.Update(Time.deltaTime * angleDelta);
             //Debug.Log("angleDelta -> " + angleDelta);
+
+            travelOwner.selfAnimator.SetFloat("speedScale", angleDelta);
         }
     }
 

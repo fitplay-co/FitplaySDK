@@ -4819,7 +4819,7 @@ ModelImporter:
       takeName: WalkFwdLoop
       internalID: 0
       firstFrame: 17
-      lastFrame: 25
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5285,7 +5285,7 @@ ModelImporter:
       takeName: WalkFwdLoop
       internalID: 0
       firstFrame: 17
-      lastFrame: 25
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
