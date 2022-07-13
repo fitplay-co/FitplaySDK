@@ -28,7 +28,7 @@ namespace StandTravelModel
         public bool monsterMappingEnable;
         public MotionMode initialMode = MotionMode.Stand;
         public AnimationCurve speedCurve;
-        public AnimationCurve backupCurve;
+        public AnimationCurve downCurve;
         public TuningParameterGroup tuningParameters;
         public ModelIKSettingGroup modelIKSettings;
         public AnimatorSettingGroup animatorSettings;
@@ -330,7 +330,7 @@ namespace StandTravelModel
 
         private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
         {
-            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, speedCurve);
+            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, speedCurve, downCurve);
         }
 
         private void InitStandModel(Transform characterHipNode, AnchorController anchorController)

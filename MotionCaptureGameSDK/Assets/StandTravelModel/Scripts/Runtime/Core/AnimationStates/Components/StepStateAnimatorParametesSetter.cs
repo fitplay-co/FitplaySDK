@@ -13,15 +13,19 @@ public class StepStateAnimatorParametersSetter
     private int animIdStepProgressDownRight;
 
     private TravelModel travelOwner;
-    private AnimationCurve speedCurve;
+    private StepProgressCacher progressLeft;
+    private StepProgressCacher progressRight;
     private ActionDetectionItem actionDetectionItem;
 
     private float lastProgress;
 
-    public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve)
+    public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve)
     {
-        this.speedCurve = speedCurve;
+        travelOwner.selfAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
         this.travelOwner = travelOwner;
+        this.progressLeft = new StepProgressCacher(speedCurve, downCurve);
+        this.progressRight = new StepProgressCacher(speedCurve, downCurve);
         this.animIdLegLeft = Animator.StringToHash("leftLeg");
         this.animIdLegRight = Animator.StringToHash("rightLeg");
         this.animIdFootHeightDiff = Animator.StringToHash("footHeightDiff");
@@ -40,6 +44,7 @@ public class StepStateAnimatorParametersSetter
             var rightLeg = actionDetectionItem.walk.rightLeg;
             travelOwner.selfAnimator.SetInteger(animIdLegLeft, leftLeg);
             travelOwner.selfAnimator.SetInteger(animIdLegRight, rightLeg);
+            //Debug.Log(actionDetectionItem.walk.leftFrequency);
         }
     }
 
@@ -47,8 +52,12 @@ public class StepStateAnimatorParametersSetter
     {
         if(actionDetectionItem != null && actionDetectionItem.walk != null)
         {
-            SetLegParameters(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft);
-            SetLegParameters(actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight);
+            var angleDelta = 0f;
+            SetLegParameters(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDelta);
+            SetLegParameters(actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDelta);
+
+            travelOwner.selfAnimator.Update(Time.deltaTime * angleDelta);
+            //Debug.Log("angleDelta -> " + angleDelta);
         }
     }
 
@@ -56,16 +65,24 @@ public class StepStateAnimatorParametersSetter
     {
         if(actionDetectionItem != null && actionDetectionItem.walk != null)
         {
-            var diff = Mathf.Abs(actionDetectionItem.walk.leftHipAng - actionDetectionItem.walk.rightHipAng) * 0.03f;
+            var diff = Mathf.Abs(actionDetectionItem.walk.leftHipAng - actionDetectionItem.walk.rightHipAng);
             travelOwner.selfAnimator.SetFloat(animIdFootHeightDiff, diff);
         }
     }
 
-    private void SetLegParameters(int leg, float hipAngle, int idUp, int idDown)
+    private void SetLegParameters(int leg, float hipAngle, int idUp, int idDown, bool isLeft, out float angleDelta)
     {
         var progressUp = 0f;
         var progressDown = 0f;
-        GetLegProgress(leg, hipAngle, out progressUp, out progressDown);
+
+        if(isLeft)
+        {
+            progressLeft.GetLegProgress(hipAngle, out progressUp, out progressDown, out angleDelta);
+        }
+        else
+        {
+            progressRight.GetLegProgress(hipAngle, out progressUp, out progressDown, out angleDelta);
+        }
 
         if(leg == 1)
         {
@@ -81,30 +98,7 @@ public class StepStateAnimatorParametersSetter
         {
             travelOwner.selfAnimator.SetFloat(idDown, progressDown);
         }
-    }
 
-    private void GetLegProgress(int leg, float hipAngle, out float progressUp, out float progressDown)
-    {
-        progressUp = ConvertHipAngleToProgress(hipAngle);
-        progressDown = 1 - progressUp;
-
-        /* if(leg == 1)
-        {
-            progressDown = 0;
-        }
-        else if(leg == -1)
-        {
-            progressUp = 0;
-        } */
-    }
-
-    private float ConvertHipAngleToProgress(float angle)
-    {
-        var progress = (190f - angle) / 90f;
-        if(speedCurve != null)
-        {
-            return speedCurve.Evaluate(progress);
-        }  
-        return progress;
+        //travelOwner.selfAnimator.SetFloat("speedScale", angleDelta);
     }
 }

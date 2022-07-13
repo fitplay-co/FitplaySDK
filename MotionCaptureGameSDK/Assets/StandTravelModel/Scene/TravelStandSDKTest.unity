@@ -6544,7 +6544,7 @@ PrefabInstance:
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: fbbc08bc06cb0b14cbfd8a7d51d36e84, type: 2}
+      objectReference: {fileID: 9100000, guid: 1c78c1166db98da42a0ab3fecd27f05d, type: 2}
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
@@ -7298,60 +7298,42 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  backupCurve:
+  downCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 3.7237267
-      tangentMode: 5
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.025974026
-    - serializedVersion: 3
-      time: 0.01327032
-      value: 0.26705864
-      inSlope: 3.2623997
-      outSlope: 10.455643
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.06957787
-    - serializedVersion: 3
-      time: 0.17280933
-      value: 0.8959702
-      inSlope: 1.4701742
-      outSlope: 0.7963485
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.34031335
-      outWeight: 0.057273824
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -10336,7 +10318,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  backupCurve:
+  downCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -13449,7 +13431,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  backupCurve:
+  downCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2

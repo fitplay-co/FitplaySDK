@@ -4576,8 +4576,8 @@ ModelImporter:
       name: WalkFwdLoop_Left_Up
       takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 10
-      lastFrame: 15
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4818,8 +4818,8 @@ ModelImporter:
       name: WalkFwdLoop_Left_Down
       takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 15
-      lastFrame: 26
+      firstFrame: 17
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5042,8 +5042,8 @@ ModelImporter:
       name: WalkFwdLoop_Right_Up
       takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 10
-      lastFrame: 15
+      firstFrame: 8
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -5284,8 +5284,8 @@ ModelImporter:
       name: WalkFwdLoop _Right_Down
       takeName: WalkFwdLoop
       internalID: 0
-      firstFrame: 15
-      lastFrame: 26
+      firstFrame: 17
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
