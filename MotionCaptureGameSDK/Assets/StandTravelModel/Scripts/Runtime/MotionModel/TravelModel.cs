@@ -55,7 +55,8 @@ namespace StandTravelModel.MotionModel
             AnchorController anchorController,
             AnimatorSettingGroup animatorSettingGroup,
             AnimationCurve speedCurve,
-            AnimationCurve downCurve
+            AnimationCurve downCurve,
+            StepStateSmoother stepSmoother
             ) : base(
                 selfTransform,
                 characterHipNode,
@@ -81,7 +82,7 @@ namespace StandTravelModel.MotionModel
 
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
-            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve);
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
@@ -118,10 +119,11 @@ namespace StandTravelModel.MotionModel
         {
             base.OnUpdate(keyPoints);
             //animatorController.UpdateTravelAnimator();
+        }
 
-            var deltaTime = Time.deltaTime;
-
-            stateMachine.OnTick(deltaTime);
+        public override void UpdateFromMono()
+        {
+            stateMachine.OnTick(Time.deltaTime);
         }
 
         /// <summary>

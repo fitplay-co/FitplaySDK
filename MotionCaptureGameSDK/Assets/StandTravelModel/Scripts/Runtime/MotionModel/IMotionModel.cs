@@ -11,5 +11,6 @@ namespace StandTravelModel.MotionModel
         void Clear();
         AnchorController GetAnchorController();
         List<Vector3> GetKeyPoints();
+        void UpdateFromMono();
     }
 }

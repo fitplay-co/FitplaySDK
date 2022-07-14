@@ -5,7 +5,7 @@ public class AnimatorMover : MonoBehaviour
 {
     private const int footIndexLeft = -1;
     private const int footIndexRight = 1;
-    private const float footHeightDetach = 0.02f;
+    private const float footHeightDetach = 0.01f;
 
     [SerializeField] private int curFootIndex;
     [SerializeField] private Vector3 footPos;

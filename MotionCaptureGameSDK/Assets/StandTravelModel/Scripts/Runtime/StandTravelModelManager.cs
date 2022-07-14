@@ -33,6 +33,7 @@ namespace StandTravelModel
         public ModelIKSettingGroup modelIKSettings;
         public AnimatorSettingGroup animatorSettings;
         public Transform selfTransform;
+        public StepStateSmoother stepSmoother;
         #endregion
         
          
@@ -131,6 +132,11 @@ namespace StandTravelModel
 
         public void Update()
         {
+            if(motionModel != null)
+            {
+                motionModel.UpdateFromMono();
+            }
+
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -330,7 +336,7 @@ namespace StandTravelModel
 
         private void InitTravelModel(Transform characterHipNode, AnchorController anchorController)
         {
-            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, speedCurve, downCurve);
+            travelModel = new TravelModel(transform, characterHipNode, keyPointsParent.transform, tuningParameters, motionDataModel, anchorController, animatorSettings, speedCurve, downCurve, stepSmoother);
         }
 
         private void InitStandModel(Transform characterHipNode, AnchorController anchorController)

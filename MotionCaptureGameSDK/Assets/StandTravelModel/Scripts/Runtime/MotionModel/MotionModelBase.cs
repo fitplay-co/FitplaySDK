@@ -131,5 +131,9 @@ namespace StandTravelModel.MotionModel
         {
             return stateMachine.PrevState;
         }
+
+        public virtual void UpdateFromMono()
+        {
+        }
     }
 }
