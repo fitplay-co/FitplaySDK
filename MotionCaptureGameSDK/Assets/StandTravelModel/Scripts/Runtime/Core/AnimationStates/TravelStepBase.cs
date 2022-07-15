@@ -4,21 +4,23 @@ using StandTravelModel.MotionModel;
 
 namespace StandTravelModel.Core.AnimationStates
 {
-    public abstract class TravelStepBase : StepStateBase
+    public abstract class TravelStepBase : TravelBaseState
     {
         private ReconCompAngleGetterWithDirect angleGetterWithDirectLeft;
         private ReconCompAngleGetterWithDirect angleGetterWithDirectRight;
+        private StepStateAnimatorParametersSetter parametersSetter;
 
-        protected TravelStepBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner, parametersSetter)
+        protected TravelStepBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
         {
-            angleGetterWithDirectLeft = new ReconCompAngleGetterWithDirect(GameKeyPointsType.LeftKnee, GameKeyPointsType.LeftHip, GameKeyPointsType.Nose, Vector3.up);
-            angleGetterWithDirectRight = new ReconCompAngleGetterWithDirect(GameKeyPointsType.RightKnee, GameKeyPointsType.RightKnee, GameKeyPointsType.Nose, Vector3.up);
+            this.parametersSetter = parametersSetter;
+            this.angleGetterWithDirectLeft = new ReconCompAngleGetterWithDirect(GameKeyPointsType.LeftKnee, GameKeyPointsType.LeftHip, GameKeyPointsType.Nose, Vector3.up);
+            this.angleGetterWithDirectRight = new ReconCompAngleGetterWithDirect(GameKeyPointsType.RightKnee, GameKeyPointsType.RightKnee, GameKeyPointsType.Nose, Vector3.up);
         }
 
         public override void Tick(float deltaTime)
         {
             base.Tick(deltaTime);
-            TrySetStepParameters();
+            parametersSetter.TrySetStepParameters();
         }
 
         private float GetHipAngle(int leftLeg, int rightLeg)

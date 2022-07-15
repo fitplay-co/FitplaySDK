@@ -87,7 +87,7 @@ namespace StandTravelModel.MotionModel
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
                 {AnimationList.Idle, new TravelIdleState(this, parametersSetter)},
-                {AnimationList.Run, new TravelRunState(this)},
+                {AnimationList.Run, new TravelRunState(this, parametersSetter)},
                 {AnimationList.Jump, new TravelJumpState(this)},
                 {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter)},
                 {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter)},

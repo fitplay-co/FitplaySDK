@@ -48,11 +48,9 @@ namespace StandTravelModel.Core.AnimationStates
 
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
-                travelOwner.currentFrequency = actionDetectionData.walk.frequency / 60f;
-                travelOwner.UpdateAnimatorCadence();
                 //Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
 
-                var isRunReady = travelOwner.IsEnterRunReady();
+                var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk);
                 isRunReady = false;         //for debuging
 
                 if (actionDetectionData.walk.legUp != 0 && isRunReady)

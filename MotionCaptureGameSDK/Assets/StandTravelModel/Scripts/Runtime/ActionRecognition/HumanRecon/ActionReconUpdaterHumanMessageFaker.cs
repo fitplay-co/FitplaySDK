@@ -18,6 +18,8 @@ public class ActionReconUpdaterHumanMessageFaker
     [SerializeField] private float progress;
     [SerializeField] private float timeLine;
     [SerializeField] private StageType curStage;
+    [SerializeField][Range(0, 10)] private float stepFrequency;
+    [SerializeField][Range(0, 10)] private float stepLength;
 
     private ActionDetectionItem simulatActionDetectionItem;
 
@@ -48,6 +50,8 @@ public class ActionReconUpdaterHumanMessageFaker
         timeLine %= stageCount;
 
         UpdateHipAngle(curStage);
+        simulatActionDetectionItem.walk.leftFrequency = stepFrequency;
+        simulatActionDetectionItem.walk.leftStepLength = stepLength;
     }
 
     private void OnStageSwitch(StageType stageType)

@@ -5,68 +5,98 @@ namespace StandTravelModel.Core.AnimationStates
 {
     public class TravelRunState : AnimationStateBase
     {
+        private int animIdIsRun;
+        private int animIdRunFreq;
+        private StateFaderRun stateFaderRunIn;
+        private StateFaderRun stateFaderRunOut;
 
-        
-        public TravelRunState(MotionModelBase owner) : base(owner)
+        private StepStateAnimatorParametersSetter parametersSetter;
+
+        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
         {
+            this.animIdIsRun = Animator.StringToHash("isRun");
+            this.animIdRunFreq = Animator.StringToHash("runFrequency");
+            this.stateFaderRunIn = new StateFaderRun(owner.GetAnimator(), 2, "runTransition");
+            this.stateFaderRunOut = new StateFaderRun(owner.GetAnimator(), 4, "runTransition");
+            this.stateFaderRunOut.SetPause(true);
+            this.parametersSetter = parametersSetter;
             InitFields(AnimationList.Run);
         }
 
         public override void Enter()
         {
-            //Debug.Log("TravelRunState:Enter");
             base.Enter();
+            travelOwner.selfAnimator.SetBool(animIdIsRun, true);
+            stateFaderRunIn.Reset();
+            stateFaderRunOut.Reset(true);
+            stateFaderRunOut.SetPause(true);
         }
 
         public override void Tick(float deltaTime)
         {
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
-            /*if (actionDetectionData.jump != null)
-            {
-                Debug.LogError($"Jump: {actionDetectionData.jump.up}, Strength: {actionDetectionData.jump.strength}");
-                if (actionDetectionData.jump.up == 1)
-                {
-                    travelOwner.ChangeState(AnimationList.Jump);
-                    return;
-                }
-            }*/
-
             if (actionDetectionData.walk != null)
             {
-                //Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
-                travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
-                travelOwner.currentLeg = actionDetectionData.walk.legUp;
-                travelOwner.currentFrequency = actionDetectionData.walk.frequency / 60f;
-                travelOwner.UpdateAnimatorCadence();
-                
-                if (actionDetectionData.walk.legUp == 0)
+                if(!stateFaderRunOut.IsPaused() && !stateFaderRunOut.IsComplete())
                 {
-                    travelOwner.ChangeState(AnimationList.Idle);
-                    return;
+                    stateFaderRunOut.OnUdpate();
                 }
-                
-                var isRunReady = travelOwner.IsEnterRunReady();
-                if (!isRunReady)
+                else
                 {
-                    if (actionDetectionData.walk.legUp == -1)
+                    stateFaderRunIn.OnUdpate();
+                    travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
+                    travelOwner.currentLeg = actionDetectionData.walk.legUp;
+                    travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
+                    travelOwner.UpdateAnimatorCadence();
+                    
+                    if (actionDetectionData.walk.leftLeg == 0 && actionDetectionData.walk.rightLeg == 0)
                     {
-                        travelOwner.ChangeState(AnimationList.LeftStep);
+                        stateFaderRunOut.SetPause(false);
+                        stateFaderRunOut.SetCompleteEvent(() => OnTransitionToIdleEnd(AnimationList.Idle));
                         return;
                     }
-                
-                    if (actionDetectionData.walk.legUp == 1)
+                    
+                    var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk);
+                    if (!isRunReady)
                     {
-                        travelOwner.ChangeState(AnimationList.RightStep);
-                        return;
+                        if (actionDetectionData.walk.leftLeg != 0)
+                        {
+                            stateFaderRunOut.SetPause(false);
+                            stateFaderRunOut.SetCompleteEvent(() => OnTransitionToIdleEnd(AnimationList.LeftStep));
+                            return;
+                        }
+                    
+                        if (actionDetectionData.walk.rightLeg != 0)
+                        {
+                            stateFaderRunOut.SetPause(false);
+                            stateFaderRunOut.SetCompleteEvent(() => OnTransitionToIdleEnd(AnimationList.RightStep));
+                            return;
+                        }
                     }
                 }
+
+                UpdateRunSpeed(actionDetectionData.walk.leftFrequency);
+                parametersSetter.TrySetStepParameters();
             }
         }
 
         public override void Exit()
         {
-            //Debug.Log("TravelRunState:Exit");
             base.Exit();
+            travelOwner.selfAnimator.SetBool(animIdIsRun, false);
+            travelOwner.selfAnimator.SetFloat("runTransition", 0);
+            travelOwner.selfAnimator.SetTrigger("runFade");
+        }
+
+        private void UpdateRunSpeed(float stepFrequency)
+        {
+            travelOwner.selfAnimator.SetFloat(animIdRunFreq, stepFrequency * 0.12f);
+        }
+
+        private void OnTransitionToIdleEnd(AnimationList nextState)
+        {
+            Debug.Log("OnTransitionToIdleEnd " + nextState);
+            travelOwner.ChangeState(nextState);
         }
     }
 }

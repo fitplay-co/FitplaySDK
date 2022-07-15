@@ -4678,83 +4678,6 @@ Transform:
   m_Father: {fileID: 1637943310}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &886378781
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 886378784}
-  - component: {fileID: 886378783}
-  - component: {fileID: 886378782}
-  m_Layer: 0
-  m_Name: KeyPointsRecorder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &886378782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886378781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868ba4a638939254bab746fc437d215e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 1741
-  keyPointsRecorder: {fileID: 886378783}
-  showerElements:
-  - angle: 29.883293
-    keyPointsTypeFor: 13
-    keyPointsTypeMid: 11
-    keyPointsTypeBak: 9
-  showerElementWithDirects:
-  - angle: 145.1195
-    keyPointsTypeFor: 13
-    keyPointsTypeMid: 11
-    direct: {x: 0, y: 1, z: 0}
-  - angle: 160.81065
-    keyPointsTypeFor: 11
-    keyPointsTypeMid: 9
-    direct: {x: 0, y: 1, z: 0}
---- !u!114 &886378783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886378781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a080f9ebb3f52c54fa7c4879b25d376c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gettingIndex: 0
-  enableRecord: 0
-  recordedAcc: 0
-  recordDelay: 0
-  recordLength: 0
---- !u!4 &886378784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886378781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9490247, y: 1.0843488, z: -0.011746973}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888825779
 GameObject:
   m_ObjectHideFlags: 0
@@ -6490,7 +6413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6535,10 +6458,10 @@ PrefabInstance:
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 3ca1b24e768faca43bd2d14b0cd6a71c, type: 2}
+      objectReference: {fileID: 9100000, guid: f5ab643c0eacc2d41b0f748bcdc70644, type: 2}
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
@@ -7227,7 +7150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264596580}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e76d06b6514358449beedc63b2c32f11, type: 3}
   m_Name: 
@@ -7241,6 +7164,8 @@ MonoBehaviour:
     progress: 0
     timeLine: 0
     curStage: 0
+    stepFrequency: 0
+    stepLength: 0
 --- !u!114 &1264596606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7444,15 +7369,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1264596580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad825fe9ca5fe804a9805c16af9471cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a958fdd115fa4540bf0020bd31e3306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curFootIndex: 0
-  footPos: {x: 0, y: 0, z: 0}
-  deltaPos: {x: 0, y: 0, z: 0}
-  anchorPos: {x: 0, y: 0, z: 0}
-  footLeft: {fileID: 0}
-  footRight: {fileID: 0}
 --- !u!1 &1288720176
 GameObject:
   m_ObjectHideFlags: 0
@@ -11196,7 +11115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2089092433
 Transform:
   m_ObjectHideFlags: 0
@@ -13545,6 +13464,8 @@ MonoBehaviour:
     progress: 0
     timeLine: 0
     curStage: 0
+    stepFrequency: 0
+    stepLength: 0
 --- !u!4 &2787233591588614682
 Transform:
   m_ObjectHideFlags: 0

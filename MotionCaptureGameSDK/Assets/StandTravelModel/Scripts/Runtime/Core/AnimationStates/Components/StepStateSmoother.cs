@@ -79,16 +79,12 @@ public class StepStateSmoother
             //Debug.Log(Time.frameCount + "right down " + stepProgressRightDown + "|" + frameTarget);
         }
 
-        Debug.Log(Time.frameCount + "+++++++++++++++++++++++++ " + stepProgressLeftUp + "|" + stepProgressLeftDown + "|" + stepProgressRightUp + "|" + stepProgressRightDown + "|||" + frameTarget);
-
 /*         if(frameTargetStart > frameTargetEnd)
         {
             frameTarget = Mathf.Min(frameTarget, frameCurr);
         } */
 
         frameCurr = LerpFrame(frameCurr, frameTarget, Time.deltaTime * catchupSpeed, false);
-
-        Debug.Log("0----------------" + frameCurr + "|" + frameTargetStart + "|" + frameTargetEnd);
 
         if(frameTargetStart < frameTargetEnd)
         {
@@ -107,8 +103,6 @@ public class StepStateSmoother
         }
 
         var delta = frameCurr - backup;
-        Debug.Log("cur -> " + frameCurr);
-        Debug.Log("delta ------------------------------> " + delta);
         backup = frameCurr;
 
         /* if(Mathf.Abs(delta) > 20)
@@ -125,8 +119,6 @@ public class StepStateSmoother
     private float LerpFrame(float start, float end, float percent, bool canExceed)
     {
         var frame = LerpFrame(start, end, percent);
-
-        Debug.Log(frame + "|" + start + "|" + end + "|" + percent + "|" + Time.frameCount);
 
         /* if(!canExceed)
         {

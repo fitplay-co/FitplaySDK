@@ -21,17 +21,16 @@ namespace StandTravelModel.Core.AnimationStates
             {
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
-                travelOwner.currentFrequency = actionDetectionData.walk.frequency / 60f;
+                travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
 
-                if (actionDetectionData.walk.legUp == 0)
+                if (actionDetectionData.walk.leftLeg == 0 && actionDetectionData.walk.rightLeg == 0)
                 {
                     travelOwner.ChangeState(AnimationList.Idle);
                     return;
                 }
                 
-                var isRunReady = travelOwner.IsEnterRunReady();
-                if (actionDetectionData.walk.legUp != 0 && isRunReady)
+                if (runConditioner.IsEnterRunReady(actionDetectionData.walk))
                 {
                     travelOwner.ChangeState(AnimationList.Run);
                     return;
@@ -43,7 +42,6 @@ namespace StandTravelModel.Core.AnimationStates
                     return;
                 }
 
-                //Debug.Log("strength -> " + actionDetectionData.walk.strength);
                 travelOwner.selfAnimator.SetFloat(animStrideId, Mathf.Clamp01(actionDetectionData.walk.strength * 10));
             }
         }

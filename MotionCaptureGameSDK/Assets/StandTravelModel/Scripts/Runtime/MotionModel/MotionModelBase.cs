@@ -135,5 +135,10 @@ namespace StandTravelModel.MotionModel
         public virtual void UpdateFromMono()
         {
         }
+
+        public Animator GetAnimator()
+        {
+            return selfTransform.GetComponent<Animator>();
+        }
     }
 }
