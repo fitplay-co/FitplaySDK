@@ -1,7 +1,8 @@
 using MotionCaptureBasic;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
-using StandTravelModel;
+using StandTravelModel.Scripts.Runtime.ActionRecognition;
+using StandTravelModel.Scripts.Runtime;
 
 public class ActionEventDisplayer : MonoBehaviour
 {

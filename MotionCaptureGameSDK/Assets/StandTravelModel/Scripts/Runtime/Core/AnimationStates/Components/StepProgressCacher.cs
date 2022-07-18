@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class StepProgressCacher
     {
@@ -29,7 +29,7 @@ namespace StandTravelModel.Core.AnimationStates
 
         private float ConverHipAngleToProgressDown(float angle)
         {
-            return Mathf.Max((angle - 120f) / 60f, 0);
+            return Mathf.Max((angle - 120f) / 120f, 0);
         }
     }
 }

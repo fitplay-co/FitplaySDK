@@ -1,8 +1,8 @@
 using UnityEngine;
 using MotionCaptureBasic.OSConnector;
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class StepStateAnimatorParametersSetter
     {
@@ -132,16 +132,6 @@ namespace StandTravelModel.Core.AnimationStates
             stepSmoother.OnUpdate(progressUpLeft, progressDownLeft, progressUpRight, progressDownRight);
 
             travelOwner.selfAnimator.SetFloat(animIdStepProgress, stepSmoother.GetStepProgress());
-        }
-
-        public float GetStepProgress()
-        {
-            return stepSmoother.GetStepProgress();
-        }
-
-        public float GetTargetProgress()
-        {
-            return stepSmoother.GetTargetProgress();
         }
     }
 }

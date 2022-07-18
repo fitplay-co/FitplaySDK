@@ -7191,7 +7191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 1264596608}
 --- !u!114 &1264596608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7205,8 +7204,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
+  hasExController: 1
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -7265,7 +7266,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 1264596582}
     FinalIKComponent: {fileID: 1264596583}
     FinalIKLookAtComponent: {fileID: 1264596604}
@@ -10226,8 +10226,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  isDebug: 0
   isFKEnabled: 0
   monsterMappingEnable: 0
+  hasExController: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -10250,7 +10252,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 5
     SkewCorrection: 0
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2014150610}
     FinalIKComponent: {fileID: 2014150632}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
@@ -10915,7 +10916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 2014150611}
 --- !u!4 &2014150635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6172720843864236375, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -13346,8 +13346,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  isDebug: 0
   isFKEnabled: 1
   monsterMappingEnable: 0
+  hasExController: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -13370,7 +13372,6 @@ MonoBehaviour:
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
   modelIKSettings:
-    NodePrefab: {fileID: 2373987628703372459, guid: b01e028cfc10ace47a08555a12d579ee, type: 3}
     IKScript: {fileID: 2753468361735440056}
     FinalIKComponent: {fileID: 2753468361735440057}
     FinalIKLookAtComponent: {fileID: 2753468361735440058}
@@ -13445,7 +13446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 2753468361735440064}
 --- !u!114 &2753468361735440067
 MonoBehaviour:
   m_ObjectHideFlags: 0

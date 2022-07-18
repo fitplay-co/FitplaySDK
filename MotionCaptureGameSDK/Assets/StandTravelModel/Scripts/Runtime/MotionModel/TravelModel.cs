@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using MotionCaptureBasic.FSM;
 using MotionCaptureBasic.Interface;
-using StandTravelModel.Core;
-using StandTravelModel.Core.AnimationStates;
+using StandTravelModel.Scripts.Runtime.Core;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
 
-namespace StandTravelModel.MotionModel
+namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public class TravelModel : MotionModelBase
     {
@@ -30,6 +31,7 @@ namespace StandTravelModel.MotionModel
 
         //抬腿交互缓存队列的总长度
         private int _cacheQueueMax = 11;
+
         public int cacheQueueMax
         {
             set => _cacheQueueMax = value;
@@ -38,33 +40,42 @@ namespace StandTravelModel.MotionModel
 
         //判断抬腿CacheQueueMax次总时长是否进入跑步模式的阈值
         private float _stepMaxInterval = 5;
+
         public float stepMaxInterval
         {
             set => _stepMaxInterval = value;
             get => _stepMaxInterval;
         }
 
+        private Vector3 _moveVelocity;
+        public Vector3 moveVelocity => _moveVelocity;
+
+        private bool isExControlMode;
+
         //private TravelModelAnimatorController animatorController;
 
         public TravelModel(
             Transform selfTransform,
             Transform characterHipNode,
+            Transform characterHeadNode,
             Transform keyPointsParent,
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
             AnchorController anchorController,
             AnimatorSettingGroup animatorSettingGroup,
+            bool isExControl,
             AnimationCurve speedCurve,
             AnimationCurve downCurve,
             StepStateSmoother stepSmoother
-            ) : base(
-                selfTransform,
-                characterHipNode,
-                keyPointsParent,
-                tuningParameters,
-                motionDataModel,
-                anchorController
-            )
+        ) : base(
+            selfTransform,
+            characterHipNode,
+            characterHeadNode,
+            keyPointsParent,
+            tuningParameters,
+            motionDataModel,
+            anchorController
+        )
         {
             /*animatorController = new TravelModelAnimatorController(selfTransform.GetComponent<Animator>(),
                 motionDataModel, anchorController, animatorSettingGroup);*/
@@ -98,16 +109,21 @@ namespace StandTravelModel.MotionModel
 
             cacheQueueMax = tuningParameters.CacheStepCount;
             stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
+
+            isExControlMode = isExControl;
         }
 
         public override void OnLateUpdate()
         {
-            anchorController.StandFollowPoint.transform.position = anchorController.TravelFollowPoint.transform.position - localShift;
+            anchorController.StandFollowPoint.transform.position =
+                anchorController.TravelFollowPoint.transform.position - localShift;
             selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
 
-            if(_selfAnimator.applyRootMotion)
+            if (isExControlMode)
             {
-                anchorController.TravelFollowPoint.transform.position = selfTransform.position;
+                var newPos = selfTransform.position;
+                newPos.y = groundHeight;
+                anchorController.TravelFollowPoint.transform.position = newPos;
             }
             else
             {
@@ -119,9 +135,18 @@ namespace StandTravelModel.MotionModel
         {
             base.OnUpdate(keyPoints);
             //animatorController.UpdateTravelAnimator();
-        }
 
-        public override void UpdateFromMono()
+            var deltaTime = Time.deltaTime;
+
+            stateMachine.OnTick(deltaTime);
+
+            if (!isExControlMode)
+            {
+                anchorController.MoveTravelPoint(_moveVelocity * deltaTime);
+            }
+        }
+		
+		public override void UpdateFromMono()
         {
             stateMachine.OnTick(Time.deltaTime);
         }
@@ -148,8 +173,8 @@ namespace StandTravelModel.MotionModel
                     return;
                 }
             }
-            
-            stepCacheQueue.Add(new StepStct{LegUp = leg, TimeStemp = Time.time});
+
+            stepCacheQueue.Add(new StepStct {LegUp = leg, TimeStemp = Time.time});
 
             length = stepCacheQueue.Count;
             if (length > _cacheQueueMax)
@@ -184,6 +209,12 @@ namespace StandTravelModel.MotionModel
         public void UpdateAnimatorCadence()
         {
             selfAnimator.SetFloat(Cadence, currentFrequency);
+        }
+
+        public void UpdateVelocity(Vector3 v)
+        {
+            //Debug.LogError($"Current Velocity: {v}");
+            _moveVelocity = v;
         }
 
         /*public void StopPrevAnimation(string currentState)

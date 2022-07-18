@@ -15,8 +15,6 @@ public class StepStateSmoother
     private const float frameCount = 30;
     private const float catchupSpeed = 10f;
 
-    private float backup;
-
     [SerializeField] private float frameCurr;
     [SerializeField] private float frameTarget;
     [SerializeField] private float frameTargetStart;
@@ -30,7 +28,6 @@ public class StepStateSmoother
 
         if(stepState != bakcState)
         {
-            Debug.Log("---> " + stepState);
             bakcState = stepState;
         }
 
@@ -51,13 +48,13 @@ public class StepStateSmoother
             case StepState.RightUp:
             {
                 frameTargetStart = 24;
-                frameTargetEnd = 31;
+                frameTargetEnd = 1;
                 break;
             }
             case StepState.RightDown:
             {
-                frameTargetStart = 31;
-                frameTargetEnd = 38;
+                frameTargetStart = 1;
+                frameTargetEnd = 8;
                 break;
             }
         }
@@ -86,42 +83,49 @@ public class StepStateSmoother
             //Debug.Log(Time.frameCount + "right down " + stepProgressRightDown + "|" + frameTarget);
         }
 
-        frameCurr = LerpFrame(frameCurr, frameTarget, Time.deltaTime * catchupSpeed, false);
+        frameCurr = LerpCurFrame(frameCurr, frameTarget, Time.deltaTime * catchupSpeed);
 
-        if(frameTargetStart < frameTargetEnd)
+        /* var delta = Mathf.Abs(frameCurr - frameTarget);
+        if(frameCurr > frameTarget && delta < 0.1f)
         {
-            //frameCurr = Mathf.Min(frameCurr, frameTarget);
-        }
-        else
-        {
-            /* if(frameCurr > frameTargetStart)
-            {
-                frameCurr = Mathf.Min(frameCurr, frameCount);
-            }
-            else
-            {
-                frameCurr = Mathf.Min(frameCurr, frameTargetStart);
-            } */
-        }
-
-        var delta = frameCurr - backup;
-        backup = frameCurr;
+            frameTarget = frameCurr;
+        } */
     }
 
     public float GetStepProgress()
     {
-        return frameCurr / frameCount - (int)frameCurr;
+        return frameCurr / frameCount;
     }
 
     public float GetTargetProgress()
     {
-        return frameTarget / frameCount - (int)frameCurr;
+        return frameTarget / frameCount;
     }
 
-    private float LerpFrame(float start, float end, float percent, bool canExceed)
+    private float LerpCurFrame(float start, float end, float percent)
     {
-        var frame = LerpFrame(start, end, percent);
-        return frame;
+        if(start <= end)
+        {
+            var length = end - start;
+            var delta = length * percent;
+            delta = Mathf.Clamp(delta, -0.1f, 0.1f);
+            var value = start + delta;
+            //return Mathf.Min(value, end);
+            return value;
+        }
+        else
+        {
+            var length = (frameCount - start) + end;
+            var delta = length * percent;
+            delta = Mathf.Clamp(delta, -0.1f, 0.1f);
+            var target = start + delta;
+
+            if(target < frameCount)
+            {
+                return target;
+            }
+            return target - frameCount;
+        }
     }
 
     private float LerpFrame(float start, float end, float percent)
@@ -129,7 +133,8 @@ public class StepStateSmoother
         if(start <= end)
         {
             var value = start + (end - start) * percent;
-            return Mathf.Min(value, end);
+            //return Mathf.Min(value, end);
+            return value;
         }
         else
         {

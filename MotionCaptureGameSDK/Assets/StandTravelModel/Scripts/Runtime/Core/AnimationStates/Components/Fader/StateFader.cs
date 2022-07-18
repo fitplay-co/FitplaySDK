@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class StateFader
     {

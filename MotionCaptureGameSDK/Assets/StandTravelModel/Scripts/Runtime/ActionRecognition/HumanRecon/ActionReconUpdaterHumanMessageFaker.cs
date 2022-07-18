@@ -40,7 +40,7 @@ public class ActionReconUpdaterHumanMessageFaker
         timeLine += Time.deltaTime * (speedUp + 1);
 
         int nextStage = (int)curStage + 1;
-        if(timeLine >= (float)nextStage)
+        if(timeLine >= (float)(nextStage))
         {
             curStage = (StageType)(nextStage % stageCount);
             OnStageSwitch(curStage);

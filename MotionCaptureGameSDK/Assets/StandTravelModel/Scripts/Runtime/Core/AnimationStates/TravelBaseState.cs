@@ -1,7 +1,7 @@
 using UnityEngine;
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public abstract class TravelBaseState : AnimationStateBase
     {

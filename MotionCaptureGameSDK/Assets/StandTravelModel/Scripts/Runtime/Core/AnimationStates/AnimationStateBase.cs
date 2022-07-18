@@ -1,4 +1,5 @@
 using MotionCaptureBasic.FSM;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using StandTravelModel.Scripts.Runtime.MotionModel;
 using UnityEngine;
 

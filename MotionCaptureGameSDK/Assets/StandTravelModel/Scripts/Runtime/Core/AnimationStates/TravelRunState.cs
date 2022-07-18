@@ -1,7 +1,7 @@
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 using UnityEngine;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class TravelRunState : AnimationStateBase
     {
@@ -49,12 +49,7 @@ namespace StandTravelModel.Core.AnimationStates
                     travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                     travelOwner.UpdateAnimatorCadence();
                     
-                    if (actionDetectionData.walk.leftLeg == 0 && actionDetectionData.walk.rightLeg == 0)
-                    {
-                        stateFaderRunOut.SetPause(false);
-                        stateFaderRunOut.SetCompleteEvent(() => OnTransitionToIdleEnd(AnimationList.Idle));
-                        return;
-                    }
+                    
                     
                     var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk);
                     if (!isRunReady)
@@ -70,6 +65,13 @@ namespace StandTravelModel.Core.AnimationStates
                         {
                             stateFaderRunOut.SetPause(false);
                             stateFaderRunOut.SetCompleteEvent(() => OnTransitionToIdleEnd(AnimationList.RightStep));
+                            return;
+                        }
+
+                        if (actionDetectionData.walk.leftLeg == 0 && actionDetectionData.walk.rightLeg == 0)
+                        {
+                            stateFaderRunOut.SetPause(false);
+                            stateFaderRunOut.SetCompleteEvent(() => OnTransitionToIdleEnd(AnimationList.Idle));
                             return;
                         }
                     }
@@ -95,7 +97,6 @@ namespace StandTravelModel.Core.AnimationStates
 
         private void OnTransitionToIdleEnd(AnimationList nextState)
         {
-            Debug.Log("OnTransitionToIdleEnd " + nextState);
             travelOwner.ChangeState(nextState);
         }
     }
