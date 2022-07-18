@@ -1,24 +1,25 @@
-using UnityEngine;
-
-public class ActionReconCompAngleGradient : ActionReconCompAngle
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents
 {
-    private bool needExpanding;
-
-    public ActionReconCompAngleGradient(float angleMin, float angleMax, bool needExpanding, ReconCompAngleGetter angleGetter) : base(angleMin, angleMax, angleGetter)
+    public class ActionReconCompAngleGradient : ActionReconCompAngle
     {
-        this.needExpanding = needExpanding;
-    }
+        private bool needExpanding;
 
-    protected override void OnStateFlip(bool isInAngle)
-    {
-        if(isInAngle)
+        public ActionReconCompAngleGradient(float angleMin, float angleMax, bool needExpanding, ReconCompAngleGetter angleGetter) : base(angleMin, angleMax, angleGetter)
         {
-            if(needExpanding == IsExpanding())
-            {
-                base.OnStateFlip(true);
-                return;
-            }
+            this.needExpanding = needExpanding;
         }
-        base.OnStateFlip(false);
+
+        protected override void OnStateFlip(bool isInAngle)
+        {
+            if(isInAngle)
+            {
+                if(needExpanding == IsExpanding())
+                {
+                    base.OnStateFlip(true);
+                    return;
+                }
+            }
+            base.OnStateFlip(false);
+        }
     }
 }

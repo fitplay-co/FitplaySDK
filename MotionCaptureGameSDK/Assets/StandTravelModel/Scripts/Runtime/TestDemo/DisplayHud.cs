@@ -1,10 +1,15 @@
 using UnityEngine;
 
-namespace StandTravelModel.TestDemo
+namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
     public class DisplayHud : MonoBehaviour
     {
-        public StandTravelModelManager standTravelModelManager;
+        private StandTravelModelManager standTravelModelManager;
+
+        public void Awake()
+        {
+            standTravelModelManager = this.GetComponent<StandTravelModelManager>();
+        }
 
         public void OnGUI()
         {
@@ -16,11 +21,11 @@ namespace StandTravelModel.TestDemo
             
             if (standTravelModelManager.currentLeg < -0.5)
             {
-                GUI.Label(new Rect(20, 80, 300, 40), "右脚", labelStyle);
+                GUI.Label(new Rect(20, 80, 300, 40), "左脚", labelStyle);
             }
             else if (standTravelModelManager.currentLeg > 0.5)
             {
-                GUI.Label(new Rect(20, 80, 300, 40), "左脚", labelStyle);
+                GUI.Label(new Rect(20, 80, 300, 40), "右脚", labelStyle);
             }
             else
             {

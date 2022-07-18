@@ -1,6 +1,6 @@
 using MotionCaptureBasic.Interface;
 
-namespace WeirdHumanoid
+namespace StandTravelModel.Scripts.Runtime.WeirdHumanoid
 {
     public static class WeirdHumanoidLimbRelativeGetter
     {

@@ -1,11 +1,11 @@
 #if UNITY_EDITOR
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-namespace Recorder
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder.Editor
 {
     [CustomEditor(typeof(KeyPointsRecorderShower))]
-    public class KeyPointsRecorderShowerEditor : Editor
+    public class KeyPointsRecorderShowerEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

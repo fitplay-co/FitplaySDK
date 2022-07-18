@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon;
 using UnityEngine;
 
-namespace Recorder
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 {
     public class KeyPointsRecorderShower : MonoBehaviour
     {

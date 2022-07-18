@@ -21,7 +21,7 @@ namespace IMU
             BasicEventHandler.OnImuDataRecieved += this.OnReceived;
             //HttpProtocolHandler.GetInstance().SetDebug(true);
         }
-
+        
         void Update()
         {
             /*
@@ -161,8 +161,8 @@ namespace IMU
                             Input.KeyStatusMap[KeyCode.L_Key_Menu].Current = keys.Key_menu;
                             Input.KeyStatusMap[KeyCode.L_JoyStick].Current = joystick.Key;
                             
-                            Input.KeyValueMap[KeyCode.L_L1Key] = linearKey.L1;
-                            Input.KeyValueMap[KeyCode.L_L2Key] = linearKey.L2;
+                            Input.KeyValueMap[KeyCode.L_Key_L1] = linearKey.L1;
+                            Input.KeyValueMap[KeyCode.L_Key_L2] = linearKey.L2;
                             Input.KeyValueMap[KeyCode.L_JoyStick_H] = joystick.x;
                             Input.KeyValueMap[KeyCode.L_JoyStick_V] = joystick.y;
                         }
@@ -173,8 +173,8 @@ namespace IMU
                             Input.KeyStatusMap[KeyCode.R_Key_Menu].Current = keys.Key_menu;
                             Input.KeyStatusMap[KeyCode.R_JoyStick].Current = joystick.Key;
                             
-                            Input.KeyValueMap[KeyCode.R_L1Key] = linearKey.L1;
-                            Input.KeyValueMap[KeyCode.R_L2Key] = linearKey.L2;
+                            Input.KeyValueMap[KeyCode.R_Key_L1] = linearKey.L1;
+                            Input.KeyValueMap[KeyCode.R_Key_L2] = linearKey.L2;
                             Input.KeyValueMap[KeyCode.R_JoyStick_H] = joystick.x;
                             Input.KeyValueMap[KeyCode.R_JoyStick_V] = joystick.y;
                         }

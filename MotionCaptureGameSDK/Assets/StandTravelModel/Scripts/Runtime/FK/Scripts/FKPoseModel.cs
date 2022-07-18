@@ -1,10 +1,10 @@
-using UnityEngine;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
-using StandTravelModel.Core;
+using StandTravelModel.Scripts.Runtime.Core;
+using UnityEngine;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 {
     public class FKPoseModel : MonoBehaviour, IFKPoseModel
     {

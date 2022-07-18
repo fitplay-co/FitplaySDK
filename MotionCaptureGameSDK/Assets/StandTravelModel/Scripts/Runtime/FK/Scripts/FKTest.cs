@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 {
     [ExecuteInEditMode]
     public class FKTest : MonoBehaviour

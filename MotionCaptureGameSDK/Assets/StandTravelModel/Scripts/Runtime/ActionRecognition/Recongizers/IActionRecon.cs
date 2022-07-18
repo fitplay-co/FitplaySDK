@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IActionRecon
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recongizers
 {
-    void OnUpdate(List<Vector3> keyPoints);
-    void SetDebug(bool isDebug);
+    public interface IActionRecon
+    {
+        void OnUpdate(List<Vector3> keyPoints);
+        void SetDebug(bool isDebug);
+    }
 }

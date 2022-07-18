@@ -1,15 +1,30 @@
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
-using StandTravelModel.Core;
+using StandTravelModel.Scripts.Runtime.Core;
 using UnityEngine;
 
-namespace StandTravelModel.MotionModel
+namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public class StandModel : MotionModelBase
     {
         private Quaternion predictBodyRotation;
 
-        public StandModel(Transform selfTransform, Transform characterHipNode, Transform keyPointsParent, TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController) : base(selfTransform, characterHipNode, keyPointsParent, tuningParameters, motionDataModel, anchorController)
+        public StandModel(
+            Transform selfTransform,
+            Transform characterHipNode,
+            Transform characterHeadNode,
+            Transform keyPointsParent,
+            TuningParameterGroup tuningParameters,
+            IMotionDataModel motionDataModel,
+            AnchorController anchorController)
+            : base(
+                selfTransform,
+                characterHipNode,
+                characterHeadNode,
+                keyPointsParent,
+                tuningParameters,
+                motionDataModel,
+                anchorController)
         {
         }
 

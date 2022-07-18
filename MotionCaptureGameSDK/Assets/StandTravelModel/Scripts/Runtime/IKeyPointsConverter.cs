@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IKeyPointsConverter
+namespace StandTravelModel.Scripts.Runtime
 {
-    void ConvertKeyPoints(List<Vector3> keyPoints);
+    public interface IKeyPointsConverter
+    {
+        void ConvertKeyPoints(List<Vector3> keyPoints);
+    }
 }

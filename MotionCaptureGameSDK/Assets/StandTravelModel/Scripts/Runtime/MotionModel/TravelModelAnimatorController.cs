@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
-using StandTravelModel.Core;
+using StandTravelModel.Scripts.Runtime.Core;
 using UnityEngine;
 
-namespace StandTravelModel.MotionModel
+namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public class TravelModelAnimatorController
     {

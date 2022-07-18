@@ -1,11 +1,12 @@
 #if UNITY_EDITOR
-using UnityEngine;
+using StandTravelModel.Scripts.Runtime.FK.Scripts;
 using UnityEditor;
+using UnityEngine;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Editor
 {
     [CustomEditor(typeof(FKPoseModel))]
-    public class FKPoseModelEditor : Editor
+    public class FKPoseModelEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

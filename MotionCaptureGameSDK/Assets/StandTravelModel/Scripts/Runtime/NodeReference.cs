@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StandTravelModel
+namespace StandTravelModel.Scripts.Runtime
 {
     public class NodeReference : MonoBehaviour
     {

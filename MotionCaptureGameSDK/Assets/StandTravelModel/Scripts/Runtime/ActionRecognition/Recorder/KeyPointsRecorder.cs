@@ -1,9 +1,9 @@
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using MotionCaptureBasic;
 using UnityEngine;
 
-namespace Recorder
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 {
     public class KeyPointsRecorder : MonoBehaviour
     {

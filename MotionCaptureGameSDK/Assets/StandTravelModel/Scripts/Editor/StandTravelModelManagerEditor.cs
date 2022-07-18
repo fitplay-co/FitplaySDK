@@ -2,29 +2,34 @@
 using UnityEngine;
 using UnityEditor;
 using StandTravelModel;
+using StandTravelModel.Scripts.Runtime;
 
-[CustomEditor(typeof(StandTravelModelManager))]
-public class StandTravelModelManagerEditor : Editor
+namespace MotionCapture.StandTravelModel.Editor
 {
-    public override void OnInspectorGUI()
+    
+    [CustomEditor(typeof(StandTravelModelManager))]
+    public class StandTravelModelManagerEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-        
-        if(Application.isPlaying)
+        public override void OnInspectorGUI()
         {
-            var mgr = target as StandTravelModelManager;
-            if(!mgr.IsFKEnabled())
+            base.OnInspectorGUI();
+        
+            if(Application.isPlaying)
             {
-                if(GUILayout.Button("FK Enable"))
+                var mgr = target as StandTravelModelManager;
+                if(!mgr.IsFKEnabled())
                 {
-                    mgr.EnableFK();
+                    if(GUILayout.Button("FK Enable"))
+                    {
+                        mgr.EnableFK();
+                    }
                 }
-            }
-            else
-            {
-                if(GUILayout.Button("FK Disable"))
+                else
                 {
-                    mgr.DisableFK();
+                    if(GUILayout.Button("FK Disable"))
+                    {
+                        mgr.DisableFK();
+                    }
                 }
             }
         }

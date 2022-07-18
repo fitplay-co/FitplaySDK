@@ -1,46 +1,49 @@
 using System.Collections.Generic;
 
-public class ActionAngleCache
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition
 {
-    private int capacity;
-    private List<float> angles;
-
-    public ActionAngleCache(int capacity)
+    public class ActionAngleCache
     {
-        this.capacity = capacity;
-        this.angles = new List<float>();
-    }
+        private int capacity;
+        private List<float> angles;
 
-    public void Append(float angle)
-    {
-        angles.Add(angle);
-        if(angles.Count > capacity)
+        public ActionAngleCache(int capacity)
         {
-            angles.RemoveAt(0);
+            this.capacity = capacity;
+            this.angles = new List<float>();
         }
-    }
 
-    public bool IsIncreasing()
-    {
-        if(angles.Count > capacity * 0.5f)
+        public void Append(float angle)
         {
-            var min = float.MaxValue;
-            var max = float.MinValue;
-
-            for(int i = 0; i < angles.Count; i++)
+            angles.Add(angle);
+            if(angles.Count > capacity)
             {
-                if(angles[i] < min)
-                {
-                    min = angles[i];
-                }
-
-                if(angles[i] > max)
-                {
-                    max = angles[i];
-                }
+                angles.RemoveAt(0);
             }
-            return max - min > 10;
         }
-        return false;
+
+        public bool IsIncreasing()
+        {
+            if(angles.Count > capacity * 0.5f)
+            {
+                var min = float.MaxValue;
+                var max = float.MinValue;
+
+                for(int i = 0; i < angles.Count; i++)
+                {
+                    if(angles[i] < min)
+                    {
+                        min = angles[i];
+                    }
+
+                    if(angles[i] > max)
+                    {
+                        max = angles[i];
+                    }
+                }
+                return max - min > 10;
+            }
+            return false;
+        }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Recorder
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 {
     [Serializable]
     public class PointsContainer

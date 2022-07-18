@@ -1,9 +1,13 @@
-using UnityEngine;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconInstance;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater;
 
-public class ActionReconUpdaterDragon : ActionReconUpdater
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.DragonRecon
 {
-    protected override IActionReconInstance CreateReconInstance(OnActionDetect onActionDetect)
+    public class ActionReconUpdaterDragon : ActionReconUpdater.ActionReconUpdater
     {
-        return new ActionReconInstanceDragon(onActionDetect);
+        protected override IActionReconInstance CreateReconInstance(OnActionDetect onActionDetect)
+        {
+            return new ActionReconInstanceDragon(onActionDetect);
+        }
     }
 }

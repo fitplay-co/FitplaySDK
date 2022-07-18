@@ -2,7 +2,7 @@ using System;
 using MotionCaptureBasic.Interface;
 using UnityEngine;
 
-namespace Recorder
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 {
     [Serializable]
     public class KeyPointsRecorderShowerElement

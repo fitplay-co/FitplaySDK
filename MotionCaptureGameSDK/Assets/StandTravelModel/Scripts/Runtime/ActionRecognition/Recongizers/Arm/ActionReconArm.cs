@@ -1,57 +1,61 @@
 using System;
-using UnityEngine;
 using MotionCaptureBasic.Interface;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents;
+using UnityEngine;
 
-public abstract class ActionReconArm : ActionReconLimb
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recongizers.Arm
 {
-    private ActionReconCompAngle foreArmComp;
-    private ActionReconCompAngle upperArmComp;
-
-    public ActionReconArm(bool isLeft, Vector2 anglesElbow, Vector2 anglesShoulder, Action<ActionId> onAction) : base (isLeft, onAction)
+    public abstract class ActionReconArm : ActionReconLimb
     {
-        foreArmComp = new ActionReconCompAngle(
-            anglesElbow.x,
-            anglesElbow.y,
-            CreateAngleGetter(isLeft)
-        );
+        private ActionReconCompAngle foreArmComp;
+        private ActionReconCompAngle upperArmComp;
 
-        upperArmComp = new ActionReconCompAngle(
-            anglesShoulder.x,
-            anglesShoulder.y,
-            CreateAngleGetterWithDirect(isLeft)
-        );
+        public ActionReconArm(bool isLeft, Vector2 anglesElbow, Vector2 anglesShoulder, Action<ActionId> onAction) : base (isLeft, onAction)
+        {
+            foreArmComp = new ActionReconCompAngle(
+                anglesElbow.x,
+                anglesElbow.y,
+                CreateAngleGetter(isLeft)
+            );
 
-        AddReconComp(foreArmComp);
-        AddReconComp(upperArmComp);
-    }
+            upperArmComp = new ActionReconCompAngle(
+                anglesShoulder.x,
+                anglesShoulder.y,
+                CreateAngleGetterWithDirect(isLeft)
+            );
 
-    protected float GetUpperarmAngle()
-    {
-        return upperArmComp.GetCurAngle();
-    }
+            AddReconComp(foreArmComp);
+            AddReconComp(upperArmComp);
+        }
 
-    private ReconCompAngleGetter CreateAngleGetter(bool isLeft)
-    {
-        return new ReconCompAngleGetter(GetPointTypeHand(isLeft), GetPointTypeElbow(isLeft), GetPointTypeShoulder(isLeft));
-    }
+        protected float GetUpperarmAngle()
+        {
+            return upperArmComp.GetCurAngle();
+        }
 
-    private ReconCompAngleGetterWithDirect CreateAngleGetterWithDirect(bool isLeft)
-    {
-        return new ReconCompAngleGetterWithDirect(GetPointTypeHand(isLeft), GetPointTypeElbow(isLeft), GetPointTypeShoulder(isLeft), Vector3.up);
-    }
+        private ReconCompAngleGetter CreateAngleGetter(bool isLeft)
+        {
+            return new ReconCompAngleGetter(GetPointTypeHand(isLeft), GetPointTypeElbow(isLeft), GetPointTypeShoulder(isLeft));
+        }
 
-    private GameKeyPointsType GetPointTypeHand(bool isLeft)
-    {
-        return isLeft ? GameKeyPointsType.LeftHand : GameKeyPointsType.RightHand;
-    }
+        private ReconCompAngleGetterWithDirect CreateAngleGetterWithDirect(bool isLeft)
+        {
+            return new ReconCompAngleGetterWithDirect(GetPointTypeHand(isLeft), GetPointTypeElbow(isLeft), GetPointTypeShoulder(isLeft), Vector3.up);
+        }
 
-    private GameKeyPointsType GetPointTypeElbow(bool isLeft)
-    {
-        return isLeft ? GameKeyPointsType.LeftElbow : GameKeyPointsType.RightElbow;
-    }
+        private GameKeyPointsType GetPointTypeHand(bool isLeft)
+        {
+            return isLeft ? GameKeyPointsType.LeftHand : GameKeyPointsType.RightHand;
+        }
 
-    private GameKeyPointsType GetPointTypeShoulder(bool isLeft)
-    {
-        return isLeft ? GameKeyPointsType.LeftShoulder : GameKeyPointsType.RightShoulder;
+        private GameKeyPointsType GetPointTypeElbow(bool isLeft)
+        {
+            return isLeft ? GameKeyPointsType.LeftElbow : GameKeyPointsType.RightElbow;
+        }
+
+        private GameKeyPointsType GetPointTypeShoulder(bool isLeft)
+        {
+            return isLeft ? GameKeyPointsType.LeftShoulder : GameKeyPointsType.RightShoulder;
+        }
     }
 }

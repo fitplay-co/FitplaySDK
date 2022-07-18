@@ -1,7 +1,7 @@
-using UnityEngine;
 using MotionCaptureBasic.OSConnector;
+using UnityEngine;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 {
     public static class FKStandardPoseAnglesContainer
     {

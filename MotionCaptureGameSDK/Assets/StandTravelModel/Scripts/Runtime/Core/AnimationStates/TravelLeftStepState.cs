@@ -1,6 +1,7 @@
-using StandTravelModel.MotionModel;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class TravelLeftStepState : TravelStepBase
     {

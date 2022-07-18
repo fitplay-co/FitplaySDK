@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
+using UnityEngine;
 
-namespace FK
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 {
     public class FKSkeleton : MonoBehaviour
     {

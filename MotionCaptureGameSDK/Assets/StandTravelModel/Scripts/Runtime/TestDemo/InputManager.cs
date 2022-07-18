@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StandTravelModel.TestDemo
+namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
     public class InputManager : MonoBehaviour
     {
@@ -34,7 +34,7 @@ namespace StandTravelModel.TestDemo
                 standTravelModelManager.SwitchStandTravel();
             }
 
-            var mode = standTravelModelManager.GetCurrentMode();
+            var mode = standTravelModelManager.currentMode;
 
             if (mode == MotionMode.Travel)
             {

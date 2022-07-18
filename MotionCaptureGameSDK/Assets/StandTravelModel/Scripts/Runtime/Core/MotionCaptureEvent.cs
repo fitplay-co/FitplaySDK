@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.Events;
 
-namespace StandTravelModel.Core
+namespace StandTravelModel.Scripts.Runtime.Core
 {
     public static class MotionCaptureEvent
     {

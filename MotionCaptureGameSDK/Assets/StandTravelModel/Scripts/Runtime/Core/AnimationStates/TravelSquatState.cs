@@ -1,7 +1,6 @@
-using StandTravelModel.MotionModel;
-using UnityEngine;
+using StandTravelModel.Scripts.Runtime.MotionModel;
 
-namespace StandTravelModel.Core.AnimationStates
+namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class TravelSquatState : AnimationStateBase
     {

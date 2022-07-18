@@ -1,64 +1,69 @@
 using System;
 using System.Collections.Generic;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents;
+using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconComponents.Containers;
 using UnityEngine;
 
-public abstract class ActionReconBase : IActionRecon
+namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recongizers
 {
-    private bool isLeft;
-    private bool isDebug;
-    private Action<ActionId> onAction;
-    private IActionReconCompContainer compContainer;
-
-    public ActionReconBase(bool isLeft, Action<ActionId> onAction)
+    public abstract class ActionReconBase : IActionRecon
     {
-        this.isLeft = isLeft;
-        this.onAction = onAction;
-        this.compContainer = CreateReconCompContainer(OnAction);
-    }
+        private bool isLeft;
+        private bool isDebug;
+        private Action<ActionId> onAction;
+        private IActionReconCompContainer compContainer;
 
-    public void OnUpdate(List<Vector3> keyPoints)
-    {
-        UpdateReconComps(keyPoints);
-    }
-
-    protected void SendAction(ActionId actionId)
-    {
-        if(onAction != null)
+        public ActionReconBase(bool isLeft, Action<ActionId> onAction)
         {
-            onAction(actionId);
+            this.isLeft = isLeft;
+            this.onAction = onAction;
+            this.compContainer = CreateReconCompContainer(OnAction);
         }
-    }
 
-    protected abstract void OnAction(bool active);
+        public void OnUpdate(List<Vector3> keyPoints)
+        {
+            UpdateReconComps(keyPoints);
+        }
 
-    protected virtual IActionReconCompContainer CreateReconCompContainer(Action<bool> onAction)
-    {
-        return new ActionReconCompContainerAnd(onAction);
-    }
+        protected void SendAction(ActionId actionId)
+        {
+            if(onAction != null)
+            {
+                onAction(actionId);
+            }
+        }
 
-    protected void AddReconComp(IActionReconComp comp)
-    {
-        compContainer.AddReconComp(comp);
-    }
+        protected abstract void OnAction(bool active);
 
-    protected bool IsLeft()
-    {
-        return isLeft;
-    }
+        protected virtual IActionReconCompContainer CreateReconCompContainer(Action<bool> onAction)
+        {
+            return new ActionReconCompContainerAnd(onAction);
+        }
 
-    protected bool IsDebug()
-    {
-        return isDebug;
-    }
+        protected void AddReconComp(IActionReconComp comp)
+        {
+            compContainer.AddReconComp(comp);
+        }
 
-    private void UpdateReconComps(List<Vector3> keyPoints)
-    {
-        compContainer.UpdateReconComps(keyPoints);
-    }
+        protected bool IsLeft()
+        {
+            return isLeft;
+        }
 
-    public virtual void SetDebug(bool isDebug)
-    {
-        this.isDebug = isDebug;
-        compContainer.SetDebug(isDebug);
+        protected bool IsDebug()
+        {
+            return isDebug;
+        }
+
+        private void UpdateReconComps(List<Vector3> keyPoints)
+        {
+            compContainer.UpdateReconComps(keyPoints);
+        }
+
+        public virtual void SetDebug(bool isDebug)
+        {
+            this.isDebug = isDebug;
+            compContainer.SetDebug(isDebug);
+        }
     }
 }

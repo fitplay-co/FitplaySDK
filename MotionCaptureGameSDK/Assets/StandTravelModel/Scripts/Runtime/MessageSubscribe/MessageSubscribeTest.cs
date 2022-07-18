@@ -1,40 +1,43 @@
-using UnityEngine;
 using MotionCaptureBasic;
+using UnityEngine;
 
-public class MessageSubscribeTest : MonoBehaviour
+namespace StandTravelModel.Scripts.Runtime.MessageSubscribe
 {
-    [SerializeField] private bool isDebug;
-    [SerializeField] private bool connected;
-
-    private void Awake() {
-        MotionDataModelHttp.GetInstance().AddConnectEvent(
-            () => {
-                connected = true;
-            }
-        );
-    }
-
-    private void Update() {
-        MotionDataModelHttp.GetInstance().SetDebug(isDebug);
-    }
-
-    public void MessagesSubscribe()
+    public class MessageSubscribeTest : MonoBehaviour
     {
-        if(connected)
-        {
-            MotionDataModelHttp.GetInstance().SubscribeGazeTracking();
-            MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
-            MotionDataModelHttp.GetInstance().SubscribeActionDetection();
+        [SerializeField] private bool isDebug;
+        [SerializeField] private bool connected;
+
+        private void Awake() {
+            MotionDataModelHttp.GetInstance().AddConnectEvent(
+                () => {
+                    connected = true;
+                }
+            );
         }
-    }
 
-    public void MessagesRelease()
-    {
-        if(connected)
+        private void Update() {
+            MotionDataModelHttp.GetInstance().SetDebug(isDebug);
+        }
+
+        public void MessagesSubscribe()
         {
-            MotionDataModelHttp.GetInstance().ReleaseGazeTracking();
-            MotionDataModelHttp.GetInstance().ReleaseGroundLocation();
-            MotionDataModelHttp.GetInstance().ReleaseActionDetection();
+            if(connected)
+            {
+                MotionDataModelHttp.GetInstance().SubscribeGazeTracking();
+                MotionDataModelHttp.GetInstance().SubscribeGroundLocation();
+                MotionDataModelHttp.GetInstance().SubscribeActionDetection();
+            }
+        }
+
+        public void MessagesRelease()
+        {
+            if(connected)
+            {
+                MotionDataModelHttp.GetInstance().ReleaseGazeTracking();
+                MotionDataModelHttp.GetInstance().ReleaseGroundLocation();
+                MotionDataModelHttp.GetInstance().ReleaseActionDetection();
+            }
         }
     }
 }
