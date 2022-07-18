@@ -3,15 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class StepStateSmoother
 {
-    private enum StepState
-    {
-        Idle,
-        LeftUp,
-        LeftDown,
-        RightUp,
-        RightDown
-    }
-
     private const float frameCount = 30;
     private const float catchupSpeed = 10f;
 
@@ -19,49 +10,51 @@ public class StepStateSmoother
     [SerializeField] private float frameTarget;
     [SerializeField] private float frameTargetStart;
     [SerializeField] private float frameTargetEnd;
-    [SerializeField] private StepState stepState;
-    [SerializeField] private StepState bakcState;
+
+    private StepStateSmootherStater stater;
+
+    public StepStateSmoother()
+    {
+        stater = new StepStateSmootherStater();
+    }
 
     public void UpdateTargetFrameArea(int legLeft, int legRight)
     {
-        UpdateStepState(legLeft, legRight);
-
-        if(stepState != bakcState)
+        if(stater.TrySwitchState(legLeft, legRight))
         {
-            bakcState = stepState;
-        }
-
-        switch(stepState)
-        {
-            case StepState.LeftUp:
+            switch(stater.GetStepState())
             {
-                frameTargetStart = 8;
-                frameTargetEnd = 16;
-                break;
-            }
-            case StepState.LeftDown:
-            {
-                frameTargetStart = 16;
-                frameTargetEnd = 24;
-                break;
-            }
-            case StepState.RightUp:
-            {
-                frameTargetStart = 24;
-                frameTargetEnd = 1;
-                break;
-            }
-            case StepState.RightDown:
-            {
-                frameTargetStart = 1;
-                frameTargetEnd = 8;
-                break;
+                case StepState.LeftUp:
+                {
+                    frameTargetStart = 8;
+                    frameTargetEnd = 16;
+                    break;
+                }
+                case StepState.LeftDown:
+                {
+                    frameTargetStart = 16;
+                    frameTargetEnd = 24;
+                    break;
+                }
+                case StepState.RightUp:
+                {
+                    frameTargetStart = 24;
+                    frameTargetEnd = 1;
+                    break;
+                }
+                case StepState.RightDown:
+                {
+                    frameTargetStart = 1;
+                    frameTargetEnd = 8;
+                    break;
+                }
             }
         }
     }
     
     public void OnUpdate(float stepProgressLeftUp, float stepProgressLeftDown, float stepProgressRightUp, float stepProgressRightDown)
     {
+        var stepState = stater.GetStepState();
         if(stepState == StepState.LeftUp)
         {
             frameTarget = LerpFrame(frameTargetStart, frameTargetEnd, stepProgressLeftUp);
@@ -146,82 +139,6 @@ public class StepStateSmoother
                 return target;
             }
             return target - frameCount;
-        }
-    }
-
-    private void UpdateStepState(int legLeft, int legRight)
-    {
-        if(stepState == StepState.Idle)
-        {
-            if(legLeft == 1)
-            {
-                stepState = StepState.LeftUp;
-            }
-            else if(legRight == 1)
-            {
-                stepState = StepState.RightUp;
-            }
-            return;
-        }
-
-        if(stepState == StepState.LeftUp)
-        {
-            if(legLeft == 0)
-            {
-                stepState = StepState.Idle;
-            }
-            else if(legLeft == -1)
-            {
-                stepState = StepState.LeftDown;
-            }
-            return;
-        }
-
-        if(stepState == StepState.LeftDown)
-        {
-            if(legRight == 1)
-            {
-                stepState = StepState.RightUp;
-            }
-            else if(legLeft == 0)
-            {
-                stepState = StepState.Idle;
-            }
-            else if(legLeft == 1)
-            {
-                stepState = StepState.LeftUp;
-            }
-            return;
-        }
-
-        if(stepState == StepState.RightUp)
-        {
-            if(legRight == 0)
-            {
-                stepState = StepState.Idle;
-            }
-            else if(legRight == -1)
-            {
-                stepState = StepState.RightDown;
-            }
-            return;
-        }
-
-        if(stepState == StepState.RightDown)
-        {
-            if(legLeft == 1)
-            {
-                stepState = StepState.LeftUp;
-            }
-            else if(legRight == 0)
-            {
-                stepState = StepState.Idle;
-            }
-            else if(legRight == 1)
-            {
-                stepState = StepState.RightUp;
-            }
-            return;
         }
     }
 }
