@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime.TestDemo
@@ -8,6 +9,18 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private const int footIndexLeft = -1;
         private const int footIndexRight = 1;
         private const float footHeightDetach = 0.02f;
+        private CharacterController characterController;
+        private StandTravelModelManager standTravelModelManager;
+        private Vector3 _velocity;
+        public Vector3 velocity => _velocity;
+
+        private const float groundedOffset = 0.1f;
+
+        private bool _isGrounded = true;
+        public bool isGrounded => _isGrounded;
+        
+        private float _verticalVelocity;
+        private float _terminalVelocity = -53.0f;
 
         [SerializeField] private int curFootIndex;
         [SerializeField] private Vector3 footPos;
@@ -15,16 +28,40 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         [SerializeField] private Vector3 anchorPos;
         [SerializeField] private Transform footLeft;
         [SerializeField] private Transform footRight;
+        [SerializeField] private float speedMultiplier = 1;
+        [SerializeField] private float gravity = -10;
 
         private void Awake() {
             var animator = GetComponent<Animator>();
+            characterController = GetComponent<CharacterController>();
+            standTravelModelManager = GetComponent<StandTravelModelManager>();
             footLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
             footRight = animator.GetBoneTransform(HumanBodyBones.RightFoot);
         }
 
-        private void LateUpdate() {
-            UpdateTouchingFoot();
-            UpdatePosWithAnchor();
+        private void FixedUpdate() {
+            if (standTravelModelManager.currentMode == MotionMode.Stand)
+            {
+                _velocity = Vector3.zero;
+            }
+            else
+            {
+                var fixDeltaTime = Time.fixedDeltaTime;
+                UpdateTouchingFoot();
+                UpdatePosWithAnchor(fixDeltaTime);
+                UpdateVerticalMove(fixDeltaTime);
+            }
+        }
+
+        private void Update()
+        {
+            var deltaMovement = _velocity * (Time.deltaTime * speedMultiplier);
+            characterController.Move(deltaMovement);
+        }
+
+        private void LateUpdate()
+        {
+            
         }
 
         /// <summary>
@@ -35,13 +72,33 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             //override the root motion
         }
 
-        private void UpdatePosWithAnchor()
+        private void UpdateVerticalMove(float dt)
+        {
+            if (transform.position.y - standTravelModelManager.groundHeight > groundedOffset)
+            {
+                _isGrounded = false;
+                if (_verticalVelocity > _terminalVelocity)
+                {
+                    _verticalVelocity += gravity * dt;
+                }
+            }
+            else
+            {
+                _isGrounded = true;
+                _verticalVelocity = -1;
+            }
+
+            _velocity += new Vector3(0, _verticalVelocity, 0);
+        }
+
+        private void UpdatePosWithAnchor(float dt)
         {
             if(curFootIndex != 0)
             {
                 footPos = GetFootPos(curFootIndex);
                 deltaPos = footPos - anchorPos;
-                transform.position -= deltaPos;
+                _velocity = -deltaPos / dt;
+                //transform.position -= deltaPos;
             }
         }
 
