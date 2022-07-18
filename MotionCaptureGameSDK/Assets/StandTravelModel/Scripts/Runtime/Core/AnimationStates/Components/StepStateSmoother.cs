@@ -22,10 +22,17 @@ public class StepStateSmoother
     [SerializeField] private float frameTargetStart;
     [SerializeField] private float frameTargetEnd;
     [SerializeField] private StepState stepState;
+    [SerializeField] private StepState bakcState;
 
     public void UpdateTargetFrameArea(int legLeft, int legRight)
     {
         UpdateStepState(legLeft, legRight);
+
+        if(stepState != bakcState)
+        {
+            Debug.Log("---> " + stepState);
+            bakcState = stepState;
+        }
 
         switch(stepState)
         {
@@ -79,11 +86,6 @@ public class StepStateSmoother
             //Debug.Log(Time.frameCount + "right down " + stepProgressRightDown + "|" + frameTarget);
         }
 
-/*         if(frameTargetStart > frameTargetEnd)
-        {
-            frameTarget = Mathf.Min(frameTarget, frameCurr);
-        } */
-
         frameCurr = LerpFrame(frameCurr, frameTarget, Time.deltaTime * catchupSpeed, false);
 
         if(frameTargetStart < frameTargetEnd)
@@ -92,23 +94,18 @@ public class StepStateSmoother
         }
         else
         {
-            if(frameCurr > frameTargetStart)
+            /* if(frameCurr > frameTargetStart)
             {
                 frameCurr = Mathf.Min(frameCurr, frameCount);
             }
             else
             {
                 frameCurr = Mathf.Min(frameCurr, frameTargetStart);
-            }
+            } */
         }
 
         var delta = frameCurr - backup;
         backup = frameCurr;
-
-        /* if(Mathf.Abs(delta) > 20)
-        {
-            Debug.Break();
-        } */
     }
 
     public float GetStepProgress()
@@ -116,25 +113,14 @@ public class StepStateSmoother
         return frameCurr / frameCount;
     }
 
+    public float GetTargetProgress()
+    {
+        return frameTarget / frameCount;
+    }
+
     private float LerpFrame(float start, float end, float percent, bool canExceed)
     {
         var frame = LerpFrame(start, end, percent);
-
-        /* if(!canExceed)
-        {
-            if(start <= end)
-            {
-                return Mathf.Min(frame, end);
-            }
-            else
-            {
-                if(frame < frameCount)
-                {
-                    return frame;
-                }
-                return Mathf.Min(frame, end);
-            }
-        } */
         return frame;
     }
 
@@ -142,7 +128,8 @@ public class StepStateSmoother
     {
         if(start <= end)
         {
-            return start + (end - start) * percent;
+            var value = start + (end - start) * percent;
+            return Mathf.Min(value, end);
         }
         else
         {
