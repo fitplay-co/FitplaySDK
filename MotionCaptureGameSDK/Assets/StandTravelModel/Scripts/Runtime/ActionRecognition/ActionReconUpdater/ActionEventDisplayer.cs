@@ -1,45 +1,74 @@
 using MotionCaptureBasic;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
+using StandTravelModel;
 
 public class ActionEventDisplayer : MonoBehaviour
 {
     [SerializeField] private Animator charAnim;
 
+    private int leftCount;
+    private int rightCount;
     private ActionId leftId;
     private ActionId rightId;
+    private ActionId leftBack;
+    private ActionId rightBack;
     private ActionDetectionItem actionDetection;
+    private StandTravelModelManager standTravelManager;
 
     private void OnGUI() {
         actionDetection = MotionDataModelHttp.GetInstance().GetActionDetectionData();
 
         GetActionIds(out leftId, out rightId);
+
+        if(leftId != leftBack)
+        {
+            leftBack = leftId;
+            leftCount++;
+        }
+
+        if(rightId != rightBack)
+        {
+            rightBack = rightId;
+            rightCount++;
+        }
+
         if(leftId != ActionId.None)
         {
-            DrawEnvent(leftId);
+            DrawEnvent(leftId, leftCount);
         }
 
         if(rightId != ActionId.None)
         {
-            DrawEnvent(rightId);
+            DrawEnvent(rightId, rightCount);
         }
 
         DrawHipAngles();
 
         DrawLegProgress("progressUpLeft", 0.1f, true);
         DrawLegProgress("progressDownLeft", 0.3f, false);
+        DrawStepProgress();
     }
 
-    private void DrawEnvent(ActionId actionId)
+    private void DrawEnvent(ActionId actionId, int count)
     {
         GUIStyle labelStyle = new GUIStyle("label");
-        labelStyle.fontSize = 25;
+        labelStyle.fontSize = 35;
         labelStyle.normal.textColor = Color.green;
 
         var x = 0f;
         var y = 0f;
         GetScreenPos(out x, out y, actionId);
         GUI.Label(new Rect(x, y, 300, 80), "事件:" + actionId, labelStyle);
+
+        if(ActionId.LegUpLeft == actionId || ActionId.LegDownLeft == actionId || ActionId.LegIdleLeft == actionId)
+        {
+            GUI.Label(new Rect(0.1f * Screen.width, 0.7f * Screen.height, 300, 80), count.ToString(), labelStyle);
+        }
+        else if(ActionId.LegUpRight == actionId || ActionId.LegDownRight == actionId || ActionId.LegIdleRight == actionId)
+        {
+            GUI.Label(new Rect(0.9f * Screen.width, 0.7f * Screen.height, 300, 80), count.ToString(), labelStyle);
+        }
     }
 
     private void DrawHipAngles()
@@ -169,5 +198,29 @@ public class ActionEventDisplayer : MonoBehaviour
         var y = Screen.height * (progress * 0.5f + 0.5f);
 
         GUI.Label(new Rect(x, y, 300, 80), id + "->" + proValue, labelStyle);
+    }
+
+    private void DrawStepProgress()
+    {
+        if(standTravelManager == null)
+        {
+            standTravelManager = charAnim.GetComponent<StandTravelModelManager>();
+        }
+
+        var stepProgress = standTravelManager.stepSmoother.GetStepProgress();
+        var targetProgress = standTravelManager.stepSmoother.GetTargetProgress();
+
+        GUIStyle labelStyle = new GUIStyle("label");
+        labelStyle.fontSize = 32;
+        labelStyle.normal.textColor = Color.green;
+
+        var x = Screen.width * stepProgress;
+        var y = Screen.height * 0.8f;
+        GUI.Label(new Rect(x, y, 300, 80), "|||", labelStyle);
+
+        labelStyle.normal.textColor = Color.red;
+        x = Screen.width * stepProgress;
+        y = Screen.height * 0.9f;
+        GUI.Label(new Rect(x, y, 300, 80), "|||", labelStyle);
     }
 }

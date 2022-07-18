@@ -7150,7 +7150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264596580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e76d06b6514358449beedc63b2c32f11, type: 3}
   m_Name: 
@@ -7314,6 +7314,7 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
     stepState: 0
+    bakcState: 0
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10298,6 +10299,7 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
     stepState: 0
+    bakcState: 0
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -13417,6 +13419,7 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
     stepState: 0
+    bakcState: 0
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0

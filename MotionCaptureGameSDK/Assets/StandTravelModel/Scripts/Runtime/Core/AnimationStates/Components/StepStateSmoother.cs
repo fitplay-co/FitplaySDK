@@ -51,13 +51,13 @@ public class StepStateSmoother
             case StepState.RightUp:
             {
                 frameTargetStart = 24;
-                frameTargetEnd = 1;
+                frameTargetEnd = 31;
                 break;
             }
             case StepState.RightDown:
             {
-                frameTargetStart = 1;
-                frameTargetEnd = 8;
+                frameTargetStart = 31;
+                frameTargetEnd = 38;
                 break;
             }
         }
@@ -110,12 +110,12 @@ public class StepStateSmoother
 
     public float GetStepProgress()
     {
-        return frameCurr / frameCount;
+        return frameCurr / frameCount - (int)frameCurr;
     }
 
     public float GetTargetProgress()
     {
-        return frameTarget / frameCount;
+        return frameTarget / frameCount - (int)frameCurr;
     }
 
     private float LerpFrame(float start, float end, float percent, bool canExceed)

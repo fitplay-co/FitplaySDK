@@ -138,5 +138,10 @@ namespace StandTravelModel.Core.AnimationStates
         {
             return stepSmoother.GetStepProgress();
         }
+
+        public float GetTargetProgress()
+        {
+            return stepSmoother.GetTargetProgress();
+        }
     }
 }
