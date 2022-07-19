@@ -39,7 +39,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             GUI.Label(new Rect(20, 120, 600, 40), $"当速度矢量: x={velocityX}, y={velocityY}, z={velocityZ}", labelStyle);
 
             var currentSpeed = Mathf.Round(currentVelocity.magnitude * 1000) / 1000;
-            GUI.Label(new Rect(20, 160, 300, 40), $"当速度: {currentSpeed}m/s", labelStyle);
+            GUI.Label(new Rect(20, 160, 300, 40), $"当前速度: {currentSpeed}m/s", labelStyle);
 
             var isGrounded = animatorMover.isGrounded;
             GUI.Label(new Rect(20, 200, 300, 40), isGrounded ? "在地上" : "悬空", labelStyle);

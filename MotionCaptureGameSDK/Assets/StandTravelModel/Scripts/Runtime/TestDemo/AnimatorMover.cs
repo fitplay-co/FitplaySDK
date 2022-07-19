@@ -22,6 +22,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private float _verticalVelocity;
         private float _terminalVelocity = -53.0f;
 
+        [SerializeField] private bool isUseCharacterController;
         [SerializeField] private int curFootIndex;
         [SerializeField] private Vector3 footPos;
         [SerializeField] private Vector3 deltaPos;
@@ -43,6 +44,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             if (standTravelModelManager.currentMode == MotionMode.Stand)
             {
                 _velocity = Vector3.zero;
+                _verticalVelocity = 0;
             }
             else
             {
@@ -55,13 +57,13 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         private void Update()
         {
-            var deltaMovement = _velocity * (Time.deltaTime * speedMultiplier);
+            if (!isUseCharacterController)
+            {
+                return;
+            }
+            var dt = Time.deltaTime;
+            var deltaMovement = _velocity * (speedMultiplier * dt) + new Vector3(0, _verticalVelocity * dt, 0);
             characterController.Move(deltaMovement);
-        }
-
-        private void LateUpdate()
-        {
-            
         }
 
         /// <summary>
@@ -87,18 +89,24 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 _isGrounded = true;
                 _verticalVelocity = -1;
             }
-
-            _velocity += new Vector3(0, _verticalVelocity, 0);
         }
 
         private void UpdatePosWithAnchor(float dt)
         {
-            if(curFootIndex != 0)
+            if (curFootIndex != 0)
             {
                 footPos = GetFootPos(curFootIndex);
                 deltaPos = footPos - anchorPos;
                 _velocity = -deltaPos / dt;
-                //transform.position -= deltaPos;
+                _velocity.y = 0;
+                if (!isUseCharacterController)
+                {
+                    transform.position -= deltaPos;
+                }
+            }
+            else
+            {
+                _velocity = Vector3.zero;
             }
         }
 

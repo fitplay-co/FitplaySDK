@@ -9578,6 +9578,8 @@ MonoBehaviour:
     progress: 0
     timeLine: 0
     curStage: 0
+    stepFrequency: 0
+    stepLength: 0
 --- !u!114 &1264596606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9720,6 +9722,13 @@ MonoBehaviour:
         playSpeedMultiplier: 
         playBackSpeed: 1
   selfTransform: {fileID: 0}
+  stepSmoother:
+    frameCurr: 0
+    frameTarget: 0
+    frameTargetStart: 0
+    frameTargetEnd: 0
+    stepState: 0
+    bakcState: 0
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9778,6 +9787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad825fe9ca5fe804a9805c16af9471cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUseCharacterController: 1
   curFootIndex: 0
   footPos: {x: 0, y: 0, z: 0}
   deltaPos: {x: 0, y: 0, z: 0}
@@ -13614,6 +13624,13 @@ MonoBehaviour:
         playSpeedMultiplier: 
         playBackSpeed: 1
   selfTransform: {fileID: 0}
+  stepSmoother:
+    frameCurr: 0
+    frameTarget: 0
+    frameTargetStart: 0
+    frameTargetEnd: 0
+    stepState: 0
+    bakcState: 0
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -16727,6 +16744,13 @@ MonoBehaviour:
         playSpeedMultiplier: 
         playBackSpeed: 1
   selfTransform: {fileID: 0}
+  stepSmoother:
+    frameCurr: 0
+    frameTarget: 0
+    frameTargetStart: 0
+    frameTargetEnd: 0
+    stepState: 0
+    bakcState: 0
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16773,6 +16797,8 @@ MonoBehaviour:
     progress: 0
     timeLine: 0
     curStage: 0
+    stepFrequency: 0
+    stepLength: 0
 --- !u!4 &2787233591588614682
 Transform:
   m_ObjectHideFlags: 0
