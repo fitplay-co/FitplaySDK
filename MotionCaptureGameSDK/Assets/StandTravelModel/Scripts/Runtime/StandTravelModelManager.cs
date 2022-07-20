@@ -122,6 +122,9 @@ namespace StandTravelModel.Scripts.Runtime
             }
         }
 
+        private Vector3 _initPosition;
+        public Vector3 initPosition => _initPosition;
+
         #endregion
 
         private List<Vector3> keyPointsList;
@@ -129,6 +132,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Awake()
         {
+            _initPosition = this.transform.position;
+
             InitMotionDataModel();
             InitModelIKController();
             InitAnchorController();
@@ -561,6 +566,16 @@ namespace StandTravelModel.Scripts.Runtime
         {
             GetTravelAnchor().position = selfTransform.position;
             GetStandAnchor().position = selfTransform.position;
+        }
+
+        public void ResetToInitPosition()
+        {
+            this.transform.position = _initialPosition;
+            if (anchorController != null) 
+            {
+                anchorController.TravelFollowPoint.transform.position = _initialPosition;
+                anchorController.StandFollowPoint.transform.position = _initialPosition;
+            }
         }
 
         public Vector3 GetMoveVelocity()
