@@ -23,7 +23,7 @@ public class TravelStrideSetter : ITravelStrideSetter
             var leftStepLength = actionDetectionItem.walk.leftStepLength * 0.7f;
             var rightStepLength = actionDetectionItem.walk.rightStepLength * 0.7f;
 
-            striderBiped.SpeedScale = Mathf.Max(leftStepLength, 0.25f);
+            //striderBiped.SpeedScale = Mathf.Max(leftStepLength, 0.25f);
             //striderBiped.SpeedScale = 1;
         }
     }
