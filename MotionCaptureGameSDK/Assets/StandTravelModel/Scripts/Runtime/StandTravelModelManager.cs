@@ -106,6 +106,22 @@ namespace StandTravelModel.Scripts.Runtime
         private bool _osConnected = false;
         public bool osConnected => _osConnected;
 
+        private Vector3 _initialPosition;
+        public Vector3 initialPosition => _initialPosition;
+
+        public float groundHeight
+        {
+            get
+            {
+                if (travelModel != null)
+                {
+                    return travelModel.GetGroundHeight();
+                }
+
+                return 0;
+            }
+        }
+
         #endregion
 
         private List<Vector3> keyPointsList;
