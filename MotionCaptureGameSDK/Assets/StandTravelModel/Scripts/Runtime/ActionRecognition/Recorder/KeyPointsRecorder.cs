@@ -20,6 +20,11 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
         private void Update() {
             if(enableRecord)
             {
+                if(seContainer == null)
+                {
+                    seContainer = new PointsContainer();
+                }
+
                 recordedAcc += Time.deltaTime;
                 if(recordDelay > 0)
                 {
@@ -144,7 +149,15 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
             {
                 using(StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
-                    streamWriter.Write(JsonConvert.SerializeObject(container));
+                    streamWriter.Write(
+                        JsonConvert.SerializeObject(
+                            container,
+                            new JsonSerializerSettings()
+                            { 
+                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                            }
+                        )
+                    );
                 }
             }
         }
