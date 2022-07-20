@@ -203,6 +203,14 @@ namespace IMU
         }
 
         /// <summary>
+        ///  脊柱弯曲角度，控制转向
+        /// </summary>
+        public static float SpineTurnValue
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 添加一个key，当这个key按下时
         /// </summary>
         /// <param name="isKeyDown"></param>
