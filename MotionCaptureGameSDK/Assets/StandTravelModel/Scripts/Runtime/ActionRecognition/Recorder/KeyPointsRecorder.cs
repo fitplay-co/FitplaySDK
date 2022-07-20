@@ -45,6 +45,23 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
                     seContainer.points.Add(points);
                 }
+
+                var actionItem = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+                if(actionItem != null && actionItem.walk != null)
+                {
+                    var walk = new Walk()
+                    {
+                        leftLeg = actionItem.walk.leftLeg,
+                        rightLeg = actionItem.walk.rightLeg,
+                        leftHip = actionItem.walk.leftHipAng,
+                        rightHip = actionItem.walk.rightHipAng
+                    };
+                    seContainer.walks.Add(walk);
+                }
+                else
+                {
+                    seContainer.walks.Add(null);
+                }
             }
         }
 
@@ -63,9 +80,9 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
             seContainer.points.Clear();
         }
 
-        public void OutputKeyPointsList()
+        public void OutputDatas()
         {
-            DOOutputKeyPointsList(seContainer.points);
+            DOOutputKeyPointsList(seContainer);
         }
 
         public List<Vector3> GetRecordKeyPoints()
@@ -98,7 +115,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         private void TryLoadPoints()
         {
-            if(deContainer != null && deContainer.points == null || deContainer.points.Count == 0)
+            if(deContainer == null || deContainer.points == null || deContainer.points.Count == 0)
             {
                 LoadKeyPointsList();
             }
@@ -121,13 +138,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
             }
         }
 
-        private void DOOutputKeyPointsList(List<Points> pointsList)
+        private void DOOutputKeyPointsList(PointsContainer container)
         {
-            var container = new PointsContainer()
-            {
-                points = pointsList
-            };
-
             using(FileStream fileStream = new FileStream(GetFilePath(), FileMode.Create))
             {
                 using(StreamWriter streamWriter = new StreamWriter(fileStream))
