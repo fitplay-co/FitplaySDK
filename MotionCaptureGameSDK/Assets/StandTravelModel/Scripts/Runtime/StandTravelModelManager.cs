@@ -106,9 +106,6 @@ namespace StandTravelModel.Scripts.Runtime
         private bool _osConnected = false;
         public bool osConnected => _osConnected;
 
-        private Vector3 _initialPosition;
-        public Vector3 initialPosition => _initialPosition;
-
         public float groundHeight
         {
             get
@@ -570,11 +567,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void ResetToInitPosition()
         {
-            this.transform.position = _initialPosition;
+            this.transform.position = _initPosition;
             if (anchorController != null) 
             {
-                anchorController.TravelFollowPoint.transform.position = _initialPosition;
-                anchorController.StandFollowPoint.transform.position = _initialPosition;
+                anchorController.TravelFollowPoint.transform.position = _initPosition;
+                anchorController.StandFollowPoint.transform.position = _initPosition;
             }
         }
 
