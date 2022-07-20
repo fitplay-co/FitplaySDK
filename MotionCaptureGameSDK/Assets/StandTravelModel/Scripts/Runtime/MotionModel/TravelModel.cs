@@ -69,7 +69,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             AnimationCurve speedCurve,
             AnimationCurve downCurve,
             StepStateSmoother stepSmoother,
-            StriderBiped striderBiped
+            StriderBiped striderBiped,
+            float runThrehold
         ) : base(
             selfTransform,
             characterHipNode,
@@ -96,15 +97,16 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideSetter = new TravelStrideSetter(striderBiped, this);
+            var runConditioner = new RunConditioner(runThrehold);
             var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
-                {AnimationList.Idle, new TravelIdleState(this, parametersSetter)},
-                {AnimationList.Run, new TravelRunState(this, parametersSetter, strideSetter)},
+                {AnimationList.Idle, new TravelIdleState(this, parametersSetter, runConditioner)},
+                {AnimationList.Run, new TravelRunState(this, parametersSetter, strideSetter, runConditioner)},
                 {AnimationList.Jump, new TravelJumpState(this)},
-                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, strideSetter)},
-                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, strideSetter)},
+                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, strideSetter, runConditioner)},
+                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, strideSetter, runConditioner)},
                 {AnimationList.Squat, new TravelSquatState(this)}
             };
             

@@ -5,12 +5,17 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class RunConditioner
     {
-        private float lastRun;
+        private float runThrehold;
+
+        public RunConditioner(float runThrehold)
+        {
+            this.runThrehold = runThrehold;
+        }
 
         public bool IsEnterRunReady(WalkActionItem walkData)
         {
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
-            var isRun = (walkData.leftFrequency * walkData.leftStepLength > 5) || (walkData.rightFrequency * walkData.rightStepLength > 5);
+            var isRun = (walkData.leftFrequency * walkData.leftStepLength > runThrehold) || (walkData.rightFrequency * walkData.rightStepLength > runThrehold);
             /* if(!isRun)
             {
                 if(Time.time < lastRun + 1)

@@ -6,11 +6,13 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class TravelIdleState : AnimationStateBase
     {
+        private RunConditioner runConditioner;
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        public TravelIdleState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
+        public TravelIdleState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, RunConditioner runConditioner) : base(owner)
         {
             InitFields(AnimationList.Idle);
+            this.runConditioner = runConditioner;
             this.parametersSetter = parametersSetter;
         }
 

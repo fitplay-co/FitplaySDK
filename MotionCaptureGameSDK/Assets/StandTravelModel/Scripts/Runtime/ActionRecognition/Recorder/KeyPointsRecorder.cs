@@ -3,6 +3,7 @@ using System.IO;
 using MotionCaptureBasic;
 using UnityEngine;
 using Newtonsoft.Json;
+using MotionCaptureBasic.OSConnector;
 
 namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 {
@@ -90,9 +91,11 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
             DOOutputKeyPointsList(seContainer);
         }
 
-        public List<Vector3> GetRecordKeyPoints()
+        public void GetRecordDatas(out List<Vector3> keyPoints, out ActionDetectionItem actionDetectionItem)
         {
-            return GetRecordKeyPoints(gettingIndex++);
+            keyPoints = GetRecordKeyPoints(gettingIndex);
+            actionDetectionItem = GetActionDetectionItem(gettingIndex);
+            gettingIndex++;
         }
 
         public List<Vector3> GetRecordKeyPoints(int index)
@@ -104,6 +107,27 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                 return deContainer.points[index % deContainer.points.Count].pointList;
             }
 
+            return null;
+        }
+
+        private ActionDetectionItem GetActionDetectionItem(int index)
+        {
+            if(deContainer != null && deContainer.walks != null && deContainer.walks.Count > 0)
+            {
+                var walk = deContainer.walks[index % deContainer.points.Count];
+                if(walk != null)
+                {
+                    var item = new ActionDetectionItem();
+                    item.walk = new WalkActionItem()
+                    {
+                        leftLeg = walk.leftLeg,
+                        rightLeg = walk.rightLeg,
+                        leftHipAng = walk.leftHip,
+                        rightHipAng = walk.rightHip
+                    };
+                    return item;
+                }
+            }
             return null;
         }
 

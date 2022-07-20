@@ -6,10 +6,12 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     public abstract class TravelBaseState : AnimationStateBase
     {
         private int animStrideId;
+        private RunConditioner runConditioner;
 
-        public TravelBaseState(MotionModelBase owner) : base(owner)
+        public TravelBaseState(MotionModelBase owner, RunConditioner runConditioner) : base(owner)
         {
-            animStrideId = Animator.StringToHash("stride");
+            this.runConditioner = runConditioner;
+            this.animStrideId = Animator.StringToHash("stride");
             InitFields(GetLegAnimationListSelf());
         }
 
