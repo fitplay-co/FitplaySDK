@@ -5,7 +5,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class TravelLeftStepState : TravelStepBase
     {
-        public TravelLeftStepState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner, parametersSetter)
+        public TravelLeftStepState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, ITravelStrideSetter strideSetter) : base(owner, parametersSetter, strideSetter)
         {
         }
 

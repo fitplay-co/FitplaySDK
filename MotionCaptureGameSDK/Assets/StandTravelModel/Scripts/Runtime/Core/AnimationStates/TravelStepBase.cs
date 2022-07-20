@@ -8,12 +8,14 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public abstract class TravelStepBase : TravelBaseState
     {
+        private ITravelStrideSetter strideSetter;
         private ReconCompAngleGetterWithDirect angleGetterWithDirectLeft;
         private ReconCompAngleGetterWithDirect angleGetterWithDirectRight;
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        protected TravelStepBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
+        protected TravelStepBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, ITravelStrideSetter strideSetter) : base(owner)
         {
+            this.strideSetter = strideSetter;
             this.parametersSetter = parametersSetter;
             this.angleGetterWithDirectLeft = new ReconCompAngleGetterWithDirect(GameKeyPointsType.LeftKnee, GameKeyPointsType.LeftHip, GameKeyPointsType.Nose, Vector3.up);
             this.angleGetterWithDirectRight = new ReconCompAngleGetterWithDirect(GameKeyPointsType.RightKnee, GameKeyPointsType.RightKnee, GameKeyPointsType.Nose, Vector3.up);
@@ -23,6 +25,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
         {
             base.Tick(deltaTime);
             parametersSetter.TrySetStepParameters();
+            strideSetter.UpdateSpeedScale();
         }
 
         private float GetHipAngle(int leftLeg, int rightLeg)

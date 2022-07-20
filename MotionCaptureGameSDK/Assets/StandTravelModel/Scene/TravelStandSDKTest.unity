@@ -7313,8 +7313,7 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-    stepState: 0
-    bakcState: 0
+  striderBiped: {fileID: 1264596612}
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7373,6 +7372,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a958fdd115fa4540bf0020bd31e3306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1264596612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264596580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437632b23ea2d754d84e4680a92126e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p_speedScale: 1
+  p_weight: 1
+  p_sizeCompensation: 1
+  p_smoothRate: 5
+  p_warpDirSmoothRate: 0.5
+  p_rootMotion: 0
+  p_warpDirectionMode: 0
+  p_IKMethod: 1
+  p_manualRootMotionScaleFix: 0
+  p_maxSpeed: 3
+  p_baseOffset: 0
+  p_dynamicOffset: 0
+  p_dynamicOffsetCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  p_hipAdjustCutoff: 0.25
+  p_hipDamping: 0.75
+  p_curHipDampingCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  p_independentPlaybackSpeed: 1
+  p_minMaxPlaybackSpeed: {x: 0.9, y: 1.1}
+  p_maxPlaybackSpeed: 1.1
+  p_playbackSpeedWeight: 0.5
+  p_animator: {fileID: 1264596581}
+  p_hips: {fileID: 1264596601}
+  p_leftThigh: {fileID: 1264596600}
+  p_rightThigh: {fileID: 1264596597}
+  p_leftLowerLeg: {fileID: 1264596599}
+  p_rightLowerLeg: {fileID: 1264596596}
+  p_leftFoot: {fileID: 1264596598}
+  p_rightFoot: {fileID: 1264596595}
+  p_leftFootIK: {fileID: 0}
+  p_rightFootIK: {fileID: 0}
+  OnSetupComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1288720176
 GameObject:
   m_ObjectHideFlags: 0
@@ -10299,8 +10353,7 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-    stepState: 0
-    bakcState: 0
+  striderBiped: {fileID: 0}
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -13419,8 +13472,7 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-    stepState: 0
-    bakcState: 0
+  striderBiped: {fileID: 0}
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0

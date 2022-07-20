@@ -101,7 +101,7 @@ public class StepStateSmoother
         {
             var length = end - start;
             var delta = length * percent;
-            delta = Mathf.Clamp(delta, -0.1f, 0.1f);
+            //delta = Mathf.Clamp(delta, -0.15f, 0.15f);
             var value = start + delta;
             //return Mathf.Min(value, end);
             return value;
@@ -110,7 +110,7 @@ public class StepStateSmoother
         {
             var length = (frameCount - start) + end;
             var delta = length * percent;
-            delta = Mathf.Clamp(delta, -0.1f, 0.1f);
+            //delta = Mathf.Clamp(delta, -0.15f, 0.15f);
             var target = start + delta;
 
             if(target < frameCount)
