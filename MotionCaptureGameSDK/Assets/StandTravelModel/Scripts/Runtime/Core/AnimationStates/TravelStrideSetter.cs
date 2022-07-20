@@ -20,8 +20,6 @@ public class TravelStrideSetter : ITravelStrideSetter
         actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
         if(actionDetectionItem != null && actionDetectionItem.walk != null)
         {
-            UnityEngine.Debug.Log("actionDetectionItem.walk.leftStepLength " + actionDetectionItem.walk.leftStepLength + "|" + actionDetectionItem.walk.rightStepLength);
-
             var leftStepLength = actionDetectionItem.walk.leftStepLength * 0.7f;
             var rightStepLength = actionDetectionItem.walk.rightStepLength * 0.7f;
 

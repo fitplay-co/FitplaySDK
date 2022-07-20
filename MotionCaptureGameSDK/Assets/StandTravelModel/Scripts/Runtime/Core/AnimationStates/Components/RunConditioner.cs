@@ -10,7 +10,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         public bool IsEnterRunReady(WalkActionItem walkData)
         {
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
-            Debug.Log("speed ----------------------------------------- " + (walkData.leftFrequency * walkData.leftStepLength));
             var isRun = (walkData.leftFrequency * walkData.leftStepLength > 5) || (walkData.rightFrequency * walkData.rightStepLength > 5);
             /* if(!isRun)
             {

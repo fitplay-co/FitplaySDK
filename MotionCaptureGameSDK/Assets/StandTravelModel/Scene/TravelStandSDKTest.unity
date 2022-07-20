@@ -7427,6 +7427,27 @@ MonoBehaviour:
   OnSetupComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1264596613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264596580}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930cce8b54388be45863834b56b60af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUseCharacterController: 0
+  curFootIndex: 0
+  footPos: {x: 0, y: 0, z: 0}
+  deltaPos: {x: 0, y: 0, z: 0}
+  anchorPos: {x: 0, y: 0, z: 0}
+  footLeft: {fileID: 0}
+  footRight: {fileID: 0}
+  speedMultiplier: 1
+  gravity: -10
 --- !u!1 &1288720176
 GameObject:
   m_ObjectHideFlags: 0
