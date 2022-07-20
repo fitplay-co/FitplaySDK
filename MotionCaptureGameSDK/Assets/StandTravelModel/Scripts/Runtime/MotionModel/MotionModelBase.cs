@@ -109,12 +109,19 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             keyPointsParent.transform.localPosition = predictHipPos;
             
             var keyPoints = motionDataModel.GetIKPointsData(false, true);
-            var shiftX = (keyPoints[(int) GameKeyPointsType.LeftHip].x + keyPoints[(int) GameKeyPointsType.RightHip].x) /
-                2 - 0.5f;
-            var planeShift = new Vector3(shiftX * tuningParameters.LocalShiftScale.x, 0, 0);
+            var leftHipNode = keyPoints[(int)GameKeyPointsType.LeftHip];
+            var rightHipNode = keyPoints[(int)GameKeyPointsType.RightHip];
+
+            //Debug.Log($"Left Hip Node: {leftHipNode.x}, {leftHipNode.y}, {leftHipNode.z}");
+            //Debug.Log($"Right Hip Node: {rightHipNode.x}, {rightHipNode.y}, {rightHipNode.z}");
+
+            var shiftX = (leftHipNode.x + rightHipNode.x) /
+                2 + 0.5f;
+            var shiftZ = (leftHipNode.z + rightHipNode.z) / 2 + tuningParameters.LocalShiftZOffset;
+            var planeShift = new Vector3(shiftX * tuningParameters.LocalShiftScale.x, 0, shiftZ * tuningParameters.LocalShiftScale.z);
             localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
             
-            //Debug.Log($"Local Shift: {shiftX}, Hip Height: {predictHipPos.y}");
+            //Debug.Log($"Local Shift: x={shiftX}, z={shiftZ}. Hip Height: {predictHipPos.y}");
 #else
             var planeShift = Vector3.zero;
             var groundLocationData = motionDataModel.GetGroundLocationData();

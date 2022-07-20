@@ -26,5 +26,8 @@ namespace StandTravelModel.Scripts.Runtime
         
         //矫正倾斜
         public float SkewCorrection = 0;
+
+        //局部位移的z偏移
+        public float LocalShiftZOffset = 0;
     }
 }

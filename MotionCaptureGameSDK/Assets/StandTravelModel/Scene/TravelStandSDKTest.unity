@@ -9675,10 +9675,11 @@ MonoBehaviour:
     ScaleMotionPos: {x: 1.1, y: 1.1, z: 1.1}
     HipPosOffset: {x: 0, y: 0, z: 0}
     RotationSensitivity: 100
-    LocalShiftScale: {x: 1.5, y: 0.9, z: 1.5}
+    LocalShiftScale: {x: 1.5, y: 0.9, z: 1}
     CacheStepCount: 8
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
+    LocalShiftZOffset: 2
   modelIKSettings:
     IKScript: {fileID: 1264596582}
     FinalIKComponent: {fileID: 1264596583}
@@ -13581,6 +13582,7 @@ MonoBehaviour:
     CacheStepCount: 3
     StepToRunTimeThreshold: 5
     SkewCorrection: 0
+    LocalShiftZOffset: 0
   modelIKSettings:
     IKScript: {fileID: 2014150610}
     FinalIKComponent: {fileID: 2014150632}
@@ -16701,6 +16703,7 @@ MonoBehaviour:
     CacheStepCount: 8
     StepToRunTimeThreshold: 3
     SkewCorrection: -0.1
+    LocalShiftZOffset: 0
   modelIKSettings:
     IKScript: {fileID: 2753468361735440056}
     FinalIKComponent: {fileID: 2753468361735440057}
