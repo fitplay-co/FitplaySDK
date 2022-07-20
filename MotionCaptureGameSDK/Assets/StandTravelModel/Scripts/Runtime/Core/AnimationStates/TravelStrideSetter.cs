@@ -1,6 +1,7 @@
 using AnimationUprising.Strider;
 using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Scripts.Runtime.MotionModel;
+using UnityEngine;
 
 public class TravelStrideSetter : ITravelStrideSetter
 {
@@ -20,7 +21,12 @@ public class TravelStrideSetter : ITravelStrideSetter
         if(actionDetectionItem != null && actionDetectionItem.walk != null)
         {
             UnityEngine.Debug.Log("actionDetectionItem.walk.leftStepLength " + actionDetectionItem.walk.leftStepLength + "|" + actionDetectionItem.walk.rightStepLength);
-            striderBiped.SpeedScale = 1; 
+
+            var leftStepLength = actionDetectionItem.walk.leftStepLength * 0.7f;
+            var rightStepLength = actionDetectionItem.walk.rightStepLength * 0.7f;
+
+            striderBiped.SpeedScale = Mathf.Max(leftStepLength, 0.25f);
+            //striderBiped.SpeedScale = 1;
         }
     }
 }

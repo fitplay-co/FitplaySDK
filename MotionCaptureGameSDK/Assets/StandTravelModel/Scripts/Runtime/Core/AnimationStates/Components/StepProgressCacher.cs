@@ -35,8 +35,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 //lastProgressUp += 0.01f * Time.deltaTime;
                 //lastProgressDown += 0.01f * Time.deltaTime;
-                lastProgressUp += 0.1f * Time.deltaTime;
-                lastProgressDown += 0.1f * Time.deltaTime;
+                lastProgressUp += 0.2f * Time.deltaTime;
+                lastProgressDown += 0.2f * Time.deltaTime;
 
                 progressUp = lastProgressUp;
                 progressDown = lastProgressDown;
@@ -50,8 +50,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         private float ConverHipAngleToProgressDown(float angle)
         {
-            return (angle - 120f) / 120f;
-            //return 1 - (180f - angle) / 90f;
+            //return (angle - 120f) / 120f;
+            return 1 - (180f - angle) / 90f;
         }
     }
 }
