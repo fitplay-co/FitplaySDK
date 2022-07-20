@@ -9,11 +9,13 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdRunFreq;
         private StateFaderRun stateFaderRunIn;
         private StateFaderRun stateFaderRunOut;
+        private ITravelStrideSetter strideSetter;
 
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
+        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, ITravelStrideSetter strideSetter) : base(owner)
         {
+            this.strideSetter = strideSetter;
             this.animIdIsRun = Animator.StringToHash("isRun");
             this.animIdRunFreq = Animator.StringToHash("runFrequency");
             this.stateFaderRunIn = new StateFaderRun(owner.GetAnimator(), 2, "runTransition");

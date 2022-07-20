@@ -100,11 +100,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             if(isLeft)
             {
-                progressLeft.GetLegProgress(hipAngle, out progressUp, out progressDown, out angleDelta);
+                progressLeft.GetLegProgress(leg, hipAngle, out progressUp, out progressDown, out angleDelta);
             }
             else
             {
-                progressRight.GetLegProgress(hipAngle, out progressUp, out progressDown, out angleDelta);
+                progressRight.GetLegProgress(leg, hipAngle, out progressUp, out progressDown, out angleDelta);
             }
 
             if(leg == 1)
@@ -126,8 +126,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             var progressUpRight = 0f;
             var progressDownRight = 0f;
 
-            progressLeft.GetLegProgress(hipAngleLeft, out progressUpLeft, out progressDownLeft, out angleDelta);
-            progressRight.GetLegProgress(hipAngleRight, out progressUpRight, out progressDownRight, out angleDelta);
+            progressLeft.GetLegProgress(legLeft, hipAngleLeft, out progressUpLeft, out progressDownLeft, out angleDelta);
+            progressRight.GetLegProgress(legRight, hipAngleRight, out progressUpRight, out progressDownRight, out angleDelta);
 
             stepSmoother.OnUpdate(progressUpLeft, progressDownLeft, progressUpRight, progressDownRight);
 

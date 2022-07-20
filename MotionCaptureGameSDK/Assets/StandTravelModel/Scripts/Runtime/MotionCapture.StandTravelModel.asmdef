@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "FinalIK",
-        "FinalIK.Shared"
+        "FinalIK.Shared",
+        "Strider"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

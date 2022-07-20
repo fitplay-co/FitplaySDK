@@ -6,6 +6,7 @@ using StandTravelModel.Scripts.Runtime.Core;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
+using AnimationUprising.Strider;
 
 namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
@@ -31,6 +32,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         //抬腿交互缓存队列的总长度
         private int _cacheQueueMax = 11;
+        //private StriderBiped striderBiped;
 
         public int cacheQueueMax
         {
@@ -66,7 +68,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             bool isExControl,
             AnimationCurve speedCurve,
             AnimationCurve downCurve,
-            StepStateSmoother stepSmoother
+            StepStateSmoother stepSmoother,
+            StriderBiped striderBiped
         ) : base(
             selfTransform,
             characterHipNode,
@@ -79,7 +82,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         {
             /*animatorController = new TravelModelAnimatorController(selfTransform.GetComponent<Animator>(),
                 motionDataModel, anchorController, animatorSettingGroup);*/
-
             stepCacheQueue = new List<StepStct>();
 
             _animatorSettings = animatorSettingGroup;
@@ -93,15 +95,16 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
+            var strideSetter = new TravelStrideSetter(striderBiped, this);
             var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
                 {AnimationList.Idle, new TravelIdleState(this, parametersSetter)},
-                {AnimationList.Run, new TravelRunState(this, parametersSetter)},
+                {AnimationList.Run, new TravelRunState(this, parametersSetter, strideSetter)},
                 {AnimationList.Jump, new TravelJumpState(this)},
-                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter)},
-                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter)},
+                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, strideSetter)},
+                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, strideSetter)},
                 {AnimationList.Squat, new TravelSquatState(this)}
             };
             

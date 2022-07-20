@@ -9728,8 +9728,7 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-    stepState: 0
-    bakcState: 0
+  striderBiped: {fileID: 0}
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9785,7 +9784,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1264596580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad825fe9ca5fe804a9805c16af9471cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 930cce8b54388be45863834b56b60af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isUseCharacterController: 1
@@ -13631,8 +13630,7 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-    stepState: 0
-    bakcState: 0
+  striderBiped: {fileID: 0}
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -16752,8 +16750,7 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-    stepState: 0
-    bakcState: 0
+  striderBiped: {fileID: 0}
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0
