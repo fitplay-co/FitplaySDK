@@ -2,31 +2,26 @@ using UnityEngine;
 
 public class StepStrideCacher
 {
-    private int legUp;
-    private float? stepUpStart;
-    private float? stepUpEnd;
+    private int lastLeg;
+    private float stride;
 
-    public void OnUpdate(int leg, float hipAngle)
+    public void OnUpdate(int leg, float stride)
     {
-        if(leg < 1)
+        if(this.lastLeg > 0 && leg == -1)
         {
-            legUp = leg;
-            stepUpStart = hipAngle;
-            stepUpEnd = null;
+            Debug.Log("cahnge" + stride);
+            this.stride = stride;
         }
-        else
-        {
-            legUp = leg;
-            stepUpEnd = hipAngle;
-        }
+        this.lastLeg = leg;
     }
 
     public float GetStride()
     {
-        if(stepUpStart != null && stepUpEnd != null)
-        {
-            return Mathf.Abs(stepUpEnd.Value - stepUpStart.Value); 
-        }
-        return -1;
+        return stride;
+    }
+
+    public int GetLeg()
+    {
+        return lastLeg;
     }
 }

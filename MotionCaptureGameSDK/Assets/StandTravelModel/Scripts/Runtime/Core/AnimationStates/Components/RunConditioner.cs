@@ -16,11 +16,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
         {
-            strideCacher.OnUpdate(walkData.leftLeg, walkData.leftHipAng);
+            strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
           
-            var isRun = walkData.leftFrequency > runThrehold;
+            var isRun = walkData.leftFrequency * strideCacher.GetStride() > runThrehold;
 
             /* if(debug)
             {
