@@ -49,6 +49,7 @@ public class ActionEventDisplayer : MonoBehaviour
         DrawLegProgress("progressUpLeft", 0.1f, true);
         DrawLegProgress("progressDownLeft", 0.3f, false);
         DrawStepProgress();
+        DrawFootFrequence(actionDetection);
     }
 
     private void DrawEnvent(ActionId actionId, int count)
@@ -223,5 +224,22 @@ public class ActionEventDisplayer : MonoBehaviour
         x = Screen.width * stepProgress;
         y = Screen.height * 0.9f;
         GUI.Label(new Rect(x, y, 300, 80), "|||", labelStyle);
+    }
+
+    private void DrawFootFrequence(ActionDetectionItem actionDetectionItem)
+    {
+        if(actionDetectionItem != null)
+        {
+            GUIStyle labelStyle = new GUIStyle("label");
+            labelStyle.fontSize = 32;
+            labelStyle.normal.textColor = Color.yellow;
+
+            var x = 0.3f * Screen.width;
+            var y = 0.1f * Screen.height;
+            GUI.Label(new Rect(x, y, 300, 80), actionDetectionItem.walk.leftFrequency.ToString(), labelStyle);
+
+            x = 0.7f * Screen.width;
+            GUI.Label(new Rect(x, y, 300, 80), actionDetectionItem.walk.rightFrequency.ToString(), labelStyle);
+        }
     }
 }

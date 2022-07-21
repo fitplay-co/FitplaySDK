@@ -77,6 +77,7 @@ public class StepStateSmoother
         }
 
         frameCurr = LerpCurFrame(frameCurr, frameTarget, Time.deltaTime * catchupSpeed);
+        //frameCurr = frameTarget;
 
         /* var delta = Mathf.Abs(frameCurr - frameTarget);
         if(frameCurr > frameTarget && delta < 0.1f)

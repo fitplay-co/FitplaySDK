@@ -4,21 +4,23 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class StepProgressCacher
     {
-        private float lastAngle;
+        /* private float lastAngle;
         private float lastProgressUp;
-        private float lastProgressDown;
+        private float lastProgressDown; */
         private AnimationCurve downCurve;
         private AnimationCurve speedCurve;
+        private HipAngleSmoother angleSmoother;
 
         public StepProgressCacher(AnimationCurve speedCurve, AnimationCurve downCurve)
         {
             this.downCurve = downCurve;
             this.speedCurve = speedCurve;
+            this.angleSmoother = new HipAngleSmoother();
         }
 
         public void GetLegProgress(int leg, float hipAngle, out float progressUp, out float progressDown, out float angleDelta)
         {
-            angleDelta = lastAngle - hipAngle;
+            /* angleDelta = lastAngle - hipAngle;
 
             if(
                 (leg > 0 && angleDelta <= 0) ||
@@ -40,7 +42,12 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
                 progressUp = lastProgressUp;
                 progressDown = lastProgressDown;
-            }
+            } */
+            angleSmoother.SwitchLift(leg > 0);
+            angleSmoother.OnUpdate(hipAngle);
+            progressUp = ConvertHipAngleToProgress(angleSmoother.GetAngleCache());
+            progressDown = ConverHipAngleToProgressDown(angleSmoother.GetAngleCache());
+            angleDelta = 0;
         }
 
         private float ConvertHipAngleToProgress(float angle)
