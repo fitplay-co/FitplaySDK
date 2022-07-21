@@ -64,7 +64,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         private float ConvertHipAngleToProgress(float angle)
         {
-            return (180f - angle) / 90f;
+            //return Mathf.Max((180f - angle) / 90f, 0.2f);
+            return Mathf.Max(180f - angle) / 90f;
         }
 
         private float ConverHipAngleToProgressDown(float angle)

@@ -6458,7 +6458,7 @@ PrefabInstance:
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 996da910ba213db4db002013291bfbf7, type: 2}
+      objectReference: {fileID: 9100000, guid: 5c6f5ed1f9b1ce442a17c37e0c49a382, type: 2}
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -7222,22 +7222,22 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.10195913
     - serializedVersion: 3
-      time: 0.22662225
-      value: 0.7121802
-      inSlope: 1.3389556
-      outSlope: 1.3389556
-      tangentMode: 0
+      time: 0.12531412
+      value: 0.6625733
+      inSlope: 4.824436
+      outSlope: 1.4635519
+      tangentMode: 1
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.60556215
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
+      inSlope: 0.38576904
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 5
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.06451557
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -7248,18 +7248,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
