@@ -7449,6 +7449,23 @@ MonoBehaviour:
   footRight: {fileID: 0}
   speedMultiplier: 1
   gravity: -10
+--- !u!114 &1264596614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264596580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a080f9ebb3f52c54fa7c4879b25d376c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gettingIndex: 0
+  enableRecord: 0
+  recordedAcc: 0
+  recordDelay: 10
+  recordLength: 20
 --- !u!1 &1288720176
 GameObject:
   m_ObjectHideFlags: 0
