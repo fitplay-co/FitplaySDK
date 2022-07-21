@@ -481,6 +481,11 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
             }
+
+            if (!isDebug)
+            {
+                Object.Destroy(fakeNodeObj);
+            }
         }
 
         public bool IsFKEnabled()
@@ -563,16 +568,6 @@ namespace StandTravelModel.Scripts.Runtime
         {
             GetTravelAnchor().position = selfTransform.position;
             GetStandAnchor().position = selfTransform.position;
-        }
-
-        public void ResetToInitPosition()
-        {
-            this.transform.position = _initPosition;
-            if (anchorController != null) 
-            {
-                anchorController.TravelFollowPoint.transform.position = _initPosition;
-                anchorController.StandFollowPoint.transform.position = _initPosition;
-            }
         }
 
         public Vector3 GetMoveVelocity()

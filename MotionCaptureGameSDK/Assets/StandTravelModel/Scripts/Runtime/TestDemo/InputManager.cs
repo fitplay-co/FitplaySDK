@@ -66,15 +66,6 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 }
             }
 
-            bool isResetPotion = false;
-            isResetPotion |= Input.GetKeyDown(joystick_button_1);
-            isResetPotion |= Input.GetKeyDown(KeyCode.C);
-
-            if (isResetPotion) 
-            {
-                standTravelModelManager.ResetToInitPosition();
-            }
-
             return isChangeMode;
         }
     }
