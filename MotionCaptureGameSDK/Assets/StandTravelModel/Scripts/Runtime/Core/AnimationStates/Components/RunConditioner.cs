@@ -20,14 +20,20 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
           
-            var isRun = (walkData.leftFrequency * walkData.leftStepLength > runThrehold) || (walkData.rightFrequency * walkData.rightStepLength > runThrehold);
+            var isRun = walkData.leftFrequency > runThrehold;
 
-            if(debug)
+            /* if(debug)
             {
                 if(!isRun)
                 {
                     Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
                 }
+            } */
+
+            if(isRun)
+            {
+                Debug.Log(walkData.leftFrequency + "|" + walkData.leftStepLength);
+                //Debug.Break();
             }
 
             return isRun;
