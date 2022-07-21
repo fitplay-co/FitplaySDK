@@ -43,7 +43,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 progressUp = lastProgressUp;
                 progressDown = lastProgressDown;
             } */
-            angleSmoother.SwitchLift(leg > 0);
+            angleSmoother.SwitchLift(leg == 1);
             angleSmoother.OnUpdate(hipAngle);
             progressUp = ConvertHipAngleToProgress(angleSmoother.GetAngleCache());
             progressDown = ConverHipAngleToProgressDown(angleSmoother.GetAngleCache());

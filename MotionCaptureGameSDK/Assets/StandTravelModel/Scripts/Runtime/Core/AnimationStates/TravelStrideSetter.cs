@@ -27,7 +27,7 @@ public class TravelStrideSetter : ITravelStrideSetter
             //striderBiped.SpeedScale = 1;
             if(actionDetectionItem.walk.leftLeg == 1)
             {
-                striderBiped.SpeedScale = GetStride(actionDetectionItem.walk.leftHipAng);
+                //striderBiped.SpeedScale = GetStride(actionDetectionItem.walk.leftHipAng);
             }
         }
     }
