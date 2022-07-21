@@ -7215,18 +7215,27 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 6.1465898
+      tangentMode: 1
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.10195913
+    - serializedVersion: 3
+      time: 0.22662225
+      value: 0.7121802
+      inSlope: 1.3389556
+      outSlope: 1.3389556
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -7314,7 +7323,7 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 1264596612}
-  runThrehold: 2.5
+  runThrehold: 3.5
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7380,7 +7389,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264596580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 437632b23ea2d754d84e4680a92126e7, type: 3}
   m_Name: 

@@ -20,7 +20,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
           
-            var isRun = walkData.leftFrequency * strideCacher.GetStride() > runThrehold;
+            var isRun = walkData.leftFrequency > 2f && walkData.leftFrequency * strideCacher.GetStride() > runThrehold;
 
             /* if(debug)
             {

@@ -9,7 +9,6 @@ public class StepStrideCacher
     {
         if(this.lastLeg > 0 && leg == -1)
         {
-            Debug.Log("cahnge" + stride);
             this.stride = stride;
         }
         this.lastLeg = leg;
