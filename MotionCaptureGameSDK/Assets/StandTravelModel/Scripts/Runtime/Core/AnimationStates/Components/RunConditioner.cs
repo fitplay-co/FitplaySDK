@@ -30,12 +30,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 }
             } */
 
-            if(isRun)
-            {
-                Debug.Log(walkData.leftFrequency + "|" + walkData.leftStepLength);
-                //Debug.Break();
-            }
-
             return isRun;
 
             

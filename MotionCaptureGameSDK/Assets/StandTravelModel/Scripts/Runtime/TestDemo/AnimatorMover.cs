@@ -164,7 +164,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         public void OnAnimatorMoveStart()
         {
-            
+
         }
     }
 }

@@ -13,7 +13,7 @@ public class AnimatorMoverUpdater
     public void OnUpdate() {
         if(moveDest.HasValue)
         {
-            characterController.Move(moveDest.Value - characterController.transform.position);
+            characterController.Move(moveDest.Value);
             moveDest = null;
         }
     }

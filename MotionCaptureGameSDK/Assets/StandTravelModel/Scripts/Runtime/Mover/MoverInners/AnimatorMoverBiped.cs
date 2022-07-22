@@ -53,7 +53,7 @@ public class AnimatorMoverBiped : IAnimatorMoverBiped
             var deltaPos = GetFootPos(curFootIndex) - anchorPos;
             deltaPos.y = 0;
 
-            moverReactor.SetAnimatorDest(transform.position -= deltaPos);
+            moverReactor.SetAnimatorDest(-deltaPos);
         }
     }
 
