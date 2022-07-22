@@ -39,6 +39,11 @@ namespace TurnModel.Scripts
             Right
         }
 
+        public void SetStandTravelModelManager(StandTravelModelManager comp)
+        {
+            standTravelModelManager = comp;
+        }
+
         /// <summary>
         /// Debug使用，还需要完善
         /// </summary>
