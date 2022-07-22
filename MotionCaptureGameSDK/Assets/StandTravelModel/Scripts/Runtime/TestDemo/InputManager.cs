@@ -7,6 +7,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private const string L_Stick_H = "L_Stick_H";
         private const string Horizontal = "Horizontal";
         private const string joystick_button_0 = "joystick button 0";
+        private const string joystick_button_1 = "joystick button 1";
         private const string joystick_button_2 = "joystick button 2";
 
         public StandTravelModelManager standTravelModelManager;

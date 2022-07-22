@@ -107,9 +107,6 @@ namespace StandTravelModel.Scripts.Runtime
         private bool _osConnected = false;
         public bool osConnected => _osConnected;
 
-        private Vector3 _initialPosition;
-        public Vector3 initialPosition => _initialPosition;
-
         public float groundHeight
         {
             get
@@ -123,6 +120,9 @@ namespace StandTravelModel.Scripts.Runtime
             }
         }
 
+        private Vector3 _initPosition;
+        public Vector3 initPosition => _initPosition;
+
         #endregion
 
         private List<Vector3> keyPointsList;
@@ -130,6 +130,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Awake()
         {
+            _initPosition = this.transform.position;
+
             InitMotionDataModel();
             InitModelIKController();
             InitAnchorController();
@@ -479,6 +481,11 @@ namespace StandTravelModel.Scripts.Runtime
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
+            }
+
+            if (!isDebug)
+            {
+                Object.Destroy(fakeNodeObj);
             }
         }
 
