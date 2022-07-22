@@ -18,20 +18,22 @@ public class HipAngleSmoother
 
         if(isLifting)
         {
-            if(curAngle > angleCache)
+            /* if(curAngle > angleCache)
             {
                 target = angleTop;
-            }
+            } */
+            target = angleTop;
         }
         else
         {
-            if(curAngle < angleCache)
+            /* if(curAngle < angleCache)
             {
                 target = angleBottom;
-            }
+            } */
+            target = angleBottom;
         }
 
-        angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * 10);
+        angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime);
     }
 
     public float GetAngleCache()
