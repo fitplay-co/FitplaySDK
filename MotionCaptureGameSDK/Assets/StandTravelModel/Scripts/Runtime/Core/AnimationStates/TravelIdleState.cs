@@ -6,11 +6,13 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 {
     public class TravelIdleState : AnimationStateBase
     {
+        private RunConditioner runConditioner;
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        public TravelIdleState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter) : base(owner)
+        public TravelIdleState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, RunConditioner runConditioner) : base(owner)
         {
             InitFields(AnimationList.Idle);
+            this.runConditioner = runConditioner;
             this.parametersSetter = parametersSetter;
         }
 
@@ -52,7 +54,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 //Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
 
-                var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk);
+                var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, false);
                 isRunReady = false;         //for debuging
 
                 if (actionDetectionData.walk.legUp != 0 && isRunReady)

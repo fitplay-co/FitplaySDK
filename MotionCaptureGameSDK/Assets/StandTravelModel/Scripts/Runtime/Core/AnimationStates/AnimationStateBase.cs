@@ -8,7 +8,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
     public class AnimationStateBase : State<MotionModelBase>
     {
         protected TravelModel travelOwner;
-        protected RunConditioner runConditioner;
 
         private int stateTransParamHash;
 
@@ -19,7 +18,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
         protected AnimationStateBase(MotionModelBase owner) : base(owner)
         {
             travelOwner = owner as TravelModel;
-            runConditioner = new RunConditioner();
         }
 
         protected void InitFields(AnimationList animName)

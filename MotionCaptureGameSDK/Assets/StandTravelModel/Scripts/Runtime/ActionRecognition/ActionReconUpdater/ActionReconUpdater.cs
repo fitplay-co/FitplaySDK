@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using MotionCaptureBasic;
+using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconInstance;
 using StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder;
 using UnityEngine;
@@ -51,7 +53,12 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater
                 {
                     if(useRecordData)
                     {
-                        MotionDataModelHttp.GetInstance().SetIKDataListSimulat(keyPointsRecorder.GetRecordKeyPoints());
+                        List<Vector3> keyPoints = null;
+                        ActionDetectionItem actionDetectionItem = null;
+                        keyPointsRecorder.GetRecordDatas(out keyPoints, out actionDetectionItem);
+
+                        MotionDataModelHttp.GetInstance().SetIKDataListSimulat(keyPoints);
+                        MotionDataModelHttp.GetInstance().SetSimulatActionDetectionData(actionDetectionItem);
                     }
 
                     if(reconState == ReconState.Simulat)

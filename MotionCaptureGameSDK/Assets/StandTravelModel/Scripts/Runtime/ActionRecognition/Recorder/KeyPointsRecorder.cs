@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using MotionCaptureBasic;
 using UnityEngine;
+using Newtonsoft.Json;
+using MotionCaptureBasic.OSConnector;
 
 namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 {
@@ -13,12 +15,17 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
         [SerializeField] private float recordDelay;
         [SerializeField] private float recordLength;
 
-        private List<Points> deserializeds;
-        private List<Points> keyPointsList = new List<Points>();
+        private PointsContainer seContainer;
+        private PointsContainer deContainer;
 
         private void Update() {
             if(enableRecord)
             {
+                if(seContainer == null)
+                {
+                    seContainer = new PointsContainer();
+                }
+
                 recordedAcc += Time.deltaTime;
                 if(recordDelay > 0)
                 {
@@ -42,7 +49,24 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     var points = new Points();
                     points.pointList.AddRange(pointsData);
 
-                    keyPointsList.Add(points);
+                    seContainer.points.Add(points);
+                }
+
+                var actionItem = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+                if(actionItem != null && actionItem.walk != null)
+                {
+                    var walk = new Walk()
+                    {
+                        leftLeg = actionItem.walk.leftLeg,
+                        rightLeg = actionItem.walk.rightLeg,
+                        leftHip = actionItem.walk.leftHipAng,
+                        rightHip = actionItem.walk.rightHipAng
+                    };
+                    seContainer.walks.Add(walk);
+                }
+                else
+                {
+                    seContainer.walks.Add(null);
                 }
             }
         }
@@ -59,35 +83,58 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         public void ClearKeyPointsList()
         {
-            keyPointsList.Clear();
+            seContainer.points.Clear();
         }
 
-        public void OutputKeyPointsList()
+        public void OutputDatas()
         {
-            DOOutputKeyPointsList(keyPointsList);
+            DOOutputKeyPointsList(seContainer);
         }
 
-        public List<Vector3> GetRecordKeyPoints()
+        public void GetRecordDatas(out List<Vector3> keyPoints, out ActionDetectionItem actionDetectionItem)
         {
-            return GetRecordKeyPoints(gettingIndex++);
+            keyPoints = GetRecordKeyPoints(gettingIndex);
+            actionDetectionItem = GetActionDetectionItem(gettingIndex);
+            gettingIndex++;
         }
 
         public List<Vector3> GetRecordKeyPoints(int index)
         {
             TryLoadPoints();
 
-            if(deserializeds != null && deserializeds.Count > 0)
+            if(deContainer != null && deContainer.points != null && deContainer.points.Count > 0)
             {
-                return deserializeds[index % deserializeds.Count].pointList;
+                return deContainer.points[index % deContainer.points.Count].pointList;
             }
 
+            return null;
+        }
+
+        private ActionDetectionItem GetActionDetectionItem(int index)
+        {
+            if(deContainer != null && deContainer.walks != null && deContainer.walks.Count > 0)
+            {
+                var walk = deContainer.walks[index % deContainer.points.Count];
+                if(walk != null)
+                {
+                    var item = new ActionDetectionItem();
+                    item.walk = new WalkActionItem()
+                    {
+                        leftLeg = walk.leftLeg,
+                        rightLeg = walk.rightLeg,
+                        leftHipAng = walk.leftHip,
+                        rightHipAng = walk.rightHip
+                    };
+                    return item;
+                }
+            }
             return null;
         }
 
         public int GetFrameCount()
         {
             TryLoadPoints();
-            return deserializeds != null ? deserializeds.Count : 0;
+            return deContainer.points != null ? deContainer.points.Count : 0;
         }
 
         public void PrintFilePath()
@@ -97,7 +144,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         private void TryLoadPoints()
         {
-            if(deserializeds == null || deserializeds.Count == 0)
+            if(deContainer == null || deContainer.points == null || deContainer.points.Count == 0)
             {
                 LoadKeyPointsList();
             }
@@ -115,54 +162,28 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                 using(StreamReader streamReader = new StreamReader(fileStream))
                 {
                     var json = streamReader.ReadToEnd();
-                    var container = JsonUtility.FromJson<PointsContainer>(json);
-                    if(container != null)
-                    {
-                        deserializeds = container.points;
-                    }
+                    deContainer = JsonConvert.DeserializeObject<PointsContainer>(json);
                 }
             }
         }
 
-        private void DOOutputKeyPointsList(List<Points> pointsList)
+        private void DOOutputKeyPointsList(PointsContainer container)
         {
             using(FileStream fileStream = new FileStream(GetFilePath(), FileMode.Create))
             {
                 using(StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
-                    streamWriter.Write("{\"points\":[");
-
-                    var listIdx = 0;
-                    foreach(var points in pointsList)
-                    {
-                        streamWriter.Write("{\"pointList\":[");
-                        var pointIdx = 0;
-                        foreach(var point in points.pointList)
-                        {
-                            streamWriter.Write(ToJson(point));
-                            if(pointIdx++ < points.pointList.Count - 1)
-                            {
-                                streamWriter.Write(",");
+                    streamWriter.Write(
+                        JsonConvert.SerializeObject(
+                            container,
+                            new JsonSerializerSettings()
+                            { 
+                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                             }
-                        }
-                        streamWriter.Write("]}");
-
-                        if(listIdx++ < pointsList.Count - 1)
-                        {
-                            streamWriter.Write(",");
-                        }
-                    }
-
-                    streamWriter.Write("]}");
+                        )
+                    );
                 }
             }
-        }
-
-        private string ToJson(Vector3 point)
-        {
-            return string.Format(
-                "{0}\"x\":{1:0.00000},\"y\":{2:0.00000},\"z\":{3:0.00000}{4}", '{', point.x, point.y, point.z, '}'
-            );
         }
     }
 }

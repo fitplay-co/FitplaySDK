@@ -13,7 +13,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
         private ReconCompAngleGetterWithDirect angleGetterWithDirectRight;
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        protected TravelStepBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, ITravelStrideSetter strideSetter) : base(owner)
+        protected TravelStepBase(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, ITravelStrideSetter strideSetter, RunConditioner runConditioner) : base(owner, runConditioner)
         {
             this.strideSetter = strideSetter;
             this.parametersSetter = parametersSetter;

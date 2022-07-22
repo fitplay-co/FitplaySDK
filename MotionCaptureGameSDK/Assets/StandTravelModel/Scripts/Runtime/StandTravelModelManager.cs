@@ -47,6 +47,7 @@ namespace StandTravelModel.Scripts.Runtime
         public Transform selfTransform;
         public StepStateSmoother stepSmoother;
         public StriderBiped striderBiped;
+        public float runThrehold = 4;
         #endregion
         
          
@@ -441,7 +442,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped);
+                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped, runThrehold);
         }
 
         private void InitStandModel(Transform hip, Transform head)

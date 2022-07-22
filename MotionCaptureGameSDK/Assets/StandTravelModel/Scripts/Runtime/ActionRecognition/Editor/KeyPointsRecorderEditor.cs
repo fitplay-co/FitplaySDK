@@ -21,7 +21,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Editor
             if(GUILayout.Button("Output"))
             {
                 var recorder = target as KeyPointsRecorder;
-                recorder.OutputKeyPointsList();
+                recorder.OutputDatas();
             }
 
             if(GUILayout.Button("StartRecord"))
