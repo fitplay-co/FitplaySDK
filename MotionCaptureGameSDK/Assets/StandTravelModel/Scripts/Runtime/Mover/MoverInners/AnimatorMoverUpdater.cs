@@ -1,28 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class AnimatorMoverUpdater : MonoBehaviour, IAnimatorMoverReactor
+public class AnimatorMoverUpdater
 {
     private Vector3? moveDest;
-    private Animator animator;
+    private CharacterController characterController;
 
-    private void Awake() {
-        animator = GetComponent<Animator>();
-        animator.applyRootMotion = true;
-    }
-
-    /// <summary>
-    /// Callback for processing animation movements for modifying root motion.
-    /// </summary>
-    void OnAnimatorMove()
+    public AnimatorMoverUpdater(CharacterController characterController)
     {
-        
+        this.characterController = characterController;
     }
 
-    private void FixedUpdate() {
+    public void OnUpdate() {
         if(moveDest.HasValue)
         {
-            transform.position = moveDest.Value;
+            characterController.Move(moveDest.Value - characterController.transform.position);
             moveDest = null;
         }
     }

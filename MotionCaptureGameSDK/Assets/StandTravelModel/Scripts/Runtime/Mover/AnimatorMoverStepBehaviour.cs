@@ -9,6 +9,7 @@ public abstract class AnimatorMoverStepBehaviour : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animMover = CreateAnimatorMover(animator);
+        animMover.OnStart();
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

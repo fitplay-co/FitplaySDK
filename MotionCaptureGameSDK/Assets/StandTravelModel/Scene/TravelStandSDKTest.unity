@@ -582,6 +582,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[0].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Name
       value: Luna_Suit
@@ -708,23 +756,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5996678864002440489, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1740218890 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1740218891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740218890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a958fdd115fa4540bf0020bd31e3306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2014150607
 PrefabInstance:
   m_ObjectHideFlags: 0

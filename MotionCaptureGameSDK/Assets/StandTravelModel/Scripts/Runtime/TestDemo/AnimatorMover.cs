@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
     [RequireComponent(typeof(Animator))]
-    public class AnimatorMover : MonoBehaviour
+    public class AnimatorMover : MonoBehaviour, IAnimatorMoverReactor
     {
         private const int footIndexLeft = -1;
         private const int footIndexRight = 1;
@@ -13,6 +12,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private StandTravelModelManager standTravelModelManager;
         private Vector3 _velocity;
         public Vector3 velocity => _velocity;
+        private AnimatorMoverUpdater moverUpdater;
 
         private const float groundedOffset = 0.1f;
 
@@ -22,7 +22,6 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private float _verticalVelocity;
         private float _terminalVelocity = -53.0f;
 
-        [SerializeField] private bool isUseCharacterController;
         [SerializeField] private int curFootIndex;
         [SerializeField] private Vector3 footPos;
         [SerializeField] private Vector3 deltaPos;
@@ -34,10 +33,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         private void Awake() {
             var animator = GetComponent<Animator>();
+            animator.applyRootMotion = true;
             characterController = GetComponent<CharacterController>();
             standTravelModelManager = GetComponent<StandTravelModelManager>();
             footLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
             footRight = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+            moverUpdater = new AnimatorMoverUpdater(characterController);
         }
 
         private void FixedUpdate() {
@@ -49,18 +50,13 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             else
             {
                 var fixDeltaTime = Time.fixedDeltaTime;
-                UpdateTouchingFoot();
-                UpdatePosWithAnchor(fixDeltaTime);
                 UpdateVerticalMove(fixDeltaTime);
+                moverUpdater.OnUpdate();
             }
         }
 
         private void Update()
         {
-            if (!isUseCharacterController)
-            {
-                return;
-            }
             var dt = Time.deltaTime;
             var deltaMovement = _velocity * (speedMultiplier * dt) + new Vector3(0, _verticalVelocity * dt, 0);
             characterController.Move(deltaMovement);
@@ -91,7 +87,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             }
         }
 
-        private void UpdatePosWithAnchor(float dt)
+        /* private void UpdatePosWithAnchor(float dt)
         {
             if (curFootIndex != 0)
             {
@@ -108,7 +104,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             {
                 _velocity = Vector3.zero;
             }
-        }
+        } */
 
         private void UpdateTouchingFoot()
         {
@@ -159,6 +155,16 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private Vector3 GetFootPos(int foot)
         {
             return GetAnchor(foot).position;
+        }
+
+        public void SetAnimatorDest(Vector3 moveDest)
+        {
+            moverUpdater.SetMoveDest(moveDest);
+        }
+
+        public void OnAnimatorMoveStart()
+        {
+            
         }
     }
 }
