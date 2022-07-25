@@ -9,7 +9,7 @@ public class AnimatorMoverAnchorFixed : AnimatorMoverBiped
         this.anchorFoot = anchorFoot;
     }
 
-    protected override int GetTouchingFoot()
+    protected override int GetTouchingFoot(AnimatorStateInfo stateInfo)
     {
         return anchorFoot;
     }
