@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class AnimatorMoverBiped : IAnimatorMoverBiped
 {
-    private const int footIndexLeft = -1;
-    private const int footIndexRight = 1;
     private const float footHeightDetach = 0.02f;
 
+    protected const int footIndexLeft = -1;
+    protected const int footIndexRight = 1;
+
     private int curFootIndex;
-    private Vector3 footPos;
-    private Vector3 deltaPos;
     private Vector3 anchorPos;
     private Transform footLeft;
     private Transform footRight;
@@ -24,13 +23,13 @@ public class AnimatorMoverBiped : IAnimatorMoverBiped
         this.moverReactor = transform.GetComponent<IAnimatorMoverReactor>();
     }
 
-    public void OnUpdate()
+    public void OnUpdate(AnimatorStateInfo stateInfo)
     {
-        UpdateTouchingFoot();
+        UpdateTouchingFoot(stateInfo);
         UpdatePosWithAnchor();
     }
 
-    protected virtual int GetTouchingFoot()
+    protected virtual int GetTouchingFoot(AnimatorStateInfo stateInfo)
     {
         var heightGap = footLeft.position.y - footRight.position.y;
         if(heightGap < -footHeightDetach)
@@ -53,13 +52,13 @@ public class AnimatorMoverBiped : IAnimatorMoverBiped
             var deltaPos = GetFootPos(curFootIndex) - anchorPos;
             deltaPos.y = 0;
 
-            moverReactor.SetAnimatorDest(-deltaPos);
+            moverReactor.SetAnimatorDelta(-deltaPos);
         }
     }
 
-    private void UpdateTouchingFoot()
+    private void UpdateTouchingFoot(AnimatorStateInfo stateInfo)
     {
-        var touchingFoot = GetTouchingFoot();
+        var touchingFoot = GetTouchingFoot(stateInfo);
         if(touchingFoot != curFootIndex)
         {
             curFootIndex = touchingFoot;

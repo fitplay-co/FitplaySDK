@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IAnimatorMoverReactor
 {
-    void SetAnimatorDest(Vector3 moveDest);
+    void SetAnimatorDelta(Vector3 moveDest);
     void OnAnimatorMoveStart();
 }

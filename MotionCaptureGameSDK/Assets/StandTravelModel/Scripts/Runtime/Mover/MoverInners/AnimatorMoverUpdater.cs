@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class AnimatorMoverUpdater
 {
-    private Vector3? moveDest;
+    private Vector3 moveSpeed;
+    private Vector3? moveDelta;
     private CharacterController characterController;
 
     public AnimatorMoverUpdater(CharacterController characterController)
@@ -11,15 +12,21 @@ public class AnimatorMoverUpdater
     }
 
     public void OnUpdate() {
-        if(moveDest.HasValue)
+        if(moveDelta.HasValue)
         {
-            characterController.Move(moveDest.Value);
-            moveDest = null;
+            characterController.Move(moveDelta.Value);
+            moveDelta = null;
         }
     }
 
-    public void SetMoveDest(Vector3 moveDest)
+    public void SetMoveDelta(Vector3 moveDelta)
     {
-        this.moveDest = moveDest;
+        this.moveDelta = moveDelta;
+        this.moveSpeed = moveDelta / Time.deltaTime;
+    }
+
+    public Vector3 GetMoveSpeed()
+    {
+        return moveSpeed;
     }
 }

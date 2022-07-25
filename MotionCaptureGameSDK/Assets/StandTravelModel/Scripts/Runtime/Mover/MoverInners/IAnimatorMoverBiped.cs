@@ -1,5 +1,7 @@
+using UnityEngine;
+
 public interface IAnimatorMoverBiped
 {
-    void OnUpdate();
+    void OnUpdate(AnimatorStateInfo stateInfo);
     void OnStart();
 }

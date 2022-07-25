@@ -52,14 +52,15 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 var fixDeltaTime = Time.fixedDeltaTime;
                 UpdateVerticalMove(fixDeltaTime);
                 moverUpdater.OnUpdate();
+                _velocity = moverUpdater.GetMoveSpeed();
             }
         }
 
         private void Update()
         {
-            var dt = Time.deltaTime;
+            /*var dt = Time.deltaTime;
             var deltaMovement = _velocity * (speedMultiplier * dt) + new Vector3(0, _verticalVelocity * dt, 0);
-            characterController.Move(deltaMovement);
+            characterController.Move(deltaMovement);*/
         }
 
         /// <summary>
@@ -86,25 +87,6 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 _verticalVelocity = -1;
             }
         }
-
-        /* private void UpdatePosWithAnchor(float dt)
-        {
-            if (curFootIndex != 0)
-            {
-                footPos = GetFootPos(curFootIndex);
-                deltaPos = footPos - anchorPos;
-                _velocity = -deltaPos / dt;
-                _velocity.y = 0;
-                if (!isUseCharacterController)
-                {
-                    transform.position -= deltaPos;
-                }
-            }
-            else
-            {
-                _velocity = Vector3.zero;
-            }
-        } */
 
         private void UpdateTouchingFoot()
         {
@@ -157,9 +139,9 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             return GetAnchor(foot).position;
         }
 
-        public void SetAnimatorDest(Vector3 moveDest)
+        public void SetAnimatorDelta(Vector3 moveDelta)
         {
-            moverUpdater.SetMoveDest(moveDest);
+            moverUpdater.SetMoveDelta(moveDelta);
         }
 
         public void OnAnimatorMoveStart()
