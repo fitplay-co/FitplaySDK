@@ -11,7 +11,7 @@ public class FKAnimatorTestBehavior : MonoBehaviour
     private IMotionDataModel motionDataModel;
     private bool _osConnected = false;
     public bool osConnected => _osConnected;
-    public FKAnimatorIk fkSolver = null;
+    public FKAnimatorJoints fkSolver = null;
     public FKAnimatorBasedLocomotion locomotion = null;
     public bool isDebug = false;
 

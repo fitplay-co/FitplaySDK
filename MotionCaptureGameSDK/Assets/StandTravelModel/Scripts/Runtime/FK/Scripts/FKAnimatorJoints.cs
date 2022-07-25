@@ -8,7 +8,7 @@ using MotionCaptureBasic.OSConnector;
 
 [RequireComponent(typeof(Animator))]
 
-public class FKAnimatorIk : MonoBehaviour
+public class FKAnimatorJoints : MonoBehaviour
 {
     protected Animator animator;
     public bool fkActive = true;
