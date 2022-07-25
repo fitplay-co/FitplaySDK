@@ -154,9 +154,6 @@ namespace StandTravelModel.Scripts.Runtime
 
             modelIKController.InitializeIKTargets(keyPointsParent.transform);
 
-            TryInitFKModel();
-            SubscribeMessage();
-
             if (isFKEnabled)
             {
                 EnableFK();
@@ -514,7 +511,6 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 fKPoseModel.SetEnable(false);
                 modelIKSettings.SetEnable(true);
-                MotionDataModelHttp.GetInstance().ReleaseFitting();
             }
         }
 
