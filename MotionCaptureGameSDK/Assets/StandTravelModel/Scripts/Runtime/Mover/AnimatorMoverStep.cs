@@ -10,7 +10,7 @@ public class AnimatorMoverStep : MonoBehaviour
     }
 
     private void LateUpdate() {
-        moverBiped.OnUpdate();
+        moverBiped.OnUpdate(default(AnimatorStateInfo));
     }
 
     /// <summary>
