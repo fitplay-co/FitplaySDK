@@ -11,9 +11,9 @@ using MotionCaptureBasic.OSConnector;
 public class FKAnimatorIk : MonoBehaviour
 {
     protected Animator animator;
-    public bool fkActive = false;
-    public Transform rightHandObj = null;
-    public Transform lookObj = null;
+    public bool fkActive = true;
+    public bool mirror = false;
+
     public Quaternion LegModelSkeletonAdapter = Quaternion.Euler(90, 270 , 0);
     public Quaternion UpperArmModelSkeletonAdapter = Quaternion.Euler(270, 90 , 0);
     public Quaternion LowArmModelSkeletonAdapter = Quaternion.Euler(270, 90 , 0);
@@ -64,8 +64,12 @@ public class FKAnimatorIk : MonoBehaviour
         // Debug.Log("after rot: " + hipCenter.rotation.x + " " + hipCenter.rotation.y + " " + hipCenter.rotation.z + " " +  hipCenter.rotation.w);
     }
 
-    public void updateFkInfo(Fitting fitting, List<Vector3> keypoints3D){
-        cachedFrameFitting = fitting.localRotation;
+    public void updateFkInfo(Fitting fitting){
+        if (mirror)  { 
+            cachedFrameFitting = fitting.mirrorLocalRotation;
+        } else {
+            cachedFrameFitting = fitting.localRotation;
+        }
         // Debug.Log("update ! ");
         // Debug.Log(fitting.rotation[0].w + " "  + fitting.rotation[0].x + " " + fitting.rotation[0].y + " " +fitting.rotation[0].z);
     }

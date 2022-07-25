@@ -12,6 +12,7 @@ public class FKAnimatorTestBehavior : MonoBehaviour
     private bool _osConnected = false;
     public bool osConnected => _osConnected;
     public FKAnimatorIk fkSolver = null;
+    public FKAnimatorBasedLocomotion locomotion = null;
     public bool isDebug = false;
 
     public void Awake() {
@@ -26,10 +27,12 @@ public class FKAnimatorTestBehavior : MonoBehaviour
     // Update is called once per frame
     void Update() {
         Fitting fittingFrame = motionDataModel.GetFitting();
-        List<Vector3> ikData = motionDataModel.GetIKPointsData(true, false);
         if(fittingFrame != null) {
             if(fkSolver != null) {
-                fkSolver.updateFkInfo(fittingFrame, ikData);
+                fkSolver.updateFkInfo(fittingFrame);
+            }
+            if(locomotion != null) {
+                locomotion.updateGroundLocationHint(motionDataModel);
             }
         }
     }
