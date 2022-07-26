@@ -58,9 +58,9 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         private void Update()
         {
-            /*var dt = Time.deltaTime;
-            var deltaMovement = _velocity * (speedMultiplier * dt) + new Vector3(0, _verticalVelocity * dt, 0);
-            characterController.Move(deltaMovement);*/
+            var dt = Time.deltaTime;
+            var deltaMovement = new Vector3(0, _verticalVelocity * dt, 0);
+            characterController.Move(deltaMovement);
         }
 
         /// <summary>
