@@ -13,7 +13,9 @@ public class FKAnimatorJoints : MonoBehaviour
     protected Animator animator;
     public bool fkActive = true;
     public bool mirror = false;
+    public bool applyHipRotation = true;
 
+    public Quaternion hipModelSkeletonAdapter = Quaternion.Euler(68, 90, 180);
     public Quaternion LegModelSkeletonAdapter = Quaternion.Euler(90, 270 , 0);
     public Quaternion UpperArmModelSkeletonAdapter = Quaternion.Euler(270, 90 , 0);
     public Quaternion LowArmModelSkeletonAdapter = Quaternion.Euler(270, 90 , 0);
@@ -32,6 +34,7 @@ public class FKAnimatorJoints : MonoBehaviour
     Transform rUpperLeg;
     Transform rLowerLeg;
     List<FittingRotationItem> cachedFrameFitting;
+    List<FittingRotationItem> globalCachedFitting;
 
     void Avake() { 
     }
@@ -67,8 +70,10 @@ public class FKAnimatorJoints : MonoBehaviour
     public void updateFkInfo(Fitting fitting){
         if (mirror)  { 
             cachedFrameFitting = fitting.mirrorLocalRotation;
+            globalCachedFitting = fitting.mirrorRotation;
         } else {
             cachedFrameFitting = fitting.localRotation;
+            globalCachedFitting = fitting.rotation;
         }
         // Debug.Log("update ! ");
         // Debug.Log(fitting.rotation[0].w + " "  + fitting.rotation[0].x + " " + fitting.rotation[0].y + " " +fitting.rotation[0].z);
@@ -81,7 +86,9 @@ public class FKAnimatorJoints : MonoBehaviour
             //if the IK is active, set the position and rotation directly to the goal.
             if(fkActive && cachedFrameFitting != null) {
                 // Set the look target position, if one has been assigned
-                // animator.SetBoneLocalRotation(HumanBodyBones.Hips, hipCenter.localRotation);
+                if (applyHipRotation) {
+                    animator.SetBoneLocalRotation(HumanBodyBones.Hips, globalCachedFitting[FKJpintMap.LHip.Int()].Rotation() *  hipModelSkeletonAdapter);
+                }
                 animator.SetBoneLocalRotation(HumanBodyBones.Spine, spine.localRotation * adaptQuat(cachedFrameFitting[FKJpintMap.Spine.Int()].Rotation(), SpineModelSkeletonAdapter));
                 animator.SetBoneLocalRotation(HumanBodyBones.LeftShoulder, lShoulder.localRotation * adaptQuat(cachedFrameFitting[FKJpintMap.LShoulder.Int()].Rotation(), LegModelSkeletonAdapter));
                 animator.SetBoneLocalRotation(HumanBodyBones.LeftUpperArm, lUpperArm.localRotation * adaptQuat(cachedFrameFitting[FKJpintMap.LUpArm.Int()].Rotation(), UpperArmModelSkeletonAdapter));
