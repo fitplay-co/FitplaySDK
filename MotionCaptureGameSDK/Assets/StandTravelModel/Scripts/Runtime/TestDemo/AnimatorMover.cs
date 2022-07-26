@@ -44,7 +44,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private void FixedUpdate() {
             if (standTravelModelManager.currentMode == MotionMode.Stand)
             {
-                _velocity = moverUpdater.GetMoveSpeed();
+                _velocity = Vector3.zero;
                 _verticalVelocity = 0;
             }
             else
@@ -52,14 +52,15 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 var fixDeltaTime = Time.fixedDeltaTime;
                 UpdateVerticalMove(fixDeltaTime);
                 moverUpdater.OnUpdate();
+                _velocity = moverUpdater.GetMoveSpeed();
             }
         }
 
         private void Update()
         {
-            var dt = Time.deltaTime;
+            /*var dt = Time.deltaTime;
             var deltaMovement = _velocity * (speedMultiplier * dt) + new Vector3(0, _verticalVelocity * dt, 0);
-            characterController.Move(deltaMovement);
+            characterController.Move(deltaMovement);*/
         }
 
         /// <summary>

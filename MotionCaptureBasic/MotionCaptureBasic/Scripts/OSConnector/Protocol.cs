@@ -313,6 +313,9 @@ namespace MotionCaptureBasic.OSConnector
     {
         public List<FittingPositionItem> keypoints3D;
         public List<FittingRotationItem> rotation;
+        public List<FittingRotationItem> mirrorRotation;
+        public List<FittingRotationItem> localRotation;
+        public List<FittingRotationItem> mirrorLocalRotation;
     }
     [Serializable]
     public class FittingPositionItem
