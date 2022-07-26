@@ -577,6 +577,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &767685199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+  m_PrefabInstance: {fileID: 1264596579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &767685212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767685199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b578a725e6a43ee45a468777c0752d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLogging: 0
+  timeOffset: 0
+  logName: 
 --- !u!4 &825343100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1722356625652655786, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -596,7 +616,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1264596605, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: runThrehold
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[0].inSlope
@@ -694,6 +718,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f4a32d9eb9718842ba345bfc32d6764, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
 --- !u!4 &1264596602 stripped
