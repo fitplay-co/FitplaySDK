@@ -442,7 +442,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped, runThrehold);
+                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped, () => runThrehold);
         }
 
         private void InitStandModel(Transform hip, Transform head)
