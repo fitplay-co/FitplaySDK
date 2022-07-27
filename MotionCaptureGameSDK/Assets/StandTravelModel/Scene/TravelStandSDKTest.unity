@@ -924,6 +924,7 @@ MonoBehaviour:
   isFKEnabled: 0
   monsterMappingEnable: 0
   hasExController: 0
+  isFullAnimOnRun: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -996,6 +997,7 @@ MonoBehaviour:
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
   runThrehold: 4
+  travelFkControlPoints: 
   strideScaleRun: 1
   strideScaleWalk: 1
 --- !u!95 &2014150612 stripped
@@ -3639,6 +3641,7 @@ MonoBehaviour:
   isFKEnabled: 1
   monsterMappingEnable: 0
   hasExController: 0
+  isFullAnimOnRun: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -3711,6 +3714,7 @@ MonoBehaviour:
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
   runThrehold: 4
+  travelFkControlPoints: 
   strideScaleRun: 1
   strideScaleWalk: 1
 --- !u!114 &2753468361735440065
