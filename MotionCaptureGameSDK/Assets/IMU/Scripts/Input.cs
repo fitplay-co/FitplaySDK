@@ -205,7 +205,7 @@ namespace IMU
         /// <summary>
         ///  脊柱弯曲角度，控制转向
         /// </summary>
-        public static float SpineTurnValue
+        public static float MCTurnValue
         {
             get;
             set;
