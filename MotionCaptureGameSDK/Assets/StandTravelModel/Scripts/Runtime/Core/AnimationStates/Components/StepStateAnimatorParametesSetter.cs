@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Scripts.Runtime.MotionModel;
@@ -10,6 +11,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdLegRight;
         private int animIdZeroDelayed;
         private int animIdStepProgress;
+        private int animIdStridePercent;
+        private int animIdStrideRunPercent;
         private int animIdFootHeightDiff;
         private int animIdStepProgressUpLeft;
         private int animIdStepProgressDownLeft;
@@ -19,21 +22,30 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private float zeroDelayed;
 
         private TravelModel travelOwner;
+        private StepStrideCacher strideCacher;
         private StepStateSmoother stepSmoother;
         private StepProgressCacher progressLeft;
         private StepProgressCacher progressRight;
         private ActionDetectionItem actionDetectionItem;
 
-        public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother)
+        private Func<float> strideScale;
+        private Func<float> strideScaleRun;
+
+        public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother, StepStrideCacher strideCacher, Func<float> strideScale, Func<float> strideScaleRun)
         {
             this.travelOwner = travelOwner;
             this.stepSmoother = stepSmoother;
+            this.strideCacher = strideCacher;
+            this.strideScale = strideScale;
+            this.strideScaleRun = strideScaleRun;
             this.progressLeft = new StepProgressCacher(speedCurve, downCurve);
             this.progressRight = new StepProgressCacher(speedCurve, downCurve);
             this.animIdLegLeft = Animator.StringToHash("leftLeg");
             this.animIdLegRight = Animator.StringToHash("rightLeg");
             this.animIdZeroDelayed = Animator.StringToHash("zeroDelayed");
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
+            this.animIdStridePercent = Animator.StringToHash("stridePercent");
+            this.animIdStrideRunPercent = Animator.StringToHash("stridePercentRun");
             this.animIdFootHeightDiff = Animator.StringToHash("footHeightDiff");
             this.animIdStepProgressUpLeft = Animator.StringToHash("progressUpLeft");
             this.animIdStepProgressDownLeft = Animator.StringToHash("progressDownLeft");
@@ -88,9 +100,17 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public void TrySetStepParameters()
         {
+            TrySetStridePercent();
             TrySetParametersLegs();
             TrySetParametersHipAngles();
             TrySetParammeterFootHeightDiff();
+        }
+
+        private void TrySetStridePercent()
+        {
+            var stridePercent = Mathf.Clamp01(strideCacher.GetStrideSmooth() * 0.5f);
+            travelOwner.selfAnimator.SetFloat(animIdStridePercent, stridePercent * strideScale());
+            travelOwner.selfAnimator.SetFloat(animIdStrideRunPercent, stridePercent * strideScaleRun());
         }
 
         private void SetLegParameters(int leg, float hipAngle, int idUp, int idDown, bool isLeft, out float angleDelta)

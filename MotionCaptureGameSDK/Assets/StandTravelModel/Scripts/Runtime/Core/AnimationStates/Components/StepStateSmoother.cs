@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class StepStateSmoother
 {
-    private const float frameCount = 36;
+    private const float frameCount = 32;
     private const float catchupSpeed = 10f;
 
     [SerializeField] private float frameCurr;
@@ -24,36 +24,52 @@ public class StepStateSmoother
         {
             switch(stater.GetStepState())
             {
-                case StepState.LeftUp:
+                /* case StepState.LeftUp:
                 {
-                    /* frameTargetStart = 8;
-                    frameTargetEnd = 16; */
                     frameTargetStart = 27;
                     frameTargetEnd = 36;
                     break;
                 }
                 case StepState.LeftDown:
                 {
-                    /* frameTargetStart = 16;
-                    frameTargetEnd = 24; */
                     frameTargetStart = 0;
                     frameTargetEnd = 9;
                     break;
                 }
                 case StepState.RightUp:
                 {
-                    /* frameTargetStart = 24;
-                    frameTargetEnd = 1; */
                     frameTargetStart = 9;
                     frameTargetEnd = 18;
                     break;
                 }
                 case StepState.RightDown:
                 {
-                    /* frameTargetStart = 1;
-                    frameTargetEnd = 8; */
                     frameTargetStart = 18;
                     frameTargetEnd = 27;
+                    break;
+                } */
+                case StepState.LeftUp:
+                {
+                    frameTargetStart = 24;
+                    frameTargetEnd = 32;
+                    break;
+                }
+                case StepState.LeftDown:
+                {
+                    frameTargetStart = 0;
+                    frameTargetEnd = 8;
+                    break;
+                }
+                case StepState.RightUp:
+                {
+                    frameTargetStart = 8;
+                    frameTargetEnd = 16;
+                    break;
+                }
+                case StepState.RightDown:
+                {
+                    frameTargetStart = 16;
+                    frameTargetEnd = 24;
                     break;
                 }
             }

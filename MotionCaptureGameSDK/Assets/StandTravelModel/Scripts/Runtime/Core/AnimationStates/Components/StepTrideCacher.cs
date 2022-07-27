@@ -4,6 +4,7 @@ public class StepStrideCacher
 {
     private int lastLeg;
     private float stride;
+    private float strideSmooth;
 
     public void OnUpdate(int leg, float stride)
     {
@@ -12,6 +13,7 @@ public class StepStrideCacher
             this.stride = stride;
         }
         this.lastLeg = leg;
+        this.strideSmooth = Mathf.Lerp(strideSmooth, stride, Time.deltaTime * 5);
     }
 
     public float GetStride()
@@ -22,5 +24,10 @@ public class StepStrideCacher
     public int GetLeg()
     {
         return lastLeg;
+    }
+
+    public float GetStrideSmooth()
+    {
+        return strideSmooth;
     }
 }

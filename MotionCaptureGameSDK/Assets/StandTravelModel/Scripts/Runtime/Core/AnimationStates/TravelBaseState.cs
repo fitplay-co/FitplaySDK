@@ -34,6 +34,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 
                 if (runConditioner.IsEnterRunReady(actionDetectionData.walk, false))
                 {
+                    travelOwner.isRun = true;
                     travelOwner.ChangeState(AnimationList.Run);
                     return;
                 }

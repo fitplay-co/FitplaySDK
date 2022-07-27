@@ -6024,6 +6024,7 @@ MonoBehaviour:
   isFKEnabled: 1
   monsterMappingEnable: 0
   hasExController: 1
+  isFullAnimOnRun: 0
   initialMode: 0
   speedCurve:
     serializedVersion: 2
@@ -6132,6 +6133,7 @@ MonoBehaviour:
     frameTargetEnd: 0
   striderBiped: {fileID: 1264596603}
   runThrehold: 4
+  travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0

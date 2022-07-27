@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IAnimatorMoverBiped
+namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 {
-    void OnUpdate(AnimatorStateInfo stateInfo);
-    void OnStart();
+    public interface IAnimatorMoverBiped
+    {
+        void OnUpdate(AnimatorStateInfo stateInfo);
+        void OnStart();
+    }
 }

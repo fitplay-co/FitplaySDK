@@ -1,17 +1,17 @@
+using System;
 using MotionCaptureBasic.OSConnector;
-using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class RunConditioner
     {
-        private float runThrehold;
+        private Func<float> getRunThrehold;
         private StepStrideCacher strideCacher;
 
-        public RunConditioner(float runThrehold)
+        public RunConditioner(Func<float> getRunThrehold, StepStrideCacher strideCacher)
         {
-            this.runThrehold = runThrehold;
-            this.strideCacher = new StepStrideCacher();
+            this.strideCacher = strideCacher;
+            this.getRunThrehold = getRunThrehold;
         }
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
@@ -19,8 +19,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
+            //UnityEngine.Debug.Log("velocity -> " + walkData.velocity);
+            return walkData.velocity > getRunThrehold();
           
-            var isRun = walkData.leftFrequency > 2f && walkData.leftFrequency * strideCacher.GetStride() > runThrehold;
+            //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
 
             /* if(debug)
             {
@@ -29,8 +31,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
                 }
             } */
-
-            return isRun;
 
             
             /* if(!isRun)

@@ -594,6 +594,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1264596605, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: runThrehold
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[0].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: downCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: speedCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Name
       value: Luna_Suit
@@ -642,19 +698,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f4a32d9eb9718842ba345bfc32d6764, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
---- !u!114 &1264596580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1264596602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
@@ -731,67 +780,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5996678864002440489, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1721848201
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1721848203, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: standTravelModelManager
-      value: 
-      objectReference: {fileID: 1264596580}
-    - target: {fileID: 2996603561660596927, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_Name
-      value: TurnController
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996603561660596929, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
 --- !u!1001 &2014150607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -936,6 +924,7 @@ MonoBehaviour:
   isFKEnabled: 0
   monsterMappingEnable: 0
   hasExController: 0
+  isFullAnimOnRun: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -1008,6 +997,9 @@ MonoBehaviour:
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
   runThrehold: 4
+  travelFkControlPoints: 
+  strideScaleRun: 1
+  strideScaleWalk: 1
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -3649,6 +3641,7 @@ MonoBehaviour:
   isFKEnabled: 1
   monsterMappingEnable: 0
   hasExController: 0
+  isFullAnimOnRun: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -3721,6 +3714,9 @@ MonoBehaviour:
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
   runThrehold: 4
+  travelFkControlPoints: 
+  strideScaleRun: 1
+  strideScaleWalk: 1
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0

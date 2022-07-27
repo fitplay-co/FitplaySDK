@@ -22,6 +22,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
             travelOwner.currentLeg = 0;
             travelOwner.currentFrequency = 0;
             travelOwner.UpdateAnimatorCadence();
+            travelOwner.isRun = false;
             base.Enter();
         }
 
