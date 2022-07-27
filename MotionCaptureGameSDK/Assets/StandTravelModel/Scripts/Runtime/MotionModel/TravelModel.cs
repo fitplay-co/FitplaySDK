@@ -70,7 +70,9 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             AnimationCurve downCurve,
             StepStateSmoother stepSmoother,
             StriderBiped striderBiped,
-            Func<float> getRunThrehold
+            Func<float> getRunThrehold,
+            Func<float> strideScale,
+            Func<float> strideScaleRun
         ) : base(
             selfTransform,
             characterHipNode,
@@ -99,7 +101,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             var strideCacher = new StepStrideCacher();
             var strideSetter = new TravelStrideSetter(striderBiped, this);
             var runConditioner = new RunConditioner(getRunThrehold, strideCacher);
-            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher);
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {

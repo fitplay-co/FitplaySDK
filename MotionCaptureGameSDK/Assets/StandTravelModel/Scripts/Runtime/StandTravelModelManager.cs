@@ -48,6 +48,8 @@ namespace StandTravelModel.Scripts.Runtime
         public StepStateSmoother stepSmoother;
         public StriderBiped striderBiped;
         public float runThrehold = 4;
+        public float strideScaleRun = 1;
+        public float strideScaleWalk = 1;
         #endregion
         
          
@@ -442,7 +444,9 @@ namespace StandTravelModel.Scripts.Runtime
         {
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped, () => runThrehold);
+                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped,
+                () => runThrehold, () => strideScaleWalk, () => strideScaleRun
+            );
         }
 
         private void InitStandModel(Transform hip, Transform head)
