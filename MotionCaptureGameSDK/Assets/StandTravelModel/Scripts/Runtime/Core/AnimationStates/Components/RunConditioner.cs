@@ -19,8 +19,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
+            UnityEngine.Debug.Log("velocity -> " + walkData.velocity);
+            return walkData.velocity > getRunThrehold();
           
-            var isRun = walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
+            //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
 
             /* if(debug)
             {
@@ -29,8 +31,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
                 }
             } */
-
-            return isRun;
 
             
             /* if(!isRun)
