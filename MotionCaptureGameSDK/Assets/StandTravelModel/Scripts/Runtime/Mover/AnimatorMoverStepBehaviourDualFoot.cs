@@ -1,12 +1,16 @@
+using StandTravelModel.Scripts.Runtime.Mover.MoverInners;
 using UnityEngine;
 
-public class AnimatorMoverStepBehaviourDualFoot : AnimatorMoverStepBehaviour
+namespace StandTravelModel.Scripts.Runtime.Mover
 {
-    [SerializeField] private float progressLeftStart;
-    [SerializeField] private float progressLeftEnd;
-
-    protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
+    public class AnimatorMoverStepBehaviourDualFoot : AnimatorMoverStepBehaviour
     {
-        return new AnimatorMoverBipedStepProgress(animator.transform, progressLeftStart, progressLeftEnd);
+        [SerializeField] private float progressLeftStart;
+        [SerializeField] private float progressLeftEnd;
+
+        protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
+        {
+            return new AnimatorMoverBipedStepProgress(animator.transform, progressLeftStart, progressLeftEnd);
+        }
     }
 }

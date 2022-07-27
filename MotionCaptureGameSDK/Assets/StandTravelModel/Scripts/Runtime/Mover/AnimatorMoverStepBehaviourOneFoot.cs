@@ -1,11 +1,15 @@
+using StandTravelModel.Scripts.Runtime.Mover.MoverInners;
 using UnityEngine;
 
-public class AnimatorMoverStepBehaviourOneFoot : AnimatorMoverStepBehaviour
+namespace StandTravelModel.Scripts.Runtime.Mover
 {
-    [SerializeField] private int anchorFoot;
-
-    protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
+    public class AnimatorMoverStepBehaviourOneFoot : AnimatorMoverStepBehaviour
     {
-        return new AnimatorMoverAnchorFixed(anchorFoot, animator.transform);
+        [SerializeField] private int anchorFoot;
+
+        protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
+        {
+            return new AnimatorMoverAnchorFixed(anchorFoot, animator.transform);
+        }
     }
 }

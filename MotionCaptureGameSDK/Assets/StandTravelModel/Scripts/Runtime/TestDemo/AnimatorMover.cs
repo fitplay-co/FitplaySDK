@@ -1,3 +1,5 @@
+using StandTravelModel.Scripts.Runtime.Mover;
+using StandTravelModel.Scripts.Runtime.Mover.MoverInners;
 using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime.TestDemo
