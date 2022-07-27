@@ -19,7 +19,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
-            UnityEngine.Debug.Log("velocity -> " + walkData.velocity);
+            //UnityEngine.Debug.Log("velocity -> " + walkData.velocity);
             return walkData.velocity > getRunThrehold();
           
             //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
