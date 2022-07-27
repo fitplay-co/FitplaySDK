@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IAnimatorMoverReactor
+namespace StandTravelModel.Scripts.Runtime.Mover
 {
-    void SetAnimatorDelta(Vector3 moveDest);
-    void OnAnimatorMoveStart();
+    public interface IAnimatorMoverReactor
+    {
+        void SetAnimatorDelta(Vector3 moveDest);
+        void OnAnimatorMoveStart();
+    }
 }

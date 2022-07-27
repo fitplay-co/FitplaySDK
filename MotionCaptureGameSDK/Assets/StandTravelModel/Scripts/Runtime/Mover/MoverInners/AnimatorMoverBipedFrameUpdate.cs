@@ -1,30 +1,38 @@
 using UnityEngine;
 
-public class AnimatorMoverBipedFrameUpdate : AnimatorMoverBiped
+namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 {
-    private float leftFootStart;
-    private float leftFootEnd;
-
-    public AnimatorMoverBipedFrameUpdate(Transform transform, float leftFootStart, float leftFootEnd) : base(transform)
+    public class AnimatorMoverBipedStepProgress : AnimatorMoverBiped
     {
-        this.leftFootStart = leftFootStart;
-        this.leftFootEnd = leftFootEnd;
-    }
+        private float leftFootStart;
+        private float leftFootEnd;
+        private int animIdStepProgress;
+        private Animator animator;
 
-    protected override int GetTouchingFoot(AnimatorStateInfo stateInfo)
-    {
-        var isLeft = false;
-        var normalizedTime = stateInfo.normalizedTime;
-        normalizedTime -= (int)normalizedTime;
+        public AnimatorMoverBipedStepProgress(Transform transform, float leftFootStart, float leftFootEnd) : base(transform)
+        {
+            this.leftFootStart = leftFootStart;
+            this.leftFootEnd = leftFootEnd;
+            this.animator = transform.GetComponent<Animator>();
+            this.animIdStepProgress = Animator.StringToHash("stepProgress");
+        }
 
-        if(leftFootStart < leftFootEnd)
+        protected override int GetTouchingFoot(AnimatorStateInfo stateInfo)
         {
-            isLeft = normalizedTime <= leftFootEnd && normalizedTime >= leftFootStart;
+            var isLeft = false;
+            var stepProgress = animator.GetFloat(animIdStepProgress);
+            stepProgress -= (int)stepProgress;
+
+            if(leftFootStart < leftFootEnd)
+            {
+                isLeft = stepProgress <= leftFootEnd && stepProgress >= leftFootStart;
+            }
+            else
+            {
+                isLeft = stepProgress >= leftFootEnd && stepProgress <= leftFootStart;
+            }
+
+            return isLeft ? footIndexLeft : footIndexRight;
         }
-        else
-        {
-            isLeft = normalizedTime >= leftFootEnd && normalizedTime <= leftFootStart;
-        }
-        return isLeft ? footIndexLeft : footIndexRight;
     }
 }

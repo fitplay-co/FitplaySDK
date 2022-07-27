@@ -1,98 +1,101 @@
 using UnityEngine;
 
-public class AnimatorMoverBiped : IAnimatorMoverBiped
+namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 {
-    private const float footHeightDetach = 0.02f;
-
-    protected const int footIndexLeft = -1;
-    protected const int footIndexRight = 1;
-
-    private int curFootIndex;
-    private Vector3 anchorPos;
-    private Transform footLeft;
-    private Transform footRight;
-    private Transform transform;
-    private IAnimatorMoverReactor moverReactor;
-
-    public AnimatorMoverBiped(Transform transform)
+    public class AnimatorMoverBiped : IAnimatorMoverBiped
     {
-        var animator = transform.GetComponent<Animator>();
-        this.footLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
-        this.footRight = animator.GetBoneTransform(HumanBodyBones.RightFoot);
-        this.transform = transform;
-        this.moverReactor = transform.GetComponent<IAnimatorMoverReactor>();
-    }
+        private const float footHeightDetach = 0.02f;
 
-    public void OnUpdate(AnimatorStateInfo stateInfo)
-    {
-        UpdateTouchingFoot(stateInfo);
-        UpdatePosWithAnchor();
-    }
+        protected const int footIndexLeft = -1;
+        protected const int footIndexRight = 1;
 
-    protected virtual int GetTouchingFoot(AnimatorStateInfo stateInfo)
-    {
-        var heightGap = footLeft.position.y - footRight.position.y;
-        if(heightGap < -footHeightDetach)
+        private int curFootIndex;
+        private Vector3 anchorPos;
+        private Transform footLeft;
+        private Transform footRight;
+        private Transform transform;
+        private IAnimatorMoverReactor moverReactor;
+
+        public AnimatorMoverBiped(Transform transform)
         {
-            return footIndexLeft;
+            var animator = transform.GetComponent<Animator>();
+            this.footLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
+            this.footRight = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+            this.transform = transform;
+            this.moverReactor = transform.GetComponent<IAnimatorMoverReactor>();
         }
 
-        if(heightGap > footHeightDetach)
+        public void OnUpdate(AnimatorStateInfo stateInfo)
         {
-            return footIndexRight;
+            UpdateTouchingFoot(stateInfo);
+            UpdatePosWithAnchor();
         }
 
-        return 0;
-    }
-
-    private void UpdatePosWithAnchor()
-    {
-        if(curFootIndex != 0)
+        protected virtual int GetTouchingFoot(AnimatorStateInfo stateInfo)
         {
-            var deltaPos = GetFootPos(curFootIndex) - anchorPos;
-            deltaPos.y = 0;
+            var heightGap = footLeft.position.y - footRight.position.y;
+            if(heightGap < -footHeightDetach)
+            {
+                return footIndexLeft;
+            }
 
-            moverReactor.SetAnimatorDelta(-deltaPos);
-        }
-    }
+            if(heightGap > footHeightDetach)
+            {
+                return footIndexRight;
+            }
 
-    private void UpdateTouchingFoot(AnimatorStateInfo stateInfo)
-    {
-        var touchingFoot = GetTouchingFoot(stateInfo);
-        if(touchingFoot != curFootIndex)
-        {
-            curFootIndex = touchingFoot;
-            anchorPos = GetAnchorPos(curFootIndex);
-        }
-    }
-
-    private Transform GetAnchor(int foot)
-    {
-        if(foot == footIndexRight)
-        {
-            return footRight;
+            return 0;
         }
 
-        if(foot == footIndexLeft)
+        private void UpdatePosWithAnchor()
         {
-            return footLeft;
+            if(curFootIndex != 0)
+            {
+                var deltaPos = GetFootPos(curFootIndex) - anchorPos;
+                deltaPos.y = 0;
+
+                moverReactor.SetAnimatorDelta(-deltaPos);
+            }
         }
 
-        return transform;
-    }
+        private void UpdateTouchingFoot(AnimatorStateInfo stateInfo)
+        {
+            var touchingFoot = GetTouchingFoot(stateInfo);
+            if(touchingFoot != curFootIndex)
+            {
+                curFootIndex = touchingFoot;
+                anchorPos = GetAnchorPos(curFootIndex);
+            }
+        }
 
-    private Vector3 GetAnchorPos(int foot)
-    {
-        return GetAnchor(foot).position;
-    }
+        private Transform GetAnchor(int foot)
+        {
+            if(foot == footIndexRight)
+            {
+                return footRight;
+            }
 
-    private Vector3 GetFootPos(int foot)
-    {
-        return GetAnchor(foot).position;
-    }
+            if(foot == footIndexLeft)
+            {
+                return footLeft;
+            }
 
-    public void OnStart()
-    {
-        moverReactor.OnAnimatorMoveStart();
+            return transform;
+        }
+
+        private Vector3 GetAnchorPos(int foot)
+        {
+            return GetAnchor(foot).position;
+        }
+
+        private Vector3 GetFootPos(int foot)
+        {
+            return GetAnchor(foot).position;
+        }
+
+        public void OnStart()
+        {
+            moverReactor.OnAnimatorMoveStart();
+        }
     }
 }

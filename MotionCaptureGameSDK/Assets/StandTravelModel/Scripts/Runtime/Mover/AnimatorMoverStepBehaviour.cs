@@ -1,20 +1,24 @@
+using StandTravelModel.Scripts.Runtime.Mover.MoverInners;
 using UnityEngine;
 
-public abstract class AnimatorMoverStepBehaviour : StateMachineBehaviour
+namespace StandTravelModel.Scripts.Runtime.Mover
 {
-    private IAnimatorMoverBiped animMover;
-
-    protected abstract IAnimatorMoverBiped CreateAnimatorMover(Animator animator);
-
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public abstract class AnimatorMoverStepBehaviour : StateMachineBehaviour
     {
-        animMover = CreateAnimatorMover(animator);
-        animMover.OnStart();
-    }
+        private IAnimatorMoverBiped animMover;
 
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        base.OnStateUpdate(animator, stateInfo, layerIndex);
-        animMover.OnUpdate(stateInfo);
+        protected abstract IAnimatorMoverBiped CreateAnimatorMover(Animator animator);
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animMover = CreateAnimatorMover(animator);
+            animMover.OnStart();
+        }
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
+            animMover.OnUpdate(stateInfo);
+        }
     }
 }

@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using MotionCaptureBasic.FSM;
 using MotionCaptureBasic.Interface;
 using StandTravelModel.Scripts.Runtime.Core;
@@ -71,7 +71,9 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             AnimationCurve downCurve,
             StepStateSmoother stepSmoother,
             StriderBiped striderBiped,
-            float runThrehold
+            Func<float> getRunThrehold,
+            Func<float> strideScale,
+            Func<float> strideScaleRun
         ) : base(
             selfTransform,
             characterHipNode,
@@ -97,9 +99,10 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
+            var strideCacher = new StepStrideCacher();
             var strideSetter = new TravelStrideSetter(striderBiped, this);
-            var runConditioner = new RunConditioner(runThrehold);
-            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother);
+            var runConditioner = new RunConditioner(getRunThrehold, strideCacher);
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {

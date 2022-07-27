@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class AnimatorMoverAnchorFixed : AnimatorMoverBiped
+namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 {
-    private int anchorFoot;
-
-    public AnimatorMoverAnchorFixed(int anchorFoot, Transform transform) : base(transform)
+    public class AnimatorMoverAnchorFixed : AnimatorMoverBiped
     {
-        this.anchorFoot = anchorFoot;
-    }
+        private int anchorFoot;
 
-    protected override int GetTouchingFoot(AnimatorStateInfo stateInfo)
-    {
-        return anchorFoot;
+        public AnimatorMoverAnchorFixed(int anchorFoot, Transform transform) : base(transform)
+        {
+            this.anchorFoot = anchorFoot;
+        }
+
+        protected override int GetTouchingFoot(AnimatorStateInfo stateInfo)
+        {
+            return anchorFoot;
+        }
     }
 }
