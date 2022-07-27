@@ -594,58 +594,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1264596605, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: downCurve.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: downCurve.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: downCurve.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: downCurve.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[0].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[0].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: downCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: downCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Name
       value: Luna_Suit
@@ -790,6 +738,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1721848203, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
+      propertyPath: standTravelModelManager
+      value: 
+      objectReference: {fileID: 1264596580}
     - target: {fileID: 2996603561660596927, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
       propertyPath: m_Name
       value: TurnController
@@ -838,45 +790,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2996603561660596928, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
---- !u!1 &1721848202 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2996603561660596927, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
-  m_PrefabInstance: {fileID: 1721848201}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1721848203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721848202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6228133eca440a4592a13a8f1f157cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 1264596580}
-  A: 5
-  B: 20
-  A_LR: 5
-  B_LR: 20
-  A_FB: 5
-  B_FB: 20
-  Wmax: 120
-  SpeedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  angle: 0
-  turnLeftOrRight: 0
-  turnValue: 0
-  HowToTurn: 1
-  TurnData: 0
 --- !u!1001 &2014150607
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5296,7 +5296,6 @@ GameObject:
   - component: {fileID: 1264596609}
   - component: {fileID: 1264596610}
   - component: {fileID: 1264596611}
-  - component: {fileID: 2968992505241160402}
   m_Layer: 0
   m_Name: Luna_Suit
   m_TagString: Untagged
@@ -6199,19 +6198,6 @@ MonoBehaviour:
   footRight: {fileID: 0}
   speedMultiplier: 1
   gravity: -10
---- !u!114 &2968992505241160402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939034580441558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6215aa07fee4ac984c2df8c2dc27306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 1264596608}
 --- !u!1 &1957754408334002
 GameObject:
   m_ObjectHideFlags: 0

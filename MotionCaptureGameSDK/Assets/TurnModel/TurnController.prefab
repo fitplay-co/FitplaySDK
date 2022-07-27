@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2996603561660596929}
   - component: {fileID: 1721848203}
+  - component: {fileID: 3227258475764715730}
   m_Layer: 0
   m_Name: TurnController
   m_TagString: Untagged
@@ -44,16 +45,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 0}
-  A: 5
-  B: 20
+  A: 10
+  B: 60
   A_LR: 5
   B_LR: 20
-  A_FB: 5
-  B_FB: 20
+  A_FB: 10
+  B_FB: 60
   Wmax: 120
   SpeedCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -62,3 +81,16 @@ MonoBehaviour:
   turnValue: 0
   HowToTurn: 1
   TurnData: 0
+--- !u!114 &3227258475764715730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2996603561660596927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36fddac5617eb241ae4c8cd0e52aad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnController: {fileID: 1721848203}

@@ -21,9 +21,9 @@ namespace TurnModel.Scripts
         [SerializeField] [Range(0, 90)] public float B_LR = 20;
 
         [Header("躯干转身的A ~ B数据")] [SerializeField] [Range(0, 30)]
-        public float A_FB = 5;
+        public float A_FB = 10;
 
-        [SerializeField] [Range(0, 90)] public float B_FB = 20;
+        [SerializeField] [Range(0, 90)] public float B_FB = 60;
 
         [Header("最大转动速度值")] [SerializeField] [Range(0, 200)]
         public float Wmax = 120;
