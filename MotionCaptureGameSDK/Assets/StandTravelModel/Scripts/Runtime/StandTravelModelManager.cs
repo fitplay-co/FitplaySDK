@@ -38,6 +38,9 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("是否通过外部逻辑控制速度。如果开启，sdk本身对模型的移动控制将失效")]
         public bool hasExController;
 
+        [Tooltip("是否在跑步时自动进入全身动画。如果启用，播跑步动画时会自动使FK无效")] 
+        public bool isFullAnimOnRun;
+
         public MotionMode initialMode = MotionMode.Stand;
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
@@ -48,6 +51,7 @@ namespace StandTravelModel.Scripts.Runtime
         public StepStateSmoother stepSmoother;
         public StriderBiped striderBiped;
         public float runThrehold = 4;
+        public EFKType[] travelFkControlPoints;
         #endregion
         
          
@@ -122,6 +126,19 @@ namespace StandTravelModel.Scripts.Runtime
 
         private Vector3 _initPosition;
         public Vector3 initPosition => _initPosition;
+
+        public bool isRun
+        {
+            get
+            {
+                if (travelModel != null)
+                {
+                    return travelModel.isRun;
+                }
+
+                return false;
+            }
+        }
 
         #endregion
 
@@ -199,6 +216,8 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 motionModel.OnUpdate(keyPointsList);
             }
+
+            ChangeFkOnRun();
         }
 
         public void LateUpdate()
@@ -526,7 +545,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void FKBodyUpper()
         {
-            fKPoseModel.SetActiveEFKTypes(
+            /*fKPoseModel.SetActiveEFKTypes(
                 EFKType.Neck,
                 //EFKType.Head,
                 EFKType.LShoulder,
@@ -535,12 +554,33 @@ namespace StandTravelModel.Scripts.Runtime
                 EFKType.RArm,
                 EFKType.LWrist,
                 EFKType.RWrist
-            );
+            );*/
+            fKPoseModel.SetActiveEFKTypes(travelFkControlPoints);
         }
 
         private void FKBodyFull()
         {
             fKPoseModel.SetFullBodyEFKTypes();
+        }
+
+        private void ChangeFkOnRun()
+        {
+            if (!isFullAnimOnRun)
+            {
+                return;
+            }
+
+            if (travelModel != null)
+            {
+                if (travelModel.isRun)
+                {
+                    fKPoseModel.SetActiveEFKTypes();
+                }
+                else
+                {
+                    FKBodyUpper();
+                }
+            }
         }
 
         /// <summary>

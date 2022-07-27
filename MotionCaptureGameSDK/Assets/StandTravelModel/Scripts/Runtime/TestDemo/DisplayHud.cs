@@ -43,6 +43,9 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
             var isGrounded = animatorMover.isGrounded;
             GUI.Label(new Rect(20, 200, 300, 40), isGrounded ? "在地上" : "悬空", labelStyle);
+
+            var isRun = standTravelModelManager.isRun;
+            GUI.Label(new Rect(20, 240, 300, 40), isRun ? "跑起来了" : "没跑", labelStyle);
         }
     }
 }

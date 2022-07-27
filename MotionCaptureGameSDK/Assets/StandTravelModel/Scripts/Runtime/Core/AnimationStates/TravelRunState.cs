@@ -43,6 +43,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, true);
                 if (!isRunReady)
                 {
+                    travelOwner.isRun = false;
                     if (actionDetectionData.walk.leftLeg != 0)
                     {
                         OnTransitionToIdleEnd(AnimationList.LeftStep);

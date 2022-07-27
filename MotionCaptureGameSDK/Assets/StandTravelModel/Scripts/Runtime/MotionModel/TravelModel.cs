@@ -15,6 +15,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public int currentLeg = 0;
         public float currentFrequency = 0;
         public bool isJump = false;
+        public bool isRun = false;
 
         private AnimatorSettingGroup _animatorSettings;
         public AnimatorSettingGroup animatorSettings => _animatorSettings;
