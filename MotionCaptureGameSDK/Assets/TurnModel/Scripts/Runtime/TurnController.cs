@@ -62,6 +62,10 @@ namespace TurnModel.Scripts
             BothYshoulderAndYcrotch
         }
 
+        public void SetStandTravelModelManager(StandTravelModelManager comp)
+        {
+            standTravelModelManager = comp;
+        }
 
         /// <summary>
         /// 模式检测
