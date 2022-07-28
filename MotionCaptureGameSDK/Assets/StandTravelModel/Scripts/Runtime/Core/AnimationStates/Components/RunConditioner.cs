@@ -1,5 +1,6 @@
 using System;
 using MotionCaptureBasic.OSConnector;
+using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
@@ -19,7 +20,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
-            //UnityEngine.Debug.Log("velocity -> " + walkData.velocity);
+            //Debug.Log("velocity -> " + walkData.velocity);
+            //Debug.Log($"stepRate -> {walkData.stepRate}");
+            //Debug.Log($"stepLen -> {walkData.stepLen}");
             return walkData.velocity > getRunThrehold();
           
             //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();

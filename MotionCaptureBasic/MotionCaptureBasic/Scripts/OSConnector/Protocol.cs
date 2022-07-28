@@ -446,6 +446,8 @@ namespace MotionCaptureBasic.OSConnector
         public float leftFrequency;
         public float rightFrequency;
         public float velocity;
+        public float stepRate;
+        public float stepLen;
     }
     
     [Serializable]
