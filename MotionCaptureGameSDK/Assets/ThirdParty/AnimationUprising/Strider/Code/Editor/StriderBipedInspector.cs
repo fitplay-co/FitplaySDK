@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -355,3 +356,4 @@ namespace AnimationUprising.StriderEditor
 
     }//End of class: StriderBipedInspector
 }//End of namespace: AnimationUprising.StriderEditor
+#endif
