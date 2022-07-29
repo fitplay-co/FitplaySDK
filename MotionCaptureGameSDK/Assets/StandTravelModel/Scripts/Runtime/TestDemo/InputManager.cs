@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using KeyCode = IMU.KeyCode;
+using Input = IMU.Input;
 namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
     public class InputManager : MonoBehaviour
@@ -50,7 +52,10 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 {
                     horizontalAngle = horizontal;
                 }
-            
+                else if (Input.MCTurnValue != 0)
+                {
+                    horizontalAngle = Input.MCTurnValue;
+                }
                 standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
             }
             else if (mode == MotionMode.Stand)

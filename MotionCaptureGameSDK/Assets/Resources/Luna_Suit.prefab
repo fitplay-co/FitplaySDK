@@ -5979,7 +5979,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939034580441558}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e76d06b6514358449beedc63b2c32f11, type: 3}
   m_Name: 
@@ -6024,6 +6024,7 @@ MonoBehaviour:
   isFKEnabled: 1
   monsterMappingEnable: 0
   hasExController: 1
+  isFullAnimOnRun: 0
   initialMode: 0
   speedCurve:
     serializedVersion: 2
@@ -6031,18 +6032,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -6055,18 +6056,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -6132,6 +6133,7 @@ MonoBehaviour:
     frameTargetEnd: 0
   striderBiped: {fileID: 1264596603}
   runThrehold: 4
+  travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6190,7 +6192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930cce8b54388be45863834b56b60af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUseCharacterController: 1
   curFootIndex: 0
   footPos: {x: 0, y: 0, z: 0}
   deltaPos: {x: 0, y: 0, z: 0}
