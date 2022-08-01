@@ -12,12 +12,12 @@ public class HipAngleSmoother
     {
         if(this.isLifting != isLifting)
         {
-            this.cacheSpeed = 0.35f;
+            this.cacheSpeed = 0.25f;
         }
         this.isLifting = isLifting;
     }
 
-    public void OnUpdate(float curAngle)
+    public void OnUpdate(float curAngle, bool isRun)
     {
         var target = curAngle;
         if(isLifting)
@@ -64,7 +64,8 @@ public class HipAngleSmoother
             }
         }
 
-        var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f;
+        var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f * (isRun ? 0.2f : 1);
+        //percent = Mathf.Min(percent, 20);
         angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * percent);
     }
 
