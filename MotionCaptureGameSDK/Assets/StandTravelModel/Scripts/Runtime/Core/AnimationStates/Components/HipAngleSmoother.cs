@@ -32,10 +32,10 @@ public class HipAngleSmoother
             target = angleBottom;
         }
 
-        //angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.5f);
-        var newAngle = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.35f);
+        angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.35f);
+        /* var newAngle = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.35f);
         var deltaMax = Mathf.Min(50, Mathf.Abs(newAngle - angleCache));
-        angleCache = Mathf.Clamp(newAngle, newAngle - deltaMax, newAngle + deltaMax);
+        angleCache = Mathf.Clamp(newAngle, newAngle - deltaMax, newAngle + deltaMax); */
     }
 
     public float GetAngleCache()
