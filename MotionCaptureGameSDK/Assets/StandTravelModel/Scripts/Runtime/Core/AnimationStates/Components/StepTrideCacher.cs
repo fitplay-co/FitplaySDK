@@ -13,7 +13,7 @@ public class StepStrideCacher
             this.stride = stride;
         }
         this.lastLeg = leg;
-        this.strideSmooth = Mathf.Lerp(strideSmooth, stride, Time.deltaTime * 5);
+        this.strideSmooth = Mathf.Lerp(strideSmooth, stride, Time.deltaTime * 2);
     }
 
     public float GetStride()

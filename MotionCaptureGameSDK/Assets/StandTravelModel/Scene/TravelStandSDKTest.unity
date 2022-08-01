@@ -652,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[2].inSlope
-      value: 3.2828405
+      value: 3.1850517
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[0].outSlope
@@ -668,11 +668,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[2].inWeight
-      value: 0.23361565
+      value: 0.26971924
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[2].outSlope
-      value: 3.2828405
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: speedCurve.m_Curve.Array.data[0].inSlope
@@ -716,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[2].tangentMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[2].weightedMode
@@ -789,7 +789,7 @@ PrefabInstance:
     - target: {fileID: 95826710003474134, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 0f4a32d9eb9718842ba345bfc32d6764, type: 2}
+      objectReference: {fileID: 9100000, guid: 6351eaa2b602d2742aaa92ca64a9e7db, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
 --- !u!4 &1264596602 stripped
