@@ -4,11 +4,16 @@ public class HipAngleSmoother
 {
     private bool isLifting;
     private float angleCache;
+    private float cacheSpeed;
     private const float angleTop = 90;
     private const float angleBottom = 180; 
 
     public void SwitchLift(bool isLifting)
     {
+        if(this.isLifting != isLifting)
+        {
+            this.cacheSpeed = 0.35f;
+        }
         this.isLifting = isLifting;
     }
 
@@ -32,10 +37,35 @@ public class HipAngleSmoother
             target = angleBottom;
         }
 
-        //angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.5f);
-        var newAngle = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.35f);
+        
+        /* var newAngle = Mathf.Lerp(angleCache, target, Time.deltaTime * 0.35f);
         var deltaMax = Mathf.Min(50, Mathf.Abs(newAngle - angleCache));
-        angleCache = Mathf.Clamp(newAngle, newAngle - deltaMax, newAngle + deltaMax);
+        angleCache = Mathf.Clamp(newAngle, newAngle - deltaMax, newAngle + deltaMax); */
+        /* if(Mathf.Abs(angleCache - target) < 1)
+        {
+            cacheSpeed = 0.1f;
+            target = target == angleTop ? angleBottom : angleTop;
+        } */
+
+        if(isLifting)
+        {
+            if(angleCache < angleTop + 1)
+            {
+                cacheSpeed = 0.1f;
+                target = angleBottom;
+            }
+        }
+        else
+        {
+            if(angleCache > angleBottom - 1)
+            {
+                cacheSpeed = 0.1f;
+                target = angleTop;
+            }
+        }
+
+        var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f;
+        angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * percent);
     }
 
     public float GetAngleCache()

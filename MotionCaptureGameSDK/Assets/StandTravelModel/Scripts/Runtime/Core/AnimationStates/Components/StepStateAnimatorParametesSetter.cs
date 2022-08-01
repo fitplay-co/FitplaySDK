@@ -53,7 +53,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdStepProgressDownRight = Animator.StringToHash("progressDownRight");
         }
 
-        public void TrySetParametersLegs()
+        private void TrySetParametersLegs()
         {
             actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if(actionDetectionItem != null && actionDetectionItem.walk != null)
@@ -89,13 +89,20 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             }
         }
 
-        public void TrySetParammeterFootHeightDiff()
+        private void TrySetParammeterFootHeightDiff()
         {
             if(actionDetectionItem != null && actionDetectionItem.walk != null)
             {
                 var diff = Mathf.Abs(actionDetectionItem.walk.leftHipAng - actionDetectionItem.walk.rightHipAng);
                 travelOwner.selfAnimator.SetFloat(animIdFootHeightDiff, diff);
             }
+        }
+
+        public void TrySetIdleParameters()
+        {
+            TrySetStridePercent();
+            TrySetParametersLegs();
+            TrySetParammeterFootHeightDiff();
         }
 
         public void TrySetStepParameters()
