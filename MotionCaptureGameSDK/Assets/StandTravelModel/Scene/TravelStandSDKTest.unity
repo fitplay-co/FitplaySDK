@@ -780,35 +780,6 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 0f4a32d9eb9718842ba345bfc32d6764, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
---- !u!114 &1264596580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1264596608, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264596581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1264596581 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1264596582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264596581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6215aa07fee4ac984c2df8c2dc27306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 1264596580}
 --- !u!4 &1264596602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}

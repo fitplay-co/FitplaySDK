@@ -5331,7 +5331,7 @@ Animator:
   m_GameObject: {fileID: 1939034580441558}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b0742c0414ff1e44a931e03e4c1e9498, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5c6f5ed1f9b1ce442a17c37e0c49a382, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0f4a32d9eb9718842ba345bfc32d6764, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5979,7 +5979,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939034580441558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e76d06b6514358449beedc63b2c32f11, type: 3}
   m_Name: 
@@ -6132,8 +6132,10 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 1264596603}
-  runThrehold: 4
+  runThrehold: 3
   travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000
+  strideScaleRun: 1
+  strideScaleWalk: 1
 --- !u!114 &1264596609
 MonoBehaviour:
   m_ObjectHideFlags: 0
