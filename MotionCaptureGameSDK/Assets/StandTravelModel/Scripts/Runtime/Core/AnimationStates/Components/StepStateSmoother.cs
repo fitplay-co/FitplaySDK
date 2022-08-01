@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class StepStateSmoother
 {
-    private const float frameCount = 32;
+    private const float frameCount = 64;
     private const float catchupSpeed = 10f;
 
     [SerializeField] private float frameCurr;
@@ -50,26 +50,26 @@ public class StepStateSmoother
                 } */
                 case StepState.LeftUp:
                 {
-                    frameTargetStart = 24;
-                    frameTargetEnd = 32;
+                    frameTargetStart = 48;
+                    frameTargetEnd = 64;
                     break;
                 }
                 case StepState.LeftDown:
                 {
                     frameTargetStart = 0;
-                    frameTargetEnd = 8;
+                    frameTargetEnd = 16;
                     break;
                 }
                 case StepState.RightUp:
                 {
-                    frameTargetStart = 8;
-                    frameTargetEnd = 16;
+                    frameTargetStart = 16;
+                    frameTargetEnd = 32;
                     break;
                 }
                 case StepState.RightDown:
                 {
-                    frameTargetStart = 16;
-                    frameTargetEnd = 24;
+                    frameTargetStart = 32;
+                    frameTargetEnd = 48;
                     break;
                 }
             }
