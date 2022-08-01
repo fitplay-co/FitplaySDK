@@ -6,13 +6,11 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
     {
         private StandTravelModelManager standTravelModelManager;
         private AnimatorMover animatorMover;
-        private CharacterController characterController;
 
         public void Awake()
         {
             standTravelModelManager = this.GetComponent<StandTravelModelManager>();
             animatorMover = this.GetComponent<AnimatorMover>();
-            characterController = this.GetComponent<CharacterController>();
         }
 
         public void OnGUI()
@@ -38,8 +36,8 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             var velocityZ = Mathf.Round(currentVelocity.z * 100) / 100;
             GUI.Label(new Rect(20, 120, 600, 40), $"当速度矢量: x={velocityX}, y={velocityY}, z={velocityZ}", labelStyle);
 
-            var currentSpeed = Mathf.Round(currentVelocity.magnitude * 1000) / 1000;
-            GUI.Label(new Rect(20, 160, 300, 40), $"当前速度: {currentSpeed}m/s", labelStyle);
+            var currentSpeed = Mathf.Round(new Vector3(velocityX, 0, velocityZ).magnitude * 100) / 100;
+            GUI.Label(new Rect(20, 160, 600, 40), $"当前水平速度: {currentSpeed}m/s", labelStyle);
 
             var isGrounded = animatorMover.isGrounded;
             GUI.Label(new Rect(20, 200, 300, 40), isGrounded ? "在地上" : "悬空", labelStyle);

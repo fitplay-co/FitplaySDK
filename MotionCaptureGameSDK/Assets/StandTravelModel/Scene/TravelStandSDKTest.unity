@@ -726,6 +726,14 @@ PrefabInstance:
       propertyPath: speedCurve.m_Curve.Array.data[1].tangentMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1264596611, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: isSelfMoveControl
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596611, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 1265123791}
     - target: {fileID: 1939034580441558, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
       propertyPath: m_Name
       value: Luna_Suit
@@ -783,6 +791,11 @@ PrefabInstance:
 --- !u!4 &1264596602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4728083980191912, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
+  m_PrefabInstance: {fileID: 1264596579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &1265123791 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 1264596613, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
   m_PrefabInstance: {fileID: 1264596579}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1553991531
