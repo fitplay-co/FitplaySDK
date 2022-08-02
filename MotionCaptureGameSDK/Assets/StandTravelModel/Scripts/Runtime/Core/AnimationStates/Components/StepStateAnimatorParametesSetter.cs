@@ -8,6 +8,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     public class StepStateAnimatorParametersSetter
     {
         private int animIdLegLeft;
+        private int animIdRunSpeed;
         private int animIdLegRight;
         private int animIdZeroDelayed;
         private int animIdStepProgress;
@@ -41,6 +42,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.progressLeft = new StepProgressCacher(speedCurve, downCurve);
             this.progressRight = new StepProgressCacher(speedCurve, downCurve);
             this.animIdLegLeft = Animator.StringToHash("leftLeg");
+            this.animIdRunSpeed = Animator.StringToHash("runSpeed");
             this.animIdLegRight = Animator.StringToHash("rightLeg");
             this.animIdZeroDelayed = Animator.StringToHash("zeroDelayed");
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
@@ -111,6 +113,16 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             TrySetParametersLegs();
             TrySetParametersHipAngles(isRun);
             TrySetParammeterFootHeightDiff();
+            TrySetRunSpeed();
+        }
+
+        private void TrySetRunSpeed()
+        {
+            actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
+            if(actionDetectionItem != null && actionDetectionItem.walk != null)
+            {
+                travelOwner.selfAnimator.SetFloat(animIdRunSpeed, actionDetectionItem.walk.leftFrequency);
+            }
         }
 
         private void TrySetStridePercent()
@@ -155,7 +167,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             var progressDownRight = 0f;
 
             progressLeft.GetLegProgress(legLeft, hipAngleLeft, isRun, out progressUpLeft, out progressDownLeft, out angleDelta);
-            progressRight.GetLegProgress(legRight, hipAngleRight, isRun, out progressUpRight, out progressDownRight, out angleDelta);
+            progressRight.GetLegProgress(legRight, hipAngleRight, isRun, out progressUpRight, out progressDownRight, out angleDelta, true);
 
             stepSmoother.OnUpdate(progressUpLeft, progressDownLeft, progressUpRight, progressDownRight);
 

@@ -18,7 +18,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.angleSmoother = new HipAngleSmoother();
         }
 
-        public void GetLegProgress(int leg, float hipAngle, bool isRun, out float progressUp, out float progressDown, out float angleDelta)
+        public void GetLegProgress(int leg, float hipAngle, bool isRun, out float progressUp, out float progressDown, out float angleDelta, bool debug = false)
         {
             /* angleDelta = lastAngle - hipAngle;
 
