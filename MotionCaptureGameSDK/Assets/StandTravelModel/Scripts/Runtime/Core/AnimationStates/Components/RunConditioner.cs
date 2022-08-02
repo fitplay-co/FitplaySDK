@@ -6,6 +6,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class RunConditioner
     {
+        private float velocity;
         private Func<float> getRunThrehold;
         private StepStrideCacher strideCacher;
 
@@ -23,7 +24,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             //Debug.Log("velocity -> " + walkData.velocity);
             //Debug.Log($"stepRate -> {walkData.stepRate}");
             //Debug.Log($"stepLen -> {walkData.stepLen}");
-            return walkData.velocity > getRunThrehold();
+            var speed = walkData.stepRate * walkData.stepLen;
+            velocity = Mathf.Lerp(velocity, speed, Time.deltaTime * 5);
+            return velocity > getRunThrehold();
           
             //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
 

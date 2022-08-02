@@ -24,7 +24,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
         public override void Tick(float deltaTime)
         {
             base.Tick(deltaTime);
-            parametersSetter.TrySetStepParameters();
+            parametersSetter.TrySetStepParameters(false);
             strideSetter.UpdateSpeedScale();
         }
 

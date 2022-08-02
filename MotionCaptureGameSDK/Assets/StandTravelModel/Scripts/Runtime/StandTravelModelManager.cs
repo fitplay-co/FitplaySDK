@@ -164,6 +164,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Awake()
         {
+            Application.targetFrameRate = 60;
             _initPosition = this.transform.position;
 
             InitMotionDataModel();

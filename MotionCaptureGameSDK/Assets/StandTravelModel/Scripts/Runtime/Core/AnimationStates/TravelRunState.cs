@@ -64,7 +64,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 }
 
                 //UpdateRunSpeed(actionDetectionData.walk.leftFrequency);
-                parametersSetter.TrySetStepParameters();
+                parametersSetter.TrySetStepParameters(true);
             }
         }
 

@@ -48,8 +48,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
 
             if (actionDetectionData != null && actionDetectionData.walk != null)
             {
-                parametersSetter.TrySetParametersLegs();
-                parametersSetter.TrySetParammeterFootHeightDiff();
+                parametersSetter.TrySetIdleParameters();
 
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;

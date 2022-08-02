@@ -155,10 +155,10 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             }
         }
 		
-		public override void UpdateFromMono()
+		/* public override void UpdateFromMono()
         {
             stateMachine.OnTick(Time.deltaTime);
-        }
+        } */
 
         /// <summary>
         /// 记录11次抬腿。抬腿交错一次才记录一次到队列。总共左右交互记录11次
