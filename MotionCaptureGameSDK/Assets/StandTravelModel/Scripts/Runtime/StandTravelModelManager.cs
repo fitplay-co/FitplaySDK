@@ -51,9 +51,14 @@ namespace StandTravelModel.Scripts.Runtime
         public StepStateSmoother stepSmoother;
         public StriderBiped striderBiped;
         public float runThrehold = 4;
-        public EFKType[] travelFkControlPoints;
         public float strideScaleRun = 1;
         public float strideScaleWalk = 1;
+#if USE_FK_LOCAL_ROTATION
+        public FKJpintMap[] travelFkControlPoints;
+#else
+        public EFKType[] travelFkControlPoints;
+#endif
+
         #endregion
         
          
@@ -66,7 +71,12 @@ namespace StandTravelModel.Scripts.Runtime
         private StandModel standModel;
         private TravelModel travelModel;
         private GameObject keyPointsParent;
+#if USE_FK_LOCAL_ROTATION
+        private FKAnimatorJoints fkAnimatorJointsModel;
+#else
         private IFKPoseModel fKPoseModel;
+#endif
+        
 
         private MotionMode _currentMode = MotionMode.Stand;
 
@@ -102,10 +112,15 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 enabled = value;
 #if USE_FINAL_IK
-                fKPoseModel?.SetEnable(value);
                 modelIKSettings.SetEnable(value);
 #else
                 modelIKSettings.IKScript.enabled = value;
+#endif
+#if USE_FK_LOCAL_ROTATION
+                // ReSharper disable once Unity.NoNullPropagation
+                fkAnimatorJointsModel?.SetEnable(value);
+#else
+                fKPoseModel?.SetEnable(value);
 #endif
             }
         }
@@ -218,6 +233,13 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 motionModel.OnUpdate(keyPointsList);
             }
+            
+#if USE_FK_LOCAL_ROTATION
+            if (fkAnimatorJointsModel != null)
+            {
+                fkAnimatorJointsModel.UpdateFkInfo(motionDataModel.GetFitting());
+            }
+#endif
 
             ChangeFkOnRun();
         }
@@ -511,60 +533,89 @@ namespace StandTravelModel.Scripts.Runtime
 
         public bool IsFKEnabled()
         {
+#if USE_FK_LOCAL_ROTATION
+            if (fkAnimatorJointsModel != null)
+            {
+                return fkAnimatorJointsModel.IsEnabled();
+            }
+#else
             if(fKPoseModel != null)
             {
                 return fKPoseModel.IsEnabled();
             }
-
+#endif
             return false;
         }
 
         public void EnableFK()
         {
+#if USE_FK_LOCAL_ROTATION
+            if(fkAnimatorJointsModel != null)
+            {
+                fkAnimatorJointsModel.SetEnable(true);
+                modelIKSettings.SetEnable(false);
+            }
+#else
             if(fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(true);
                 modelIKSettings.SetEnable(false);
             }
+#endif
         }
 
         public void DisableFK()
         {
+#if USE_FK_LOCAL_ROTATION
+            if(fkAnimatorJointsModel != null)
+            {
+                fkAnimatorJointsModel.SetEnable(false);
+                modelIKSettings.SetEnable(true);
+            }
+#else
             if(fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(false);
                 modelIKSettings.SetEnable(true);
             }
+#endif
+            
         }
 
         private void TryInitFKModel()
         {
+#if USE_FK_LOCAL_ROTATION
+            if(fkAnimatorJointsModel == null)
+            {
+                fkAnimatorJointsModel = gameObject.AddComponent<FKAnimatorJoints>();
+                fkAnimatorJointsModel.SetEnable(false);
+            }
+#else
             if(fKPoseModel == null)
             {
                 fKPoseModel = gameObject.AddComponent<FKPoseModel>();
                 fKPoseModel.SetEnable(false);
                 fKPoseModel.Initialize();
             }
+#endif
         }
 
         private void FKBodyUpper()
         {
-            /*fKPoseModel.SetActiveEFKTypes(
-                EFKType.Neck,
-                //EFKType.Head,
-                EFKType.LShoulder,
-                EFKType.RShoulder,
-                EFKType.LArm,
-                EFKType.RArm,
-                EFKType.LWrist,
-                EFKType.RWrist
-            );*/
+#if USE_FK_LOCAL_ROTATION
+            fkAnimatorJointsModel.SetActiveFKJpintTypes(travelFkControlPoints);
+#else
             fKPoseModel.SetActiveEFKTypes(travelFkControlPoints);
+#endif
         }
 
         private void FKBodyFull()
         {
+#if USE_FK_LOCAL_ROTATION
+            fkAnimatorJointsModel.SetFullFKJpintTypes();
+#else
             fKPoseModel.SetFullBodyEFKTypes();
+#endif
         }
 
         private void ChangeFkOnRun()
@@ -578,7 +629,11 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 if (travelModel.isRun)
                 {
+#if USE_FK_LOCAL_ROTATION
+                    fkAnimatorJointsModel.SetActiveFKJpintTypes(new FKJpintMap[] {});
+#else
                     fKPoseModel.SetActiveEFKTypes();
+#endif
                 }
                 else
                 {

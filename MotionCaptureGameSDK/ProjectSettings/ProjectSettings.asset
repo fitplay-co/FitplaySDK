@@ -590,7 +590,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: USE_FINAL_IK;NOT_USE_GROUND_LOCATION
+    1: USE_FINAL_IK;NOT_USE_GROUND_LOCATION;USE_FK_LOCAL_ROTATION
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

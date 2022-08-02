@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
+using UnityEngine;
 
-
+namespace StandTravelModel.Scripts.Runtime.FK.Scripts
+{
     public class JointPoint {
         // Bones
         public Transform Transform;
@@ -101,3 +101,4 @@ using MotionCaptureBasic.OSConnector;
             // jointPoints[j].Transform.localRotation = initBone[j] * Quaternion.Inverse(modelSkeletonAdapter) * Quaternion.Euler(90,90,45)* modelSkeletonAdapter;
         }
     }
+}
