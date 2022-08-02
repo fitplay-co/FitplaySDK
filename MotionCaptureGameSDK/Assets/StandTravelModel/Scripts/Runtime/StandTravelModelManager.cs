@@ -92,8 +92,9 @@ namespace StandTravelModel.Scripts.Runtime
                     if (value == MotionMode.Stand)
                     {
                         //T强制切回idlestate
-                        travelModel.ChangeState(AnimationList.Idle);
+                        //travelModel.ChangeState(AnimationList.Idle);
                         //travelModel.StopPrevAnimation("");
+                        travelModel?.selfAnimator.Play("Idle");
                     }
                 }
             }
