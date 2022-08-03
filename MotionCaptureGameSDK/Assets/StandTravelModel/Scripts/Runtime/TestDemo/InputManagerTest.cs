@@ -4,7 +4,7 @@ using KeyCode = IMU.KeyCode;
 using Input = IMU.Input;
 namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
-    public class InputManager : MonoBehaviour
+    public class InputManagerTest : MonoBehaviour
     {
         private const string L_Stick_H = "L_Stick_H";
         private const string Horizontal = "Horizontal";

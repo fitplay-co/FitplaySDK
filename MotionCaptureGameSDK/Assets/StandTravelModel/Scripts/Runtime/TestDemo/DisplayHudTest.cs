@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime.TestDemo
 {
-    public class DisplayHud : MonoBehaviour
+    public class DisplayHudTest : MonoBehaviour
     {
         private StandTravelModelManager standTravelModelManager;
         private AnimatorMover animatorMover;
