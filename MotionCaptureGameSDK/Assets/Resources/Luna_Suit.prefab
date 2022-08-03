@@ -5896,13 +5896,13 @@ MonoBehaviour:
   p_maxPlaybackSpeed: 1.1
   p_playbackSpeedWeight: 0.5
   p_animator: {fileID: 95826710003474134}
-  p_hips: {fileID: 4518789467688696}
-  p_leftThigh: {fileID: 4783495396699628}
-  p_rightThigh: {fileID: 4831325627634960}
-  p_leftLowerLeg: {fileID: 4601713594684788}
-  p_rightLowerLeg: {fileID: 4301798072174906}
-  p_leftFoot: {fileID: 4665743361864332}
-  p_rightFoot: {fileID: 4056947184461718}
+  p_hips: {fileID: 0}
+  p_leftThigh: {fileID: 0}
+  p_rightThigh: {fileID: 0}
+  p_leftLowerLeg: {fileID: 0}
+  p_rightLowerLeg: {fileID: 0}
+  p_leftFoot: {fileID: 0}
+  p_rightFoot: {fileID: 0}
   p_leftFootIK: {fileID: 0}
   p_rightFootIK: {fileID: 0}
   OnSetupComplete:
