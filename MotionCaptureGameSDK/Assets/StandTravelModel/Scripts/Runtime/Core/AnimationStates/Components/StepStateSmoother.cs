@@ -82,22 +82,22 @@ public class StepStateSmoother
         if(stepState == StepState.LeftUp)
         {
             frameTarget = LerpFrame(frameTargetStart, frameTargetEnd, stepProgressLeftUp);
-            Debug.Log(Time.frameCount + "left up " + stepProgressLeftUp + "|" + frameTarget);
+            //Debug.Log(Time.frameCount + "left up " + stepProgressLeftUp + "|" + frameTarget);
         }
         else if(stepState == StepState.LeftDown)
         {
             frameTarget = LerpFrame(frameTargetStart, frameTargetEnd, stepProgressLeftDown);
-            Debug.Log(Time.frameCount + "left down " + stepProgressLeftDown + "|" + frameTarget);
+            //Debug.Log(Time.frameCount + "left down " + stepProgressLeftDown + "|" + frameTarget);
         }
         else if(stepState == StepState.RightUp)
         {
             frameTarget = LerpFrame(frameTargetStart, frameTargetEnd, stepProgressRightUp);
-            Debug.Log(Time.frameCount + "right up " + stepProgressRightUp + "|" + frameTarget);
+            //Debug.Log(Time.frameCount + "right up " + stepProgressRightUp + "|" + frameTarget);
         }
         else if(stepState == StepState.RightDown)
         {
             frameTarget = LerpFrame(frameTargetStart, frameTargetEnd, stepProgressRightDown);
-            Debug.Log(Time.frameCount + "right down " + stepProgressRightDown + "|" + frameTarget);
+            //Debug.Log(Time.frameCount + "right down " + stepProgressRightDown + "|" + frameTarget);
         }
 
         frameCurr = LerpCurFrame(frameCurr, frameTarget, Time.deltaTime * catchupSpeed);

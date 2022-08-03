@@ -10,10 +10,10 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private const int footIndexLeft = -1;
         private const int footIndexRight = 1;
         private const float footHeightDetach = 0.02f;
-        private CharacterController characterController;
         private StandTravelModelManager standTravelModelManager;
         private Vector3 _velocity;
-        public Vector3 velocity => _velocity;
+
+        public Vector3 velocity => (_velocity + new Vector3(0, _verticalVelocity, 0));
         private AnimatorMoverUpdater moverUpdater;
 
         private const float groundedOffset = 0.1f;
@@ -24,6 +24,13 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private float _verticalVelocity;
         private float _terminalVelocity = -53.0f;
 
+        [Tooltip("是否利用AnimatorMover来移动。如果不勾则不通过该脚本控制移动")]
+        [SerializeField] private bool isSelfMoveControl;
+
+        [Tooltip("指定需要控制的characterController")] [SerializeField]
+        private CharacterController characterController;
+        
+        
         [SerializeField] private int curFootIndex;
         [SerializeField] private Vector3 footPos;
         [SerializeField] private Vector3 deltaPos;
@@ -36,11 +43,17 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private void Awake() {
             var animator = GetComponent<Animator>();
             animator.applyRootMotion = true;
-            characterController = GetComponent<CharacterController>();
+            if (characterController == null)
+            {
+                characterController = GetComponent<CharacterController>();
+            }
+            
             standTravelModelManager = GetComponent<StandTravelModelManager>();
             footLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
             footRight = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+            
             moverUpdater = new AnimatorMoverUpdater(characterController);
+            moverUpdater.SetParameter(isSelfMoveControl);
         }
 
         private void FixedUpdate() {
@@ -54,15 +67,18 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 var fixDeltaTime = Time.fixedDeltaTime;
                 UpdateVerticalMove(fixDeltaTime);
                 moverUpdater.OnUpdate();
-                _velocity = moverUpdater.GetMoveSpeed();
+                _velocity = moverUpdater.GetMoveSpeed(fixDeltaTime);
             }
         }
 
         private void Update()
         {
-            var dt = Time.deltaTime;
-            var deltaMovement = new Vector3(0, _verticalVelocity * dt, 0);
-            characterController.Move(deltaMovement);
+            if (isSelfMoveControl)
+            {
+                var dt = Time.deltaTime;
+                var deltaMovement = new Vector3(0, _verticalVelocity * dt, 0);
+                characterController.Move(deltaMovement);
+            }
         }
 
         /// <summary>

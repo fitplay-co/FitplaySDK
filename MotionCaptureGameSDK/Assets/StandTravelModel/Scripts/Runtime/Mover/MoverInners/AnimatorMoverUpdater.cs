@@ -6,7 +6,8 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
     {
         private float asignFrame;
         private Vector3 moveDelta;
-
+        
+        private bool _isSelfMoveControl;
         private CharacterController characterController;
 
         public AnimatorMoverUpdater(CharacterController characterController)
@@ -14,8 +15,13 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             this.characterController = characterController;
         }
 
+        public void SetParameter(bool isSelfMoveControl)
+        {
+            _isSelfMoveControl = isSelfMoveControl;
+        }
+
         public void OnUpdate() {
-            if(IsValide())
+            if(IsValide() && _isSelfMoveControl)
             {
                 characterController.Move(moveDelta);
             }
@@ -27,11 +33,12 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             this.asignFrame = Time.frameCount;
         }
 
-        public Vector3 GetMoveSpeed()
+        public Vector3 GetMoveSpeed(float dt)
         {
+            var deltaTime = Time.deltaTime;
             if(IsValide())
             {
-                return moveDelta / Time.deltaTime;
+                return moveDelta / dt;
             }
             return Vector3.zero;
         }
