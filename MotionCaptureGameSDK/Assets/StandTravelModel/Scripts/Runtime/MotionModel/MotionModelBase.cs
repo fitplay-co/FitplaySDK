@@ -104,13 +104,12 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         private void PrepareData()
         {
 #if NOT_USE_GROUND_LOCATION
-            predictHipPos.y = (0 - GetMinY(motionDataModel.GetIKPointsData(true, true))) *
-                              tuningParameters.LocalShiftScale.y;
+            predictHipPos.y = (0 - GetMinY(keyPoints)) * tuningParameters.LocalShiftScale.y;
             keyPointsParent.transform.localPosition = predictHipPos;
             
-            var keyPoints = motionDataModel.GetIKPointsData(false, true);
-            var leftHipNode = keyPoints[(int)GameKeyPointsType.LeftHip];
-            var rightHipNode = keyPoints[(int)GameKeyPointsType.RightHip];
+            var keyPoints2D = motionDataModel.GetIKPointsData(false, true);
+            var leftHipNode = keyPoints2D[(int)GameKeyPointsType.LeftHip];
+            var rightHipNode = keyPoints2D[(int)GameKeyPointsType.RightHip];
 
             //Debug.Log($"Left Hip Node: {leftHipNode.x}, {leftHipNode.y}, {leftHipNode.z}");
             //Debug.Log($"Right Hip Node: {rightHipNode.x}, {rightHipNode.y}, {rightHipNode.z}");
