@@ -6,6 +6,8 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
     {
         private StandTravelModelManager standTravelModelManager;
         private AnimatorMover animatorMover;
+        private float _currentSpeed = 0;
+        private float _currentSpeedSmoothRate = 1;
 
         public void Awake()
         {
@@ -36,8 +38,9 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             var velocityZ = Mathf.Round(currentVelocity.z * 100) / 100;
             GUI.Label(new Rect(20, 120, 600, 40), $"当速度矢量: x={velocityX}, y={velocityY}, z={velocityZ}", labelStyle);
 
-            var currentSpeed = Mathf.Round(new Vector3(velocityX, 0, velocityZ).magnitude * 100) / 100;
-            GUI.Label(new Rect(20, 160, 600, 40), $"当前水平速度: {currentSpeed}m/s", labelStyle);
+            var target = new Vector3(velocityX, 0, velocityZ).magnitude;
+            _currentSpeed = Mathf.Lerp(_currentSpeed, target, Time.deltaTime * _currentSpeedSmoothRate);
+            GUI.Label(new Rect(20, 160, 600, 40), $"当前水平速度: {Mathf.Round(_currentSpeed * 100) / 100}m/s", labelStyle);
 
             var isGrounded = animatorMover.isGrounded;
             GUI.Label(new Rect(20, 200, 300, 40), isGrounded ? "在地上" : "悬空", labelStyle);

@@ -6132,7 +6132,7 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 1264596603}
-  runThrehold: 3
+  runThrehold: 2.2
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000
