@@ -524,7 +524,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.01
+    m_EventTreshold: 0.2
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: 1
@@ -674,7 +674,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
-  m_ExitTime: 0.625
+  m_ExitTime: 0.19
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 1
@@ -787,7 +787,7 @@ AnimatorStateTransition:
     m_EventTreshold: 10
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.15
+    m_EventTreshold: 0.2
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: 1
@@ -1157,7 +1157,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.01
+    m_EventTreshold: 0.2
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: -1
@@ -1846,7 +1846,7 @@ AnimatorStateTransition:
     m_EventTreshold: 10
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.15
+    m_EventTreshold: 0.2
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: -1
