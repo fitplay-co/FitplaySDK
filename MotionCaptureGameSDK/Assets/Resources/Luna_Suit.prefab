@@ -5331,7 +5331,7 @@ Animator:
   m_GameObject: {fileID: 1939034580441558}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b0742c0414ff1e44a931e03e4c1e9498, type: 3}
-  m_Controller: {fileID: 9100000, guid: c603315781b0d08439b3f576dd70c8be, type: 2}
+  m_Controller: {fileID: 9100000, guid: 030397b10385ec24fb2183788a254719, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5896,13 +5896,13 @@ MonoBehaviour:
   p_maxPlaybackSpeed: 1.1
   p_playbackSpeedWeight: 0.5
   p_animator: {fileID: 95826710003474134}
-  p_hips: {fileID: 0}
-  p_leftThigh: {fileID: 0}
-  p_rightThigh: {fileID: 0}
-  p_leftLowerLeg: {fileID: 0}
-  p_rightLowerLeg: {fileID: 0}
-  p_leftFoot: {fileID: 0}
-  p_rightFoot: {fileID: 0}
+  p_hips: {fileID: 4518789467688696}
+  p_leftThigh: {fileID: 4783495396699628}
+  p_rightThigh: {fileID: 4831325627634960}
+  p_leftLowerLeg: {fileID: 4601713594684788}
+  p_rightLowerLeg: {fileID: 4301798072174906}
+  p_leftFoot: {fileID: 4665743361864332}
+  p_rightFoot: {fileID: 4056947184461718}
   p_leftFootIK: {fileID: 0}
   p_rightFootIK: {fileID: 0}
   OnSetupComplete:
@@ -6132,7 +6132,7 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 1264596603}
-  runThrehold: 2.2
+  runThrehold: 3.5
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000
