@@ -158,9 +158,17 @@ PrefabInstance:
       propertyPath: p_rightLowerLeg
       value: 
       objectReference: {fileID: 113244903}
+    - target: {fileID: 1264596605, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: initialMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: runThrehold
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1264596611, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: isSelfMoveControl
@@ -218,6 +226,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95826710003474134, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 030397b10385ec24fb2183788a254719, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
 --- !u!4 &113244901 stripped
