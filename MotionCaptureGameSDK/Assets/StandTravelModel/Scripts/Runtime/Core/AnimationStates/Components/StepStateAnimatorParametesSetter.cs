@@ -10,6 +10,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdLegLeft;
         private int animIdRunSpeed;
         private int animIdLegRight;
+        private int animIdLastLegUp;
         private int animIdZeroDelayed;
         private int animIdStepProgress;
         private int animIdStridePercent;
@@ -20,6 +21,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdStepProgressUpRight;
         private int animIdStepProgressDownRight;
 
+        private int lastUpLeg;
         private float zeroDelayed;
 
         private TravelModel travelOwner;
@@ -44,6 +46,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdLegLeft = Animator.StringToHash("leftLeg");
             this.animIdRunSpeed = Animator.StringToHash("runSpeed");
             this.animIdLegRight = Animator.StringToHash("rightLeg");
+            this.animIdLastLegUp = Animator.StringToHash("lastLegUp");
             this.animIdZeroDelayed = Animator.StringToHash("zeroDelayed");
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
             this.animIdStridePercent = Animator.StringToHash("stridePercent");
@@ -67,6 +70,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
                 if(leftLeg == 0 && rightLeg == 0)
                 {
+                    //lastUpLeg = 0;
                     zeroDelayed += Time.deltaTime;
                 }
                 else
@@ -76,7 +80,21 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
                 travelOwner.selfAnimator.SetFloat(animIdZeroDelayed, zeroDelayed);
                 stepSmoother.UpdateTargetFrameArea(leftLeg, rightLeg);
+                SetLastUpLeg(leftLeg, rightLeg);
             }
+        }
+
+        private void SetLastUpLeg(int leftLeg, int rightLeg)
+        {
+            if(leftLeg == 1)
+            {
+                lastUpLeg = -1;
+            }
+            else if(rightLeg == 1)
+            {
+                lastUpLeg = 1;
+            }
+            travelOwner.selfAnimator.SetInteger(animIdLastLegUp, lastUpLeg);
         }
 
         private void TrySetParametersHipAngles(bool isRun)

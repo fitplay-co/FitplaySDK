@@ -31,6 +31,11 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             UpdatePosWithAnchor();
         }
 
+        public void RefreshAnchorPos(Vector3 delta)
+        {
+            anchorPos += delta;
+        }
+
         protected virtual int GetTouchingFoot(AnimatorStateInfo stateInfo)
         {
             var heightGap = footLeft.position.y - footRight.position.y;
@@ -47,14 +52,20 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             return 0;
         }
 
+        protected virtual Vector3 GetMoveDelta()
+        {
+            var deltaPos = GetFootPos(curFootIndex) - anchorPos;
+            deltaPos.y = 0;
+            anchorPos = GetAnchorPos(curFootIndex);
+            return deltaPos;
+        }
+
         private void UpdatePosWithAnchor()
         {
             if(curFootIndex != 0)
             {
-                var deltaPos = GetFootPos(curFootIndex) - anchorPos;
-                deltaPos.y = 0;
-
-                moverReactor.SetAnimatorDelta(-deltaPos);
+                var deltaPos = GetMoveDelta();
+                moverReactor.SetAnimatorDelta(-transform.forward * deltaPos.z);
             }
         }
 
@@ -85,12 +96,12 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 
         private Vector3 GetAnchorPos(int foot)
         {
-            return GetAnchor(foot).position;
+            return transform.InverseTransformPoint(GetAnchor(foot).position);
         }
 
         private Vector3 GetFootPos(int foot)
         {
-            return GetAnchor(foot).position;
+            return transform.InverseTransformPoint(GetAnchor(foot).position);
         }
 
         public void OnStart()
