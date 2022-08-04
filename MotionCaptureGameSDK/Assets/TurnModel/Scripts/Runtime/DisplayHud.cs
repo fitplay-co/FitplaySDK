@@ -6,7 +6,7 @@ namespace TurnModel.Scripts.TestDemo
     public class DisplayHud : MonoBehaviour
     {
         [SerializeField] private TurnController turnController;
-        private int startYOffset = 280;
+        private int startYOffset = 320;
 
         public void OnGUI()
         {
