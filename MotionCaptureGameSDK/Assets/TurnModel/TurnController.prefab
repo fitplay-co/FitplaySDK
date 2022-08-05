@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2996603561660596929}
-  - component: {fileID: 1721848203}
   - component: {fileID: 3227258475764715730}
+  - component: {fileID: 882148806070276347}
   m_Layer: 0
   m_Name: TurnController
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1721848203
+--- !u!114 &3227258475764715730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2996603561660596927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6228133eca440a4592a13a8f1f157cc, type: 3}
+  m_Script: {fileID: 11500000, guid: d36fddac5617eb241ae4c8cd0e52aad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnController: {fileID: 882148806070276347}
+--- !u!114 &882148806070276347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2996603561660596927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96082c04ee44ccd43b5f0dbe921f2c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 0}
@@ -81,16 +94,3 @@ MonoBehaviour:
   turnValue: 0
   HowToTurn: 1
   TurnData: 0
---- !u!114 &3227258475764715730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2996603561660596927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d36fddac5617eb241ae4c8cd0e52aad6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnController: {fileID: 1721848203}
