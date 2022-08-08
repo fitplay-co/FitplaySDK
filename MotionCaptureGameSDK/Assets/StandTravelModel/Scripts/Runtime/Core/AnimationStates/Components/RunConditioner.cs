@@ -6,27 +6,83 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class RunConditioner
     {
-        private float velocity;
-        private Func<float> getRunThrehold;
+        private class RunCacher
+        {
+            private bool isLeft;
+            private bool isRunning;
+            private int lastLeg;
+            private float lastLegChange;
+            private Func<float> getRunThrehold;
+
+            public RunCacher(bool isLeft, Func<float> getRunThrehold)
+            {
+                this.isLeft = isLeft;
+                this.getRunThrehold = getRunThrehold;
+            }
+
+            public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
+            {
+                var curLeft = isLeft ? walkData.leftLeg : walkData.rightLeg;
+
+                if(lastLeg != 0 && lastLeg != curLeft)
+                {
+                    if(isRunning)
+                    {
+                        isRunning = Time.time < lastLegChange + getRunThrehold() * 1.1f;
+                    }
+                    else
+                    {
+                        isRunning = Time.time < lastLegChange + getRunThrehold();
+                    }
+
+                    lastLegChange = Time.time;
+                }
+                lastLeg = curLeft;
+                return isRunning;
+            }
+        }
+
+        private bool isRunning;
+        private RunCacher cacherLeft;
+        private RunCacher cacherRight;
         private StepStrideCacher strideCacher;
 
         public RunConditioner(Func<float> getRunThrehold, StepStrideCacher strideCacher)
         {
+            this.cacherLeft = new RunCacher(true, getRunThrehold);
+            this.cacherRight = new RunCacher(false, getRunThrehold);
             this.strideCacher = strideCacher;
-            this.getRunThrehold = getRunThrehold;
         }
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
         {
             strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
 
+            var isRunningLeft = cacherLeft.IsEnterRunReady(walkData, debug);
+            var isRunningRight = cacherRight.IsEnterRunReady(walkData, debug);
+
+            /* if(!isRunning)
+            {
+                isRunning = isRunningLeft || isRunningRight;
+            }
+            else
+            {
+                isRunning = isRunningLeft && isRunningRight;
+            } */
+            isRunning = isRunningLeft || isRunningRight;
+
+            return isRunning;
+
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
             //Debug.Log("velocity -> " + walkData.velocity);
             //Debug.Log($"stepRate -> {walkData.stepRate}");
             //Debug.Log($"stepLen -> {walkData.stepLen}");
-            var speed = walkData.stepRate * walkData.stepLen;
+
+            /* var speed = walkData.stepRate * walkData.stepLen;
             velocity = Mathf.Lerp(velocity, speed, Time.deltaTime * 5);
-            return velocity > getRunThrehold();
+            return velocity > getRunThrehold(); */
+            
+            //return walkData.leftFrequency > getRunThrehold();
           
             //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
 

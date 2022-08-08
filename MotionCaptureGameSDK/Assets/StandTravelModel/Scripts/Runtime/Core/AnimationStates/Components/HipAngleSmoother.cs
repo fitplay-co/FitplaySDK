@@ -12,7 +12,7 @@ public class HipAngleSmoother
     {
         if(this.isLifting != isLifting)
         {
-            this.cacheSpeed = 0.35f;
+            this.cacheSpeed = 8f;
         }
         this.isLifting = isLifting;
     }
@@ -64,9 +64,10 @@ public class HipAngleSmoother
             }
         }
 
-        var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f * (isRun ? 0.2f : 1);
-        //percent = Mathf.Min(percent, 20);
-        angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * percent);
+        //var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f * (isRun ? 0.2f : 1);
+        //var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f;
+        var percent = isLifting ? cacheSpeed * 1.25f : cacheSpeed;
+        angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * cacheSpeed);
     }
 
     public float GetAngleCache()
