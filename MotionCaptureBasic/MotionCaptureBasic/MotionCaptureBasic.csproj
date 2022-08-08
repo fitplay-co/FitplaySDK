@@ -64,6 +64,7 @@
         <Compile Include="Scripts\OSConnector\HttpProtocolHandler.cs" />
         <Compile Include="Scripts\OSConnector\Protocol.cs" />
         <Compile Include="Scripts\OSConnector\WebsocketOSClient.cs" />
+        <Compile Include="Scripts\OsDataReceiver.cs" />
         <Compile Include="Scripts\UnityWebSocket\Core\CloseEventArgs.cs" />
         <Compile Include="Scripts\UnityWebSocket\Core\CloseStatusCode.cs" />
         <Compile Include="Scripts\UnityWebSocket\Core\ErrorEventArgs.cs" />
