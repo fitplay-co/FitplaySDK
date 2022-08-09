@@ -26,7 +26,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
 
-                if (actionDetectionData.walk.leftLeg == 0 && actionDetectionData.walk.rightLeg == 0)
+                if (actionDetectionData.walk.realtimeLeftLeg == 0 && actionDetectionData.walk.realtimeRightLeg == 0)
                 {
                     travelOwner.ChangeState(AnimationList.Idle);
                     return;

@@ -57,8 +57,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                 {
                     var walk = new Walk()
                     {
-                        leftLeg = actionItem.walk.leftLeg,
-                        rightLeg = actionItem.walk.rightLeg,
+                        leftLeg = actionItem.walk.realtimeLeftLeg,
+                        rightLeg = actionItem.walk.realtimeRightLeg,
                         leftHip = actionItem.walk.leftHipAng,
                         rightHip = actionItem.walk.rightHipAng
                     };
@@ -120,8 +120,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     var item = new ActionDetectionItem();
                     item.walk = new WalkActionItem()
                     {
-                        leftLeg = walk.leftLeg,
-                        rightLeg = walk.rightLeg,
+                        realtimeLeftLeg = walk.leftLeg,
+                        realtimeRightLeg = walk.rightLeg,
                         leftHipAng = walk.leftHip,
                         rightHipAng = walk.rightHip,
                         leftFrequency = walk.leftFrequency,

@@ -63,8 +63,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if(actionDetectionItem != null && actionDetectionItem.walk != null)
             {
-                var leftLeg = actionDetectionItem.walk.leftLeg;
-                var rightLeg = actionDetectionItem.walk.rightLeg;
+                var leftLeg = actionDetectionItem.walk.realtimeLeftLeg;
+                var rightLeg = actionDetectionItem.walk.realtimeRightLeg;
                 travelOwner.selfAnimator.SetInteger(animIdLegLeft, leftLeg);
                 travelOwner.selfAnimator.SetInteger(animIdLegRight, rightLeg);
 
@@ -103,9 +103,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 var angleDeltaLeft = 0f;
                 var angleDeltaRight = 0f;
-                SetLegParameters(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDeltaLeft, isRun);
-                SetLegParameters(actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDeltaRight, isRun);
-                SetStepStateParameters(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.leftHipAng, actionDetectionItem.walk.rightHipAng, isRun);
+                SetLegParameters(actionDetectionItem.walk.realtimeLeftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDeltaLeft, isRun);
+                SetLegParameters(actionDetectionItem.walk.realtimeRightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDeltaRight, isRun);
+                SetStepStateParameters(actionDetectionItem.walk.realtimeLeftLeg, actionDetectionItem.walk.realtimeRightLeg, actionDetectionItem.walk.leftHipAng, actionDetectionItem.walk.rightHipAng, isRun);
             }
         }
 

@@ -22,7 +22,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
             {
-                var curLeft = isLeft ? walkData.leftLeg : walkData.rightLeg;
+                var curLeft = isLeft ? walkData.realtimeLeftLeg : walkData.realtimeRightLeg;
 
                 if(lastLeg != 0 && lastLeg != curLeft)
                 {
@@ -56,7 +56,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
         {
-            strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
+            strideCacher.OnUpdate(walkData.realtimeLeftLeg, walkData.leftStepLength);
 
             var isRunningLeft = cacherLeft.IsEnterRunReady(walkData, debug);
             var isRunningRight = cacherRight.IsEnterRunReady(walkData, debug);

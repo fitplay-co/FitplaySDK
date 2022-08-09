@@ -60,22 +60,22 @@ public class ActionReconUpdaterHumanMessageFaker
         {
             case StageType.LegLeftUp:
             {
-                simulatActionDetectionItem.walk.leftLeg = 1;
+                simulatActionDetectionItem.walk.realtimeLeftLeg = 1;
                 break;
             }
             case StageType.LegLeftDown:
             {
-                simulatActionDetectionItem.walk.leftLeg = -1;
+                simulatActionDetectionItem.walk.realtimeLeftLeg = -1;
                 break;
             }
             case StageType.LegRightUp:
             {
-                simulatActionDetectionItem.walk.rightLeg = 1;
+                simulatActionDetectionItem.walk.realtimeRightLeg = 1;
                 break;
             }
             case StageType.LegRightDown:
             {
-                simulatActionDetectionItem.walk.rightLeg = -1;
+                simulatActionDetectionItem.walk.realtimeRightLeg = -1;
                 break;
             }
         }
