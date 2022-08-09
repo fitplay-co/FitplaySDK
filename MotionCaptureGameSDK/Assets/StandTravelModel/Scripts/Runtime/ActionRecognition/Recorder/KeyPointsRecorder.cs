@@ -123,7 +123,11 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                         leftLeg = walk.leftLeg,
                         rightLeg = walk.rightLeg,
                         leftHipAng = walk.leftHip,
-                        rightHipAng = walk.rightHip
+                        rightHipAng = walk.rightHip,
+                        leftFrequency = walk.leftFrequency,
+                        rightFrequency = walk.rightFrequency,
+                        leftStepLength = walk.leftSteplength,
+                        rightStepLength = walk.rightStepLength,
                     };
                     return item;
                 }
