@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using MotionCaptureBasic;
+using MotionCaptureBasic.Interface;
 using UnityEngine;
 using Newtonsoft.Json;
 using MotionCaptureBasic.OSConnector;
@@ -17,6 +19,18 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         private PointsContainer seContainer;
         private PointsContainer deContainer;
+        
+        private StandTravelModelManager standTravelManager;
+        private IMotionDataModel motionDataModel;
+
+        public void Start()
+        {
+            if(standTravelManager == null)
+            {
+                standTravelManager = GetComponent<StandTravelModelManager>();
+                motionDataModel = standTravelManager.motionDataModelReference;
+            }
+        }
 
         private void Update() {
             if(enableRecord)
@@ -43,7 +57,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     }
                 }
 
-                var pointsData = MotionDataModelHttp.GetInstance().GetIKPointsData(true, true);
+                var pointsData = motionDataModel.GetIKPointsData(true, true);
                 if(pointsData != null)
                 {
                     var points = new Points();
@@ -52,7 +66,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     seContainer.points.Add(points);
                 }
 
-                var actionItem = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+                var actionItem = motionDataModel.GetActionDetectionData();
                 if(actionItem != null && actionItem.walk != null)
                 {
                     var walk = new Walk()

@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MotionCaptureBasic;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text;
+using MotionCaptureBasic.Interface;
+using StandTravelModel.Scripts.Runtime;
 
 public class ActionLogger : MonoBehaviour
 {
@@ -11,6 +14,9 @@ public class ActionLogger : MonoBehaviour
     [SerializeField] private float timeOffset;
     [SerializeField] private string logName;
 
+    private StandTravelModelManager standTravelManager;
+    private IMotionDataModel motionDataModel;
+    
     private struct ActionLoggerData
     {
         public float time;
@@ -21,6 +27,15 @@ public class ActionLogger : MonoBehaviour
     }
 
     private List<ActionLoggerData> loggerDatas = new List<ActionLoggerData>();
+
+    public void Start()
+    {
+        if(standTravelManager == null)
+        {
+            standTravelManager = GetComponent<StandTravelModelManager>();
+            motionDataModel = standTravelManager.motionDataModelReference;
+        }
+    }
 
     private void Update()
     {
@@ -41,7 +56,7 @@ public class ActionLogger : MonoBehaviour
             return;
         }
 
-        var actionDetectionItem = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+        var actionDetectionItem = motionDataModel.GetActionDetectionData();
         if(actionDetectionItem != null)
         {
             var loggerData = new ActionLoggerData()

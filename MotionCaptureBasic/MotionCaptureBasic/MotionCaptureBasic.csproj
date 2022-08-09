@@ -60,8 +60,10 @@
         <Compile Include="Scripts\MessageSend\Messages\MessageType.cs" />
         <Compile Include="Scripts\MotionDataModelFactory.cs" />
         <Compile Include="Scripts\MotionDataModelHttp.cs" />
+        <Compile Include="Scripts\MotionDataModelMobile.cs" />
         <Compile Include="Scripts\MotionDataPreprocessor.cs" />
         <Compile Include="Scripts\OSConnector\HttpProtocolHandler.cs" />
+        <Compile Include="Scripts\OSConnector\MobileOSHandler.cs" />
         <Compile Include="Scripts\OSConnector\Protocol.cs" />
         <Compile Include="Scripts\OSConnector\WebsocketOSClient.cs" />
         <Compile Include="Scripts\OsDataReceiver.cs" />

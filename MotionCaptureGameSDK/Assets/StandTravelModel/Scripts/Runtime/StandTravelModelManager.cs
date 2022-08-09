@@ -30,7 +30,8 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("Debug模式开关。如果打开可以打印额外Debug信息，并且显示骨骼点")]
         public bool isDebug;
 
-        [Tooltip("是否启用FK。如果启用IK将无效")] public bool isFKEnabled;
+        [Tooltip("是否启用FK。如果启用IK将无效")]
+        public bool isFKEnabled;
 
         [Tooltip("是否启用非对称映射。如果开启可以匹配非标准人体骨骼的模型")]
         public bool monsterMappingEnable;
@@ -41,6 +42,9 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("是否在跑步时自动进入全身动画。如果启用，播跑步动画时会自动使FK无效")] 
         public bool isFullAnimOnRun;
 
+        [Tooltip("指定Basic SDK的OS通信模式")]
+        public MotionDataModelType motionDataModelType;
+        
         public MotionMode initialMode = MotionMode.Stand;
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
@@ -65,6 +69,7 @@ namespace StandTravelModel.Scripts.Runtime
         #region Unserializable Variables
         private IMotionModel motionModel;
         private IMotionDataModel motionDataModel;
+        public IMotionDataModel motionDataModelReference => motionDataModel;
         private IModelIKController modelIKController;
 
         private AnchorController anchorController;
@@ -649,9 +654,20 @@ namespace StandTravelModel.Scripts.Runtime
         /// </summary>
         private void InitMotionDataModel()
         {
-            motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
+            motionDataModel = MotionDataModelFactory.Create(motionDataModelType);
             motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
-            motionDataModel.AddConnectEvent(SubscribeMessage);
+            switch (motionDataModelType)
+            {
+                case MotionDataModelType.Http:
+                    motionDataModel.AddConnectEvent(SubscribeMessage);
+                    break;
+                case MotionDataModelType.Cpp:
+                    Debug.LogError("cpp方式的os通信还没有实现");
+                    break;
+                case MotionDataModelType.Mobile:
+                    _osConnected = true;
+                    break;
+            }
         }
 
         private void SubscribeMessage()

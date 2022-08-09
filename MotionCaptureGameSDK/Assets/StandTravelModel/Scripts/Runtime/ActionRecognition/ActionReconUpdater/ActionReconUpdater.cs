@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using MotionCaptureBasic;
+using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconInstance;
 using StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder;
@@ -27,7 +29,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater
 
         private KeyPointsRecorder keyPointsRecorder;
         private IActionReconInstance reconInstance;
-        private StandTravelModelManager standTravelModelManager;
+        protected StandTravelModelManager standTravelModelManager;
+        protected IMotionDataModel motionDataModel;
 
         private void OnValidate() {
             if(reconInstance != null)
@@ -46,6 +49,14 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater
             InitRecorder();
         }
 
+        public void Start()
+        {
+            if (standTravelModelManager != null)
+            {
+                motionDataModel = standTravelModelManager.motionDataModelReference;
+            }
+        }
+
         protected virtual void Update() {
             if(reconInstance != null)
             {
@@ -57,8 +68,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater
                         ActionDetectionItem actionDetectionItem = null;
                         keyPointsRecorder.GetRecordDatas(out keyPoints, out actionDetectionItem);
 
-                        MotionDataModelHttp.GetInstance().SetIKDataListSimulat(keyPoints);
-                        MotionDataModelHttp.GetInstance().SetSimulatActionDetectionData(actionDetectionItem);
+                        motionDataModel.SetIKDataListSimulat(keyPoints);
+                        //motionDataModel.SetSimulatActionDetectionData(actionDetectionItem);
                     }
 
                     if(reconState == ReconState.Simulat)

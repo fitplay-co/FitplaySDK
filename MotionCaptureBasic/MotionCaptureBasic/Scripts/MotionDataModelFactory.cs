@@ -7,7 +7,8 @@ namespace MotionCaptureBasic
     public enum MotionDataModelType
     {
         Http = 0,
-        Cpp
+        Cpp,
+        Mobile
     }
 
     public class MotionDataModelFactory
@@ -20,6 +21,8 @@ namespace MotionCaptureBasic
                     return MotionDataModelHttp.GetInstance();
                 case MotionDataModelType.Cpp:
                     return null;
+                case MotionDataModelType.Mobile:
+                    return MotionDataModelMobile.GetInstance();
                 default:
                     return null;
             }
