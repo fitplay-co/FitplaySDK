@@ -16,7 +16,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.ActionReconUpdater
         {
             None,
             Simulat,
-            Fake
+            Fake,
+            FromFile
         }
 
         [SerializeField] private bool debug;
