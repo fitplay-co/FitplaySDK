@@ -22,23 +22,32 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
             {
-                var curLeft = isLeft ? walkData.realtimeLeftLeg : walkData.realtimeRightLeg;
+                /* if(walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold())
+                {
+                    Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency + "|||");
+                    Debug.Break();
+                } */
+                return walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold();
+                /* var curLeft = isLeft ? walkData.realtimeLeftLeg : walkData.realtimeRightLeg;
 
                 if(lastLeg != 0 && lastLeg != curLeft)
                 {
-                    if(isRunning)
+                    if(lastLegChange != 0)
                     {
-                        isRunning = Time.time < lastLegChange + getRunThrehold() * 1.1f;
-                    }
-                    else
-                    {
-                        isRunning = Time.time < lastLegChange + getRunThrehold();
+                        if(isRunning)
+                        {
+                            isRunning = Time.time < lastLegChange + getRunThrehold() * 1.1f;
+                        }
+                        else
+                        {
+                            isRunning = Time.time < lastLegChange + getRunThrehold();
+                        }
                     }
 
                     lastLegChange = Time.time;
                 }
                 lastLeg = curLeft;
-                return isRunning;
+                return isRunning; */
             }
         }
 

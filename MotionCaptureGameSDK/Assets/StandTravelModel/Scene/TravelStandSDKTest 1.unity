@@ -162,13 +162,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1264596605, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: reconState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: initialMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: runThrehold
-      value: 0.33
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[0].inSlope

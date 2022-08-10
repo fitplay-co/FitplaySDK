@@ -241,10 +241,10 @@ public class ActionEventDisplayer : MonoBehaviour
 
             var x = 0.3f * Screen.width;
             var y = 0.1f * Screen.height;
-            GUI.Label(new Rect(x, y, 300, 80), strideCacherLeft.GetLeg() + "|" + actionDetectionItem.walk.leftFrequency + "|" + strideCacherLeft.GetStride(), labelStyle);
+            GUI.Label(new Rect(x, y, 500, 80), strideCacherLeft.GetLeg() + "|步频 -> " + actionDetectionItem.walk.leftFrequency + "|" + strideCacherLeft.GetStride(), labelStyle);
 
             x = 0.7f * Screen.width;
-            GUI.Label(new Rect(x, y, 300, 80), strideCacherRight.GetLeg() + "|" + actionDetectionItem.walk.rightFrequency + "|" + strideCacherRight.GetStride(), labelStyle);
+            GUI.Label(new Rect(x, y, 500, 80), strideCacherRight.GetLeg() + "|步频 -> " + actionDetectionItem.walk.rightFrequency + "|" + strideCacherRight.GetStride(), labelStyle);
         }
     }
 }
