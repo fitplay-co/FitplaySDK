@@ -28,7 +28,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     Debug.Break();
                 } */
                 //return walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold();
-                Debug.Log(Time.time - lastLegChange);
                 var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
 
                 if(lastLeg != 0 && lastLeg != curLeft)
