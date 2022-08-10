@@ -1,4 +1,5 @@
 using System;
+using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using StandTravelModel.Scripts.Runtime;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace TurnModel.Scripts
 {
     public class TurnController : MonoBehaviour
     {
-        [SerializeField] public StandTravelModelManager standTravelModelManager;
+        [SerializeField] private StandTravelModelManager standTravelModelManager;
 
         [Header("A < angle < B时，avatar的转向速率从0开始增加")] [SerializeField] [Range(0, 30)]
         public float A = 5;
@@ -28,13 +29,14 @@ namespace TurnModel.Scripts
         [Header("最大转动速度值")] [SerializeField] [Range(0, 200)]
         public float Wmax = 120;
 
-        [Header("速度曲线设定")] public AnimationCurve SpeedCurve;
+        [Header("速度曲线设定")] public AnimationCurve SpeedCurve = AnimationCurve.Linear(0,0, 1,1);
         [HideInInspector] public float angle = 0;
         [HideInInspector] public Turn turnLeftOrRight = Turn.None;
         [HideInInspector] public float turnValue = 0;
 
         [SerializeField] public TurnMode HowToTurn = TurnMode.UseTorsoRotation;
         [SerializeField] public TurnDataType TurnData = TurnDataType.OnlyYshoulder;
+
         private Vector3 leftShoulder;
         private Vector3 rightShoulder;
         private Vector3 leftHip;
@@ -62,19 +64,89 @@ namespace TurnModel.Scripts
             BothYshoulderAndYcrotch
         }
 
-        public void SetStandTravelModelManager(StandTravelModelManager comp)
+        /// <summary>
+        /// 适用于角色直接放在场景中
+        /// </summary>
+        private void Start()
         {
-            standTravelModelManager = comp;
+            standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
         }
 
+        protected void OnEnable()
+        {
+            TurnEventHandler.onLocalPlayerSpawn += OnLocalSpawn;
+        }
+
+        protected void OnDisable()
+        {
+            TurnEventHandler.onLocalPlayerSpawn -= OnLocalSpawn;
+        }
+
+        /// <summary>
+        /// 适用于角色是动态创建出来，并且角色名为"LocalPlayer",StandTravelModelManager在子节点上
+        /// </summary>
+        private void OnLocalSpawn()
+        {
+            if (standTravelModelManager != null) return;
+            standTravelModelManager = GameObject.Find("LocalPlayer").transform
+                .GetComponentInChildren<StandTravelModelManager>();
+        }
+
+        /// <summary>
+        /// 切换转身模式
+        /// </summary>
+        public void SwitchTurnMode()
+        {
+            if (HowToTurn == TurnMode.UseTorsoRotation)
+                HowToTurn = TurnMode.UseLeftAndRight;
+            else
+                HowToTurn = TurnMode.UseTorsoRotation;
+            SetValuesByMode();
+        }
+
+        /// <summary>
+        /// 切换转向控制方式后的参数预设
+        /// </summary>
+        public void SetValuesByMode()
+        {
+            if (HowToTurn == TurnMode.UseLeftAndRight)
+            {
+                A = A_LR;
+                B = B_LR;
+            }
+            else
+            {
+                A = A_FB;
+                B = B_FB;
+            }
+        }
+        
+        /// <summary>
+        /// 切换“躯干转身”后，选择数据源
+        /// </summary>
+        public void SwitchTurnDataMode()
+        {
+            if (HowToTurn == TurnMode.UseTorsoRotation)
+            {
+                if (TurnData == TurnDataType.OnlyYshoulder)
+                {
+                    TurnData = TurnDataType.OnlyYcrotch;
+                }
+                else if (TurnData == TurnDataType.OnlyYcrotch)
+                    TurnData = TurnDataType.BothYshoulderAndYcrotch;
+                else
+                    TurnData = TurnDataType.OnlyYshoulder;
+            }
+        }
+        
         /// <summary>
         /// 模式检测
         /// </summary>
         /// <returns></returns>
         bool IsTraveMode()
         {
-            return (standTravelModelManager != null && standTravelModelManager.Enabled &&
-                    standTravelModelManager.currentMode == MotionMode.Travel);
+            return (standTravelModelManager != null && 
+                    standTravelModelManager.currentMode == MotionMode.Travel);//standTravelModelManager.Enabled &&
         }
 
         /// <summary>
@@ -152,7 +224,8 @@ namespace TurnModel.Scripts
             {
                 //turn right
                 turnValue = (angle - A) / (B - A);
-                turnValue = SpeedCurve.Evaluate(turnValue);
+                if(SpeedCurve.length > 0)
+                    turnValue = SpeedCurve.Evaluate(turnValue);
                 turnLeftOrRight = Turn.Right;
                 Input.MCTurnValue = turnValue;
             }
@@ -160,7 +233,10 @@ namespace TurnModel.Scripts
             {
                 //turn left
                 turnValue = -(angle + A) / (B - A);
-                turnValue = -SpeedCurve.Evaluate(turnValue);
+                if (SpeedCurve.length > 0)
+                    turnValue = -SpeedCurve.Evaluate(turnValue);
+                else
+                    turnValue = -turnValue;
                 turnLeftOrRight = Turn.Left;
                 Input.MCTurnValue = turnValue;
             }
@@ -173,7 +249,7 @@ namespace TurnModel.Scripts
             }
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (IsTraveMode())
             {

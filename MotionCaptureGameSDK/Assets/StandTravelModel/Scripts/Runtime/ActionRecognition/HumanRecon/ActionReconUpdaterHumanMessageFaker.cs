@@ -1,4 +1,5 @@
 using MotionCaptureBasic;
+using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 
@@ -28,13 +29,13 @@ public class ActionReconUpdaterHumanMessageFaker
         stageCount = System.Enum.GetNames(typeof(StageType)).Length;
     }
 
-    public void OnUpdate()
+    public void OnUpdate(IMotionDataModel motionDataModel)
     {
         if(simulatActionDetectionItem == null)
         {
             simulatActionDetectionItem = new ActionDetectionItem();
             simulatActionDetectionItem.walk = new WalkActionItem();
-            MotionDataModelHttp.GetInstance().SetSimulatActionDetectionData(simulatActionDetectionItem);
+            //motionDataModel.SetSimulatActionDetectionData(simulatActionDetectionItem);
         }
 
         timeLine += Time.deltaTime * (speedUp + 1);

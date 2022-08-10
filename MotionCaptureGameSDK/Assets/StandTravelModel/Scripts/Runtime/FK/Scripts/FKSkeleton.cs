@@ -79,7 +79,8 @@ namespace StandTravelModel.Scripts.Runtime.FK.Scripts
 
         private void InitMotionDataModel()
         {
-            motionDataModel = MotionDataModelHttp.GetInstance();
+            var standTravelManager = GetComponent<StandTravelModelManager>();
+            motionDataModel = standTravelManager.motionDataModelReference;
         }
 
         private void InitEFKAnchors()

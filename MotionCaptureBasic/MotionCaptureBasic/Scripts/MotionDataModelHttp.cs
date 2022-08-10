@@ -16,18 +16,13 @@ namespace MotionCaptureBasic
         private ActionDetectionItem simulatActionDetectionItem;
         private HttpProtocolHandler httpProtocolHandler;
         private MotionDataPreprocessor montionDataPreprocessor;
-        private List<Vector3> ikPointsDataList;
+        
         private List<Vector3> ikPointsDataListSimulat;
 
         private MotionDataModelHttp()
         {
             httpProtocolHandler = HttpProtocolHandler.GetInstance();
             montionDataPreprocessor = new MotionDataPreprocessor();
-            ikPointsDataList = new List<Vector3>((int)GameKeyPointsType.Count);
-            for (int i = 0; i < (int) GameKeyPointsType.Count; i++)
-            {
-                ikPointsDataList.Add(Vector3.zero);
-            }
         }
         
         public static MotionDataModelHttp GetInstance()
@@ -100,6 +95,12 @@ namespace MotionCaptureBasic
             if (filteredKeyPoints == null)
             {
                 return null;
+            }
+            
+            List<Vector3> ikPointsDataList = new List<Vector3>((int)GameKeyPointsType.Count);
+            for (int i = 0; i < (int) GameKeyPointsType.Count; i++)
+            {
+                ikPointsDataList.Add(Vector3.zero);
             }
 
             int length = (int) GameKeyPointsType.Count;

@@ -21,7 +21,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon
                     humanMessageFaker = new ActionReconUpdaterHumanMessageFaker();
                 }
 
-                humanMessageFaker.OnUpdate();
+                humanMessageFaker.OnUpdate(motionDataModel);
             }
         }
 
@@ -46,7 +46,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon
             {
                 simulatActionDetectionItem = new ActionDetectionItem();
                 simulatActionDetectionItem.walk = new WalkActionItem();
-                MotionDataModelHttp.GetInstance().SetSimulatActionDetectionData(simulatActionDetectionItem);
+                //motionDataModel.SetSimulatActionDetectionData(simulatActionDetectionItem);
             }
 
             if(actionId == ActionId.LegDownLeft)

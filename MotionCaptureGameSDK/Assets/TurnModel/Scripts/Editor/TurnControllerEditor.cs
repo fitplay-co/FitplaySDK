@@ -1,10 +1,9 @@
-using StandTravelModel.Scripts.Runtime;
 using UnityEngine;
 using UnityEditor;
 
 namespace TurnModel.Scripts.Editor
 {
-    [CustomEditor(typeof(TurnController)), DisallowMultipleComponent, CanEditMultipleObjects]
+    [CustomEditor(typeof(TurnController))]
     public class TurnControllerEditor : UnityEditor.Editor
     {
         private TurnController script;
@@ -34,7 +33,6 @@ namespace TurnModel.Scripts.Editor
             if (!serializedObject.isEditingMultipleObjects)
             {
                 GUI.backgroundColor = Color.blue;
-                script.standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
                 if (script.HowToTurn == TurnController.TurnMode.UseLeftAndRight)
                 {
                     GUILayout.Button($"“左右倾斜”转向模式", GUILayout.Height(40));
@@ -72,23 +70,16 @@ namespace TurnModel.Scripts.Editor
                 EditorGUILayout.Space();
                 if (script.HowToTurn == TurnController.TurnMode.UseLeftAndRight)
                 {
-                    script.A = script.A_LR;
+                    script.SetValuesByMode();
                     script.A = EditorGUILayout.Slider("最小检测角度:", script.A, 0, 100);
-                    script.A_LR = script.A;
                     EditorGUILayout.Space();
-                    script.B = script.B_LR;
                     script.B = EditorGUILayout.Slider("最大检测角度:", script.B, 0, 100);
-                    script.B_LR = script.B;
                 }
                 else if (script.HowToTurn == TurnController.TurnMode.UseTorsoRotation)
                 {
-                    script.A = script.A_FB;
                     script.A = EditorGUILayout.Slider("最小检测角度:", script.A, 0, 100);
-                    script.A_FB = script.A;
                     EditorGUILayout.Space();
-                    script.B = script.B_FB;
                     script.B = EditorGUILayout.Slider("最大检测角度:", script.B, 0, 100);
-                    script.B_FB = script.B;
                 }
 
                 EditorGUILayout.Space();

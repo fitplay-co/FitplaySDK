@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/StandTravelModel/Scene/TravelStandSDKTest_Mobile.unity
+    guid: e64d046aa718b5f4d8b5d3c555f46d07
   m_configObjects: {}

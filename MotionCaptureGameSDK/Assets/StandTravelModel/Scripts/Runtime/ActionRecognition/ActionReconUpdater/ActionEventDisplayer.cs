@@ -1,4 +1,6 @@
+using System;
 using MotionCaptureBasic;
+using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using StandTravelModel.Scripts.Runtime.ActionRecognition;
@@ -18,9 +20,19 @@ public class ActionEventDisplayer : MonoBehaviour
     private StepStrideCacher strideCacherRight = new StepStrideCacher();
     private ActionDetectionItem actionDetection;
     private StandTravelModelManager standTravelManager;
+    private IMotionDataModel motionDataModel;
+
+    public void Start()
+    {
+        if(standTravelManager == null)
+        {
+            standTravelManager = charAnim.GetComponent<StandTravelModelManager>();
+            motionDataModel = standTravelManager.motionDataModelReference;
+        }
+    }
 
     private void OnGUI() {
-        actionDetection = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+        actionDetection = motionDataModel.GetActionDetectionData();
 
         GetActionIds(out leftId, out rightId);
 
@@ -206,11 +218,6 @@ public class ActionEventDisplayer : MonoBehaviour
 
     private void DrawStepProgress()
     {
-        if(standTravelManager == null)
-        {
-            standTravelManager = charAnim.GetComponent<StandTravelModelManager>();
-        }
-
         var stepProgress = standTravelManager.stepSmoother.GetStepProgress();
         var targetProgress = standTravelManager.stepSmoother.GetTargetProgress();
 
