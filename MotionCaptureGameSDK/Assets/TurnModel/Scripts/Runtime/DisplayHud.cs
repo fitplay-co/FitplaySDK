@@ -1,3 +1,4 @@
+using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Scripts.Runtime;
 using UnityEngine;
 
@@ -37,6 +38,16 @@ namespace TurnModel.Scripts.TestDemo
                     }
                 }
                     
+            }
+
+            if(GUI.Button(new Rect(20, startYOffset + 300, 200, 50), $"使用最新OS"))
+            {
+                WalkActionItem.useRealtimeData = true;
+            }
+
+            if(GUI.Button(new Rect(20, startYOffset + 360, 200, 50), $"使用之前OS"))
+            {
+                WalkActionItem.useRealtimeData = false;
             }
         }
     }

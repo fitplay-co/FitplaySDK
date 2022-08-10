@@ -432,6 +432,7 @@ namespace MotionCaptureBasic.OSConnector
     [Serializable]
     public class WalkActionItem
     {
+        public static bool useRealtimeData;
         public int legUp;
         public int frequency;
         public float strength;
@@ -453,22 +454,24 @@ namespace MotionCaptureBasic.OSConnector
 
         public int GetLeftLeg()
         {
-            return leftLeg;
+            return useRealtimeData ? realtimeLeftLeg : leftLeg;
         }
 
         public int GetRightLeg()
         {
-            return rightLeg;
+            return useRealtimeData ? realtimeRightLeg : rightLeg;
         }
 
         public void SetLeftLeg(int value)
         {
             leftLeg = value;
+            realtimeLeftLeg = value;
         }
 
         public void SetRightLeg(int value)
         {
             rightLeg = value;
+            realtimeRightLeg = value;
         }
     }
     
