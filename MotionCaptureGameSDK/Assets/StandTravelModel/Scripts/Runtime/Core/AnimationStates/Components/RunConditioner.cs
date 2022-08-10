@@ -27,8 +27,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency + "|||");
                     Debug.Break();
                 } */
-                return walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold();
-                /* var curLeft = isLeft ? walkData.realtimeLeftLeg : walkData.realtimeRightLeg;
+                //return walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold();
+                Debug.Log(Time.time - lastLegChange);
+                var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
 
                 if(lastLeg != 0 && lastLeg != curLeft)
                 {
@@ -47,7 +48,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     lastLegChange = Time.time;
                 }
                 lastLeg = curLeft;
-                return isRunning; */
+                return isRunning;
             }
         }
 

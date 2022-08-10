@@ -172,7 +172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: runThrehold
-      value: 1.4
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[0].inSlope
@@ -1102,7 +1102,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553991531
 GameObject:
@@ -1416,6 +1416,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  motionDataModelType: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -4088,6 +4089,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  motionDataModelType: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2

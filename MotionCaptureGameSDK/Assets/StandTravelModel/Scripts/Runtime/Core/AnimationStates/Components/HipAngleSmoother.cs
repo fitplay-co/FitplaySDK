@@ -12,7 +12,7 @@ public class HipAngleSmoother
     {
         if(this.isLifting != isLifting)
         {
-            this.cacheSpeed = 6f;
+            this.cacheSpeed = 10f;
         }
         this.isLifting = isLifting;
     }
