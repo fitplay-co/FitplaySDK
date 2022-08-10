@@ -450,6 +450,26 @@ namespace MotionCaptureBasic.OSConnector
         public float stepLen;
         public int realtimeLeftLeg;
         public int realtimeRightLeg;
+
+        public int GetLeftLeg()
+        {
+            return leftLeg;
+        }
+
+        public int GetRightLeg()
+        {
+            return rightLeg;
+        }
+
+        public void SetLeftLeg(int value)
+        {
+            leftLeg = value;
+        }
+
+        public void SetRightLeg(int value)
+        {
+            rightLeg = value;
+        }
     }
     
     [Serializable]

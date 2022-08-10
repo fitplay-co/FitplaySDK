@@ -164,32 +164,32 @@ public class ActionEventDisplayer : MonoBehaviour
 
         if(actionDetection != null && actionDetection.walk != null)
         {
-            if(actionDetection.walk.realtimeLeftLeg == -1)
+            if(actionDetection.walk.GetLeftLeg() == -1)
             {
                 left = ActionId.LegDownLeft;
             }
 
-            if(actionDetection.walk.realtimeLeftLeg == 1)
+            if(actionDetection.walk.GetLeftLeg() == 1)
             {
                 left = ActionId.LegUpLeft;
             }
 
-            if(actionDetection.walk.realtimeLeftLeg == 0)
+            if(actionDetection.walk.GetLeftLeg() == 0)
             {
                 left = ActionId.LegIdleLeft;
             }
 
-            if(actionDetection.walk.realtimeRightLeg == -1)
+            if(actionDetection.walk.GetRightLeg() == -1)
             {
                 right = ActionId.LegDownRight;
             }
 
-            if(actionDetection.walk.realtimeRightLeg == 1)
+            if(actionDetection.walk.GetRightLeg() == 1)
             {
                 right = ActionId.LegUpRight;
             }
 
-            if(actionDetection.walk.realtimeRightLeg == 0)
+            if(actionDetection.walk.GetRightLeg() == 0)
             {
                 right = ActionId.LegIdleRight;
             }
@@ -239,8 +239,8 @@ public class ActionEventDisplayer : MonoBehaviour
     {
         if(actionDetectionItem != null)
         {
-            strideCacherLeft.OnUpdate(actionDetectionItem.walk.realtimeLeftLeg, actionDetectionItem.walk.leftStepLength);
-            strideCacherRight.OnUpdate(actionDetectionItem.walk.realtimeRightLeg, actionDetectionItem.walk.rightStepLength);
+            strideCacherLeft.OnUpdate(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.leftStepLength);
+            strideCacherRight.OnUpdate(actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.rightStepLength);
 
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 32;

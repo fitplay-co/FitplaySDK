@@ -222,10 +222,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
-			if(motionModel != null)
-            {
-                motionModel.UpdateFromMono();
-            }
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {

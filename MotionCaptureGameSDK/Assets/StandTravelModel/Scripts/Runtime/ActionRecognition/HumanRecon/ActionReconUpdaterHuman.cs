@@ -51,32 +51,32 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon
 
             if(actionId == ActionId.LegDownLeft)
             {
-                simulatActionDetectionItem.walk.realtimeLeftLeg = -1;
+                simulatActionDetectionItem.walk.SetLeftLeg(-1);
             }
 
             if(actionId == ActionId.LegUpLeft)
             {
-                simulatActionDetectionItem.walk.realtimeLeftLeg = 1;
+                simulatActionDetectionItem.walk.SetLeftLeg(1);
             }
 
             if(actionId == ActionId.LegIdleLeft)
             {
-                simulatActionDetectionItem.walk.realtimeLeftLeg = 0;
+                simulatActionDetectionItem.walk.SetLeftLeg(0);
             }
 
             if(actionId == ActionId.LegDownRight)
             {
-                simulatActionDetectionItem.walk.realtimeRightLeg = -1;
+                simulatActionDetectionItem.walk.SetRightLeg(-1);
             }
 
             if(actionId == ActionId.LegUpRight)
             {
-                simulatActionDetectionItem.walk.realtimeRightLeg = 1;
+                simulatActionDetectionItem.walk.SetRightLeg(1);
             }
 
             if(actionId == ActionId.LegIdleRight)
             {
-                simulatActionDetectionItem.walk.realtimeRightLeg = 0;
+                simulatActionDetectionItem.walk.SetRightLeg(0);
             }
         }
     }

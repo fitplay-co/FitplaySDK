@@ -44,19 +44,19 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 if (!isRunReady)
                 {
                     travelOwner.isRun = false;
-                    if (actionDetectionData.walk.realtimeLeftLeg != 0)
+                    if (actionDetectionData.walk.GetLeftLeg() != 0)
                     {
                         OnTransitionToIdleEnd(AnimationList.LeftStep);
                         return;
                     }
                 
-                    if (actionDetectionData.walk.realtimeRightLeg != 0)
+                    if (actionDetectionData.walk.GetRightLeg() != 0)
                     {
                         OnTransitionToIdleEnd(AnimationList.RightStep);
                         return;
                     }
 
-                    if (actionDetectionData.walk.realtimeLeftLeg == 0 && actionDetectionData.walk.realtimeRightLeg == 0)
+                    if (actionDetectionData.walk.GetLeftLeg() == 0 && actionDetectionData.walk.GetRightLeg() == 0)
                     {
                         OnTransitionToIdleEnd(AnimationList.Idle);
                         return;

@@ -63,13 +63,13 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
                     return;
                 }
 
-                if (actionDetectionData.walk.realtimeLeftLeg != 0)
+                if (actionDetectionData.walk.GetLeftLeg() != 0)
                 {
                     travelOwner.ChangeState(AnimationList.LeftStep);
                     return;
                 }
                 
-                if (actionDetectionData.walk.realtimeRightLeg != 0)
+                if (actionDetectionData.walk.GetRightLeg() != 0)
                 {
                     travelOwner.ChangeState(AnimationList.RightStep);
                     return;

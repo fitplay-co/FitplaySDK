@@ -63,8 +63,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if(actionDetectionItem != null && actionDetectionItem.walk != null)
             {
-                var leftLeg = actionDetectionItem.walk.realtimeLeftLeg;
-                var rightLeg = actionDetectionItem.walk.realtimeRightLeg;
+                var leftLeg = actionDetectionItem.walk.GetLeftLeg();
+                var rightLeg = actionDetectionItem.walk.GetRightLeg();
                 travelOwner.selfAnimator.SetInteger(animIdLegLeft, leftLeg);
                 travelOwner.selfAnimator.SetInteger(animIdLegRight, rightLeg);
 
@@ -103,9 +103,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 var angleDeltaLeft = 0f;
                 var angleDeltaRight = 0f;
-                SetLegParameters(actionDetectionItem.walk.realtimeLeftLeg, actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDeltaLeft, isRun);
-                SetLegParameters(actionDetectionItem.walk.realtimeRightLeg, actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDeltaRight, isRun);
-                SetStepStateParameters(actionDetectionItem.walk.realtimeLeftLeg, actionDetectionItem.walk.realtimeRightLeg, actionDetectionItem.walk.leftHipAng, actionDetectionItem.walk.rightHipAng, isRun);
+                SetLegParameters(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.leftHipAng, animIdStepProgressUpLeft, animIdStepProgressDownLeft, true, out angleDeltaLeft, isRun);
+                SetLegParameters(actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.rightHipAng, animIdStepProgressUpRight, animIdStepProgressDownRight, false, out angleDeltaRight, isRun);
+                SetStepStateParameters(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.leftHipAng, actionDetectionItem.walk.rightHipAng, isRun);
             }
         }
 

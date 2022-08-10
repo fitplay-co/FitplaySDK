@@ -188,10 +188,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             return stateMachine.PrevState;
         }
 
-        public virtual void UpdateFromMono()
-        {
-        }
-
         public Animator GetAnimator()
         {
             return selfTransform.GetComponent<Animator>();
