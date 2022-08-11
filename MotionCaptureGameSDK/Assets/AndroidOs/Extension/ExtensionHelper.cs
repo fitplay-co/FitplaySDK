@@ -64,13 +64,12 @@ namespace AndroidOs
         /// <summary>
         /// 订阅Action Detection数据
         /// </summary>
-        /// <param name="msg">发送的字符串数据</param>
-        public static void SubscribeActionDetection(string msg)
+        public static void SubscribeActionDetection()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             if(_pluginInstance != null)
             {
-                _pluginInstance.Call("SubscribeActionDetection", msg);
+                _pluginInstance.Call("SubscribeActionDetection");
                 //Debug.Log($"Send Data SubscribeActionDetection!");
             }
 #endif
@@ -79,13 +78,12 @@ namespace AndroidOs
         /// <summary>
         /// 订阅Ground Location数据
         /// </summary>
-        /// <param name="msg">发送的字符串数据</param>
-        public static void SubscribeGroundLocation(string msg)
+        public static void SubscribeGroundLocation()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             if(_pluginInstance != null)
             {
-                _pluginInstance.Call("SubscribeGroundLocation", msg);
+                _pluginInstance.Call("SubscribeGroundLocation");
                 //Debug.Log($"Send Data SubscribeGroundLocation!");
             }
 #endif
@@ -95,13 +93,12 @@ namespace AndroidOs
         /// <summary>
         /// 订阅Fitting数据
         /// </summary>
-        /// <param name="msg">发送的字符串数据</param>
-        public static void SubscribeFitting(string msg)
+        public static void SubscribeFitting()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             if(_pluginInstance != null)
             {
-                _pluginInstance.Call("SubscribeFitting", msg);
+                _pluginInstance.Call("SubscribeFitting");
                 //Debug.Log($"Send Data SubscribeFitting!");
             }
 #endif

@@ -15,6 +15,14 @@ namespace AndroidOs
         {
             ExtensionHelper.Initialize();
             ExtensionHelper.InitOsDataHandler(OsDataReceiver);
+            Invoke(nameof(SubscribeMotions), 1.0f);
+        }
+
+        private void SubscribeMotions()
+        {
+            ExtensionHelper.SubscribeActionDetection();
+            ExtensionHelper.SubscribeGroundLocation();
+            ExtensionHelper.SubscribeFitting();
         }
 
         // Update is called once per frame
@@ -22,19 +30,19 @@ namespace AndroidOs
         {
             if (GUI.Button(new Rect(50, startY, 200, 50), "订阅AC数据"))
             {
-                ExtensionHelper.SubscribeActionDetection(null);
+                ExtensionHelper.SubscribeActionDetection();
                 Debug.Log("发送订阅数据:{SubscribeActionDetection}");
             }
 
             if (GUI.Button(new Rect(50, startY + 60, 200, 50), "订阅Ground数据"))
             {
-                ExtensionHelper.SubscribeGroundLocation(null);
+                ExtensionHelper.SubscribeGroundLocation();
                 Debug.Log("发送订阅数据:{SubscribeGroundLocation}");
             }
 
             if (GUI.Button(new Rect(50, startY + 120, 200, 50), "订阅Fitting数据"))
             {
-                ExtensionHelper.SubscribeFitting(null);
+                ExtensionHelper.SubscribeFitting();
                 Debug.Log("发送订阅数据:{SubscribeFitting}");
             }
         }
