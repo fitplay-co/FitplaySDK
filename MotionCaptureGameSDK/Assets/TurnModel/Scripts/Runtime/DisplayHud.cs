@@ -7,7 +7,10 @@ namespace TurnModel.Scripts.TestDemo
     public class DisplayHud : MonoBehaviour
     {
         [SerializeField] private TurnController turnController;
-        private int startYOffset =320;
+        [SerializeField] private StandTravelModelManager standTravelModelManager;
+
+        private int startYOffset = 320;
+        private bool dirty;
 
         public void OnGUI()
         {
@@ -48,6 +51,33 @@ namespace TurnModel.Scripts.TestDemo
             if(GUI.Button(new Rect(20, startYOffset + 360, 200, 50), $"使用之前OS"))
             {
                 WalkActionItem.useRealtimeData = false;
+            }
+
+            GUI.Label(new Rect(20, startYOffset + 430, 300, 50), $"走跑切换阈值 " + standTravelModelManager.GetRunThrehold().ToString("0.000"));
+
+            var runThrehold = GUI.HorizontalSlider(new Rect(20, startYOffset + 460, 200, 50), standTravelModelManager.GetRunThrehold(), 0, 1);
+
+            if(runThrehold != standTravelModelManager.GetRunThrehold())
+            {
+                dirty = true;
+                standTravelModelManager.SetRunThrehold(runThrehold);
+            }
+
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 500, 300, 50), $"保存"))
+            {
+                dirty = false;
+                standTravelModelManager.SerializeParams();
+            }
+
+            var useFrequencyCur = standTravelModelManager.GetUseFrequency();
+            var useSpeedCur = !standTravelModelManager.GetUseFrequency();
+            var useFrequency = GUI.Toggle(new Rect(250, startYOffset + 430, 80, 50), useFrequencyCur, "使用步频");
+            var useSpeed = GUI.Toggle(new Rect(250, startYOffset + 450, 80, 50), useSpeedCur, "使用速度");
+
+            if(useFrequency != useFrequencyCur || useSpeed != useSpeedCur)
+            {
+                dirty = true;
+                standTravelModelManager.SetUseFrequency(useFrequency);
             }
         }
     }

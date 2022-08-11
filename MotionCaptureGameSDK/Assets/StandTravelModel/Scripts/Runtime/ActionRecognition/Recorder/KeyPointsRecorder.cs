@@ -176,33 +176,12 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         private void LoadKeyPointsList()
         {
-            using(FileStream fileStream = new FileStream(GetFilePath(), FileMode.OpenOrCreate))
-            {
-                using(StreamReader streamReader = new StreamReader(fileStream))
-                {
-                    var json = streamReader.ReadToEnd();
-                    deContainer = JsonConvert.DeserializeObject<PointsContainer>(json);
-                }
-            }
+            deContainer = JsonHelper.Deserialize<PointsContainer>(GetFilePath());
         }
 
         private void DOOutputKeyPointsList(PointsContainer container)
         {
-            using(FileStream fileStream = new FileStream(GetFilePath(), FileMode.Create))
-            {
-                using(StreamWriter streamWriter = new StreamWriter(fileStream))
-                {
-                    streamWriter.Write(
-                        JsonConvert.SerializeObject(
-                            container,
-                            new JsonSerializerSettings()
-                            { 
-                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                            }
-                        )
-                    );
-                }
-            }
+            JsonHelper.Serialize<PointsContainer>(GetFilePath(), container);
         }
     }
 }
