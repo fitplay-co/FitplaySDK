@@ -55,7 +55,7 @@ namespace TurnModel.Scripts.TestDemo
 
             GUI.Label(new Rect(20, startYOffset + 435, 300, 50), $"走跑切换阈值 " + standTravelModelManager.GetRunThrehold().ToString("0.000"));
 
-            var runThrehold = GUI.HorizontalSlider(new Rect(20, startYOffset + 460, 200, 50), standTravelModelManager.GetRunThrehold(), 0, 4);
+            var runThrehold = GUI.HorizontalSlider(new Rect(20, startYOffset + 460, 200, 20), standTravelModelManager.GetRunThrehold(), 0, 4);
             if(runThrehold != standTravelModelManager.GetRunThrehold())
             {
                 dirty = true;
@@ -64,17 +64,11 @@ namespace TurnModel.Scripts.TestDemo
 
             GUI.Label(new Rect(20, startYOffset + 485, 300, 50), $"速度缩放倍数 " + standTravelModelManager.GetRunSpeedScale().ToString("0.000"));
 
-            var speedScale = GUI.HorizontalSlider(new Rect(20, startYOffset + 510, 200, 50), standTravelModelManager.GetRunSpeedScale(), 0, 10);
+            var speedScale = GUI.HorizontalSlider(new Rect(20, startYOffset + 510, 200, 20), standTravelModelManager.GetRunSpeedScale(), 0, 10);
             if(speedScale != standTravelModelManager.GetRunSpeedScale())
             {
                 dirty = true;
                 standTravelModelManager.SetRunSpeedScale(speedScale);
-            }
-
-            if(dirty && GUI.Button(new Rect(20, startYOffset + 530, 300, 50), $"保存"))
-            {
-                dirty = false;
-                standTravelModelManager.SerializeParams();
             }
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
@@ -86,6 +80,12 @@ namespace TurnModel.Scripts.TestDemo
             {
                 dirty = true;
                 standTravelModelManager.SetUseFrequency(useFrequency);
+            }
+
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 530, 300, 50), $"保存"))
+            {
+                dirty = false;
+                standTravelModelManager.SerializeParams();
             }
         }
     }
