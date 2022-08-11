@@ -89,6 +89,11 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             //override the root motion
         }
 
+        public float GetRunSpeedScale()
+        {
+            return standTravelModelManager.GetRunSpeedScale();
+        }
+
         private void UpdateVerticalMove(float dt)
         {
             if (transform.position.y - standTravelModelManager.groundHeight > groundedOffset)

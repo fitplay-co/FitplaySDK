@@ -53,17 +53,25 @@ namespace TurnModel.Scripts.TestDemo
                 WalkActionItem.useRealtimeData = false;
             }
 
-            GUI.Label(new Rect(20, startYOffset + 430, 300, 50), $"走跑切换阈值 " + standTravelModelManager.GetRunThrehold().ToString("0.000"));
+            GUI.Label(new Rect(20, startYOffset + 435, 300, 50), $"走跑切换阈值 " + standTravelModelManager.GetRunThrehold().ToString("0.000"));
 
-            var runThrehold = GUI.HorizontalSlider(new Rect(20, startYOffset + 460, 200, 50), standTravelModelManager.GetRunThrehold(), 0, 1);
-
+            var runThrehold = GUI.HorizontalSlider(new Rect(20, startYOffset + 460, 200, 50), standTravelModelManager.GetRunThrehold(), 0, 4);
             if(runThrehold != standTravelModelManager.GetRunThrehold())
             {
                 dirty = true;
                 standTravelModelManager.SetRunThrehold(runThrehold);
             }
 
-            if(dirty && GUI.Button(new Rect(20, startYOffset + 500, 300, 50), $"保存"))
+            GUI.Label(new Rect(20, startYOffset + 485, 300, 50), $"速度缩放倍数 " + standTravelModelManager.GetRunSpeedScale().ToString("0.000"));
+
+            var speedScale = GUI.HorizontalSlider(new Rect(20, startYOffset + 510, 200, 50), standTravelModelManager.GetRunSpeedScale(), 0, 10);
+            if(speedScale != standTravelModelManager.GetRunSpeedScale())
+            {
+                dirty = true;
+                standTravelModelManager.SetRunSpeedScale(speedScale);
+            }
+
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 530, 300, 50), $"保存"))
             {
                 dirty = false;
                 standTravelModelManager.SerializeParams();
@@ -71,8 +79,8 @@ namespace TurnModel.Scripts.TestDemo
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
-            var useFrequency = GUI.Toggle(new Rect(250, startYOffset + 430, 80, 50), useFrequencyCur, "使用步频");
-            var useSpeed = GUI.Toggle(new Rect(250, startYOffset + 450, 80, 50), useSpeedCur, "使用速度");
+            var useFrequency = GUI.Toggle(new Rect(250, startYOffset + 470, 80, 50), useFrequencyCur, "使用步频切换");
+            var useSpeed = GUI.Toggle(new Rect(250, startYOffset + 490, 80, 50), useSpeedCur, "使用速度切换");
 
             if(useFrequency != useFrequencyCur || useSpeed != useSpeedCur)
             {

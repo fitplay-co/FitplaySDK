@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0
   progressLeftEnd: 0.32
@@ -78,6 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0
   progressLeftEnd: 0.37
@@ -138,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedScaleFromPanel: 1
   speedScale: 2
   progressLeftStart: 0.75
   progressLeftEnd: 0.25
@@ -805,6 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0
   progressLeftEnd: 0.32
@@ -1275,6 +1279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0
   progressLeftEnd: 0.37
@@ -1861,6 +1866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0.75
   progressLeftEnd: 0.25

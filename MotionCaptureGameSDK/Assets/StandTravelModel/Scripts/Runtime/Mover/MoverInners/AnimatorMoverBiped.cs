@@ -108,5 +108,10 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
         {
             moverReactor.OnAnimatorMoveStart();
         }
+
+        protected float GetRunSpeedScale()
+        {
+            return moverReactor.GetRunSpeedScale();
+        }
     }
 }

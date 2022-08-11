@@ -718,6 +718,16 @@ namespace StandTravelModel.Scripts.Runtime
             }
         }
 
+        public float GetRunSpeedScale()
+        {
+            return paramsLoader.GetRunSpeedScale();
+        }
+
+        public void SetRunSpeedScale(float value)
+        {
+            paramsLoader.SetRunSpeedScale(value);
+        }
+
         private void InitParamsLoader()
         {
             paramsLoader = new StandTravelParamsLoader();

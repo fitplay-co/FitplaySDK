@@ -42,6 +42,16 @@ public class StandTravelParamsLoader
         standTravelParams.useFrequency = value;
     }
 
+    public float GetRunSpeedScale()
+    {
+        return standTravelParams.runSpeedScale;
+    }
+
+    public void SetRunSpeedScale(float value)
+    {
+        standTravelParams.runSpeedScale = value;
+    }
+
     private string GetFilePath()
     {
         return Application.persistentDataPath + fileName;
