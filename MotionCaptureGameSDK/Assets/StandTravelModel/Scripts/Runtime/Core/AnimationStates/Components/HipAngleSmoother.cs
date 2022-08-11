@@ -66,7 +66,7 @@ public class HipAngleSmoother
 
         //var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f * (isRun ? 0.2f : 1);
         //var percent = isLifting ? cacheSpeed : cacheSpeed * 0.85f;
-        var percent = isLifting ? cacheSpeed * 1.25f : cacheSpeed;
+        var percent = isLifting ? cacheSpeed * 1.25f : cacheSpeed * (isRun ? 0.5f : 1);
         angleCache = Mathf.Lerp(angleCache, target, Time.deltaTime * cacheSpeed);
     }
 
