@@ -25,6 +25,7 @@ namespace AndroidOs
             ExtensionHelper.SubscribeFitting();
         }
 
+        /*
         // Update is called once per frame
         void OnGUI()
         {
@@ -45,6 +46,6 @@ namespace AndroidOs
                 ExtensionHelper.SubscribeFitting();
                 Debug.Log("发送订阅数据:{SubscribeFitting}");
             }
-        }
+        }*/
     }
 }
