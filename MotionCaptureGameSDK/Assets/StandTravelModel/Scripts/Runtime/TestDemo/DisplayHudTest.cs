@@ -44,7 +44,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             }
 
             var actionData = motionDataModel.GetActionDetectionData();
-            if (actionData != null)
+            if (actionData?.walk != null)
             {
                 _currentOsSR = actionData.walk.stepRate;
                 _currentOsSL = actionData.walk.stepLen;

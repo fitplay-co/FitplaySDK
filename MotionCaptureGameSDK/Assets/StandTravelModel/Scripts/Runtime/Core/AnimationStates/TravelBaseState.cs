@@ -19,7 +19,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         {
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
 
-            if (actionDetectionData.walk != null)
+            if (actionDetectionData != null && actionDetectionData.walk != null)
             {
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
