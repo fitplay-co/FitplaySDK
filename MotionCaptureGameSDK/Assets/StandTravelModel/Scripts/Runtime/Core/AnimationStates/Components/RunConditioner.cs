@@ -12,24 +12,38 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             private bool isRunning;
             private int lastLeg;
             private float lastLegChange;
+            private Func<bool> useFrequencey;
             private Func<float> getRunThrehold;
 
-            public RunCacher(bool isLeft, Func<float> getRunThrehold)
+            public RunCacher(bool isLeft, Func<float> getRunThrehold, Func<bool> useFrequencey)
             {
                 this.isLeft = isLeft;
+                this.useFrequencey = useFrequencey;
                 this.getRunThrehold = getRunThrehold;
             }
 
             public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
             {
-                /* if(walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold())
+                if(useFrequencey())
                 {
-                    Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency + "|||");
-                    Debug.Break();
-                } */
-                //return walkData.leftFrequency > getRunThrehold() || walkData.rightFrequency > getRunThrehold();
-                var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
+                    return IsEnterRunReadyByFrequency(walkData, debug);
+                }
+                else
+                {
+                    return IsEnterRunReadyBySpeed(walkData, debug);
+                }
+            }
 
+            private bool IsEnterRunReadyBySpeed(WalkActionItem walkData, bool debug)
+            {
+                var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
+                var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
+                return frequency * stepLength > getRunThrehold();
+            }
+
+            private bool IsEnterRunReadyByFrequency(WalkActionItem walkData, bool debug)
+            {
+                var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
                 if(lastLeg != 0 && lastLeg != curLeft)
                 {
                     if(lastLegChange != 0)
@@ -56,10 +70,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private RunCacher cacherRight;
         private StepStrideCacher strideCacher;
 
-        public RunConditioner(Func<float> getRunThrehold, StepStrideCacher strideCacher)
+        public RunConditioner(Func<float> getRunThrehold, Func<bool> useFrequencey, StepStrideCacher strideCacher)
         {
-            this.cacherLeft = new RunCacher(true, getRunThrehold);
-            this.cacherRight = new RunCacher(false, getRunThrehold);
+            this.cacherLeft = new RunCacher(true, getRunThrehold, useFrequencey);
+            this.cacherRight = new RunCacher(false, getRunThrehold, useFrequencey);
             this.strideCacher = strideCacher;
         }
 

@@ -5,6 +5,7 @@ namespace StandTravelModel.Scripts.Runtime.Mover
 {
     public class AnimatorMoverStepBehaviourDualFoot : AnimatorMoverStepBehaviour
     {
+        [SerializeField] private bool speedScaleFromPanel;
         [SerializeField] private float speedScale;
         [SerializeField] private float progressLeftStart;
         [SerializeField] private float progressLeftEnd;
@@ -13,7 +14,7 @@ namespace StandTravelModel.Scripts.Runtime.Mover
 
         protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
         {
-            return new AnimatorMoverBipedStepProgress(animator.transform, progressLeftStart, progressLeftEnd, compensators, speedScale);
+            return new AnimatorMoverBipedStepProgress(animator.transform, progressLeftStart, progressLeftEnd, compensators, speedScale, speedScaleFromPanel);
         }
     }
 }

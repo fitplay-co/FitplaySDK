@@ -54,7 +54,7 @@ namespace StandTravelModel.Scripts.Runtime
         public Transform selfTransform;
         public StepStateSmoother stepSmoother;
         public StriderBiped striderBiped;
-        public float runThrehold = 4;
+        public StandTravelParamsLoader paramsLoader;
         public float strideScaleRun = 1;
         public float strideScaleWalk = 1;
 #if USE_FK_LOCAL_ROTATION
@@ -173,6 +173,7 @@ namespace StandTravelModel.Scripts.Runtime
             Application.targetFrameRate = 60;
             _initPosition = this.transform.position;
 
+            InitParamsLoader();
             InitMotionDataModel();
             InitModelIKController();
             InitAnchorController();
@@ -423,6 +424,31 @@ namespace StandTravelModel.Scripts.Runtime
             return keyPointsList;
         }
 
+        public float GetRunThrehold()
+        {
+            return paramsLoader.GetRunThrehold();
+        }
+
+        public void SetRunThrehold(float value)
+        {
+            paramsLoader.SetRunThrehold(value);
+        }
+
+        public bool GetUseFrequency()
+        {
+            return paramsLoader.GetUseFrequency();
+        }
+
+        public void SetUseFrequency(bool value)
+        {
+            paramsLoader.SetUseFrequency(value);
+        }
+
+        public void SerializeParams()
+        {
+            paramsLoader.Serialize();
+        }
+
         private void ChangeIKModelWeight(int weight)
         {
             modelIKController.ChangeLowerBodyIKWeight(weight);
@@ -486,7 +512,7 @@ namespace StandTravelModel.Scripts.Runtime
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
                 motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped,
-                () => runThrehold, () => strideScaleWalk, () => strideScaleRun
+                () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency()
             );
         }
 
@@ -690,6 +716,22 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 return Vector3.zero;
             }
+        }
+
+        public float GetRunSpeedScale()
+        {
+            return paramsLoader.GetRunSpeedScale();
+        }
+
+        public void SetRunSpeedScale(float value)
+        {
+            paramsLoader.SetRunSpeedScale(value);
+        }
+
+        private void InitParamsLoader()
+        {
+            paramsLoader = new StandTravelParamsLoader();
+            paramsLoader.Deserialize();
         }
     }
 }

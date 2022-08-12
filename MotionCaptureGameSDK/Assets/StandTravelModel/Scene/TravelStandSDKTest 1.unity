@@ -1225,6 +1225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3227258475764715730, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
+      propertyPath: standTravelModelManager
+      value: 
+      objectReference: {fileID: 1652211979}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b57370c9078daf4b90d66c14782c4e2, type: 3}
 --- !u!4 &1592167537 stripped

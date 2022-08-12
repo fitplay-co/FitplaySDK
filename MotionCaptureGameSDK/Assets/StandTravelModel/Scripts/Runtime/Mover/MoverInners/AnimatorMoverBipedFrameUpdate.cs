@@ -8,15 +8,17 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
         private float leftFootStart;
         private float leftFootEnd;
         private int animIdStepProgress;
+        private bool speedScaleFromPanel;
         private Animator animator;
         private AnimatorMoverCompensator[] compensators;
 
-        public AnimatorMoverBipedStepProgress(Transform transform, float leftFootStart, float leftFootEnd, AnimatorMoverCompensator[] compensators, float speedScale) : base(transform)
+        public AnimatorMoverBipedStepProgress(Transform transform, float leftFootStart, float leftFootEnd, AnimatorMoverCompensator[] compensators, float speedScale, bool speedScaleFromPanel) : base(transform)
         {
             this.speedScale = speedScale;
             this.leftFootStart = leftFootStart;
             this.leftFootEnd = leftFootEnd;
             this.compensators = compensators;
+            this.speedScaleFromPanel = speedScaleFromPanel;
             this.animator = transform.GetComponent<Animator>();
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
         }
@@ -41,7 +43,7 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 
         protected override Vector3 GetMoveDelta()
         {
-            return base.GetMoveDelta() * speedScale;
+            return base.GetMoveDelta() * speedScale * GetSpeedScaleFromPanel();
         }
 
         private float GetSpeedCompensation(float stepPreogress)
@@ -52,6 +54,15 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
                 compensation += compensators[i].GetCompensation(stepPreogress);
             }
             return compensation;
+        }
+
+        private float GetSpeedScaleFromPanel()
+        {
+            if(speedScaleFromPanel)
+            {
+                return GetRunSpeedScale();
+            }
+            return 1;
         }
     }
 }
