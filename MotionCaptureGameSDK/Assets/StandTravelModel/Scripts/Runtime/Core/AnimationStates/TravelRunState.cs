@@ -31,7 +31,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         public override void Tick(float deltaTime)
         {
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
-            if (actionDetectionData.walk != null)
+            if (actionDetectionData != null && actionDetectionData.walk != null)
             {
                 
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);

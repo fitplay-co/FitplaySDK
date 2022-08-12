@@ -25,7 +25,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         {
             if (motionDataModel == null)
             {
-                motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
+                motionDataModel = standTravelModelManager.motionDataModelReference;
             }
 
             GUIStyle labelStyle = new GUIStyle("label");
@@ -44,7 +44,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             }
 
             var actionData = motionDataModel.GetActionDetectionData();
-            if (actionData != null)
+            if (actionData?.walk != null)
             {
                 _currentOsSR = actionData.walk.stepRate;
                 _currentOsSL = actionData.walk.stepLen;
