@@ -25,7 +25,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         {
             if (motionDataModel == null)
             {
-                motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
+                motionDataModel = standTravelModelManager.motionDataModelReference;
             }
 
             GUIStyle labelStyle = new GUIStyle("label");
