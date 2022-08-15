@@ -447,6 +447,7 @@ namespace MotionCaptureBasic.OSConnector
         public float leftFrequency;
         public float rightFrequency;
         public float velocity;
+        public float velocityThreshold;
         public float stepRate;
         public float stepLen;
         public int realtimeLeftLeg;

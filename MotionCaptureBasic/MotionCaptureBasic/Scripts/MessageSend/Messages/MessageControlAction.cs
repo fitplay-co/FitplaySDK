@@ -7,5 +7,6 @@ namespace MotionCaptureBasic.MessageSend
         subscribe,              //开启
         config,                 //设置
         reset,                  //重置
+        set_player,             //玩家配置
     }
 }
