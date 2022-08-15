@@ -169,31 +169,31 @@ namespace MotionCaptureBasic
 
         public bool SubscribeGazeTracking()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("SubscribeGazeTracking is not implemented for mobile instance");
             return false;
         }
 
         public bool SubscribeActionDetection()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("SubscribeActionDetection is not implemented for mobile instance");
             return false;
         }
 
         public bool SubscribeGroundLocation()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("SubscribeGroundLocation is not implemented for mobile instance");
             return false;
         }
 
         public bool SubscribeHandPoseture()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("SubscribeHandPoseture is not implemented for mobile instance");
             return false;
         }
 
         public bool SubscribeFitting()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("SubscribeFitting is not implemented for mobile instance");
             return false;
         }
 
@@ -209,30 +209,30 @@ namespace MotionCaptureBasic
 
         public void AddConnectEvent(Action onConnect)
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("AddConnectEvent is not implemented for mobile instance");
         }
 
         public bool ReleaseGazeTracking()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("ReleaseGazeTracking is not implemented for mobile instance");
             return false;
         }
 
         public bool ReleaseActionDetection()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("ReleaseActionDetection is not implemented for mobile instance");
             return false;
         }
 
         public bool ReleaseGroundLocation()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("ReleaseGroundLocation is not implemented for mobile instance");
             return false;
         }
 
         public bool ReleaseFitting()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("ReleaseFitting is not implemented for mobile instance");
             return false;
         }
 
@@ -243,7 +243,13 @@ namespace MotionCaptureBasic
 
         public bool ResetGroundLocation()
         {
-            Debug.LogError(" is not implemented for mobile instance");
+            Debug.LogError("ResetGroundLocation is not implemented for mobile instance");
+            return false;
+        }
+
+        public bool SetPlayerHeight(int h)
+        {
+            Debug.LogError("SetPlayerHeight is not implemented for mobile instance");
             return false;
         }
 
