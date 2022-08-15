@@ -237,7 +237,7 @@ public class ActionEventDisplayer : MonoBehaviour
 
     private void DrawFootFrequence(ActionDetectionItem actionDetectionItem)
     {
-        if(actionDetectionItem != null)
+        if(actionDetectionItem?.walk != null)
         {
             strideCacherLeft.OnUpdate(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.leftStepLength);
             strideCacherRight.OnUpdate(actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.rightStepLength);

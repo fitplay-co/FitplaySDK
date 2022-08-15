@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using MotionCaptureBasic;
+using MotionCaptureBasic.OSConnector;
 using Object = UnityEngine.Object;
 
 namespace StandTravelModel.Scripts.Runtime.TestDemo
@@ -31,7 +32,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         public void Start()
         {
-            testData = Resources.Load<TextAsset>("TestData");
+            testData = Resources.Load<TextAsset>("TestDataWrong");
             standTravelModelManager = FindObjectOfType<StandTravelModelManager>();
         }
 
@@ -43,6 +44,22 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         public void SetOsDataReceiver(OsDataReceiver comp)
         {
             osDataReceiver = comp;
+            //osDataReceiver.onReceiveNormalData += OnReceiveNormalDataTest;
+        }
+
+        private void OnReceiveNormalDataTest(string msg)
+        {
+            if (msg.Contains("action_detection"))
+            {
+                var index = msg.IndexOf("action_detection", StringComparison.Ordinal);
+                var actionDetectionStr = msg.Substring(index);
+                //Debug.Log(actionDetectionStr);
+            }
+            else
+            {
+                //Debug.LogError(msg);
+                IKBodyUpdateMessage iMsg = Protocol.UnMarshal(msg) as IKBodyUpdateMessage;
+            }
         }
 
         public void OnTestBtn()
