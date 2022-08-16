@@ -6,7 +6,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     public class TravelRunState : AnimationStateBase
     {
         private int animIdIsRun;
-        private int animIdRunFreq;
+        private float exitDelayed;
         private RunConditioner runConditioner;
         private ITravelStrideSetter strideSetter;
 
@@ -17,7 +17,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.strideSetter = strideSetter;
             this.runConditioner = runConditioner;
             this.animIdIsRun = Animator.StringToHash("isRun");
-            this.animIdRunFreq = Animator.StringToHash("runFrequency");
             this.parametersSetter = parametersSetter;
             InitFields(AnimationList.Run);
         }
@@ -25,6 +24,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         public override void Enter()
         {
             base.Enter();
+            exitDelayed = 0;
             travelOwner.selfAnimator.SetBool(animIdIsRun, true);
         }
 
@@ -43,23 +43,28 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, true);
                 if (!isRunReady)
                 {
-                    travelOwner.isRun = false;
-                    if (actionDetectionData.walk.GetLeftLeg() != 0)
-                    {
-                        OnTransitionToIdleEnd(AnimationList.LeftStep);
-                        return;
-                    }
-                
-                    if (actionDetectionData.walk.GetRightLeg() != 0)
-                    {
-                        OnTransitionToIdleEnd(AnimationList.RightStep);
-                        return;
-                    }
+                    exitDelayed += Time.deltaTime;
 
-                    if (actionDetectionData.walk.GetLeftLeg() == 0 && actionDetectionData.walk.GetRightLeg() == 0)
+                    if(exitDelayed > 0.3f)
                     {
-                        OnTransitionToIdleEnd(AnimationList.Idle);
-                        return;
+                        travelOwner.isRun = false;
+                        if (actionDetectionData.walk.GetLeftLeg() != 0)
+                        {
+                            OnTransitionToIdleEnd(AnimationList.LeftStep);
+                            return;
+                        }
+                    
+                        if (actionDetectionData.walk.GetRightLeg() != 0)
+                        {
+                            OnTransitionToIdleEnd(AnimationList.RightStep);
+                            return;
+                        }
+
+                        if (actionDetectionData.walk.GetLeftLeg() == 0 && actionDetectionData.walk.GetRightLeg() == 0)
+                        {
+                            OnTransitionToIdleEnd(AnimationList.Idle);
+                            return;
+                        }
                     }
                 }
 
@@ -71,13 +76,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         public override void Exit()
         {
             base.Exit();
+            exitDelayed = 0;
             travelOwner.selfAnimator.SetBool(animIdIsRun, false);
             travelOwner.selfAnimator.SetTrigger("runFade");
-        }
-
-        private void UpdateRunSpeed(float stepFrequency)
-        {
-            travelOwner.selfAnimator.SetFloat(animIdRunFreq, stepFrequency * 0.12f);
         }
 
         private void OnTransitionToIdleEnd(AnimationList nextState)

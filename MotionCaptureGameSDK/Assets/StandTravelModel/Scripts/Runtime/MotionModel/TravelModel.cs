@@ -54,6 +54,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public Vector3 moveVelocity => _moveVelocity;
 
         private bool isExControlMode;
+        private RunConditioner runConditioner;
 
         //private TravelModelAnimatorController animatorController;
 
@@ -102,7 +103,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
             var strideCacher = new StepStrideCacher();
             var strideSetter = new TravelStrideSetter(striderBiped, this);
-            var runConditioner = new RunConditioner(getRunThrehold, useFrequency, strideCacher);
+            this.runConditioner = new RunConditioner(getRunThrehold, useFrequency, strideCacher);
             var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
@@ -238,6 +239,11 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             animatorController.Clear();
             animatorController = null;
         }*/
+
+        public RunConditioner GetRunConditioner()
+        {
+            return runConditioner;
+        }
     }
 
     public struct StepStct

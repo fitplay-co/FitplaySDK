@@ -11,6 +11,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             private bool isLeft;
             private bool isRunning;
             private int lastLeg;
+            private float actingTime;
             private float lastLegChange;
             private Func<bool> useFrequencey;
             private Func<float> getRunThrehold;
@@ -34,6 +35,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 }
             }
 
+            public float GetActTime()
+            {
+                return actingTime;
+            }
+
             private bool IsEnterRunReadyBySpeed(WalkActionItem walkData, bool debug)
             {
                 var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
@@ -44,17 +50,19 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             private bool IsEnterRunReadyByFrequency(WalkActionItem walkData, bool debug)
             {
                 var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
-                if(lastLeg != 0 && lastLeg != curLeft)
+                var isActing = lastLeg != 0 && lastLeg != curLeft;
+                if(isActing)
                 {
                     if(lastLegChange != 0)
                     {
+                        actingTime = Time.time - lastLegChange;
                         if(isRunning)
                         {
-                            isRunning = Time.time < lastLegChange + getRunThrehold() * 1.1f;
+                            isRunning = actingTime < getRunThrehold() * 1.1f;
                         }
                         else
                         {
-                            isRunning = Time.time < lastLegChange + getRunThrehold();
+                            isRunning = actingTime < getRunThrehold();
                         }
                     }
 
@@ -75,6 +83,16 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.cacherLeft = new RunCacher(true, getRunThrehold, useFrequencey);
             this.cacherRight = new RunCacher(false, getRunThrehold, useFrequencey);
             this.strideCacher = strideCacher;
+        }
+
+        public float GetActTimeLeft()
+        {
+            return cacherLeft.GetActTime();
+        }
+
+        public float GetActTimeRight()
+        {
+            return cacherRight.GetActTime();
         }
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)

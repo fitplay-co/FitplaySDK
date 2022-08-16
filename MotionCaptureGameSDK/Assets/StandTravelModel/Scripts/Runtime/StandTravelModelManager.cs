@@ -8,6 +8,7 @@ using StandTravelModel.Scripts.Runtime.Core.Interface;
 using StandTravelModel.Scripts.Runtime.FK.Scripts;
 using StandTravelModel.Scripts.Runtime.MotionModel;
 using StandTravelModel.Scripts.Runtime.WeirdHumanoid;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime
@@ -726,6 +727,15 @@ namespace StandTravelModel.Scripts.Runtime
         public void SetRunSpeedScale(float value)
         {
             paramsLoader.SetRunSpeedScale(value);
+        }
+
+        public RunConditioner GetRunConditioner()
+        {
+            if(travelModel != null)
+            {
+                return travelModel.GetRunConditioner();
+            }
+            return null;
         }
 
         private void InitParamsLoader()

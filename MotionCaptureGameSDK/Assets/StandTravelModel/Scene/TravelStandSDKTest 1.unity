@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 113244903}
     - target: {fileID: 1264596605, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1264596605, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: reconState
@@ -1046,6 +1046,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
+--- !u!1001 &761361550
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1523251826175190068, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_Name
+      value: Radial Blur Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523251826175190074, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b77941d2f71f4da4db43d6a979be53eb, type: 3}
 --- !u!4 &825343100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1722356625652655786, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -1492,7 +1549,11 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
-  runThrehold: 4
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 
@@ -4165,7 +4226,11 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
-  runThrehold: 4
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 

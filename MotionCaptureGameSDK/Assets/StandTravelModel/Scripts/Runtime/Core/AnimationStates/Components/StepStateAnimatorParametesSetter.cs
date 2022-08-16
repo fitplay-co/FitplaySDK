@@ -139,7 +139,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if(actionDetectionItem != null && actionDetectionItem.walk != null)
             {
-                travelOwner.selfAnimator.SetFloat(animIdRunSpeed, actionDetectionItem.walk.leftFrequency);
+                travelOwner.selfAnimator.SetFloat(animIdRunSpeed, actionDetectionItem.walk.velocity);
             }
         }
 
