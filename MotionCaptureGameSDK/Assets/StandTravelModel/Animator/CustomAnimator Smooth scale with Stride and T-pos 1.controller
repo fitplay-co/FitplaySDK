@@ -457,7 +457,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RunFwdStop_L
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 543654376393649345}
@@ -515,7 +515,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.15
+    m_EventTreshold: 0.1
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: 1
@@ -1149,7 +1149,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.15
+    m_EventTreshold: 0.1
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: -1
@@ -2110,7 +2110,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RunFwdStop_R
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4504024951878588330}
