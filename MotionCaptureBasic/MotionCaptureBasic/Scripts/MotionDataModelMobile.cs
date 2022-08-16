@@ -14,6 +14,8 @@ namespace MotionCaptureBasic
 
         private MobileOSHandler mobileOSHandler;
         private MotionDataPreprocessor motionDataPreprocessor;
+        
+        private List<Vector3> ikPointsDataListSimulat;
 
         private MotionDataModelMobile()
         {
@@ -41,6 +43,11 @@ namespace MotionCaptureBasic
         
         public List<Vector3> GetIKPointsData(bool isLocalCoordinates, bool isPreprocessed)
         {
+            if (ikPointsDataListSimulat != null)
+            {
+                return ikPointsDataListSimulat;
+            }
+            
             var bodymessage = mobileOSHandler.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
@@ -162,27 +169,32 @@ namespace MotionCaptureBasic
 
         public bool SubscribeGazeTracking()
         {
-            throw new NotImplementedException();
+            Debug.LogError("SubscribeGazeTracking is not implemented for mobile instance");
+            return false;
         }
 
         public bool SubscribeActionDetection()
         {
-            throw new NotImplementedException();
+            Debug.LogError("SubscribeActionDetection is not implemented for mobile instance");
+            return false;
         }
 
         public bool SubscribeGroundLocation()
         {
-            throw new NotImplementedException();
+            Debug.LogError("SubscribeGroundLocation is not implemented for mobile instance");
+            return false;
         }
 
         public bool SubscribeHandPoseture()
         {
-            throw new NotImplementedException();
+            Debug.LogError("SubscribeHandPoseture is not implemented for mobile instance");
+            return false;
         }
 
         public bool SubscribeFitting()
         {
-            throw new NotImplementedException();
+            Debug.LogError("SubscribeFitting is not implemented for mobile instance");
+            return false;
         }
 
         public void SetPreprocessorParameters(Vector3 motionScaling)
@@ -197,27 +209,31 @@ namespace MotionCaptureBasic
 
         public void AddConnectEvent(Action onConnect)
         {
-            throw new NotImplementedException();
+            Debug.LogError("AddConnectEvent is not implemented for mobile instance");
         }
 
         public bool ReleaseGazeTracking()
         {
-            throw new NotImplementedException();
+            Debug.LogError("ReleaseGazeTracking is not implemented for mobile instance");
+            return false;
         }
 
         public bool ReleaseActionDetection()
         {
-            throw new NotImplementedException();
+            Debug.LogError("ReleaseActionDetection is not implemented for mobile instance");
+            return false;
         }
 
         public bool ReleaseGroundLocation()
         {
-            throw new NotImplementedException();
+            Debug.LogError("ReleaseGroundLocation is not implemented for mobile instance");
+            return false;
         }
 
         public bool ReleaseFitting()
         {
-            throw new NotImplementedException();
+            Debug.LogError("ReleaseFitting is not implemented for mobile instance");
+            return false;
         }
 
         public void SetDebug(bool isDebug)
@@ -227,17 +243,24 @@ namespace MotionCaptureBasic
 
         public bool ResetGroundLocation()
         {
-            throw new NotImplementedException();
+            Debug.LogError("ResetGroundLocation is not implemented for mobile instance");
+            return false;
+        }
+
+        public bool SetPlayerHeight(int h)
+        {
+            Debug.LogError("SetPlayerHeight is not implemented for mobile instance");
+            return false;
         }
 
         public void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat)
         {
-            throw new NotImplementedException();
+            this.ikPointsDataListSimulat = ikPointsDataListSimulat;
         }
 
         public void ClearIKDataListSimulat()
         {
-            throw new NotImplementedException();
+            this.ikPointsDataListSimulat = null;
         }
     }
 }

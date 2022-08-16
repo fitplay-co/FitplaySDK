@@ -250,6 +250,13 @@ namespace MotionCaptureBasic
         {
             return WebsocketOSClient.GetInstance().SendFrameRateControl(fps);
         }
+
+        public bool SetPlayerHeight(int h)
+        {
+            return WebsocketOSClient.GetInstance().SendHeightSetting(h);
+        }
+
+
         /// <summary>
         ///  震动
         /// </summary>

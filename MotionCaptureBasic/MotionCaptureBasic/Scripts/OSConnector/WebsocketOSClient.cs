@@ -121,6 +121,23 @@ namespace MotionCaptureBasic.OSConnector
             }
             return false;
         }
+
+        /// <summary>
+        /// 设置身高
+        /// </summary>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public bool SendHeightSetting(int h)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SendHeightSetting(h);
+            }
+
+            return false;
+        }
+
+
         /// <summary>
         ///  震动
         /// </summary>

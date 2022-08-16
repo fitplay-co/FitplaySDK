@@ -77,7 +77,17 @@ namespace MotionCaptureBasic.MessageSend
         {
             return SendAsync(MessageFactory.CreateConfigMessage(fps));
         }
-        
+
+        /// <summary>
+        /// 发送身高设置控制帧
+        /// </summary>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public bool SendHeightSetting(int h)
+        {
+            return SendAsync(MessageFactory.CreateHeightSetMessage(h));
+        }
+
         /// <summary>
         /// 手柄震动
         /// </summary>
