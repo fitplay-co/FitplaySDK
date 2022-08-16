@@ -42,9 +42,9 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             private bool IsEnterRunReadyBySpeed(WalkActionItem walkData, bool debug)
             {
-                var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
-                var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
-                return frequency * stepLength > getRunThrehold();
+                //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
+                //var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
+                return walkData.velocity >= walkData.velocityThreshold;
             }
 
             private bool IsEnterRunReadyByFrequency(WalkActionItem walkData, bool debug)

@@ -72,16 +72,6 @@ namespace TurnModel.Scripts.TestDemo
                 WalkActionItem.useRealtimeData = false;
             }
 
-            GUI.Label(new Rect(20, startYOffset + 70, 310, 50), $"走跑切换阈值 ");
-
-            var runThreholdStr = GUI.TextField(new Rect(20, startYOffset + 90, 200, 20), standTravelModelManager.GetRunThrehold().ToString());
-            var runThrehold = 0f;
-            if(float.TryParse(runThreholdStr, out runThrehold) && runThrehold != standTravelModelManager.GetRunThrehold())
-            {
-                dirty = true;
-                standTravelModelManager.SetRunThrehold(runThrehold);
-            }
-
             GUI.Label(new Rect(20, startYOffset + 120, 300, 50), $"速度缩放倍数 ");
 
             var speedScaleStr = GUI.TextField(new Rect(20, startYOffset + 140, 200, 20), standTravelModelManager.GetRunSpeedScale().ToString());
@@ -94,13 +84,26 @@ namespace TurnModel.Scripts.TestDemo
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
-            var useFrequency = GUI.Toggle(new Rect(230, startYOffset + 120, 100, 50), useFrequencyCur, "使用步频切换");
-            var useSpeed = GUI.Toggle(new Rect(230, startYOffset + 140, 100, 50), useSpeedCur, "使用速度切换");
+            var useFrequency = GUI.Toggle(new Rect(230, startYOffset + 80, 100, 50), useFrequencyCur, "使用步频切换");
+            var useSpeed = GUI.Toggle(new Rect(230, startYOffset + 100, 100, 50), useSpeedCur, "使用速度切换");
 
             if(useFrequency != useFrequencyCur || useSpeed != useSpeedCur)
             {
                 dirty = true;
                 standTravelModelManager.SetUseFrequency(useFrequency);
+            }
+
+            if(!useSpeed && useFrequency)
+            {
+                GUI.Label(new Rect(20, startYOffset + 70, 310, 50), $"走跑切换阈值 ");
+
+                var runThreholdStr = GUI.TextField(new Rect(20, startYOffset + 90, 200, 20), standTravelModelManager.GetRunThrehold().ToString());
+                var runThrehold = 0f;
+                if(float.TryParse(runThreholdStr, out runThrehold) && runThrehold != standTravelModelManager.GetRunThrehold())
+                {
+                    dirty = true;
+                    standTravelModelManager.SetRunThrehold(runThrehold);
+                }
             }
 
             if(dirty && GUI.Button(new Rect(20, startYOffset + 180, 300, 30), $"保存"))

@@ -46,6 +46,7 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
         
+        public PlayerHeightUI playerHeightUI;
         public MotionMode initialMode = MotionMode.Stand;
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
@@ -184,6 +185,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             TryInitWeirdHumanConverter();
             TryInitFKModel();
+            InitPlayerHeightUI();
         }
 
         public void Start()
@@ -738,10 +740,26 @@ namespace StandTravelModel.Scripts.Runtime
             return null;
         }
 
+        public void ShowPlayerHeightUI()
+        {
+            playerHeightUI.Show();
+        }
+
         private void InitParamsLoader()
         {
             paramsLoader = new StandTravelParamsLoader();
             paramsLoader.Deserialize();
+        }
+
+        private void OnPlayerHeightInput(int height)
+        {
+            motionDataModel?.SetPlayerHeight(height);
+            playerHeightUI.Hide();
+        }
+
+        private void InitPlayerHeightUI()
+        {
+            playerHeightUI.Initialize(OnPlayerHeightInput);
         }
     }
 }
