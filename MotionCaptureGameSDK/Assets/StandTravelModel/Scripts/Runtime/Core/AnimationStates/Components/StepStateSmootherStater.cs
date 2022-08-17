@@ -5,6 +5,7 @@ public class StepStateSmootherStater
 {
     [SerializeField] private StepState stepState;
     [SerializeField] private StepState backState;
+    [SerializeField] private StepState lastState;
 
     private StepStateConvertToEvent convertToEvent;
 
@@ -16,6 +17,11 @@ public class StepStateSmootherStater
     public StepState GetStepState()
     {
         return stepState;
+    }
+
+    public StepState GetLastState()
+    {
+        return lastState;
     }
 
     public bool TrySwitchState(int legLeft, int legRight)
@@ -30,6 +36,7 @@ public class StepStateSmootherStater
 
         if(stepState != backState)
         {
+            lastState = backState;
             backState = stepState;
             return true;
         }

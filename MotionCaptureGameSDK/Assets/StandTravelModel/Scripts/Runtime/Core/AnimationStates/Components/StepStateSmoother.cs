@@ -72,6 +72,23 @@ public class StepStateSmoother
                     frameTargetEnd = 48;
                     break;
                 }
+                case StepState.Idle:
+                {
+                    var lastState = stater.GetLastState();
+                    if(lastState == StepState.LeftDown)
+                    {
+                        frameTargetStart = 16;
+                        frameTargetEnd = 32;
+                    }
+                    
+                    if(lastState == StepState.RightDown)
+                    {
+                        frameTargetStart = 48;
+                        frameTargetEnd = 64;
+                    }
+
+                    break;
+                }
             }
         }
     }
