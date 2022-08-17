@@ -5896,13 +5896,13 @@ MonoBehaviour:
   p_maxPlaybackSpeed: 1.1
   p_playbackSpeedWeight: 0.5
   p_animator: {fileID: 95826710003474134}
-  p_hips: {fileID: 4518789467688696}
-  p_leftThigh: {fileID: 4783495396699628}
-  p_rightThigh: {fileID: 4831325627634960}
-  p_leftLowerLeg: {fileID: 4601713594684788}
-  p_rightLowerLeg: {fileID: 4301798072174906}
-  p_leftFoot: {fileID: 4665743361864332}
-  p_rightFoot: {fileID: 4056947184461718}
+  p_hips: {fileID: 0}
+  p_leftThigh: {fileID: 0}
+  p_rightThigh: {fileID: 0}
+  p_leftLowerLeg: {fileID: 0}
+  p_rightLowerLeg: {fileID: 0}
+  p_leftFoot: {fileID: 0}
+  p_rightFoot: {fileID: 0}
   p_leftFootIK: {fileID: 0}
   p_rightFootIK: {fileID: 0}
   OnSetupComplete:
@@ -6025,6 +6025,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 1
   isFullAnimOnRun: 0
+  motionDataModelType: 0
   initialMode: 0
   speedCurve:
     serializedVersion: 2
@@ -6131,8 +6132,11 @@ MonoBehaviour:
     frameTarget: 0
     frameTargetStart: 0
     frameTargetEnd: 0
-  striderBiped: {fileID: 1264596603}
-  runThrehold: 3.5
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000

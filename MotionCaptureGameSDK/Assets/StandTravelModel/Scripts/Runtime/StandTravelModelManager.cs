@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AnimationUprising.Strider;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -8,6 +7,7 @@ using StandTravelModel.Scripts.Runtime.Core.Interface;
 using StandTravelModel.Scripts.Runtime.FK.Scripts;
 using StandTravelModel.Scripts.Runtime.MotionModel;
 using StandTravelModel.Scripts.Runtime.WeirdHumanoid;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime
@@ -58,7 +58,6 @@ namespace StandTravelModel.Scripts.Runtime
         public AnimatorSettingGroup animatorSettings;
         public Transform selfTransform;
         public StepStateSmoother stepSmoother;
-        public StriderBiped striderBiped;
         public StandTravelParamsLoader paramsLoader;
         public float strideScaleRun = 1;
         public float strideScaleWalk = 1;
@@ -171,7 +170,9 @@ namespace StandTravelModel.Scripts.Runtime
         #endregion
 
         private List<Vector3> keyPointsList;
+        private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
+
 
         public void Awake()
         {
@@ -188,6 +189,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             TryInitWeirdHumanConverter();
             TryInitFKModel();
+            InitPlayerHeightUI();
         }
 
         public void Start()
@@ -531,7 +533,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped,
+                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, 
                 () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency()
             );
         }
@@ -749,10 +751,42 @@ namespace StandTravelModel.Scripts.Runtime
             paramsLoader.SetRunSpeedScale(value);
         }
 
+        public RunConditioner GetRunConditioner()
+        {
+            if(travelModel != null)
+            {
+                return travelModel.GetRunConditioner();
+            }
+            return null;
+        }
+
+        public void ShowPlayerHeightUI()
+        {
+            playerHeightUI.Show();
+        }
+
         private void InitParamsLoader()
         {
             paramsLoader = new StandTravelParamsLoader();
             paramsLoader.Deserialize();
+        }
+
+        private void OnPlayerHeightInput(int height)
+        {
+            motionDataModel?.SetPlayerHeight(height);
+            playerHeightUI.Hide();
+        }
+
+        private void InitPlayerHeightUI()
+        {
+            if(playerHeightUI == null)
+            {
+                var canvas = GameObject.Find("Canvas");
+                var prefab = Resources.Load<GameObject>("PlayerHeightUI");
+                var newobj = GameObject.Instantiate(prefab, canvas.transform);
+                playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
+                playerHeightUI.Initialize(OnPlayerHeightInput);
+            }
         }
     }
 }

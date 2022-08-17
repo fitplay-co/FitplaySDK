@@ -71,6 +71,11 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 }
             }
 
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                standTravelModelManager.ShowPlayerHeightUI();
+            }
+
             return isChangeMode;
         }
     }

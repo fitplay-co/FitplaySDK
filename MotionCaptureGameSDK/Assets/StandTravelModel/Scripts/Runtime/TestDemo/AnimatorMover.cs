@@ -30,15 +30,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         [Tooltip("指定需要控制的characterController")] [SerializeField]
         private CharacterController characterController;
         
-        
         [SerializeField] private int curFootIndex;
-        [SerializeField] private Vector3 footPos;
-        [SerializeField] private Vector3 deltaPos;
-        [SerializeField] private Vector3 anchorPos;
-        [SerializeField] private Transform footLeft;
-        [SerializeField] private Transform footRight;
-        [SerializeField] private float speedMultiplier = 1;
         [SerializeField] private float gravity = -10;
+        [SerializeField] private Vector3 anchorPos;
+
+        private Transform footLeft;
+        private Transform footRight;
 
         private void Awake() {
             var animator = GetComponent<Animator>();

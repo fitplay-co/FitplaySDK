@@ -41,7 +41,7 @@ ModelImporter:
       name: LittleRun_Idle
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
+      firstFrame: 5
       lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
@@ -70,7 +70,7 @@ ModelImporter:
       name: LittleRun_Idle_Mir
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
+      firstFrame: 5
       lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0

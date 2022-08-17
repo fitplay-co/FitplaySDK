@@ -1,5 +1,6 @@
 using MotionCaptureBasic.OSConnector;
 using StandTravelModel.Scripts.Runtime;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
 
 namespace TurnModel.Scripts.TestDemo
@@ -9,9 +10,10 @@ namespace TurnModel.Scripts.TestDemo
         [SerializeField] private TurnController turnController;
         [SerializeField] private StandTravelModelManager standTravelModelManager;
 
-        private int startYOffset = 320;
+        private int startYOffset;
         private bool dirty;
-        
+        private RunConditioner runConditioner;
+
         private void Start()
         {
             standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
@@ -31,6 +33,12 @@ namespace TurnModel.Scripts.TestDemo
 
         public void OnGUI()
         {
+            if (standTravelModelManager == null)
+            {
+                return;
+            }
+
+            startYOffset = 320;
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = Color.red;
@@ -60,29 +68,37 @@ namespace TurnModel.Scripts.TestDemo
                     
             }
 
-            if(GUI.Button(new Rect(20, startYOffset + 300, 200, 50), $"使用最新OS"))
+            if(runConditioner == null)
+            {
+                runConditioner = standTravelModelManager.GetRunConditioner();
+            }
+
+            if(runConditioner != null)
+            {
+                labelStyle.fontSize = 25;
+                var actTime = runConditioner.GetActTimeLeft();
+                GUI.Label(new Rect(250, 32, 400, 40), "左腿动作耗时 " + actTime.ToString("f2"), labelStyle);
+
+                actTime = runConditioner.GetActTimeRight();
+                GUI.Label(new Rect(510, 32, 400, 40), "右腿动作耗时 " + actTime.ToString("f2"), labelStyle);
+            }
+
+            startYOffset = 620;
+            if(GUI.Button(new Rect(20, startYOffset, 200, 30), $"使用最新OS"))
             {
                 WalkActionItem.useRealtimeData = true;
             }
 
-            if(GUI.Button(new Rect(20, startYOffset + 360, 200, 50), $"使用之前OS"))
+            if(GUI.Button(new Rect(20, startYOffset + 40, 200, 30), $"使用之前OS"))
             {
                 WalkActionItem.useRealtimeData = false;
             }
 
-            GUI.Label(new Rect(20, startYOffset + 435, 300, 50), $"走跑切换阈值 " + standTravelModelManager.GetRunThrehold().ToString("0.000"));
+            GUI.Label(new Rect(20, startYOffset + 120, 300, 50), $"速度缩放倍数 ");
 
-            var runThrehold = GUI.HorizontalSlider(new Rect(20, startYOffset + 460, 200, 20), standTravelModelManager.GetRunThrehold(), 0, 4);
-            if(runThrehold != standTravelModelManager.GetRunThrehold())
-            {
-                dirty = true;
-                standTravelModelManager.SetRunThrehold(runThrehold);
-            }
-
-            GUI.Label(new Rect(20, startYOffset + 485, 300, 50), $"速度缩放倍数 " + standTravelModelManager.GetRunSpeedScale().ToString("0.000"));
-
-            var speedScale = GUI.HorizontalSlider(new Rect(20, startYOffset + 510, 200, 20), standTravelModelManager.GetRunSpeedScale(), 0, 10);
-            if(speedScale != standTravelModelManager.GetRunSpeedScale())
+            var speedScaleStr = GUI.TextField(new Rect(20, startYOffset + 140, 200, 20), standTravelModelManager.GetRunSpeedScale().ToString());
+            var speedScale = 0f;
+            if(float.TryParse(speedScaleStr, out speedScale) && speedScale != standTravelModelManager.GetRunSpeedScale())
             {
                 dirty = true;
                 standTravelModelManager.SetRunSpeedScale(speedScale);
@@ -90,8 +106,8 @@ namespace TurnModel.Scripts.TestDemo
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
-            var useFrequency = GUI.Toggle(new Rect(250, startYOffset + 470, 80, 50), useFrequencyCur, "使用步频切换");
-            var useSpeed = GUI.Toggle(new Rect(250, startYOffset + 490, 80, 50), useSpeedCur, "使用速度切换");
+            var useFrequency = GUI.Toggle(new Rect(230, startYOffset + 80, 100, 50), useFrequencyCur, "使用步频切换");
+            var useSpeed = GUI.Toggle(new Rect(230, startYOffset + 100, 100, 50), useSpeedCur, "使用速度切换");
 
             if(useFrequency != useFrequencyCur || useSpeed != useSpeedCur)
             {
@@ -99,7 +115,20 @@ namespace TurnModel.Scripts.TestDemo
                 standTravelModelManager.SetUseFrequency(useFrequency);
             }
 
-            if(dirty && GUI.Button(new Rect(20, startYOffset + 530, 300, 50), $"保存"))
+            if(!useSpeed && useFrequency)
+            {
+                GUI.Label(new Rect(20, startYOffset + 70, 310, 50), $"走跑切换阈值 ");
+
+                var runThreholdStr = GUI.TextField(new Rect(20, startYOffset + 90, 200, 20), standTravelModelManager.GetRunThrehold().ToString());
+                var runThrehold = 0f;
+                if(float.TryParse(runThreholdStr, out runThrehold) && runThrehold != standTravelModelManager.GetRunThrehold())
+                {
+                    dirty = true;
+                    standTravelModelManager.SetRunThrehold(runThrehold);
+                }
+            }
+
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 180, 300, 30), $"保存"))
             {
                 dirty = false;
                 standTravelModelManager.SerializeParams();

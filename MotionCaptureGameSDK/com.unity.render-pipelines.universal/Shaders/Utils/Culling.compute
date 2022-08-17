@@ -1,0 +1,153 @@
+﻿#pragma kernel CSMain
+
+//We keep two buffers accessed by the kernel, a constant buffer that is the same for every computation,
+// and an output buffer that is written to by the kernel
+
+cbuffer CB
+{
+//    float4 _CameraFrustumPlanes[6];
+    
+    Texture2D _HiZDepthTexture;
+    SamplerState sampler_HiZDepthTexture; // "sampler" + “_HiZDepthTexture”
+    
+    float cmrHalfFov;
+    float3 cmrDir;
+    float4x4 matrix_VP;
+    int size;
+    int minMipmapLevel;
+};
+
+struct IndirectDrawInfo
+{
+    float4 pos;
+    float4 ext;
+    float4x4 localToWorld;
+};
+
+StructuredBuffer<IndirectDrawInfo> instanceBuffer;
+RWStructuredBuffer<uint> argsBuffer;
+RWStructuredBuffer<float4x4> visibleList;
+
+inline uint IsVisibleAfterFrustumCulling(float4 clipPos)
+{
+    uint flag = 1;
+    flag -= (clipPos.z > clipPos.w 
+            || clipPos.x < -clipPos.w 
+            || clipPos.x > clipPos.w 
+            || clipPos.y < -clipPos.w 
+            || clipPos.y > clipPos.w);
+    return flag;
+}
+
+// Hi-Z Culling
+inline uint IsVisibleAfterOcclusionCulling(float clipMinX, float clipMaxX, float clipMinY, float clipMaxY,
+                                           float clipMinZ)
+{
+    // Change it to 0 - 1 range 
+    float2 minXY = float2(clipMinX, clipMinY) * 0.5 + 0.5;
+    float2 maxXY = float2(clipMaxX, clipMaxY) * 0.5 + 0.5;
+    float2 _HiZTextureSize = float2(size, size);
+    
+    // Calculate hi-Z buffer mip
+    int2 sizeVector = (maxXY - minXY) * _HiZTextureSize.xy;
+    float mip = ceil(log2(max(sizeVector.x, sizeVector.y)));
+    mip = clamp(mip, 0, 10);
+
+    if (mip < minMipmapLevel)
+    {
+        return 0;
+    }
+    
+    // find the max depth
+    // Hi-Z approach that allows for more samples.
+    // https://www.gamedev.net/blogs/entry/2249535-hierarchical-z-buffer-occlusion-culling-updated-07152011/
+    //const   int numSamples = 24;
+    const   int   xSamples = 8; // numSamples + 1;
+    const   int   ySamples = 8; // numSamples + 1;
+    const  float    widthSS = (maxXY.x - minXY.x);
+    const  float   heightSS = (maxXY.y - minXY.y);    
+    const  float      stepX = widthSS / xSamples;    
+    const  float      stepY = heightSS / ySamples;    
+    
+    float HIZdepth = 1;    
+    float yPos = minXY.y;
+    [unroll]
+    for(int y = 0; y < ySamples; ++y)
+    {
+        float xPos = minXY.x;
+        for(int x = 0; x < xSamples; ++x)
+        {
+            const float2 nCoords0 = float2(xPos, yPos);
+            HIZdepth = min(HIZdepth, _HiZDepthTexture.SampleLevel(sampler_HiZDepthTexture, nCoords0, mip).r);
+            xPos += stepX;
+        }
+        yPos += stepY;    
+    }
+    
+    return (1.0 - clipMinZ) >= HIZdepth; // last is an epsilon
+}
+
+[numthreads(64,1,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint instanceId = id.x;
+
+    float3 position = instanceBuffer[instanceId].pos.xyz;
+    float3 extents = instanceBuffer[instanceId].ext.xyz;
+    int meshId = instanceBuffer[instanceId].pos.w;
+
+    float3 minPos = position - extents;
+    float3 maxPos = position + extents;
+
+    float4 boxCorners[8];
+    boxCorners[0] = float4(minPos.x, minPos.y, minPos.z, 1.0);
+    boxCorners[1] = float4(minPos.x, minPos.y, maxPos.z, 1.0);
+    boxCorners[2] = float4(minPos.x, maxPos.y, minPos.z, 1.0);
+    boxCorners[3] = float4(minPos.x, maxPos.y, maxPos.z, 1.0);
+    boxCorners[4] = float4(maxPos.x, minPos.y, minPos.z, 1.0);
+    boxCorners[5] = float4(maxPos.x, minPos.y, maxPos.z, 1.0);
+    boxCorners[6] = float4(maxPos.x, maxPos.y, minPos.z, 1.0);
+    boxCorners[7] = float4(maxPos.x, maxPos.y, maxPos.z, 1.0);
+
+    float4 clipPos = mul(matrix_VP, boxCorners[0]);
+
+    uint isInFrustum = IsVisibleAfterFrustumCulling(clipPos);
+    
+    clipPos.xyz = clipPos.xyz / clipPos.w;
+    float clipMinX = clipPos.x;
+    float clipMaxX = clipPos.x;
+    float clipMinY = clipPos.y;
+    float clipMaxY = clipPos.y;
+    float clipMinZ = clipPos.z;
+
+    [unroll]
+    for (int i = 1; i < 8; i++)
+    {
+        clipPos = mul(matrix_VP, boxCorners[i]);
+        
+        isInFrustum = saturate(isInFrustum + IsVisibleAfterFrustumCulling(clipPos));
+        
+        clipPos.xyz = clipPos.xyz / clipPos.w;
+        clipMinX = min(clipPos.x, clipMinX);
+        clipMaxX = max(clipPos.x, clipMaxX);
+        clipMinY = min(clipPos.y, clipMinY);
+        clipMaxY = max(clipPos.y, clipMaxY); 
+        clipMinZ = min(clipPos.z, clipMinZ);
+    }
+
+    if (isInFrustum < 1.0)
+    {
+        return;
+    }
+
+    if (IsVisibleAfterOcclusionCulling(clipMinX, clipMaxX, clipMinY, clipMaxY, clipMinZ) > 0.5)
+    {
+        uint currentIndex;
+
+        InterlockedAdd(argsBuffer[meshId * 5 + 1], (uint)1, currentIndex);
+
+        //计算偏移量。meshId*5+4是对应第meshId个mesh的argsBuffer的Instance offset的Index
+        int correctIndex = argsBuffer[meshId * 5 + 4] + currentIndex;
+        visibleList[correctIndex] = instanceBuffer[instanceId].localToWorld;
+    }
+}
