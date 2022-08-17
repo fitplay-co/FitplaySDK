@@ -55,10 +55,10 @@ namespace TurnModel.Scripts.TestDemo
             {
                 labelStyle.fontSize = 25;
                 var actTime = runConditioner.GetActTimeLeft();
-                GUI.Label(new Rect(250, 32, 400, 40), "左腿动作耗时 " + actTime.ToString("f2"), labelStyle);
+                GUI.Label(new Rect(640, 32, 400, 40), "左腿动作耗时 " + actTime.ToString("f2"), labelStyle);
 
                 actTime = runConditioner.GetActTimeRight();
-                GUI.Label(new Rect(510, 32, 400, 40), "右腿动作耗时 " + actTime.ToString("f2"), labelStyle);
+                GUI.Label(new Rect(1280, 32, 400, 40), "右腿动作耗时 " + actTime.ToString("f2"), labelStyle);
             }
 
             startYOffset = 620;
