@@ -45,7 +45,6 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
         
-        public PlayerHeightUI playerHeightUI;
         public MotionMode initialMode = MotionMode.Stand;
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
@@ -166,7 +165,9 @@ namespace StandTravelModel.Scripts.Runtime
         #endregion
 
         private List<Vector3> keyPointsList;
+        private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
+
 
         public void Awake()
         {
@@ -757,7 +758,14 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void InitPlayerHeightUI()
         {
-            playerHeightUI.Initialize(OnPlayerHeightInput);
+            if(playerHeightUI == null)
+            {
+                var canvas = GameObject.Find("Canvas");
+                var prefab = Resources.Load<GameObject>("PlayerHeightUI");
+                var newobj = GameObject.Instantiate(prefab, canvas.transform);
+                playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
+                playerHeightUI.Initialize(OnPlayerHeightInput);
+            }
         }
     }
 }
