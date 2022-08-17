@@ -14,6 +14,8 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition
         LegDownLeft,
         LegDownRight,
         LegIdleLeft,
-        LegIdleRight
+        LegIdleRight,
+        ArmCrossLeft,
+        ArmCrossRight
     }
 }
