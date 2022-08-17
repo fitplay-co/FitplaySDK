@@ -2527,29 +2527,12 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &919132148613035378 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1505443799433131769, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-  m_PrefabInstance: {fileID: 9039311290045051061}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &919132148613035379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148613035378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &919132148613035384 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
   m_PrefabInstance: {fileID: 9039311290045051061}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148613035378}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
@@ -7224,10 +7207,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5282605062270170681, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1e15a56b78bd0be40a45645b118918e3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
 --- !u!4 &9057330996297348918
