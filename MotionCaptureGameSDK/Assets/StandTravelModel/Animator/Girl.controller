@@ -56,7 +56,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
@@ -81,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
@@ -144,7 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   needPause: 0
   speedScaleFromPanel: 1
   speedScale: 2
@@ -534,7 +531,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0
+    m_EventTreshold: 0.1
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: 1
@@ -794,7 +791,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0
+    m_EventTreshold: 0.1
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: 1
@@ -824,7 +821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
@@ -1167,7 +1163,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0
+    m_EventTreshold: 0.1
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: -1
@@ -1297,7 +1293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
@@ -1929,7 +1924,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0
+    m_EventTreshold: 0.1
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: -1
@@ -1959,7 +1954,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
