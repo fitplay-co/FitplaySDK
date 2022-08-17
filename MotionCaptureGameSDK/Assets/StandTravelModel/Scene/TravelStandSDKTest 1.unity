@@ -168,11 +168,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: initialMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: runThrehold
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: useLocomotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: tuningParameters.LocalShiftScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
+      propertyPath: tuningParameters.LocalShiftScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1264596608, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
       propertyPath: downCurve.m_Curve.Array.data[0].inSlope
@@ -1420,6 +1432,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  useLocomotion: 0
   motionDataModelType: 0
   initialMode: 1
   speedCurve:
@@ -1492,7 +1505,11 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
-  runThrehold: 4
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 
@@ -4093,6 +4110,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  useLocomotion: 0
   motionDataModelType: 0
   initialMode: 1
   speedCurve:
@@ -4165,7 +4183,11 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
-  runThrehold: 4
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 

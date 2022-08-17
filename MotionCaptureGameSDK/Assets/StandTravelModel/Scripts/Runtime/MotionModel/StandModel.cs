@@ -37,6 +37,11 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             base.OnLateUpdate();
         }
 
+        public void ResetLocomotion()
+        {
+            locomotionComp.ResetLocomotion();
+        }
+
         public override void OnUpdate(List<Vector3> keyPoints)
         {
             base.OnUpdate(keyPoints);

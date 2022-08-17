@@ -11,6 +11,23 @@ namespace TurnModel.Scripts.TestDemo
 
         private int startYOffset = 320;
         private bool dirty;
+        
+        private void Start()
+        {
+            standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
+        }
+        
+        protected void OnEnable()
+        {
+            TurnEventHandler.onLocalPlayerSpawn += OnLocalSpawn;
+        }
+        
+        private void OnLocalSpawn()
+        {
+            if (standTravelModelManager != null) return;
+            standTravelModelManager = GameObject.Find("LocalPlayer").transform
+                .GetComponentInChildren<StandTravelModelManager>();
+        }
 
         public void OnGUI()
         {

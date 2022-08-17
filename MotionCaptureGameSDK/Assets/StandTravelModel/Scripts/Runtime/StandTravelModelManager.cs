@@ -42,10 +42,15 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("是否在跑步时自动进入全身动画。如果启用，播跑步动画时会自动使FK无效")] 
         public bool isFullAnimOnRun;
 
+        [Tooltip("是否使用locomotion实现stand模式局部位移")]
+        public bool useLocomotion;
+        
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
-        
+
+        [Tooltip("初始Motion Mode")]
         public MotionMode initialMode = MotionMode.Stand;
+        
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
         public TuningParameterGroup tuningParameters;
@@ -317,9 +322,12 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 case MotionMode.Stand:
                     motionModel = standModel;
+                    standModel.SetGrounding(true);
                     break;
                 case MotionMode.Travel:
                     motionModel = travelModel;
+                    travelModel.SetGrounding(false);
+                    travelModel.FixAvatarHeight();
                     break;
             }
         }
@@ -412,7 +420,14 @@ namespace StandTravelModel.Scripts.Runtime
         /// </summary>
         public void ResetGroundLocation()
         {
-            motionDataModel.ResetGroundLocation();
+            if (useLocomotion)
+            {
+                standModel.ResetLocomotion();
+            }
+            else
+            {
+                motionDataModel.ResetGroundLocation();
+            }
         }
 
         /// <summary>
@@ -466,7 +481,12 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
                 travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
             }
-            
+
+            if (standModel != null)
+            {
+                standModel.IsUseLocomotion(useLocomotion);
+            }
+
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
@@ -520,6 +540,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
                 motionDataModel, anchorController);
+            standModel.IsUseLocomotion(useLocomotion);
         }
 
         private void InitAnchorController()

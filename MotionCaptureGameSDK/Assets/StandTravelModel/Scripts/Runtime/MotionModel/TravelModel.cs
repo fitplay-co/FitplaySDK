@@ -141,6 +141,16 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             }
         }
 
+        public void FixAvatarHeight()
+        {
+            if (isExControlMode)
+            {
+                var newPos = selfTransform.position;
+                newPos.y = groundHeight + 0.1f;
+                selfTransform.position = newPos;
+            }
+        }
+
         public override void OnUpdate(List<Vector3> keyPoints)
         {
             base.OnUpdate(keyPoints);
