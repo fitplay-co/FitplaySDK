@@ -286,7 +286,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 030397b10385ec24fb2183788a254719, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1264596603, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d4975f97356d94c60ae9d796660ec5ad, type: 3}
 --- !u!4 &113244901 stripped
 Transform:
@@ -679,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd6e8d8a06e67a4eaa1707778dc1784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMove: 2
+  speedMove: 0.3
   speedRotate: 1
   rotation: {x: 0, y: -90, z: 0}
   target: {fileID: 1652211988}

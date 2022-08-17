@@ -6,7 +6,6 @@ using StandTravelModel.Scripts.Runtime.Core;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
-using AnimationUprising.Strider;
 
 namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
@@ -71,7 +70,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             AnimationCurve speedCurve,
             AnimationCurve downCurve,
             StepStateSmoother stepSmoother,
-            StriderBiped striderBiped,
             Func<float> getRunThrehold,
             Func<float> strideScale,
             Func<float> strideScaleRun,
@@ -102,17 +100,16 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideCacher = new StepStrideCacher();
-            var strideSetter = new TravelStrideSetter(striderBiped, this);
             this.runConditioner = new RunConditioner(getRunThrehold, useFrequency, strideCacher);
             var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
                 {AnimationList.Idle, new TravelIdleState(this, parametersSetter, runConditioner)},
-                {AnimationList.Run, new TravelRunState(this, parametersSetter, strideSetter, runConditioner)},
+                {AnimationList.Run, new TravelRunState(this, parametersSetter, runConditioner)},
                 {AnimationList.Jump, new TravelJumpState(this)},
-                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, strideSetter, runConditioner)},
-                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, strideSetter, runConditioner)},
+                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, runConditioner)},
+                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, runConditioner)},
                 {AnimationList.Squat, new TravelSquatState(this)}
             };
             

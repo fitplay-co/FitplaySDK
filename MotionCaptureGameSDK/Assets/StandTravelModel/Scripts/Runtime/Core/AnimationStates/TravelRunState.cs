@@ -8,13 +8,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdIsRun;
         private float exitDelayed;
         private RunConditioner runConditioner;
-        private ITravelStrideSetter strideSetter;
 
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, ITravelStrideSetter strideSetter, RunConditioner runConditioner) : base(owner)
+        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, RunConditioner runConditioner) : base(owner)
         {
-            this.strideSetter = strideSetter;
             this.runConditioner = runConditioner;
             this.animIdIsRun = Animator.StringToHash("isRun");
             this.parametersSetter = parametersSetter;

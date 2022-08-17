@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AnimationUprising.Strider;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -55,7 +54,6 @@ namespace StandTravelModel.Scripts.Runtime
         public AnimatorSettingGroup animatorSettings;
         public Transform selfTransform;
         public StepStateSmoother stepSmoother;
-        public StriderBiped striderBiped;
         public StandTravelParamsLoader paramsLoader;
         public float strideScaleRun = 1;
         public float strideScaleWalk = 1;
@@ -514,7 +512,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped,
+                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, 
                 () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency()
             );
         }
