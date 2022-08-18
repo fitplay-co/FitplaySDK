@@ -431,9 +431,19 @@ namespace StandTravelModel.Scripts.Runtime
             return paramsLoader.GetRunThrehold();
         }
 
+        public float GetSprintThrehold()
+        {
+            return paramsLoader.GetSprintThrehold();
+        }
+
         public void SetRunThrehold(float value)
         {
             paramsLoader.SetRunThrehold(value);
+        }
+
+        public void SetSprintThrehold(float value)
+        {
+            paramsLoader.SetSprintThrehold(value);
         }
 
         public bool GetUseFrequency()
@@ -514,7 +524,7 @@ namespace StandTravelModel.Scripts.Runtime
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
                 motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, 
-                () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency()
+                () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency(), () => paramsLoader.GetSprintThrehold()
             );
         }
 

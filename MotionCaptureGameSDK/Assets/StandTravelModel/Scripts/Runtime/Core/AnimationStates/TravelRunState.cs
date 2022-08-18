@@ -6,6 +6,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     public class TravelRunState : AnimationStateBase
     {
         private int animIdIsRun;
+        private int animIdIsSprint;
         private float exitDelayed;
         private RunConditioner runConditioner;
 
@@ -15,6 +16,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         {
             this.runConditioner = runConditioner;
             this.animIdIsRun = Animator.StringToHash("isRun");
+            this.animIdIsSprint = Animator.StringToHash("isSprint");
             this.parametersSetter = parametersSetter;
             InitFields(AnimationList.Run);
         }
@@ -31,12 +33,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if (actionDetectionData != null && actionDetectionData.walk != null)
             {
-                
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
-                
+                travelOwner.selfAnimator.SetBool(animIdIsSprint, runConditioner.IsEnterSprintReady(actionDetectionData.walk));
                 
                 var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, true);
                 if (!isRunReady)

@@ -52,6 +52,16 @@ public class StandTravelParamsLoader
         standTravelParams.runSpeedScale = value;
     }
 
+    public float GetSprintThrehold()
+    {
+        return standTravelParams.sprintThrehold;
+    }
+
+    public void SetSprintThrehold(float value)
+    {
+        standTravelParams.sprintThrehold = value;
+    }
+
     private string GetFilePath()
     {
         return Application.persistentDataPath + fileName;

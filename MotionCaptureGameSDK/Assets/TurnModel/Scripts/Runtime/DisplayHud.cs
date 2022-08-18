@@ -61,13 +61,13 @@ namespace TurnModel.Scripts.TestDemo
                 GUI.Label(new Rect(1280, 32, 400, 40), "右腿动作耗时 " + actTime.ToString("f2"), labelStyle);
             }
 
-            startYOffset = 620;
-            if(GUI.Button(new Rect(20, startYOffset, 200, 30), $"使用最新OS"))
+            startYOffset = 660;
+            if(GUI.Button(new Rect(20, startYOffset - 40, 200, 30), $"使用最新OS"))
             {
                 WalkActionItem.useRealtimeData = true;
             }
 
-            if(GUI.Button(new Rect(20, startYOffset + 40, 200, 30), $"使用之前OS"))
+            if(GUI.Button(new Rect(20, startYOffset, 200, 30), $"使用之前OS"))
             {
                 WalkActionItem.useRealtimeData = false;
             }
@@ -96,13 +96,21 @@ namespace TurnModel.Scripts.TestDemo
             if(!useSpeed && useFrequency)
             {
                 GUI.Label(new Rect(20, startYOffset + 70, 310, 50), $"走跑切换阈值 ");
-
                 var runThreholdStr = GUI.TextField(new Rect(20, startYOffset + 90, 200, 20), standTravelModelManager.GetRunThrehold().ToString());
                 var runThrehold = 0f;
                 if(float.TryParse(runThreholdStr, out runThrehold) && runThrehold != standTravelModelManager.GetRunThrehold())
                 {
                     dirty = true;
                     standTravelModelManager.SetRunThrehold(runThrehold);
+                }
+
+                GUI.Label(new Rect(20, startYOffset + 30, 310, 50), $"冲刺阈值 ");
+                var sprintThreholdStr = GUI.TextField(new Rect(20, startYOffset + 50, 200, 20), standTravelModelManager.GetSprintThrehold().ToString());
+                var sprintThrehold = 0f;
+                if(float.TryParse(sprintThreholdStr, out sprintThrehold) && sprintThrehold != standTravelModelManager.GetSprintThrehold())
+                {
+                    dirty = true;
+                    standTravelModelManager.SetSprintThrehold(sprintThrehold);
                 }
             }
 

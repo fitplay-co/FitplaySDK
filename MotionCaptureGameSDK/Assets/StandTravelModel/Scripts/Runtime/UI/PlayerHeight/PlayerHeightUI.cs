@@ -30,7 +30,6 @@ public class PlayerHeightUI : MonoBehaviour
 
         inputField.text = null;
         inputField.placeholder.enabled = true;
-        Debug.Log(inputField.placeholder);
     }
 
     public void Hide()

@@ -8,30 +8,44 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     {
         private class RunCacher
         {
+            private int lastLeg;
             private bool isLeft;
             private bool isRunning;
-            private int lastLeg;
             private float actingTime;
             private float lastLegChange;
             private Func<bool> useFrequencey;
-            private Func<float> getRunThrehold;
+            private Func<float> getThreholdRun;
+            private Func<float> getThreholdSprint;
 
-            public RunCacher(bool isLeft, Func<float> getRunThrehold, Func<bool> useFrequencey)
+            public RunCacher(bool isLeft, Func<float> getThreholdRun, Func<bool> useFrequencey, Func<float> getThreholdSprint)
             {
                 this.isLeft = isLeft;
                 this.useFrequencey = useFrequencey;
-                this.getRunThrehold = getRunThrehold;
+                this.getThreholdRun = getThreholdRun;
+                this.getThreholdSprint = getThreholdSprint;
             }
 
             public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
             {
                 if(useFrequencey())
                 {
-                    return IsEnterRunReadyByFrequency(walkData, debug);
+                    return IsExceededThresholdFrequency(walkData, getThreholdRun());
                 }
                 else
                 {
-                    return IsEnterRunReadyBySpeed(walkData, debug);
+                    return IsExceededThresholdSpeed(walkData, walkData.velocityThreshold);
+                }
+            }
+
+            public bool IsEnterSprintReady(WalkActionItem walkData)
+            {
+                if(useFrequencey())
+                {
+                    return IsExceededThresholdFrequency(walkData, getThreholdSprint());
+                }
+                else
+                {
+                    return IsExceededThresholdSpeed(walkData, getThreholdSprint());
                 }
             }
 
@@ -40,14 +54,14 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 return actingTime;
             }
 
-            private bool IsEnterRunReadyBySpeed(WalkActionItem walkData, bool debug)
+            private bool IsExceededThresholdSpeed(WalkActionItem walkData, float threhold)
             {
                 //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
                 //var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
-                return walkData.velocity >= walkData.velocityThreshold;
+                return walkData.velocity >= threhold;
             }
 
-            private bool IsEnterRunReadyByFrequency(WalkActionItem walkData, bool debug)
+            private bool IsExceededThresholdFrequency(WalkActionItem walkData, float threhold)
             {
                 var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
                 var isActing = lastLeg != 0 && lastLeg != curLeft;
@@ -58,11 +72,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                         actingTime = Time.time - lastLegChange;
                         if(isRunning)
                         {
-                            isRunning = actingTime < getRunThrehold() * 1.1f;
+                            isRunning = actingTime < threhold * 1.1f;
                         }
                         else
                         {
-                            isRunning = actingTime < getRunThrehold();
+                            isRunning = actingTime < threhold;
                         }
                     }
 
@@ -78,10 +92,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private RunCacher cacherRight;
         private StepStrideCacher strideCacher;
 
-        public RunConditioner(Func<float> getRunThrehold, Func<bool> useFrequencey, StepStrideCacher strideCacher)
+        public RunConditioner(Func<float> getThreholdRun, Func<float> getThreholdSprint, Func<bool> useFrequencey, StepStrideCacher strideCacher)
         {
-            this.cacherLeft = new RunCacher(true, getRunThrehold, useFrequencey);
-            this.cacherRight = new RunCacher(false, getRunThrehold, useFrequencey);
+            this.cacherLeft = new RunCacher(true, getThreholdRun, useFrequencey, getThreholdSprint);
+            this.cacherRight = new RunCacher(false, getThreholdRun, useFrequencey, getThreholdSprint);
             this.strideCacher = strideCacher;
         }
 
@@ -93,6 +107,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         public float GetActTimeRight()
         {
             return cacherRight.GetActTime();
+        }
+
+        public bool IsEnterSprintReady(WalkActionItem walkData)
+        {
+            return cacherLeft.IsEnterSprintReady(walkData) || cacherRight.IsEnterSprintReady(walkData);
         }
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
