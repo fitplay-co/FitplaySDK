@@ -73,7 +73,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             Func<float> getRunThrehold,
             Func<float> strideScale,
             Func<float> strideScaleRun,
-            Func<bool> useFrequency
+            Func<bool> useFrequency,
+            Func<float> getRunThresholdScale
         ) : base(
             selfTransform,
             characterHipNode,
@@ -100,8 +101,9 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideCacher = new StepStrideCacher();
-            this.runConditioner = new RunConditioner(getRunThrehold, useFrequency, strideCacher);
-            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
+            this.runConditioner = new RunConditioner(getRunThrehold, useFrequency, getRunThresholdScale, strideCacher);
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother,
+                strideCacher, strideScale, strideScaleRun);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {

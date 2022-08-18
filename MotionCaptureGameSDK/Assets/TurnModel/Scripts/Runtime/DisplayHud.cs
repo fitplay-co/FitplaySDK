@@ -103,6 +103,16 @@ namespace TurnModel.Scripts.TestDemo
                 dirty = true;
                 standTravelModelManager.SetRunSpeedScale(speedScale);
             }
+            
+            GUI.Label(new Rect(20, startYOffset + 160, 300, 50), $"速度阈值缩放倍数 ");
+
+            var runthrdScaleStr = GUI.TextField(new Rect(20, startYOffset + 180, 200, 20), standTravelModelManager.GetRunThresholdScale().ToString());
+            var runthrdScale = 0f;
+            if(float.TryParse(runthrdScaleStr, out runthrdScale) && runthrdScale != standTravelModelManager.GetRunThresholdScale())
+            {
+                dirty = true;
+                standTravelModelManager.SetRunThresholdScale(runthrdScale);
+            }
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
@@ -128,7 +138,7 @@ namespace TurnModel.Scripts.TestDemo
                 }
             }
 
-            if(dirty && GUI.Button(new Rect(20, startYOffset + 180, 300, 30), $"保存"))
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 220, 300, 30), $"保存"))
             {
                 dirty = false;
                 standTravelModelManager.SerializeParams();
