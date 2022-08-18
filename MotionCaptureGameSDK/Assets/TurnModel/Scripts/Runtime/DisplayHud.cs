@@ -38,7 +38,7 @@ namespace TurnModel.Scripts.TestDemo
                 return;
             }
 
-            startYOffset = 320;
+            startYOffset = 360;
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = Color.red;

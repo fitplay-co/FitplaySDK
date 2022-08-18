@@ -13,6 +13,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private float _currentOsSL = 0;
         private float _currentOsSpeed = 0;
         private float _currentAvatarSpeed = 0;
+        private float _currentOsSpdThrd = 0;
         private float _SmoothRate = 0.5f;
 
         public void Awake()
@@ -49,10 +50,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 _currentOsSR = actionData.walk.stepRate;
                 _currentOsSL = actionData.walk.stepLen;
                 _currentOsSpeed = actionData.walk.stepRate * actionData.walk.stepLen;
+                _currentOsSpdThrd = actionData.walk.velocityThreshold;
             }
             GUI.Label(new Rect(20, 80, 600, 40), $"OS步频: {Mathf.Round(_currentOsSR * 100) / 100}Hz", labelStyle);
             GUI.Label(new Rect(20, 120, 600, 40), $"OS步幅: {Mathf.Round(_currentOsSL * 100) / 100}m", labelStyle);
             GUI.Label(new Rect(20, 160, 600, 40), $"OS速度: {Mathf.Round(_currentOsSpeed * 100) / 100}m/s", labelStyle);
+            GUI.Label(new Rect(20, 200, 600, 40), $"OS速度阈值: {Mathf.Round(_currentOsSpdThrd * 100) / 100}m/s", labelStyle);
 
             var currentVelocity = animatorMover.velocity;
             var velocityX = Mathf.Round(currentVelocity.x * 100) / 100;
@@ -62,13 +65,13 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
             var target = new Vector3(velocityX, 0, velocityZ).magnitude;
             _currentAvatarSpeed = Mathf.Lerp(_currentAvatarSpeed, target, Time.deltaTime * _SmoothRate);
-            GUI.Label(new Rect(20, 200, 600, 40), $"Avatar水平速度: {Mathf.Round(_currentAvatarSpeed * 100) / 100}m/s", labelStyle);
+            GUI.Label(new Rect(20, 240, 600, 40), $"Avatar水平速度: {Mathf.Round(_currentAvatarSpeed * 100) / 100}m/s", labelStyle);
 
             var isGrounded = animatorMover.isGrounded;
-            GUI.Label(new Rect(20, 240, 300, 40), isGrounded ? "在地上" : "悬空", labelStyle);
+            GUI.Label(new Rect(20, 280, 300, 40), isGrounded ? "在地上" : "悬空", labelStyle);
 
             var isRun = standTravelModelManager.isRun;
-            GUI.Label(new Rect(20, 280, 300, 40), isRun ? "跑起来了" : "没跑", labelStyle);
+            GUI.Label(new Rect(20, 320, 300, 40), isRun ? "跑起来了" : "没跑", labelStyle);
         }
     }
 }
