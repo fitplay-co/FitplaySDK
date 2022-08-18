@@ -14,9 +14,31 @@ namespace TurnModel.Scripts.TestDemo
         private bool dirty;
         private RunConditioner runConditioner;
 
+        private void Start()
+        {
+            standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
+        }
+        
+        protected void OnEnable()
+        {
+            TurnEventHandler.onLocalPlayerSpawn += OnLocalSpawn;
+        }
+        
+        private void OnLocalSpawn()
+        {
+            if (standTravelModelManager != null) return;
+            standTravelModelManager = GameObject.Find("LocalPlayer").transform
+                .GetComponentInChildren<StandTravelModelManager>();
+        }
+
         public void OnGUI()
         {
-            startYOffset = 320;
+            if (standTravelModelManager == null)
+            {
+                return;
+            }
+
+            startYOffset = 360;
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = Color.red;
@@ -81,6 +103,16 @@ namespace TurnModel.Scripts.TestDemo
                 dirty = true;
                 standTravelModelManager.SetRunSpeedScale(speedScale);
             }
+            
+            GUI.Label(new Rect(20, startYOffset + 160, 300, 50), $"速度阈值缩放倍数 ");
+
+            var runthrdScaleStr = GUI.TextField(new Rect(20, startYOffset + 180, 200, 20), standTravelModelManager.GetRunThresholdScale().ToString());
+            var runthrdScale = 0f;
+            if(float.TryParse(runthrdScaleStr, out runthrdScale) && runthrdScale != standTravelModelManager.GetRunThresholdScale())
+            {
+                dirty = true;
+                standTravelModelManager.SetRunThresholdScale(runthrdScale);
+            }
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
@@ -103,18 +135,18 @@ namespace TurnModel.Scripts.TestDemo
                     dirty = true;
                     standTravelModelManager.SetRunThrehold(runThrehold);
                 }
-
-                GUI.Label(new Rect(20, startYOffset + 30, 310, 50), $"冲刺阈值 ");
-                var sprintThreholdStr = GUI.TextField(new Rect(20, startYOffset + 50, 200, 20), standTravelModelManager.GetSprintThrehold().ToString());
-                var sprintThrehold = 0f;
-                if(float.TryParse(sprintThreholdStr, out sprintThrehold) && sprintThrehold != standTravelModelManager.GetSprintThrehold())
-                {
-                    dirty = true;
-                    standTravelModelManager.SetSprintThrehold(sprintThrehold);
-                }
             }
 
-            if(dirty && GUI.Button(new Rect(20, startYOffset + 180, 300, 30), $"保存"))
+            GUI.Label(new Rect(20, startYOffset + 30, 310, 50), $"冲刺阈值 ");
+            var sprintThreholdStr = GUI.TextField(new Rect(20, startYOffset + 50, 200, 20), standTravelModelManager.GetSprintThrehold().ToString());
+            var sprintThrehold = 0f;
+            if(float.TryParse(sprintThreholdStr, out sprintThrehold) && sprintThrehold != standTravelModelManager.GetSprintThrehold())
+            {
+                dirty = true;
+                standTravelModelManager.SetSprintThrehold(sprintThrehold);
+            }
+
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 220, 300, 30), $"保存"))
             {
                 dirty = false;
                 standTravelModelManager.SerializeParams();

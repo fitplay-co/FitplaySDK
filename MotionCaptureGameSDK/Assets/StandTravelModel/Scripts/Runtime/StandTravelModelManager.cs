@@ -42,10 +42,15 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("是否在跑步时自动进入全身动画。如果启用，播跑步动画时会自动使FK无效")] 
         public bool isFullAnimOnRun;
 
+        [Tooltip("是否使用locomotion实现stand模式局部位移")]
+        public bool useLocomotion;
+        
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
-        
+
+        [Tooltip("初始Motion Mode")]
         public MotionMode initialMode = MotionMode.Stand;
+        
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
         public TuningParameterGroup tuningParameters;
@@ -108,7 +113,7 @@ namespace StandTravelModel.Scripts.Runtime
         public float currentFrequency => travelModel.currentFrequency;
         public bool isJump => travelModel.isJump;
 
-        private bool enable;
+        private bool enable = true;
 
         public bool Enabled
         {
@@ -116,17 +121,23 @@ namespace StandTravelModel.Scripts.Runtime
             set
             {
                 enabled = value;
+                if (!isFKEnabled)
+                {
 #if USE_FINAL_IK
-                modelIKSettings.SetEnable(value);
+                    modelIKSettings.SetEnable(value);
 #else
-                modelIKSettings.IKScript.enabled = value;
+                    modelIKSettings.IKScript.enabled = value;
 #endif
+                }
+                else
+                {
 #if USE_FK_LOCAL_ROTATION
-                // ReSharper disable once Unity.NoNullPropagation
-                fkAnimatorJointsModel?.SetEnable(value);
+                    // ReSharper disable once Unity.NoNullPropagation
+                    fkAnimatorJointsModel?.SetEnable(value);
 #else
-                fKPoseModel?.SetEnable(value);
+                    fKPoseModel?.SetEnable(value);
 #endif
+                }
             }
         }
 
@@ -184,7 +195,6 @@ namespace StandTravelModel.Scripts.Runtime
 
             TryInitWeirdHumanConverter();
             TryInitFKModel();
-            InitPlayerHeightUI();
         }
 
         public void Start()
@@ -213,10 +223,16 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
+            InitPlayerHeightUI();
         }
 
         public void FixedUpdate()
         {
+            if (!enable)
+            {
+                return;
+            }
+
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
@@ -225,6 +241,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
+            if (!enable)
+            {
+                return;
+            }
+            
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -252,6 +273,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void LateUpdate()
         {
+            if (!enable)
+            {
+                return;
+            }
+            
             if(motionModel != null)
             {
                 motionModel.OnLateUpdate();
@@ -319,9 +345,12 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 case MotionMode.Stand:
                     motionModel = standModel;
+                    standModel.SetGrounding(true);
                     break;
                 case MotionMode.Travel:
                     motionModel = travelModel;
+                    travelModel.SetGrounding(false);
+                    travelModel.FixAvatarHeight();
                     break;
             }
         }
@@ -414,7 +443,14 @@ namespace StandTravelModel.Scripts.Runtime
         /// </summary>
         public void ResetGroundLocation()
         {
-            motionDataModel.ResetGroundLocation();
+            if (useLocomotion)
+            {
+                standModel.ResetLocomotion();
+            }
+            else
+            {
+                motionDataModel.ResetGroundLocation();
+            }
         }
 
         /// <summary>
@@ -478,7 +514,12 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
                 travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
             }
-            
+
+            if (standModel != null)
+            {
+                standModel.IsUseLocomotion(useLocomotion);
+            }
+
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
@@ -524,7 +565,7 @@ namespace StandTravelModel.Scripts.Runtime
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
                 motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, 
-                () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency(), () => paramsLoader.GetSprintThrehold()
+                () => paramsLoader.GetRunThrehold(), () => strideScaleWalk, () => strideScaleRun, () => paramsLoader.GetUseFrequency(), () => paramsLoader.GetSprintThrehold(), () => paramsLoader.GetRunThresholdScale()
             );
         }
 
@@ -532,6 +573,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
                 motionDataModel, anchorController);
+            standModel.IsUseLocomotion(useLocomotion);
         }
 
         private void InitAnchorController()
@@ -740,6 +782,16 @@ namespace StandTravelModel.Scripts.Runtime
             paramsLoader.SetRunSpeedScale(value);
         }
 
+        public float GetRunThresholdScale()
+        {
+            return paramsLoader.GetRunThresholdScale();
+        }
+
+        public void SetRunThresholdScale(float value)
+        {
+            paramsLoader.SetRunThresholdScale(value);
+        }
+
         public RunConditioner GetRunConditioner()
         {
             if(travelModel != null)
@@ -752,6 +804,7 @@ namespace StandTravelModel.Scripts.Runtime
         public void ShowPlayerHeightUI()
         {
             playerHeightUI.Show();
+            Enabled = false;
         }
 
         private void InitParamsLoader()
@@ -764,6 +817,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             motionDataModel?.SetPlayerHeight(height);
             playerHeightUI.Hide();
+            Enabled = true;
         }
 
         private void InitPlayerHeightUI()
@@ -775,6 +829,7 @@ namespace StandTravelModel.Scripts.Runtime
                 var newobj = GameObject.Instantiate(prefab, canvas.transform);
                 playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
                 playerHeightUI.Initialize(OnPlayerHeightInput);
+                Enabled = false;
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Text;
 using UnityEngine;
 using UnityWebSocket;
+using Newtonsoft.Json;
 
 namespace MotionCaptureBasic.MessageSend
 {
@@ -125,8 +126,9 @@ namespace MotionCaptureBasic.MessageSend
         {
             if (socket != null)
             {
-                Debug.Log(JsonUtility.ToJson(message));
-                socket.SendAsync(Encoding.UTF8.GetBytes(JsonUtility.ToJson(message)));
+                var strMsg = JsonConvert.SerializeObject(message);
+                Debug.Log(strMsg);
+                socket.SendAsync(Encoding.UTF8.GetBytes(strMsg));
                 return true;
             }
 

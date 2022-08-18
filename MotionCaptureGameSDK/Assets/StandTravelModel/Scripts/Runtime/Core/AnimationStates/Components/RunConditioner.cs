@@ -16,13 +16,15 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             private Func<bool> useFrequencey;
             private Func<float> getThreholdRun;
             private Func<float> getThreholdSprint;
+            private Func<float> getRunThresholdScale;
 
-            public RunCacher(bool isLeft, Func<float> getThreholdRun, Func<bool> useFrequencey, Func<float> getThreholdSprint)
+            public RunCacher(bool isLeft, Func<float> getThreholdRun, Func<bool> useFrequencey, Func<float> getThreholdSprint, Func<float> getRunThresholdScale)
             {
                 this.isLeft = isLeft;
                 this.useFrequencey = useFrequencey;
                 this.getThreholdRun = getThreholdRun;
                 this.getThreholdSprint = getThreholdSprint;
+                this.getRunThresholdScale = getRunThresholdScale;
             }
 
             public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
@@ -33,7 +35,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 }
                 else
                 {
-                    return IsExceededThresholdSpeed(walkData, walkData.velocityThreshold);
+                    return IsExceededThresholdSpeed(walkData, walkData.velocityThreshold * getRunThresholdScale());
                 }
             }
 
@@ -92,10 +94,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private RunCacher cacherRight;
         private StepStrideCacher strideCacher;
 
-        public RunConditioner(Func<float> getThreholdRun, Func<float> getThreholdSprint, Func<bool> useFrequencey, StepStrideCacher strideCacher)
+        public RunConditioner(Func<float> getThreholdRun, Func<float> getThreholdSprint, Func<bool> useFrequencey, Func<float> getRunThresholdScale, StepStrideCacher strideCacher)
         {
-            this.cacherLeft = new RunCacher(true, getThreholdRun, useFrequencey, getThreholdSprint);
-            this.cacherRight = new RunCacher(false, getThreholdRun, useFrequencey, getThreholdSprint);
+            this.cacherLeft = new RunCacher(true, getThreholdRun, useFrequencey, getThreholdSprint, getRunThresholdScale);
+            this.cacherRight = new RunCacher(false, getThreholdRun, useFrequencey, getThreholdSprint, getRunThresholdScale);
             this.strideCacher = strideCacher;
         }
 

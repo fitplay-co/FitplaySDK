@@ -1169,11 +1169,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1722356625652655786, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &865112061 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4518789467688696, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1094877042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400062, guid: 83859f7d5086a4d39a54c7f5530e296c, type: 3}
@@ -1446,12 +1441,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindAvatar: {fileID: 1264596602}
-  bindHipCenter: {fileID: 865112061}
-  bindLeftFoot: {fileID: 1882924007}
-  bindRightFoot: {fileID: 2026020798}
+  bindHipCenter: {fileID: 0}
+  bindLeftFoot: {fileID: 0}
+  bindRightFoot: {fileID: 0}
+  bindAnimator: {fileID: 0}
   motionScale: 1
-  isDebug: 1
-  grounding: 0
+  isDebug: 0
+  grounding: 1
   debugLeft1: {fileID: 689431526}
   debugLeft2: {fileID: 1872941435}
   debugLeft3: {fileID: 66086145}
@@ -1719,11 +1715,6 @@ Transform:
   m_Father: {fileID: 1264596602}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1882924007 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4349291084983078, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2014150607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1869,6 +1860,8 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  useLocomotion: 0
+  motionDataModelType: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -1940,10 +1933,14 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
-  runThrehold: 4
-  travelFkControlPoints: 
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
+  travelFkControlPoints: 
 --- !u!95 &2014150612 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
@@ -2607,11 +2604,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3067436443951926336, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}
   m_PrefabInstance: {fileID: 2014150607}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2026020798 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4164929995615320, guid: 5c377e4866269444fa6aa50cadae3ae7, type: 3}
-  m_PrefabInstance: {fileID: 1264596579}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2035947360
 GameObject:
@@ -4591,6 +4583,8 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  useLocomotion: 0
+  motionDataModelType: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -4662,10 +4656,14 @@ MonoBehaviour:
     frameTargetStart: 0
     frameTargetEnd: 0
   striderBiped: {fileID: 0}
-  runThrehold: 4
-  travelFkControlPoints: 
+  paramsLoader:
+    standTravelParams:
+      runThrehold: 0.25
+      useFrequency: 1
+      runSpeedScale: 1
   strideScaleRun: 1
   strideScaleWalk: 1
+  travelFkControlPoints: 
 --- !u!114 &2753468361735440065
 MonoBehaviour:
   m_ObjectHideFlags: 0

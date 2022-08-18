@@ -74,7 +74,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             Func<float> strideScale,
             Func<float> strideScaleRun,
             Func<bool> useFrequency,
-            Func<float> getSprintThrehold
+            Func<float> getSprintThrehold,
+            Func<float> getRunThresholdScale
         ) : base(
             selfTransform,
             characterHipNode,
@@ -101,7 +102,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideCacher = new StepStrideCacher();
-            this.runConditioner = new RunConditioner(getRunThrehold, getSprintThrehold, useFrequency, strideCacher);
+            this.runConditioner = new RunConditioner(getRunThrehold, getSprintThrehold, useFrequency, getRunThresholdScale, strideCacher);
             var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
@@ -137,6 +138,16 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             else
             {
                 base.OnLateUpdate();
+            }
+        }
+
+        public void FixAvatarHeight()
+        {
+            if (isExControlMode)
+            {
+                var newPos = selfTransform.position;
+                newPos.y = groundHeight + 0.1f;
+                selfTransform.position = newPos;
             }
         }
 

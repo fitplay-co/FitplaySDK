@@ -1,3 +1,4 @@
+using System;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -33,6 +34,14 @@ namespace StandTravelModel.Scripts.Runtime.FK.Scripts
                 if(locomotion != null) {
                     locomotion.updateGroundLocationHint(motionDataModel);
                 }
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (locomotion != null)
+            {
+                locomotion.UpdateLocomotion();
             }
         }
 

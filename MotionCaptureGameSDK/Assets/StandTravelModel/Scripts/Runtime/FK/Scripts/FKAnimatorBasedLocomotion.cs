@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -12,11 +13,12 @@ namespace StandTravelModel.Scripts.Runtime.FK.Scripts
         public Transform bindHipCenter;
         public Transform bindLeftFoot;
         public Transform bindRightFoot;
+        public Animator bindAnimator;
 
         public float motionScale = 1.0f;
 
-        public bool isDebug;
-        public bool grounding;
+        public bool isDebug = false;
+        public bool grounding = false;
 
         public GameObject debugLeft1;
         public GameObject debugLeft2;
@@ -48,15 +50,37 @@ namespace StandTravelModel.Scripts.Runtime.FK.Scripts
         private bool leftSideFootLock = false;
         private bool rightSideFootLock = false;
         private int lastLockFoot = 0; //0 for left leg and 1 for right leg , if not jump, will have at least one lock foot
-
-        void Start() {
         
+        private Vector3 _locomotionOffset = Vector3.zero;
+        public Vector3 locomotionOffset => _locomotionOffset;
+
+        public void Start()
+        {
+            if (bindAnimator == null)
+            {
+                bindAnimator = GetComponent<Animator>();
+            }
+            
+            if (bindHipCenter == null)
+            {
+                bindHipCenter = bindAnimator.GetBoneTransform(HumanBodyBones.Hips);
+            }
+
+            if (bindLeftFoot == null)
+            {
+                bindLeftFoot = bindAnimator.GetBoneTransform(HumanBodyBones.LeftFoot);
+            }
+
+            if (bindRightFoot == null)
+            {
+                bindRightFoot = bindAnimator.GetBoneTransform(HumanBodyBones.RightFoot);
+            }
         }
 
-        // public void resetGround {
-        //     currentGroundx = 0.0f;
-        //     currentGroundz = 0.0f;
-        // }
+        public void ResetLocomotion()
+        {
+            _locomotionOffset = Vector3.zero;
+        }
 
         public void updateGroundLocationHint(IMotionDataModel motionDataModel) {
             GroundLocationItem groundLocationItem = motionDataModel.GetGroundLocationData();
@@ -166,13 +190,8 @@ namespace StandTravelModel.Scripts.Runtime.FK.Scripts
             }
         }
 
-        // Update is called once per frame
-        void Update() {
-       
-        }
-    
         // In late update round apply grounder 
-        void LateUpdate() {
+        public void UpdateLocomotion() {
             if(grounding) {
                 Vector3 positionFromHipToFootL = bindLeftFoot.position - bindHipCenter.position;
                 Vector3 positionFromHipToFootR = bindRightFoot.position - bindHipCenter.position;
@@ -195,18 +214,34 @@ namespace StandTravelModel.Scripts.Runtime.FK.Scripts
                     bindFootGrounder = bindRightFoot.position.y;
                 }
 
-                if(lastLockFoot == 0 ){
+                if (lastLockFoot == 0){
                     //last lock foot left 
                     //grounding 
-                    bindHipCenter.position -= new Vector3(0, bindFootGrounder , 0);
-                    bindAvatar.position -= new Vector3(lfootFrameOffset.x, 0 , lfootFrameOffset.z);
-                }  else {
+                    var deltaShift = new Vector3(lfootFrameOffset.x, 0, lfootFrameOffset.z);
+                    if (bindHipCenter != null && bindAvatar != null)
+                    {
+                        bindHipCenter.position -= new Vector3(0, bindFootGrounder , 0);
+                        bindAvatar.position -= deltaShift;
+                    }
+                    _locomotionOffset -= deltaShift;
+                }  else
+                {
+                    var deltaShift = new Vector3(rfootFrameOffset.x, 0, rfootFrameOffset.z);
                     // bindHip.position += lfootFrameOffset;
-                    bindHipCenter.position -= new Vector3(0, bindFootGrounder, 0);
-                    bindAvatar.position -= new Vector3(rfootFrameOffset.x, 0 , rfootFrameOffset.z);
+                    if (bindHipCenter != null && bindAvatar != null)
+                    {
+                        bindHipCenter.position -= new Vector3(0, bindFootGrounder, 0);
+                        bindAvatar.position -= deltaShift;
+                    }
+                    _locomotionOffset -= deltaShift;
                 }
-            
+
                 if(isDebug) {
+                    if (bindAvatar != null)
+                    {
+                        Debug.Log($"avatar position: {bindAvatar.position}");
+                    }
+                    Debug.Log($"locomotion offset: {locomotionOffset}");
                     // Debug.Log("after lfootOffset: x " + lfootFrameOffset.x + " y " + lfootFrameOffset.y + " z " + lfootFrameOffset.z);
                 }
             }

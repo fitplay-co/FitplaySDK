@@ -32,6 +32,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>Lib\Newtonsoft.Json.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -82,6 +85,7 @@
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocketManager.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Lib\Newtonsoft.Json.dll" />
       <Content Include="Lib\UnityEngine.CoreModule.dll" />
       <Content Include="Lib\UnityEngine.JSONSerializeModule.dll" />
     </ItemGroup>

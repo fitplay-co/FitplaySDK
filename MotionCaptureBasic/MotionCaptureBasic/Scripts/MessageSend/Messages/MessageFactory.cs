@@ -38,7 +38,7 @@ namespace MotionCaptureBasic.MessageSend
                 type = MessageType.application_control.ToString(),
                 feature_id = MessageControlFeatureId.imu.ToString(),
                 action = MessageControlAction.config.ToString(),
-                data = new Config(){fps = fps}
+                data = new Config(){fps = fps, height = 0}
             };
         }
 
@@ -54,7 +54,7 @@ namespace MotionCaptureBasic.MessageSend
                 type = MessageType.application_control.ToString(),
                 feature_id = MessageControlFeatureId.action_detection.ToString(),
                 action = MessageControlAction.set_player.ToString(),
-                data = new Config(){height = h}
+                data = new Config(){fps = 0, height = h}
             };
         }
 
