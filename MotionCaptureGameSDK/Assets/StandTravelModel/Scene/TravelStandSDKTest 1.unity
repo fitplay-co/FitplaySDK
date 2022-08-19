@@ -1284,6 +1284,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  useLocomotion: 0
   motionDataModelType: 0
   initialMode: 1
   speedCurve:
@@ -1360,6 +1361,9 @@ MonoBehaviour:
       runThrehold: 0.25
       useFrequency: 1
       runSpeedScale: 1
+      sprintThrehold: 0.15
+      runThresholdScale: 1
+      sprintSpeedScale: 1.33
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 
@@ -3976,6 +3980,7 @@ MonoBehaviour:
   monsterMappingEnable: 0
   hasExController: 0
   isFullAnimOnRun: 0
+  useLocomotion: 0
   motionDataModelType: 0
   initialMode: 1
   speedCurve:
@@ -4052,6 +4057,9 @@ MonoBehaviour:
       runThrehold: 0.25
       useFrequency: 1
       runSpeedScale: 1
+      sprintThrehold: 0.15
+      runThresholdScale: 1
+      sprintSpeedScale: 1.33
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 
@@ -7162,6 +7170,38 @@ PrefabInstance:
     - target: {fileID: 1505443799433131769, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: m_Name
       value: Girl
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: isSelfMoveControl
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: initialMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: useLocomotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: tuningParameters.HipPosOffset.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: tuningParameters.LocalShiftScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: tuningParameters.LocalShiftScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: tuningParameters.LocalShiftScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2283247514099838019, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: m_RootOrder
