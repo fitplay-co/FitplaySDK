@@ -11,6 +11,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             private int lastLeg;
             private bool isLeft;
             private bool isRunning;
+            private bool isSprinting;
             private float actingTime;
             private float lastLegChange;
             private Func<bool> useFrequencey;
@@ -31,7 +32,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 if(useFrequencey())
                 {
-                    return IsExceededThresholdFrequency(walkData, getThreholdRun());
+                    return IsExceededThresholdFrequency(ref isRunning, getThreholdRun());
                 }
                 else
                 {
@@ -43,7 +44,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 if(useFrequencey())
                 {
-                    return IsExceededThresholdFrequency(walkData, getThreholdSprint());
+                    return IsExceededThresholdFrequency(ref isSprinting, getThreholdSprint());
                 }
                 else
                 {
@@ -56,14 +57,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 return actingTime;
             }
 
-            private bool IsExceededThresholdSpeed(WalkActionItem walkData, float threhold)
-            {
-                //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
-                //var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
-                return walkData.velocity >= threhold;
-            }
-
-            private bool IsExceededThresholdFrequency(WalkActionItem walkData, float threhold)
+            public void UpdateFrequency(WalkActionItem walkData)
             {
                 var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
                 var isActing = lastLeg != 0 && lastLeg != curLeft;
@@ -72,20 +66,40 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     if(lastLegChange != 0)
                     {
                         actingTime = Time.time - lastLegChange;
-                        if(isRunning)
-                        {
-                            isRunning = actingTime < threhold * 1.1f;
-                        }
-                        else
-                        {
-                            isRunning = actingTime < threhold;
-                        }
                     }
+
+                    /* if(curState)
+                    {
+                        Debug.Log(lastLeg + "|" + curLeft + "|" + actingTime + "|" + threhold);
+                    } */
 
                     lastLegChange = Time.time;
                 }
                 lastLeg = curLeft;
-                return isRunning;
+            }
+
+            private bool IsExceededThresholdSpeed(WalkActionItem walkData, float threhold)
+            {
+                //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
+                //var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
+                return walkData.velocity >= threhold;
+            }
+
+            private bool IsExceededThresholdFrequency(ref bool curState, float threhold)
+            {
+                if(lastLegChange != 0)
+                {
+                    if(curState)
+                    {
+                        curState = actingTime < threhold * 1.1f;
+                    }
+                    else
+                    {
+                        curState = actingTime < threhold;
+                    }
+                }
+
+                return curState;
             }
         }
 
@@ -101,6 +115,12 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.strideCacher = strideCacher;
         }
 
+        public void OnUpdate(WalkActionItem walkData)
+        {
+            cacherLeft.UpdateFrequency(walkData);
+            cacherRight.UpdateFrequency(walkData);
+        }
+
         public float GetActTimeLeft()
         {
             return cacherLeft.GetActTime();
@@ -113,11 +133,13 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public bool IsEnterSprintReady(WalkActionItem walkData)
         {
+            OnUpdate(walkData);
             return cacherLeft.IsEnterSprintReady(walkData) || cacherRight.IsEnterSprintReady(walkData);
         }
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
         {
+            OnUpdate(walkData);
             strideCacher.OnUpdate(walkData.GetLeftLeg(), walkData.leftStepLength);
 
             var isRunningLeft = cacherLeft.IsEnterRunReady(walkData, debug);

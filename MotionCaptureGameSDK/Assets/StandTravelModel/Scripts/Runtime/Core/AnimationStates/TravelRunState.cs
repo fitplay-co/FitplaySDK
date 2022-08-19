@@ -9,12 +9,14 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdIsSprint;
         private float exitDelayed;
         private RunConditioner runConditioner;
+        private RunConditioner sprintConditioner;
 
         private StepStateAnimatorParametersSetter parametersSetter;
 
-        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, RunConditioner runConditioner) : base(owner)
+        public TravelRunState(MotionModelBase owner, StepStateAnimatorParametersSetter parametersSetter, RunConditioner runConditioner, RunConditioner sprintConditioner) : base(owner)
         {
             this.runConditioner = runConditioner;
+            this.sprintConditioner = sprintConditioner;
             this.animIdIsRun = Animator.StringToHash("isRun");
             this.animIdIsSprint = Animator.StringToHash("isSprint");
             this.parametersSetter = parametersSetter;
@@ -37,7 +39,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
-                travelOwner.selfAnimator.SetBool(animIdIsSprint, runConditioner.IsEnterSprintReady(actionDetectionData.walk));
+                travelOwner.selfAnimator.SetBool(animIdIsSprint, sprintConditioner.IsEnterSprintReady(actionDetectionData.walk));
                 
                 var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, true);
                 if (!isRunReady)

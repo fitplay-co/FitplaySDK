@@ -114,6 +114,16 @@ namespace TurnModel.Scripts.TestDemo
                 standTravelModelManager.SetRunThresholdScale(runthrdScale);
             }
 
+            GUI.Label(new Rect(20, startYOffset + 200, 310, 50), $"冲刺速度缩放倍数 ");
+
+            var sprintSpeedScaleStr = GUI.TextField(new Rect(20, startYOffset + 220, 200, 20), standTravelModelManager.GetSprintSpeedScale().ToString());
+            var sprintSpeedScale = 0f;
+            if(float.TryParse(sprintSpeedScaleStr, out sprintSpeedScale) && sprintSpeedScale != standTravelModelManager.GetSprintSpeedScale())
+            {
+                dirty = true;
+                standTravelModelManager.SetSprintSpeedScale(sprintSpeedScale);
+            }
+
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
             var useFrequency = GUI.Toggle(new Rect(230, startYOffset + 80, 100, 50), useFrequencyCur, "使用步频切换");

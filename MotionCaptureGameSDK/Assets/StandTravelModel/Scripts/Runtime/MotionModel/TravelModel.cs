@@ -54,6 +54,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         private bool isExControlMode;
         private RunConditioner runConditioner;
+        private RunConditioner sprintConditioner;
 
         //private TravelModelAnimatorController animatorController;
 
@@ -102,13 +103,14 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideCacher = new StepStrideCacher();
+            var sprintConditioner = new RunConditioner(getRunThrehold, getSprintThrehold, useFrequency, getRunThresholdScale, strideCacher);
             this.runConditioner = new RunConditioner(getRunThrehold, getSprintThrehold, useFrequency, getRunThresholdScale, strideCacher);
-            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun, useFrequency, getSprintThrehold, runConditioner);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
                 {AnimationList.Idle, new TravelIdleState(this, parametersSetter, runConditioner)},
-                {AnimationList.Run, new TravelRunState(this, parametersSetter, runConditioner)},
+                {AnimationList.Run, new TravelRunState(this, parametersSetter, runConditioner, sprintConditioner)},
                 {AnimationList.Jump, new TravelJumpState(this)},
                 {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, runConditioner)},
                 {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, runConditioner)},

@@ -7,7 +7,7 @@ public class AnimatorMoverStepBehaviourFixedSpeed : AnimatorMoverStepBehaviour
 {
     [SerializeField] private float speed;
 
-    private StandTravelModelManager standTravelModelManager;
+    protected StandTravelModelManager standTravelModelManager;
 
     protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
     {
@@ -15,7 +15,7 @@ public class AnimatorMoverStepBehaviourFixedSpeed : AnimatorMoverStepBehaviour
         return new AnimatorMoverFixedSpeed(() => speed * GetOSVelocity(), animator.transform);
     }
 
-    private float GetOSVelocity()
+    protected virtual float GetOSVelocity()
     {
         if(standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.leftLeg != 0 && standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.rightLeg != 0)
         {

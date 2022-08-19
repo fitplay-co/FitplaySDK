@@ -9,6 +9,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     {
         private int animIdLegLeft;
         private int animIdRunSpeed;
+        private int animIdSprintPercent;
         private int animIdLegRight;
         private int animIdLastLegUp;
         private int animIdZeroDelayed;
@@ -25,22 +26,28 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private float zeroDelayed;
 
         private TravelModel travelOwner;
+        private RunConditioner runConditioner;
         private StepStrideCacher strideCacher;
         private StepStateSmoother stepSmoother;
         private StepProgressCacher progressLeft;
         private StepProgressCacher progressRight;
         private ActionDetectionItem actionDetectionItem;
 
+        private Func<bool> useFreqSprint;
         private Func<float> strideScale;
         private Func<float> strideScaleRun;
+        private Func<float> getSprintThrehold;
 
-        public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother, StepStrideCacher strideCacher, Func<float> strideScale, Func<float> strideScaleRun)
+        public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother, StepStrideCacher strideCacher, Func<float> strideScale, Func<float> strideScaleRun, Func<bool> useFreqSprint, Func<float> getSprintThrehold, RunConditioner runConditioner)
         {
+            this.strideScale = strideScale;
             this.travelOwner = travelOwner;
             this.stepSmoother = stepSmoother;
             this.strideCacher = strideCacher;
-            this.strideScale = strideScale;
+            this.useFreqSprint = useFreqSprint;
+            this.runConditioner = runConditioner;
             this.strideScaleRun = strideScaleRun;
+            this.getSprintThrehold = getSprintThrehold;
             this.progressLeft = new StepProgressCacher(speedCurve, downCurve);
             this.progressRight = new StepProgressCacher(speedCurve, downCurve);
             this.animIdLegLeft = Animator.StringToHash("leftLeg");
@@ -49,6 +56,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdLastLegUp = Animator.StringToHash("lastLegUp");
             this.animIdZeroDelayed = Animator.StringToHash("zeroDelayed");
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
+            this.animIdSprintPercent = Animator.StringToHash("sprintPercent");
             this.animIdStridePercent = Animator.StringToHash("stridePercent");
             this.animIdStrideRunPercent = Animator.StringToHash("stridePercentRun");
             this.animIdFootHeightDiff = Animator.StringToHash("footHeightDiff");
@@ -131,16 +139,45 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             TrySetParametersLegs();
             TrySetParametersHipAngles(isRun);
             TrySetParammeterFootHeightDiff();
-            TrySetRunSpeed();
+            TrySetRunParameters();
         }
 
-        private void TrySetRunSpeed()
+        private void TrySetRunParameters()
         {
             actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if(actionDetectionItem != null && actionDetectionItem.walk != null)
             {
                 travelOwner.selfAnimator.SetFloat(animIdRunSpeed, actionDetectionItem.walk.velocity);
+                SetSprintPercent(actionDetectionItem.walk);
             }
+        }
+
+        private void SetSprintPercent(WalkActionItem walk)
+        {
+            var min = 0f;
+            var max = 0f;
+            var sprintValue = 0f;
+            var sprintPercent = 0f;
+
+            if(!useFreqSprint())
+            {
+                sprintValue = walk.velocity;
+                min = getSprintThrehold();
+                max = getSprintThrehold() * 2;
+                sprintValue = Mathf.Clamp(sprintValue, min, max) - min;
+                sprintPercent = sprintValue / (max - min);
+            }
+            else
+            {
+                sprintValue = (runConditioner.GetActTimeLeft() + runConditioner.GetActTimeRight()) * 0.5f;
+                min = getSprintThrehold();
+                max = 8;
+                sprintValue = Mathf.Clamp(sprintValue, min, max) - min;
+                sprintPercent = 1f - sprintValue / (max - min);
+                Debug.Log(sprintValue + "| " + sprintPercent);
+            }
+
+            travelOwner.selfAnimator.SetFloat(animIdSprintPercent, sprintPercent);
         }
 
         private void TrySetStridePercent()

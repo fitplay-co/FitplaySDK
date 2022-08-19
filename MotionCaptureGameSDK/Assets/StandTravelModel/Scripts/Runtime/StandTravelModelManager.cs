@@ -472,6 +472,11 @@ namespace StandTravelModel.Scripts.Runtime
             return paramsLoader.GetSprintThrehold();
         }
 
+        public float GetSprintSpeedScale()
+        {
+            return paramsLoader.GetSprintSpeedScale();
+        }
+
         public void SetRunThrehold(float value)
         {
             paramsLoader.SetRunThrehold(value);
@@ -480,6 +485,11 @@ namespace StandTravelModel.Scripts.Runtime
         public void SetSprintThrehold(float value)
         {
             paramsLoader.SetSprintThrehold(value);
+        }
+
+        public void SetSprintSpeedScale(float value)
+        {
+            paramsLoader.SetSprintSpeedScale(value);
         }
 
         public bool GetUseFrequency()

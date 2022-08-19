@@ -8,4 +8,5 @@ public class StandTravelParams
     public float runSpeedScale = 1;
     public float sprintThrehold = 0.15f;
     public float runThresholdScale = 1;
+    public float sprintSpeedScale = 1.33f;
 }

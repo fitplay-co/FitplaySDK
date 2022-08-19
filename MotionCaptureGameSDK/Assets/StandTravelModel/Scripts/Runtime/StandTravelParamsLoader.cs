@@ -42,6 +42,16 @@ public class StandTravelParamsLoader
         standTravelParams.useFrequency = value;
     }
 
+    public float GetSprintSpeedScale()
+    {
+        return standTravelParams.sprintSpeedScale;
+    }
+
+    public void SetSprintSpeedScale(float value)
+    {
+        standTravelParams.sprintSpeedScale = value;
+    }
+
     public float GetRunSpeedScale()
     {
         return standTravelParams.runSpeedScale;
