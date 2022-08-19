@@ -2536,7 +2536,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
   m_PrefabInstance: {fileID: 9039311290045051061}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9039311290045051062}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b75397a0d51141378ceacba144431f5b, type: 3}
@@ -7173,7 +7173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: isSelfMoveControl
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: characterController
@@ -7181,7 +7181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: initialMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: useLocomotion
@@ -7249,6 +7249,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+--- !u!1 &9039311290045051062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1505443799433131769, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+  m_PrefabInstance: {fileID: 9039311290045051061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9039311290045051063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039311290045051062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6215aa07fee4ac984c2df8c2dc27306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standTravelModelManager: {fileID: 919132148613035384}
 --- !u!4 &9057330996297348918
 Transform:
   m_ObjectHideFlags: 0
