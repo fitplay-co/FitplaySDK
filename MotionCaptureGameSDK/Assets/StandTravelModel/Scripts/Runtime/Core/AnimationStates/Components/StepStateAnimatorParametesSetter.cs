@@ -174,7 +174,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 max = 8;
                 sprintValue = Mathf.Clamp(sprintValue, min, max) - min;
                 sprintPercent = 1f - sprintValue / (max - min);
-                Debug.Log(sprintValue + "| " + sprintPercent);
             }
 
             travelOwner.selfAnimator.SetFloat(animIdSprintPercent, sprintPercent);

@@ -39,7 +39,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
-                travelOwner.selfAnimator.SetBool(animIdIsSprint, sprintConditioner.IsEnterSprintReady(actionDetectionData.walk));
                 
                 var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, true);
                 if (!isRunReady)

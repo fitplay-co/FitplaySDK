@@ -17,7 +17,7 @@ public class AnimatorMoverStepBehaviourFixedSpeed : AnimatorMoverStepBehaviour
 
     protected virtual float GetOSVelocity()
     {
-        if(standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.leftLeg != 0 && standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.rightLeg != 0)
+        if(standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.leftLeg != 0 || standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.rightLeg != 0)
         {
             return standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.velocity;
         }
