@@ -12,7 +12,7 @@ public class AnimatorMoverStepBehaviourFixedSpeed : AnimatorMoverStepBehaviour
     protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
     {
         standTravelModelManager = animator.GetComponent<StandTravelModelManager>();
-        return new AnimatorMoverFixedSpeed(() => speed * GetOSVelocity(), animator.transform);
+        return new AnimatorMoverFixedSpeed(GetSpeed, animator.transform);
     }
 
     protected virtual float GetOSVelocity()
@@ -23,5 +23,10 @@ public class AnimatorMoverStepBehaviourFixedSpeed : AnimatorMoverStepBehaviour
         }
         return 0;
         //return standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk.velocity;
+    }
+
+    private float GetSpeed()
+    {
+        return Mathf.Min(speed * GetOSVelocity(), 11);
     }
 }
