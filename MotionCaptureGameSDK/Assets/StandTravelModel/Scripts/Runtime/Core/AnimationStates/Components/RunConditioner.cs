@@ -16,27 +16,31 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             private float lastLegChange;
             private Func<bool> useFrequencey;
             private Func<float> getThreholdRun;
+            private Func<float> getThreholdRunLow;
             private Func<float> getThreholdSprint;
             private Func<float> getRunThresholdScale;
+            private Func<float> getRunThresholdScaleLow;
 
-            public RunCacher(bool isLeft, Func<float> getThreholdRun, Func<bool> useFrequencey, Func<float> getThreholdSprint, Func<float> getRunThresholdScale)
+            public RunCacher(bool isLeft, Func<float> getThreholdRun, Func<float> getThreholdRunLow, Func<bool> useFrequencey, Func<float> getThreholdSprint, Func<float> getRunThresholdScale, Func<float> getRunThresholdScaleLow)
             {
                 this.isLeft = isLeft;
                 this.useFrequencey = useFrequencey;
                 this.getThreholdRun = getThreholdRun;
+                this.getThreholdRunLow = getThreholdRunLow;
                 this.getThreholdSprint = getThreholdSprint;
                 this.getRunThresholdScale = getRunThresholdScale;
+                this.getRunThresholdScaleLow = getRunThresholdScaleLow;
             }
 
             public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
             {
                 if(useFrequencey())
                 {
-                    return IsExceededThresholdFrequency(ref isRunning, getThreholdRun());
+                    return IsExceededThresholdFrequency(ref isRunning, getThreholdRun(), getThreholdRunLow());
                 }
                 else
                 {
-                    return IsExceededThresholdSpeed(walkData, walkData.velocityThreshold * getRunThresholdScale());
+                    return IsExceededThresholdSpeed(ref isRunning, walkData, walkData.velocityThreshold * getRunThresholdScale(), walkData.velocityThreshold * getRunThresholdScaleLow());
                 }
             }
 
@@ -44,11 +48,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 if(useFrequencey())
                 {
-                    return IsExceededThresholdFrequency(ref isSprinting, getThreholdSprint());
+                    return IsExceededThresholdFrequency(ref isSprinting, getThreholdSprint(), getThreholdSprint());
                 }
                 else
                 {
-                    return IsExceededThresholdSpeed(walkData, getThreholdSprint());
+                    return IsExceededThresholdSpeed(ref isRunning, walkData, getThreholdSprint(), walkData.velocityThreshold * getRunThresholdScaleLow());
                 }
             }
 
@@ -78,24 +82,32 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 lastLeg = curLeft;
             }
 
-            private bool IsExceededThresholdSpeed(WalkActionItem walkData, float threhold)
+            private bool IsExceededThresholdSpeed(ref bool curState, WalkActionItem walkData, float threhold, float threholdLow)
             {
                 //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
                 //var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
-                return walkData.velocity >= threhold;
+                if(!curState)
+                {
+                    curState = walkData.velocity >= threhold;
+                }
+                else
+                {
+                    curState = walkData.velocity >= threholdLow;
+                }
+                return curState;
             }
 
-            private bool IsExceededThresholdFrequency(ref bool curState, float threhold)
+            private bool IsExceededThresholdFrequency(ref bool curState, float threhold, float threholdLow)
             {
                 if(lastLegChange != 0)
                 {
                     if(curState)
                     {
-                        curState = actingTime < threhold * 1.1f;
+                        curState = actingTime < threhold;
                     }
                     else
                     {
-                        curState = actingTime < threhold;
+                        curState = actingTime < threholdLow;
                     }
                 }
 
@@ -108,10 +120,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private RunCacher cacherRight;
         private StepStrideCacher strideCacher;
 
-        public RunConditioner(Func<float> getThreholdRun, Func<float> getThreholdSprint, Func<bool> useFrequencey, Func<float> getRunThresholdScale, StepStrideCacher strideCacher)
+        public RunConditioner(Func<float> getThreholdRun, Func<float> getThreholdRunLow, Func<float> getThreholdSprint, Func<bool> useFrequencey, Func<float> getRunThresholdScale, Func<float> getRunThresholdScaleLow, StepStrideCacher strideCacher)
         {
-            this.cacherLeft = new RunCacher(true, getThreholdRun, useFrequencey, getThreholdSprint, getRunThresholdScale);
-            this.cacherRight = new RunCacher(false, getThreholdRun, useFrequencey, getThreholdSprint, getRunThresholdScale);
+            this.cacherLeft = new RunCacher(true, getThreholdRun, getThreholdRunLow, useFrequencey, getThreholdSprint, getRunThresholdScale, getRunThresholdScaleLow);
+            this.cacherRight = new RunCacher(false, getThreholdRun, getThreholdRunLow, useFrequencey, getThreholdSprint, getRunThresholdScale, getRunThresholdScaleLow);
             this.strideCacher = strideCacher;
         }
 

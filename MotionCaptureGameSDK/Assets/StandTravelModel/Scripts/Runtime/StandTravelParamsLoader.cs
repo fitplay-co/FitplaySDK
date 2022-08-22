@@ -32,6 +32,16 @@ public class StandTravelParamsLoader
         standTravelParams.runThrehold = value;
     }
 
+    public float GetRunThreholdLow()
+    {
+        return standTravelParams.runThreholdLow;
+    }
+
+    public void SetRunThreholdLow(float value)
+    {
+        standTravelParams.runThreholdLow = value;
+    }
+
     public bool GetUseFrequency()
     {
         return standTravelParams.useFrequency;
@@ -80,6 +90,16 @@ public class StandTravelParamsLoader
     public void SetRunThresholdScale(float value)
     {
         standTravelParams.runThresholdScale = value;
+    }
+
+    public float GetRunThreholdScaleLow()
+    {
+        return standTravelParams.runThresholdScaleLow;
+    }
+
+    public void SetRunThreholdScaleLow(float value)
+    {
+        standTravelParams.runThresholdScaleLow = value;
     }
 
     private string GetFilePath()

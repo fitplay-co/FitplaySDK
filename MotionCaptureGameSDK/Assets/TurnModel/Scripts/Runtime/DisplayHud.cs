@@ -94,24 +94,14 @@ namespace TurnModel.Scripts.TestDemo
                 WalkActionItem.useRealtimeData = false;
             }
 
-            GUI.Label(new Rect(20, startYOffset + 120, 300, 50), $"速度缩放倍数 ");
+            GUI.Label(new Rect(20, startYOffset + 160, 300, 50), $"速度缩放倍数 ");
 
-            var speedScaleStr = GUI.TextField(new Rect(20, startYOffset + 140, 200, 20), standTravelModelManager.GetRunSpeedScale().ToString());
+            var speedScaleStr = GUI.TextField(new Rect(20, startYOffset + 180, 200, 20), standTravelModelManager.GetRunSpeedScale().ToString());
             var speedScale = 0f;
             if(float.TryParse(speedScaleStr, out speedScale) && speedScale != standTravelModelManager.GetRunSpeedScale())
             {
                 dirty = true;
                 standTravelModelManager.SetRunSpeedScale(speedScale);
-            }
-            
-            GUI.Label(new Rect(20, startYOffset + 160, 300, 50), $"速度阈值缩放倍数 ");
-
-            var runthrdScaleStr = GUI.TextField(new Rect(20, startYOffset + 180, 200, 20), standTravelModelManager.GetRunThresholdScale().ToString());
-            var runthrdScale = 0f;
-            if(float.TryParse(runthrdScaleStr, out runthrdScale) && runthrdScale != standTravelModelManager.GetRunThresholdScale())
-            {
-                dirty = true;
-                standTravelModelManager.SetRunThresholdScale(runthrdScale);
             }
 
             GUI.Label(new Rect(20, startYOffset + 200, 310, 50), $"冲刺速度缩放倍数 ");
@@ -138,12 +128,43 @@ namespace TurnModel.Scripts.TestDemo
             if(!useSpeed && useFrequency)
             {
                 GUI.Label(new Rect(20, startYOffset + 70, 310, 50), $"走跑切换阈值 ");
-                var runThreholdStr = GUI.TextField(new Rect(20, startYOffset + 90, 200, 20), standTravelModelManager.GetRunThrehold().ToString());
+                var runThreholdStr = GUI.TextField(new Rect(20, startYOffset + 90, 90, 20), standTravelModelManager.GetRunThrehold().ToString());
                 var runThrehold = 0f;
                 if(float.TryParse(runThreholdStr, out runThrehold) && runThrehold != standTravelModelManager.GetRunThrehold())
                 {
                     dirty = true;
                     standTravelModelManager.SetRunThrehold(runThrehold);
+                }
+
+                GUI.Label(new Rect(120, startYOffset + 70, 310, 50), $"走跑切换阈值下沿 ");
+                runThreholdStr = GUI.TextField(new Rect(130, startYOffset + 90, 90, 20), standTravelModelManager.GetRunThreholdLow().ToString());
+                runThrehold = 0f;
+                if(float.TryParse(runThreholdStr, out runThrehold) && runThrehold != standTravelModelManager.GetRunThreholdLow())
+                {
+                    dirty = true;
+                    standTravelModelManager.SetRunThreholdLow(runThrehold);
+                }
+            }
+            else
+            {
+                GUI.Label(new Rect(20, startYOffset + 70, 310, 50), $"速度阈值缩放倍数 * ");
+
+                var runthrdScaleStr = GUI.TextField(new Rect(20, startYOffset + 90, 90, 20), standTravelModelManager.GetRunThresholdScale().ToString());
+                var runthrdScale = 0f;
+                if(float.TryParse(runthrdScaleStr, out runthrdScale) && runthrdScale != standTravelModelManager.GetRunThresholdScale())
+                {
+                    dirty = true;
+                    standTravelModelManager.SetRunThresholdScale(runthrdScale);
+                }
+
+                GUI.Label(new Rect(20, startYOffset + 110, 310, 50), $"速度阈值缩放倍数下沿 * ");
+
+                runthrdScaleStr = GUI.TextField(new Rect(20, startYOffset + 130, 90, 20), standTravelModelManager.GetRunThresholdScaleLow().ToString());
+                runthrdScale = 0f;
+                if(float.TryParse(runthrdScaleStr, out runthrdScale) && runthrdScale != standTravelModelManager.GetRunThresholdScaleLow())
+                {
+                    dirty = true;
+                    standTravelModelManager.SetRunThresholdScaleLow(runthrdScale);
                 }
             }
 
@@ -156,7 +177,7 @@ namespace TurnModel.Scripts.TestDemo
                 standTravelModelManager.SetSprintThrehold(sprintThrehold);
             }
 
-            if(dirty && GUI.Button(new Rect(20, startYOffset + 220, 300, 30), $"保存"))
+            if(dirty && GUI.Button(new Rect(20, startYOffset + 250, 300, 30), $"保存"))
             {
                 dirty = false;
                 standTravelModelManager.SerializeParams();

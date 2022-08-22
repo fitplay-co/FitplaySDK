@@ -27,6 +27,6 @@ public class AnimatorMoverStepBehaviourFixedSpeed : AnimatorMoverStepBehaviour
 
     private float GetSpeed()
     {
-        return Mathf.Min(speed * GetOSVelocity(), 11);
+        return Mathf.Min(speed * GetOSVelocity(), 15);
     }
 }
