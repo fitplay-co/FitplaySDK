@@ -104,6 +104,6 @@ public class StandTravelParamsLoader
 
     private string GetFilePath()
     {
-        return Application.persistentDataPath + fileName;
+        return Application.dataPath + "/Resources" + fileName;
     }
 }
