@@ -116,8 +116,16 @@ namespace TurnModel.Scripts.TestDemo
 
             var useFrequencyCur = standTravelModelManager.GetUseFrequency();
             var useSpeedCur = !standTravelModelManager.GetUseFrequency();
+            var useSmoothSwitchCur = standTravelModelManager.GetUseSmoothSwitch();
             var useFrequency = GUI.Toggle(new Rect(230, startYOffset + 80, 100, 50), useFrequencyCur, "使用步频切换");
             var useSpeed = GUI.Toggle(new Rect(230, startYOffset + 100, 100, 50), useSpeedCur, "使用速度切换");
+            var useSmoothSwtitch = GUI.Toggle(new Rect(230, startYOffset + 130, 150, 50), useSmoothSwitchCur, "使用无缝走跑切换");
+
+            if(useSmoothSwitchCur != useSmoothSwtitch)
+            {
+                standTravelModelManager.SetUseSmoothSwitch(useSmoothSwtitch);
+                standTravelModelManager.SwitchWalkRunAnimator(useSmoothSwtitch);
+            }
 
             if(useFrequency != useFrequencyCur || useSpeed != useSpeedCur)
             {

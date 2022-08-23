@@ -82,6 +82,18 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 lastLeg = curLeft;
             }
 
+            public float GetWalkRunPercent(WalkActionItem walkData)
+            {
+                if(useFrequencey())
+                {
+                    return 1 - Mathf.Clamp01(actingTime / getThreholdRun());
+                }
+                else
+                {
+                    return Mathf.Clamp01(walkData.velocity / walkData.velocityThreshold);
+                }
+            }
+
             private bool IsExceededThresholdSpeed(ref bool curState, WalkActionItem walkData, float threhold, float threholdLow)
             {
                 //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
@@ -211,6 +223,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 return true;
             }
             return false; */
+        }
+
+        public float GetWalkRunPercent(WalkActionItem walk)
+        {
+            return Mathf.Max(cacherLeft.GetWalkRunPercent(walk), cacherRight.GetWalkRunPercent(walk));
         }
     }
 }

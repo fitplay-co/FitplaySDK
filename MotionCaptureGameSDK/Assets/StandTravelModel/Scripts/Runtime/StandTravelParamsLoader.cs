@@ -42,6 +42,16 @@ public class StandTravelParamsLoader
         standTravelParams.runThreholdLow = value;
     }
 
+    public bool GetUseSmoothSwitch()
+    {
+        return standTravelParams.useSmoothSwitch;
+    }
+
+    public void SetUseSmoothSwitch(bool value)
+    {
+        standTravelParams.useSmoothSwitch = value;
+    }
+
     public bool GetUseFrequency()
     {
         return standTravelParams.useFrequency;

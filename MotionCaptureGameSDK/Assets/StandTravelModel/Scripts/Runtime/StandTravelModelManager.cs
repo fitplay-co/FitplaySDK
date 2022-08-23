@@ -76,6 +76,7 @@ namespace StandTravelModel.Scripts.Runtime
         public IMotionDataModel motionDataModelReference => motionDataModel;
         private IModelIKController modelIKController;
 
+        private Animator modelAnimator;
         private AnchorController anchorController;
         private StandModel standModel;
         private TravelModel travelModel;
@@ -512,9 +513,31 @@ namespace StandTravelModel.Scripts.Runtime
             paramsLoader.SetUseFrequency(value);
         }
 
+        public bool GetUseSmoothSwitch()
+        {
+            return paramsLoader.GetUseSmoothSwitch();
+        }
+
+        public void SetUseSmoothSwitch(bool value)
+        {
+            paramsLoader.SetUseSmoothSwitch(value);
+        }
+
         public void SerializeParams()
         {
             paramsLoader.Serialize();
+        }
+
+        public void SwitchWalkRunAnimator(bool useSmoothSwitch)
+        {
+            if(useSmoothSwitch)
+            {
+                modelAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Girl Smooth");
+            }
+            else
+            {
+                modelAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Girl");
+            }
         }
 
         private void ChangeIKModelWeight(int weight)
@@ -547,7 +570,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             if(progress > 0.0001f)
             {
-                GetComponent<Animator>().SetFloat("progress", progress);
+                modelAnimator.SetFloat("progress", progress);
             }
         }
 
@@ -573,7 +596,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void InitMotionModels()
         {
-            var modelAnimator = this.GetComponent<Animator>();
+            this.modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
             var characterHeadNode = modelAnimator.GetBoneTransform(HumanBodyBones.Head);
             InitStandModel(characterHipNode, characterHeadNode);

@@ -11,4 +11,5 @@ public class StandTravelParams
     public float runThresholdScale = 1;
     public float runThresholdScaleLow = 0.8f;
     public float sprintSpeedScale = 1.33f;
+    public bool useSmoothSwitch = false;
 }
