@@ -1067,7 +1067,7 @@ MonoBehaviour:
   isFullAnimOnRun: 0
   useLocomotion: 1
   motionDataModelType: 0
-  initialMode: 1
+  initialMode: 0
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -1176,10 +1176,12 @@ MonoBehaviour:
   paramsLoader:
     standTravelParams:
       runThrehold: 0.25
+      runThreholdLow: 0.35
       useFrequency: 1
       runSpeedScale: 1
       sprintThrehold: 0.15
       runThresholdScale: 1
+      runThresholdScaleLow: 0.8
       sprintSpeedScale: 1.33
   strideScaleRun: 1
   strideScaleWalk: 1

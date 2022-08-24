@@ -136,7 +136,12 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             if (isExControlMode)
             {
                 var newPos = selfTransform.position;
-                newPos.y = groundHeight;
+                if (newPos.y < groundHeight)
+                {
+                    newPos.y = groundHeight;
+                    selfTransform.position = newPos;
+                }
+                
                 anchorController.TravelFollowPoint.transform.position = newPos;
             }
             else

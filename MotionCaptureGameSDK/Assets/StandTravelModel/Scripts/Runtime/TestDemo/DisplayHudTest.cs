@@ -61,7 +61,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             var velocityX = Mathf.Round(currentVelocity.x * 100) / 100;
             var velocityY = Mathf.Round(currentVelocity.y * 100) / 100;
             var velocityZ = Mathf.Round(currentVelocity.z * 100) / 100;
-            //GUI.Label(new Rect(20, 160, 600, 40), $"Avatar速度矢量: x={velocityX}, y={velocityY}, z={velocityZ}", labelStyle);
+            //Debug.Log($"Avatar速度矢量: x={velocityX}, y={velocityY}, z={velocityZ}");
 
             var target = new Vector3(velocityX, 0, velocityZ).magnitude;
             _currentAvatarSpeed = Mathf.Lerp(_currentAvatarSpeed, target, Time.deltaTime * _SmoothRate);
