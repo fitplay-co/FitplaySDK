@@ -20,15 +20,7 @@ public class StandTravelTestUI : MonoBehaviour
 
     private void Start() {
         
-        RefreshToggles();
-
-        UpdateInputField(threholdFreq, standTravelModelManager.GetRunThrehold());
-        UpdateInputField(threholdFreqLow, standTravelModelManager.GetRunThreholdLow());
-        UpdateInputField(speedThreholdScale, standTravelModelManager.GetRunThresholdScale());
-        UpdateInputField(speedThreholdScaleLow, standTravelModelManager.GetRunThresholdScaleLow());
-        UpdateInputField(sprintThrehold, standTravelModelManager.GetSprintThrehold());
-        UpdateInputField(speedScale, standTravelModelManager.GetRunSpeedScale());
-        UpdateInputField(sprintSpeedScale, standTravelModelManager.GetSprintSpeedScale());
+        Refresh();
 
         threholdFreq.onEndEdit.AddListener(OnInputThreholdFreq);
         threholdFreqLow.onEndEdit.AddListener(OnInputThreholdFreqLow);
@@ -39,6 +31,23 @@ public class StandTravelTestUI : MonoBehaviour
         sprintSpeedScale.onEndEdit.AddListener(OnInputSprintSpeedScale);
 
         saveButton.onClick.AddListener(Save);
+    }
+
+    private void Refresh()
+    {
+        RefreshToggles();
+        RefreshInputFields();
+    }
+
+    private void RefreshInputFields()
+    {
+        UpdateInputField(threholdFreq, standTravelModelManager.GetRunThrehold());
+        UpdateInputField(threholdFreqLow, standTravelModelManager.GetRunThreholdLow());
+        UpdateInputField(speedThreholdScale, standTravelModelManager.GetRunThresholdScale());
+        UpdateInputField(speedThreholdScaleLow, standTravelModelManager.GetRunThresholdScaleLow());
+        UpdateInputField(sprintThrehold, standTravelModelManager.GetSprintThrehold());
+        UpdateInputField(speedScale, standTravelModelManager.GetRunSpeedScale());
+        UpdateInputField(sprintSpeedScale, standTravelModelManager.GetSprintSpeedScale());
     }
 
     private void RefreshToggles()
@@ -59,19 +68,19 @@ public class StandTravelTestUI : MonoBehaviour
     private void OnUseFreq(bool value)
     {
         standTravelModelManager.SetUseFrequency(value);
-        RefreshToggles();
+        Refresh();
     }
 
     private void OnUseSpeed(bool value)
     {
         standTravelModelManager.SetUseFrequency(!value);
-        RefreshToggles();
+        Refresh();
     }
 
     private void OnUseSmooth(bool value)
     {
         standTravelModelManager.SetUseSmoothSwitch(value);
-        RefreshToggles();
+        Refresh();
     }
 
     private void OnInputThreholdFreq(string content)

@@ -24,22 +24,22 @@ public class StandTravelParamsLoader
 
     public float GetRunThrehold()
     {
-        return standTravelParams.runThrehold;
+        return standTravelParams.GetRunThrehold();
     }
 
     public void SetRunThrehold(float value)
     {
-        standTravelParams.runThrehold = value;
+        standTravelParams.SetRunThrehold(value);
     }
 
     public float GetRunThreholdLow()
     {
-        return standTravelParams.runThreholdLow;
+        return standTravelParams.GetRunThreholdLow();
     }
 
     public void SetRunThreholdLow(float value)
     {
-        standTravelParams.runThreholdLow = value;
+        standTravelParams.SetRunThreholdLow(value);
     }
 
     public bool GetUseSmoothSwitch()
@@ -84,12 +84,12 @@ public class StandTravelParamsLoader
 
     public float GetSprintThrehold()
     {
-        return standTravelParams.sprintThrehold;
+        return standTravelParams.GetSprintThrehold();
     }
 
     public void SetSprintThrehold(float value)
     {
-        standTravelParams.sprintThrehold = value;
+        standTravelParams.SetSprintThrehold(value);
     }
     
     public float GetRunThresholdScale()
