@@ -10,6 +10,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdLegLeft;
         private int animIdRunSpeed;
         private int animIdSprintPercent;
+        private int animIdWalkRunPercent;
         private int animIdLegRight;
         private int animIdLastLegUp;
         private int animIdZeroDelayed;
@@ -57,6 +58,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdZeroDelayed = Animator.StringToHash("zeroDelayed");
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
             this.animIdSprintPercent = Animator.StringToHash("sprintPercent");
+            this.animIdWalkRunPercent = Animator.StringToHash("walkRunPercent");
             this.animIdStridePercent = Animator.StringToHash("stridePercent");
             this.animIdStrideRunPercent = Animator.StringToHash("stridePercentRun");
             this.animIdFootHeightDiff = Animator.StringToHash("footHeightDiff");
@@ -149,6 +151,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 travelOwner.selfAnimator.SetFloat(animIdRunSpeed, actionDetectionItem.walk.velocity);
                 SetSprintPercent(actionDetectionItem.walk);
+                SetWalkRunPercent(actionDetectionItem.walk);
             }
         }
 
@@ -177,6 +180,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             }
 
             travelOwner.selfAnimator.SetFloat(animIdSprintPercent, sprintPercent);
+        }
+
+        private void SetWalkRunPercent(WalkActionItem walk)
+        {
+            travelOwner.selfAnimator.SetFloat(animIdWalkRunPercent, runConditioner.GetWalkRunPercent(walk));
         }
 
         private void TrySetStridePercent()

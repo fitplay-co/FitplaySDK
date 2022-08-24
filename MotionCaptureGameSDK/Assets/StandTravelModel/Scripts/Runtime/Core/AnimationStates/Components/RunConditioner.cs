@@ -70,16 +70,32 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     if(lastLegChange != 0)
                     {
                         actingTime = Time.time - lastLegChange;
+                        if(lastLeg == -1)
+                        {
+                            actingTime *= 0.5f;
+                        }
                     }
 
-                    /* if(curState)
+                    /* if(isRunning)
                     {
-                        Debug.Log(lastLeg + "|" + curLeft + "|" + actingTime + "|" + threhold);
+                        Debug.Log(lastLeg + "|" + actingTime + "|" + Time.frameCount);
                     } */
 
                     lastLegChange = Time.time;
                 }
                 lastLeg = curLeft;
+            }
+
+            public float GetWalkRunPercent(WalkActionItem walkData)
+            {
+                if(useFrequencey())
+                {
+                    return 1 - Mathf.Clamp01(actingTime / getThreholdRun());
+                }
+                else
+                {
+                    return Mathf.Clamp01(walkData.velocity / walkData.velocityThreshold);
+                }
             }
 
             private bool IsExceededThresholdSpeed(ref bool curState, WalkActionItem walkData, float threhold, float threholdLow)
@@ -99,9 +115,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             private bool IsExceededThresholdFrequency(ref bool curState, float threhold, float threholdLow)
             {
-                if(lastLegChange != 0)
+                //Debug.Log(GetHashCode() + "|" + Time.frameCount + "|" + curState + "|" + threhold + "|" + threholdLow);
+                if(lastLegChange != 0 && actingTime > 0)
                 {
-                    if(curState)
+                    if(!curState)
                     {
                         curState = actingTime < threhold;
                     }
@@ -211,6 +228,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 return true;
             }
             return false; */
+        }
+
+        public float GetWalkRunPercent(WalkActionItem walk)
+        {
+            return Mathf.Max(cacherLeft.GetWalkRunPercent(walk), cacherRight.GetWalkRunPercent(walk));
         }
     }
 }
