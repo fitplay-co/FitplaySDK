@@ -83,7 +83,7 @@ namespace TurnModel.Scripts.TestDemo
                 GUI.Label(new Rect(1280, 32, 400, 40), "右腿动作耗时 " + actTime.ToString("f2"), labelStyle);
             }
 
-            startYOffset = 660;
+            /* startYOffset = 660;
             if(GUI.Button(new Rect(20, startYOffset - 40, 200, 30), $"使用最新OS"))
             {
                 WalkActionItem.useRealtimeData = true;
@@ -189,7 +189,7 @@ namespace TurnModel.Scripts.TestDemo
             {
                 dirty = false;
                 standTravelModelManager.SerializeParams();
-            }
+            } */
         }
     }
 }

@@ -14,7 +14,8 @@ public static class JsonHelper
                     return JsonConvert.DeserializeObject<T>(json);
                 }
             }
-        } catch {
+        } catch(System.Exception e) {
+            UnityEngine.Debug.LogWarning(e);
             return default(T);
         }
     }
@@ -22,7 +23,7 @@ public static class JsonHelper
     public static bool Serialize<T>(string filePath, T obj)
     {
         try {
-            using(FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+            using(FileStream fileStream = new FileStream(filePath, FileMode.Create))
             {
                 using(StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
