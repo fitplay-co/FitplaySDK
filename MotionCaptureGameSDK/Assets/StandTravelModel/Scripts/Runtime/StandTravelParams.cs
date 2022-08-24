@@ -4,14 +4,14 @@ using UnityEngine;
 [Serializable]
 public class StandTravelParams
 {
-    [SerializeField] float runThrehold = 0.25f;
-    [SerializeField] float runThreholdLow = 0.35f;
-    [SerializeField] float freqThrehold = 0.25f;
-    [SerializeField] float freqThreholdLow = 0.35f;
+    public float runThrehold = 0.25f;
+    public float runThreholdLow = 0.35f;
+    public float freqThrehold = 0.25f;
+    public float freqThreholdLow = 0.35f;
     public bool useFrequency = true;
     public float runSpeedScale = 1;
-    [SerializeField] float sprintThrehold = 0.15f;
-    [SerializeField] float freqSprintThrehold = 0.15f;
+    public float sprintThrehold = 0.15f;
+    public float  freqSprintThrehold = 0.15f;
     public float runThresholdScale = 1;
     public float runThresholdScaleLow = 0.8f;
     public float sprintSpeedScale = 1.33f;
