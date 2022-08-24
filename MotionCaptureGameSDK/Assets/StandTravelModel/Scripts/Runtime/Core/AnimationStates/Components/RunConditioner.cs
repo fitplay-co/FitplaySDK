@@ -70,11 +70,16 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     if(lastLegChange != 0)
                     {
                         actingTime = Time.time - lastLegChange;
+                        if(lastLeg == -1)
+                        {
+                            actingTime *= 0.5f;
+                        }
+                        //Debug.Log(GetHashCode() + "actingTime " + actingTime + "|" + "lastLeg " + lastLeg + "|curLeg " + curLeft + "|" + Time.frameCount);
                     }
 
-                    /* if(curState)
+                    /* if(isRunning)
                     {
-                        Debug.Log(lastLeg + "|" + curLeft + "|" + actingTime + "|" + threhold);
+                        Debug.Log(lastLeg + "|" + actingTime + "|" + Time.frameCount);
                     } */
 
                     lastLegChange = Time.time;
@@ -111,9 +116,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             private bool IsExceededThresholdFrequency(ref bool curState, float threhold, float threholdLow)
             {
+                //Debug.Log(GetHashCode() + "|" + Time.frameCount + "|" + curState + "|" + threhold + "|" + threholdLow);
                 if(lastLegChange != 0)
                 {
-                    if(curState)
+                    if(!curState)
                     {
                         curState = actingTime < threhold;
                     }
