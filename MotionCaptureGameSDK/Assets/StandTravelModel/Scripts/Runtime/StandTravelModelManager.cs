@@ -114,14 +114,12 @@ namespace StandTravelModel.Scripts.Runtime
         public float currentFrequency => travelModel.currentFrequency;
         public bool isJump => travelModel.isJump;
 
-        private bool enable = true;
-
         public bool Enabled
         {
-            get { return enable; }
+            get { return enabled; }
             set
             {
-                enable = value;
+                enabled = value;
                 if (!isFKEnabled)
                 {
 #if USE_FINAL_IK
@@ -140,7 +138,7 @@ namespace StandTravelModel.Scripts.Runtime
 #endif
                 }
 
-                if (!enable)
+                if (!value)
                 {
                     travelModel?.selfAnimator.Play("Idle");
                 }
@@ -234,11 +232,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void FixedUpdate()
         {
-            if (!enable)
-            {
-                return;
-            }
-
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
@@ -247,13 +240,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
-            GeneralCheck();
-            
-            if (!enable)
-            {
-                return;
-            }
-            
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -281,11 +267,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void LateUpdate()
         {
-            if (!enable)
-            {
-                return;
-            }
-            
             if(motionModel != null)
             {
                 motionModel.OnLateUpdate();
@@ -317,26 +298,17 @@ namespace StandTravelModel.Scripts.Runtime
             }
         }
 
-        private void GeneralCheck()
+        public bool GeneralCheck()
         {
             var generalData = motionDataModel.GetGeneralDetectionData();
             if (generalData == null)
             {
-                return;
+                return false;
             }
 
             int generalConfidence = generalData.confidence;
-            
-            switch (generalConfidence)
-            {
-                case 0:
-                    travelModel?.selfAnimator.Play("Idle");
-                    Enabled = false;
-                    break;
-                case 1:
-                    Enabled = true;
-                    break;
-            }
+
+            return generalConfidence == 1;
         }
 
         /// <summary>
