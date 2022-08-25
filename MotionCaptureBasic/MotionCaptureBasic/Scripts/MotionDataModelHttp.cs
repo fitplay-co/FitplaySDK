@@ -195,6 +195,18 @@ namespace MotionCaptureBasic
 
             return ikBodyUpdateMessage.gaze_tracking;
         }
+        
+        public GeneralDetectionItem GetGeneralDetectionData()
+        {
+            var bodymessage = httpProtocolHandler.BodyMessageBase;
+
+            if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
+            {
+                return null;
+            }
+
+            return ikBodyUpdateMessage.general_detection;
+        }
 
         public bool SubscribeGazeTracking()
         {
@@ -239,6 +251,16 @@ namespace MotionCaptureBasic
         public bool ResetGroundLocation()
         {
             return WebsocketOSClient.GetInstance().ResetGroundLocation();
+        }
+        
+        public bool SubscribeGeneral()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeGeneral(true);
+        }
+
+        public bool ReleaseGeneral()
+        {
+            return WebsocketOSClient.GetInstance().SubscribeGeneral(false);
         }
 
         /// <summary>

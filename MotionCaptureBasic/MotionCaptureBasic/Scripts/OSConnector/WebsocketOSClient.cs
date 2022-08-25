@@ -98,6 +98,16 @@ namespace MotionCaptureBasic.OSConnector
             return false;
         }
 
+        public bool SubscribeGeneral(bool active)
+        {
+            if (messageSubscriber != null)
+            {
+                return messageSubscriber.SubscribeGeneral(active);
+            }
+
+            return false;
+        }
+
         public bool ResetGroundLocation()
         {
             if (messageSubscriber != null)

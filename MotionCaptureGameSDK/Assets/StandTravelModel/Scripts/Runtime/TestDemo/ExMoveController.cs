@@ -14,6 +14,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             charaControl = GetComponent<CharacterController>();
             standTravelModelManager = GetComponent<StandTravelModelManager>();
             animatorMover = GetComponent<AnimatorMover>();
+            standTravelModelManager.InitPlayerHeightUI();
         }
 
         public void Update()
@@ -23,7 +24,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 deltaMovement = standTravelModelManager.GetMoveVelocity() * Time.deltaTime;
                 charaControl.Move(deltaMovement);
             }*/
-            
+
             if (charaControl != null && animatorMover != null)
             {
                 deltaMovement = animatorMover.velocity * Time.deltaTime;

@@ -118,10 +118,10 @@ namespace StandTravelModel.Scripts.Runtime
 
         public bool Enabled
         {
-            get { return enabled; }
+            get { return enable; }
             set
             {
-                enabled = value;
+                enable = value;
                 if (!isFKEnabled)
                 {
 #if USE_FINAL_IK
@@ -138,6 +138,11 @@ namespace StandTravelModel.Scripts.Runtime
 #else
                     fKPoseModel?.SetEnable(value);
 #endif
+                }
+
+                if (!enable)
+                {
+                    travelModel?.selfAnimator.Play("Idle");
                 }
             }
         }
@@ -224,7 +229,7 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
-            InitPlayerHeightUI();
+            ShowPlayerHeightUI();
         }
 
         public void FixedUpdate()
@@ -242,6 +247,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
+            GeneralCheck();
+            
             if (!enable)
             {
                 return;
@@ -307,6 +314,28 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 travelModel.Clear();
                 travelModel = null;
+            }
+        }
+
+        private void GeneralCheck()
+        {
+            var generalData = motionDataModel.GetGeneralDetectionData();
+            if (generalData == null)
+            {
+                return;
+            }
+
+            int generalConfidence = generalData.confidence;
+            
+            switch (generalConfidence)
+            {
+                case 0:
+                    travelModel?.selfAnimator.Play("Idle");
+                    Enabled = false;
+                    break;
+                case 1:
+                    Enabled = true;
+                    break;
             }
         }
 
@@ -812,6 +841,7 @@ namespace StandTravelModel.Scripts.Runtime
             motionDataModel.SubscribeActionDetection();
             motionDataModel.SubscribeGroundLocation();
             motionDataModel.SubscribeFitting();
+            motionDataModel.SubscribeGeneral();
             _osConnected = true;
         }
 
@@ -891,7 +921,7 @@ namespace StandTravelModel.Scripts.Runtime
             Enabled = true;
         }
 
-        private void InitPlayerHeightUI()
+        public void InitPlayerHeightUI()
         {
             if(playerHeightUI == null)
             {
@@ -900,7 +930,7 @@ namespace StandTravelModel.Scripts.Runtime
                 var newobj = GameObject.Instantiate(prefab, canvas.transform);
                 playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
                 playerHeightUI.Initialize(OnPlayerHeightInput);
-                Enabled = false;
+                playerHeightUI.Hide();
             }
         }
     }
