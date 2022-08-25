@@ -904,7 +904,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void ShowPlayerHeightUI()
         {
-            playerHeightUI.Show();
+            // ReSharper disable once Unity.NoNullPropagation
+            playerHeightUI?.Show();
             Enabled = false;
         }
 
@@ -917,7 +918,8 @@ namespace StandTravelModel.Scripts.Runtime
         private void OnPlayerHeightInput(int height)
         {
             motionDataModel?.SetPlayerHeight(height);
-            playerHeightUI.Hide();
+            // ReSharper disable once Unity.NoNullPropagation
+            playerHeightUI?.Hide();
             Enabled = true;
         }
 
