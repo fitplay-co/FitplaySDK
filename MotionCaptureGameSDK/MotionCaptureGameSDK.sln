@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionCapture.TurnModel", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.RenderPipelines.Universal.Shaders", "Unity.RenderPipelines.Universal.Shaders.csproj", "{9298295a-b0d2-9ebf-e3b9-949e2fbe6296}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionCapture.MotionLib", "MotionCapture.MotionLib.csproj", "{ea89b1dc-71fd-0b27-7cd9-69e875abbbab}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK.Editor", "FinalIK.Editor.csproj", "{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.RenderPipelines.Universal.Editor", "Unity.RenderPipelines.Universal.Editor.csproj", "{35e79aaf-d780-ab35-0004-7e795774db5f}"
@@ -101,6 +103,10 @@ Global
 		{9298295a-b0d2-9ebf-e3b9-949e2fbe6296}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9298295a-b0d2-9ebf-e3b9-949e2fbe6296}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9298295a-b0d2-9ebf-e3b9-949e2fbe6296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ea89b1dc-71fd-0b27-7cd9-69e875abbbab}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ea89b1dc-71fd-0b27-7cd9-69e875abbbab}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ea89b1dc-71fd-0b27-7cd9-69e875abbbab}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ea89b1dc-71fd-0b27-7cd9-69e875abbbab}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02aaea7b-6a3e-cfdc-b742-270e23a7f20b}.Release|Any CPU.ActiveCfg = Release|Any CPU
