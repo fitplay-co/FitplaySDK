@@ -131,6 +131,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: ElbowAngleMax
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: WristToCrotchY
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: WristToShoulderY
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: standTravelModelManager
       value: 
       objectReference: {fileID: 113244908}

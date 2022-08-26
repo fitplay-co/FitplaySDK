@@ -25,17 +25,18 @@ namespace MotionLib.Scripts
         [Header("另一侧手腕到肩膀的Y轴距离 < WristToShoulderY 时，第三触发条件成立")] [SerializeField] [Range(0, 1)]
         public float WristToShoulderY = 0.1f;
 
-        [Header("ElbowAngleMin < 两侧肘关节夹角 < ElbowAngleMax 时，第四触发条件成立")] [SerializeField] [Range(0, 90)]
+        [Header("ElbowAngleMin < 两侧肘关节夹角 < ElbowAngleMax 时，第四触发条件成立")] [SerializeField] [Range(0, 180)]
         public float ElbowAngleMin = 45;
 
-        [Header("ElbowAngleMin < 两侧肘关节夹角 < ElbowAngleMax 时，第四触发条件成立")] [SerializeField] [Range(0, 90)]
-        public float ElbowAngleMax = 90;
+        [Header("ElbowAngleMin < 两侧肘关节夹角 < ElbowAngleMax 时，第四触发条件成立")] [SerializeField] [Range(0, 180)]
+        public float ElbowAngleMax = 110;
 
         [FormerlySerializedAs("HowToTurn")] [SerializeField]
         public MotionMode howToMotion = MotionMode.Motion5;
 
         private Motion5Type motion5Type = Motion5Type.None;
 
+        private MotionMode motionResult = MotionMode.None;
         //private Vector3 leftShoulder;
         //private Vector3 rightShoulder;
         //private Vector3 leftHip;
@@ -52,6 +53,7 @@ namespace MotionLib.Scripts
 
         public enum MotionMode
         {
+            None,
             Motion5,
             Motion7
         }
@@ -62,8 +64,6 @@ namespace MotionLib.Scripts
         private void Start()
         {
             standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
-            labelStyle.fontSize = 30;
-            labelStyle.normal.textColor = Color.red;
         }
 
         protected void OnEnable()
@@ -109,8 +109,7 @@ namespace MotionLib.Scripts
                     StandTravelModel.Scripts.Runtime.MotionMode.Travel); //standTravelModelManager.Enabled &&
         }
 
-        private Motion5Type motionType1;
-        private Motion5Type motionType2;
+        private Motion5Type motionType;
         private float leftXDis;
         private float rightXDis;
 
@@ -133,11 +132,9 @@ namespace MotionLib.Scripts
             Vector3 leftShoulder, Vector3 rightShoulder)
         {
             angleL = Vector3.Angle(leftShoulder - leftElbow, leftHand - leftElbow);
-            //Debug.Log($"============AngleL:{angleL}============");
             if (angleL > ElbowAngleMin && angleL < ElbowAngleMax)
             {
                 angleR = Vector3.Angle(rightShoulder - rightElbow, rightHand - rightElbow);
-                //Debug.Log($"============AngleR:{angleR}============");
                 if (angleR > ElbowAngleMin && angleR < ElbowAngleMax)
                 {
                     return true;
@@ -147,16 +144,24 @@ namespace MotionLib.Scripts
             return false;
         }
 
-        private Motion5Type WristToShoulderYCorrect(Vector3 hand, Vector3 shoulder, Vector3 hip, bool isLeft)
+        private float leftShoulderYDis;
+        private float rightShoulderYDis;
+        private float leftHipYDis;
+        private float rightHipYDis;
+
+        private Motion5Type WristToShoulderYCorrect(Vector3 leftHand, Vector3 rightHand, Vector3 leftHip,
+            Vector3 rightHip,
+            Vector3 leftShoulder, Vector3 rightShoulder)
         {
-            if (Math.Abs(shoulder.y - hand.y) < WristToShoulderY)
-            {
-                return (isLeft) ? Motion5Type.Left : Motion5Type.Right;
-            }
-            else if (Math.Abs(hip.y - hand.y) < WristToShoulderY)
-            {
-                return (isLeft) ? Motion5Type.Right : Motion5Type.Left;
-            }
+            leftShoulderYDis = Math.Abs(leftShoulder.y - leftHand.y);
+            leftHipYDis = Math.Abs(leftHip.y - leftHand.y);
+            rightShoulderYDis = Math.Abs(rightShoulder.y - rightHand.y);
+            rightHipYDis = Math.Abs(rightHip.y - rightHand.y);
+            if (leftShoulderYDis < WristToShoulderY && rightHipYDis < WristToCrotchY)
+                return Motion5Type.Left;
+
+            if (rightShoulderYDis < WristToShoulderY && leftHipYDis < WristToCrotchY)
+                return Motion5Type.Right;
 
             return Motion5Type.None;
         }
@@ -189,24 +194,23 @@ namespace MotionLib.Scripts
                 isCorrect = ElbowsAngleCorrect(leftHand, rightHand, leftElbow, rightElbow, leftShoulder, rightShoulder);
                 if (!isCorrect) return;
                 //Debug.Log("left and Right Elbow is Correct!");
-                motionType1 = WristToShoulderYCorrect(leftHand, leftShoulder, leftHip, true);
-                motionType2 = WristToShoulderYCorrect(rightHand, rightShoulder, rightHip, false);
-                if (motionType1 == Motion5Type.None || motionType2 == Motion5Type.None)
+                motionType =
+                    WristToShoulderYCorrect(leftHand, rightHand, leftHip, rightHip, leftShoulder, rightShoulder);
+                if (motionType != Motion5Type.None)
                 {
-                    Debug.LogError("motionType1 OR motionType2 ERROR!");
-                    return;
+                    motionResult = MotionMode.Motion5;
+                    //Debug.LogError("==========YOU ARE IN MOTION TYPE 5 MODE!================");
                 }
-
-                if (motionType1 != motionType2)
+                else
                 {
-                    Debug.LogError("==========YOU ARE IN MOTION TYPE 5 MODE!================");
+                    motionResult = MotionMode.None;
                 }
             }
         }
 
 
-        private int startYOffset = 650;
-        private GUIStyle labelStyle = new GUIStyle("label");
+        private int startYOffset = 450;
+        private int startXOffset = 800;
 
 
         public void OnGUI()
@@ -216,19 +220,40 @@ namespace MotionLib.Scripts
                 return;
             }
 
-            GUI.Label(new Rect(20, startYOffset, 400, 80),
-                $"左侧手X轴距离:{leftXDis.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(20, startYOffset + 40, 400, 80),
-                $"右侧手X轴距离:{angleR.ToString("0.00")}", labelStyle);
+            GUIStyle labelStyle = new GUIStyle("label");
+            labelStyle.fontSize = 40;
+            labelStyle.normal.textColor = Color.red;
 
-            GUI.Label(new Rect(20, startYOffset + 80, 400, 80),
+            GUI.Label(new Rect(startXOffset + 20, startYOffset, 400, 80),
+                $"左侧手X轴距离:{leftXDis.ToString("0.00")}", labelStyle);
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 40, 400, 80),
+                $"右侧手X轴距离:{rightXDis.ToString("0.00")}", labelStyle);
+
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 80, 400, 80),
                 $"左侧手肘夹角:{angleL.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(20, startYOffset + 120, 400, 80),
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 120, 400, 80),
                 $"右侧手肘夹角:{angleR.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(20, startYOffset + 160, 400, 80),
-                $"左侧手位置:{motionType1}", labelStyle);
-            GUI.Label(new Rect(20, startYOffset + 200, 400, 80),
-                $"右侧手位置:{motionType2}", labelStyle);
+
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 160, 400, 80),
+                $"左侧手腕到肩:{leftShoulderYDis.ToString("0.00")}", labelStyle);
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 200, 400, 80),
+                $"左侧手腕到胯:{leftHipYDis.ToString("0.00")}", labelStyle);
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 240, 400, 80),
+                $"右侧手腕到肩:{rightShoulderYDis.ToString("0.00")}", labelStyle);
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 280, 400, 80),
+                $"右侧手腕到胯:{rightHipYDis.ToString("0.00")}", labelStyle);
+            if (motionType != Motion5Type.None)
+            {
+                string result = (motionType == Motion5Type.Left) ? "左手高于右手" : "右手高于左手";
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 320, 500, 80),
+                    $"双手姿态:{result}", labelStyle);
+            }
+
+            if (motionResult == MotionMode.Motion5)
+            {
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 370, 400, 80),
+                    $"动作识别为：途径5", labelStyle);
+            }
         }
     }
 }
