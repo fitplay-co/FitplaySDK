@@ -19,9 +19,34 @@ public class StandTravelTestUI : MonoBehaviour
     [SerializeField] private StandTravelModelManager standTravelModelManager;
 
     private void Start() {
-        
-        Refresh();
+        Init();
+    }
 
+    public void OccupyTandTravelModelManager(StandTravelModelManager standTravelModelManager)
+    {
+        if(this.standTravelModelManager == null)
+        {
+            this.standTravelModelManager = standTravelModelManager;
+            Init();
+        }
+    }
+
+    public void Toggle()
+    {
+        gameObject.SetActive(!gameObject.activeInHierarchy);
+    }
+
+    private void Init()
+    {
+        if(standTravelModelManager != null)
+        {
+            Refresh();
+            SetupEvents();
+        }
+    }
+
+    private void SetupEvents()
+    {
         threholdFreq.onEndEdit.AddListener(OnInputThreholdFreq);
         threholdFreqLow.onEndEdit.AddListener(OnInputThreholdFreqLow);
         speedThreholdScale.onEndEdit.AddListener(OnInputSpeedThreholdScale);
