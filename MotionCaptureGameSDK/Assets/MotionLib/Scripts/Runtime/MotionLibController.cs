@@ -16,13 +16,13 @@ namespace MotionLib.Scripts
         //一侧手腕Y值接近肩部；
         [SerializeField] private StandTravelModelManager standTravelModelManager;
 
-        [Header("手腕到肩膀的X轴距离 < WristToShoulderX 时，第一触发条件成立")] [SerializeField] [Range(0, 1)]
+        [Header("手腕到肩膀的X轴最大距离 < WristToShoulderX 时，第一触发条件成立")] [SerializeField] [Range(0, 1)]
         public float WristToShoulderX = 0.1f;
 
-        [Header("一侧手腕到跨部的Y轴距离 < WristToCrotchY 时，第二触发条件成立")] [SerializeField] [Range(0, 1)]
+        [Header("一侧手腕到跨部的Y轴最大距离 < WristToCrotchY 时，第二触发条件成立")] [SerializeField] [Range(0, 1)]
         public float WristToCrotchY = 0.1f;
 
-        [Header("另一侧手腕到肩膀的Y轴距离 < WristToShoulderY 时，第三触发条件成立")] [SerializeField] [Range(0, 1)]
+        [Header("另一侧手腕到肩膀的Y轴最大距离 < WristToShoulderY 时，第三触发条件成立")] [SerializeField] [Range(0, 1)]
         public float WristToShoulderY = 0.1f;
 
         [Header("ElbowAngleMin < 两侧肘关节夹角 < ElbowAngleMax 时，第四触发条件成立")] [SerializeField] [Range(0, 180)]
@@ -31,12 +31,20 @@ namespace MotionLib.Scripts
         [Header("ElbowAngleMin < 两侧肘关节夹角 < ElbowAngleMax 时，第四触发条件成立")] [SerializeField] [Range(0, 180)]
         public float ElbowAngleMax = 110;
 
+        [Header("手肘距离检测模式：手肘到肩膀的最大距离 < WristToShoulder")] [SerializeField] [Range(0, 1)]
+        public float WristToShoulder = 0.4f;
+
+        [Header("手肘距离检测模式：手肘到胯部的最大距离 < WristToShoulder")] [SerializeField] [Range(0, 1)]
+        public float WristToCrotch = 0.4f;
+
         [FormerlySerializedAs("HowToTurn")] [SerializeField]
         public MotionMode howToMotion = MotionMode.Motion5;
 
         private Motion5Type motion5Type = Motion5Type.None;
 
         private MotionMode motionResult = MotionMode.None;
+
+        private CheckMode motionnCheckMode = CheckMode.Andgle;
         //private Vector3 leftShoulder;
         //private Vector3 rightShoulder;
         //private Vector3 leftHip;
@@ -56,6 +64,12 @@ namespace MotionLib.Scripts
             None,
             Motion5,
             Motion7
+        }
+
+        public enum CheckMode
+        {
+            Andgle,
+            Distance
         }
 
         /// <summary>
@@ -144,6 +158,26 @@ namespace MotionLib.Scripts
             return false;
         }
 
+        private float leftHandToHipDis;
+        private float leftHandSToShoulderDis;
+
+        private float rightHandToHipDis;
+        private float rightHandSToShoulderDis;
+
+        private bool WristDistanceCorrect(Vector3 leftHand, Vector3 rightHand, Vector3 leftHip, Vector3 rightHip,
+            Vector3 leftShoulder, Vector3 rightShoulder)
+        {
+            leftHandSToShoulderDis = Math.Abs(Vector3.Distance(leftShoulder, leftHand));
+            rightHandToHipDis = Math.Abs(Vector3.Distance(rightHip, rightHand));
+            if (leftHandSToShoulderDis < WristToShoulder && rightHandToHipDis < WristToCrotch)
+                return true;
+            leftHandToHipDis = Math.Abs(Vector3.Distance(leftHip, leftHand));
+            rightHandSToShoulderDis = Math.Abs(Vector3.Distance(rightShoulder, rightHand));
+            if (rightHandSToShoulderDis < WristToShoulder && leftHandToHipDis < WristToCrotch)
+                return true;
+            return false;
+        }
+
         private float leftShoulderYDis;
         private float rightShoulderYDis;
         private float leftHipYDis;
@@ -164,6 +198,14 @@ namespace MotionLib.Scripts
                 return Motion5Type.Right;
 
             return Motion5Type.None;
+        }
+
+        private void SwitchCheckMode()
+        {
+            if (motionnCheckMode == CheckMode.Andgle)
+                motionnCheckMode = CheckMode.Distance;
+            else
+                motionnCheckMode = CheckMode.Andgle;
         }
 
 
@@ -191,7 +233,17 @@ namespace MotionLib.Scripts
                 if (!isCorrect) return;
                 //Debug.Log("left and Right Wrist X is Correct!");
                 //计算 两侧手肘的夹角
-                isCorrect = ElbowsAngleCorrect(leftHand, rightHand, leftElbow, rightElbow, leftShoulder, rightShoulder);
+                if (motionnCheckMode == CheckMode.Andgle)
+                {
+                    isCorrect = ElbowsAngleCorrect(leftHand, rightHand, leftElbow, rightElbow, leftShoulder,
+                        rightShoulder);
+                }
+                else
+                {
+                    isCorrect = WristDistanceCorrect(leftHand, rightHand, leftHip, rightHip, leftShoulder,
+                        rightShoulder);
+                }
+
                 if (!isCorrect) return;
                 //Debug.Log("left and Right Elbow is Correct!");
                 motionType =
@@ -209,7 +261,7 @@ namespace MotionLib.Scripts
         }
 
 
-        private int startYOffset = 450;
+        private int startYOffset = 50;
         private int startXOffset = 800;
 
 
@@ -223,36 +275,104 @@ namespace MotionLib.Scripts
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 40;
             labelStyle.normal.textColor = Color.red;
-
+            
+            GUIStyle labelStyle1 = new GUIStyle("label");
+            labelStyle1.fontSize = 20;
+            labelStyle1.normal.textColor = Color.blue;
+            string checkMode = (motionnCheckMode == CheckMode.Andgle) ? "当前为肘夹角检测模式" : "当前为手腕距离检测模式";
             GUI.Label(new Rect(startXOffset + 20, startYOffset, 400, 80),
                 $"左侧手X轴距离:{leftXDis.ToString("0.00")}", labelStyle);
             GUI.Label(new Rect(startXOffset + 20, startYOffset + 40, 400, 80),
                 $"右侧手X轴距离:{rightXDis.ToString("0.00")}", labelStyle);
 
             GUI.Label(new Rect(startXOffset + 20, startYOffset + 80, 400, 80),
-                $"左侧手肘夹角:{angleL.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(startXOffset + 20, startYOffset + 120, 400, 80),
-                $"右侧手肘夹角:{angleR.ToString("0.00")}", labelStyle);
-
-            GUI.Label(new Rect(startXOffset + 20, startYOffset + 160, 400, 80),
                 $"左侧手腕到肩:{leftShoulderYDis.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(startXOffset + 20, startYOffset + 200, 400, 80),
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 120, 400, 80),
                 $"左侧手腕到胯:{leftHipYDis.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(startXOffset + 20, startYOffset + 240, 400, 80),
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 160, 400, 80),
                 $"右侧手腕到肩:{rightShoulderYDis.ToString("0.00")}", labelStyle);
-            GUI.Label(new Rect(startXOffset + 20, startYOffset + 280, 400, 80),
+            GUI.Label(new Rect(startXOffset + 20, startYOffset + 200, 400, 80),
                 $"右侧手腕到胯:{rightHipYDis.ToString("0.00")}", labelStyle);
+            
+            
+            if (motionnCheckMode == CheckMode.Andgle)
+            {
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 240, 400, 80),
+                    $"左侧手肘夹角:{angleL.ToString("0.00")}", labelStyle);
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 280, 400, 80),
+                    $"右侧手肘夹角:{angleR.ToString("0.00")}", labelStyle);
+            }
+            else
+            {
+                
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 240, 400, 80),
+                    $"左手到胯的距离:{leftHandToHipDis.ToString("0.00")}", labelStyle);
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 280, 400, 80),
+                    $"左手到肩的距离:{leftHandSToShoulderDis.ToString("0.00")}", labelStyle);
+                
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 320, 400, 80),
+                    $"右手到胯的距离:{rightHandToHipDis.ToString("0.00")}", labelStyle);
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 360, 400, 80),
+                    $"右手到肩的距离:{rightHandSToShoulderDis.ToString("0.00")}", labelStyle);
+            }
+
             if (motionType != Motion5Type.None)
             {
                 string result = (motionType == Motion5Type.Left) ? "左手高于右手" : "右手高于左手";
-                GUI.Label(new Rect(startXOffset + 20, startYOffset + 320, 500, 80),
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 400, 500, 80),
                     $"双手姿态:{result}", labelStyle);
             }
 
             if (motionResult == MotionMode.Motion5)
             {
-                GUI.Label(new Rect(startXOffset + 20, startYOffset + 370, 400, 80),
+                GUI.Label(new Rect(startXOffset + 20, startYOffset + 450, 400, 80),
                     $"动作识别为：途径5", labelStyle);
+            }
+
+
+            if (GUI.Button(new Rect(startXOffset + 420, startYOffset - 20, 300, 50), checkMode))
+            {
+                SwitchCheckMode();
+            }
+
+            WristToShoulderX = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 45, 300, 40),
+                WristToShoulderX, 0, 1);
+            GUI.Label(new Rect(startXOffset + 420, startYOffset + 40, 300, 80),
+                $"手腕到肩膀X轴的最大距离:{WristToShoulderX.ToString("0.00")}", labelStyle1);
+
+            WristToCrotchY = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 85, 300, 40),
+                WristToCrotchY, 0, 1);
+            GUI.Label(new Rect(startXOffset + 420, startYOffset + 80, 300, 80),
+                $"手腕到跨部Y轴的最大距离:{WristToCrotchY.ToString("0.00")}", labelStyle1);
+
+            WristToShoulderY = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 125, 300, 40),
+                WristToShoulderY, 0, 1);
+            GUI.Label(new Rect(startXOffset + 420, startYOffset + 120, 300, 80),
+                $"手腕到肩膀Y轴最大距离:{WristToShoulderY.ToString("0.00")}", labelStyle1);
+
+            if (motionnCheckMode == CheckMode.Andgle)
+            {
+                ElbowAngleMin = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 165, 300, 40),
+                    ElbowAngleMin, 0, 180);
+                GUI.Label(new Rect(startXOffset + 420, startYOffset + 160, 300, 80),
+                    $"两侧肘关节最小夹角:{ElbowAngleMin.ToString("0.00")}", labelStyle1);
+
+                ElbowAngleMax = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 205, 300, 40),
+                    ElbowAngleMax, 0, 180);
+                GUI.Label(new Rect(startXOffset + 420, startYOffset + 200, 300, 80),
+                    $"两侧肘关节最小夹角:{ElbowAngleMax.ToString("0.00")}", labelStyle1);
+            }
+            else
+            {
+                WristToShoulder = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 165, 300, 40),
+                    WristToShoulder, 0, 1);
+                GUI.Label(new Rect(startXOffset + 420, startYOffset + 160, 300, 80),
+                    $"手肘到肩膀的最大距离:{WristToShoulder.ToString("0.00")}", labelStyle1);
+
+                WristToCrotch = GUI.HorizontalSlider(new Rect(startXOffset + 720, startYOffset + 205, 300, 40),
+                    WristToCrotch, 0, 1);
+                GUI.Label(new Rect(startXOffset + 420, startYOffset + 200, 300, 80),
+                    $"手肘到胯部的最大距离:{WristToCrotch.ToString("0.00")}", labelStyle1);
             }
         }
     }

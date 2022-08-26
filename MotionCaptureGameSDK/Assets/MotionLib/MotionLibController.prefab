@@ -45,8 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 0}
   WristToShoulderX: 0.1
-  WristToCrotchY: 0.1
-  WristToShoulderY: 0.1
+  WristToCrotchY: 0.3
+  WristToShoulderY: 0.2
   ElbowAngleMin: 45
-  ElbowAngleMax: 90
+  ElbowAngleMax: 120
+  WristToShoulder: 0.1
+  WristToCrotch: 0.1
   howToMotion: 0
