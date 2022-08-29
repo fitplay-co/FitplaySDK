@@ -13,6 +13,11 @@ public class AnimatorMoverFixedSpeed : AnimatorMoverBiped
 
     protected override Vector3 GetMoveDelta()
     {
-        return Vector3.back * getSpeed() * Time.deltaTime;
+        return Vector3.back * GetSpeed() * Time.deltaTime;
+    }
+
+    protected virtual float GetSpeed()
+    {
+        return getSpeed();
     }
 }

@@ -20,5 +20,10 @@ namespace StandTravelModel.Scripts.Runtime.Mover
             base.OnStateUpdate(animator, stateInfo, layerIndex);
             animMover.OnUpdate(stateInfo);
         }
+
+        protected void SetAnimatorMover(IAnimatorMoverBiped animatorMover)
+        {
+            this.animMover = animatorMover;
+        }
     }
 }

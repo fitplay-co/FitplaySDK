@@ -1,25 +1,17 @@
-using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
+using StandTravelModel.Scripts.Runtime.Mover.MoverInners;
 using UnityEngine;
 
 public class AnimatorMoverStepBehaviourFixedSpeedWithSprint : AnimatorMoverStepBehaviourFixedSpeed
 {
-    [SerializeField] private float speedScale = 1.5f;
+    [SerializeField] private float sprintScale = 1.5f;
 
-    private RunConditioner runConditioner;
-
-    protected override float GetOSVelocity()
+    protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
     {
-        if(runConditioner == null)
-        {
-            runConditioner = standTravelModelManager.GetRunConditioner();
-        }
+        return new AnimatorMoverOSSpeedWithSprint(GetSprintScale, GetSpeed, animator.transform);
+    }
 
-        var velocity = base.GetOSVelocity();
-        if(runConditioner != null && runConditioner.IsEnterSprintReady(standTravelModelManager.motionDataModelReference.GetActionDetectionData().walk))
-        {
-            velocity *= speedScale;
-        }
-
-        return velocity;
+    private float GetSprintScale()
+    {
+        return sprintScale;
     }
 }

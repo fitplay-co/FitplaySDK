@@ -16,6 +16,10 @@ public class StandTravelParams
     public float runThresholdScaleLow = 0.8f;
     public float sprintSpeedScale = 1.33f;
     public bool useSmoothSwitch = false;
+    public bool useOSSpeed = true;
+    public bool useOSStepRate = false;
+    public bool useOSStepRateSeparate = false;
+    public bool useLegActTime = true;
 
     public float GetRunThrehold()
     {
@@ -78,5 +82,54 @@ public class StandTravelParams
         {
             sprintThrehold = value;
         }
+    }
+
+    public bool GetUseOSStepRate()
+    {
+        return useOSStepRate;
+    }
+
+    public void SetUseOSStepRate(bool value)
+    {
+        if(value)
+        {
+            ClearStepRates();
+        }
+        this.useOSStepRate = value;
+    }
+
+    public bool GetUseOSStepRateSeparate()
+    {
+        return useOSStepRateSeparate;
+    }
+
+    public void SetUseOSStepRateSeparate(bool value)
+    {
+        if(value)
+        {
+            ClearStepRates();
+        }
+        this.useOSStepRateSeparate = value;
+    }
+
+    public bool GetUseLegActTime()
+    {
+        return useLegActTime;
+    }
+
+    public void SetUseLegActTime(bool value)
+    {
+        if(value)
+        {
+            ClearStepRates();
+        }
+        this.useLegActTime = value;
+    }
+
+    private void ClearStepRates()
+    {
+        useOSStepRate = false;
+        useOSStepRateSeparate = false;
+        useLegActTime = false; 
     }
 }

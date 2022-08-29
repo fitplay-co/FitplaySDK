@@ -523,6 +523,36 @@ namespace StandTravelModel.Scripts.Runtime
             paramsLoader.SetUseSmoothSwitch(value);
         }
 
+        public bool GetUseOSStepRate()
+        {
+            return paramsLoader.GetUseOSStepRate();
+        }
+
+        public void SetUseOSStepRate(bool value)
+        {
+            paramsLoader.SetUseOSStepRate(value);
+        }
+
+        public bool GetUseOSStepRateSeparate()
+        {
+            return paramsLoader.GetUseOSStepRateSeparate();
+        }
+
+        public void SetUseOSStepRateSeparate(bool value)
+        {
+            paramsLoader.SetUseOSStepRateSeparate(value);
+        }
+
+        public bool GetUseLegActTime()
+        {
+            return paramsLoader.GetUseLegActTime();
+        }
+
+        public void SetUseLegActTime(bool value)
+        {
+            paramsLoader.SetUseLegActTime(value);
+        }
+
         public void SerializeParams()
         {
             paramsLoader.Serialize();
@@ -626,7 +656,10 @@ namespace StandTravelModel.Scripts.Runtime
                 useFrequency : paramsLoader.GetUseFrequency,
                 getSprintThrehold : paramsLoader.GetSprintThrehold,
                 getRunThresholdScale : paramsLoader.GetRunThresholdScale,
-                getRunThresholdScaleLow : paramsLoader.GetRunThreholdScaleLow
+                getRunThresholdScaleLow : paramsLoader.GetRunThreholdScaleLow,
+                useOSStepRate: paramsLoader.GetUseOSStepRate,
+                useOSStepRateSeparate: paramsLoader.GetUseOSStepRateSeparate,
+                useLegActTime: paramsLoader.GetUseLegActTime
             );
         }
 
@@ -853,6 +886,11 @@ namespace StandTravelModel.Scripts.Runtime
             return paramsLoader.GetRunThreholdScaleLow();
         }
 
+        public bool GetUseOSSpeed()
+        {
+            return paramsLoader.GetUseOSSpeed();
+        }
+
         public void SetRunThresholdScaleLow(float value)
         {
             paramsLoader.SetRunThreholdScaleLow(value);
@@ -861,6 +899,11 @@ namespace StandTravelModel.Scripts.Runtime
         public void SetRunThresholdScale(float value)
         {
             paramsLoader.SetRunThresholdScale(value);
+        }
+
+        public void SetUseOSSpeed(bool value)
+        {
+            paramsLoader.SetUseOSSpeed(value);
         }
 
         public RunConditioner GetRunConditioner()
