@@ -52,7 +52,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 }
                 else
                 {
-                    return IsExceededThresholdSpeed(ref isRunning, walkData, getThreholdSprint(), walkData.velocityThreshold * getRunThresholdScaleLow());
+                    return IsExceededThresholdSpeed(ref isSprinting, walkData, getThreholdSprint(), walkData.velocityThreshold * getRunThresholdScaleLow());
                 }
             }
 
@@ -70,10 +70,10 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     if(lastLegChange != 0)
                     {
                         actingTime = Time.time - lastLegChange;
-                        if(lastLeg == -1)
+                        /* if(lastLeg == -1)
                         {
                             actingTime *= 0.5f;
-                        }
+                        } */
                     }
 
                     /* if(isRunning)
