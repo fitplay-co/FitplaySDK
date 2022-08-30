@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StandTravelTestUI : MonoBehaviour
 {
     [SerializeField] private Button saveButton;
+    [SerializeField] private Toggle useOSSpeed;
     [SerializeField] private Toggle useSwitchSpeed;
     [SerializeField] private Toggle useSwitchFreq;
     [SerializeField] private Toggle useSmoothSwitch;
@@ -17,6 +18,10 @@ public class StandTravelTestUI : MonoBehaviour
     [SerializeField] private InputField speedScale;
     [SerializeField] private InputField sprintSpeedScale;
     [SerializeField] private StandTravelModelManager standTravelModelManager;
+
+    [SerializeField] private Toggle useOSStepRate;
+    [SerializeField] private Toggle useOSStepRateSeparate;
+    [SerializeField] private Toggle useLegActTime;
 
     private void Start() {
         Init();
@@ -77,17 +82,30 @@ public class StandTravelTestUI : MonoBehaviour
 
     private void RefreshToggles()
     {
+        useOSSpeed.onValueChanged.RemoveAllListeners();
         useSwitchSpeed.onValueChanged.RemoveAllListeners();
         useSwitchFreq.onValueChanged.RemoveAllListeners();
         useSmoothSwitch.onValueChanged.RemoveAllListeners();
+        useOSStepRate.onValueChanged.RemoveAllListeners();
+        useOSStepRateSeparate.onValueChanged.RemoveAllListeners();
+        useLegActTime.onValueChanged.RemoveAllListeners();
 
+        useOSSpeed.isOn = standTravelModelManager.GetUseOSSpeed();
         useSwitchSpeed.isOn = !standTravelModelManager.GetUseFrequency();
         useSwitchFreq.isOn = standTravelModelManager.GetUseFrequency();
         useSmoothSwitch.isOn = standTravelModelManager.GetUseSmoothSwitch();
+        useOSStepRate.isOn = standTravelModelManager.GetUseOSStepRate();
+        useOSStepRateSeparate.isOn = standTravelModelManager.GetUseOSStepRateSeparate();
+        useLegActTime.isOn = standTravelModelManager.GetUseLegActTime();
 
+
+        useOSSpeed.onValueChanged.AddListener(OnUseOSSpeed);
         useSwitchSpeed.onValueChanged.AddListener(OnUseSpeed);
         useSwitchFreq.onValueChanged.AddListener(OnUseFreq);
         useSmoothSwitch.onValueChanged.AddListener(OnUseSmooth);
+        useOSStepRate.onValueChanged.AddListener(OnUseOSStepRate);
+        useOSStepRateSeparate.onValueChanged.AddListener(OnUseOSStepRateSeparate);
+        useLegActTime.onValueChanged.AddListener(OnUseLegActTime);
     }
 
     private void OnUseFreq(bool value)
@@ -105,6 +123,29 @@ public class StandTravelTestUI : MonoBehaviour
     private void OnUseSmooth(bool value)
     {
         standTravelModelManager.SetUseSmoothSwitch(value);
+        Refresh();
+    }
+
+    private void OnUseOSSpeed(bool value)
+    {
+        standTravelModelManager.SetUseOSSpeed(value);
+    }
+
+    private void OnUseOSStepRate(bool value)
+    {
+        standTravelModelManager.SetUseOSStepRate(value);
+        Refresh();
+    }
+
+    private void OnUseOSStepRateSeparate(bool value)
+    {
+        standTravelModelManager.SetUseOSStepRateSeparate(value);
+        Refresh();
+    }
+
+    private void OnUseLegActTime(bool value)
+    {
+        standTravelModelManager.SetUseLegActTime(value);
         Refresh();
     }
 

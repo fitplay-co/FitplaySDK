@@ -10,7 +10,6 @@ namespace StandTravelModel.Scripts.Runtime.Mover
         [SerializeField] private float speedScale;
         [SerializeField] private float progressLeftStart;
         [SerializeField] private float progressLeftEnd;
-        [SerializeField] private AnimationCurve speedCurve;
         [SerializeField] private AnimatorMoverCompensator[] compensators;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {

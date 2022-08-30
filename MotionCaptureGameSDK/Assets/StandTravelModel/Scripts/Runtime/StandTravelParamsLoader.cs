@@ -112,6 +112,46 @@ public class StandTravelParamsLoader
         standTravelParams.runThresholdScaleLow = value;
     }
 
+    public void SetUseOSSpeed(bool value)
+    {
+        standTravelParams.useOSSpeed = value;
+    }
+
+    public bool GetUseOSSpeed()
+    {
+        return standTravelParams.useOSSpeed;
+    }
+
+    public bool GetUseOSStepRate()
+    {
+        return standTravelParams.GetUseOSStepRate();
+    }
+
+    public void SetUseOSStepRate(bool value)
+    {
+        standTravelParams.SetUseOSStepRate(value);
+    }
+
+    public bool GetUseOSStepRateSeparate()
+    {
+        return standTravelParams.GetUseOSStepRateSeparate();
+    }
+
+    public void SetUseOSStepRateSeparate(bool value)
+    {
+        standTravelParams.SetUseOSStepRateSeparate(value);
+    }
+
+    public bool GetUseLegActTime()
+    {
+        return standTravelParams.GetUseLegActTime();
+    }
+
+    public void SetUseLegActTime(bool value)
+    {
+        standTravelParams.SetUseLegActTime(value);
+    }
+
     private string GetFilePath()
     {
         return Application.dataPath + "/Resources" + fileName;
