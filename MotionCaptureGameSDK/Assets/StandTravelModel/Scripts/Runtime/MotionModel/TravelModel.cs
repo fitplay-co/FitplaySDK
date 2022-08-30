@@ -163,6 +163,22 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             }
         }
 
+        public void FixAvatarHorizon()
+        {
+            if(isExControlMode)
+            {
+                var parent = selfTransform.parent;
+                if (parent == null)
+                {
+                    return;
+                }
+
+                selfTransform.SetParent(null);
+                parent.position = selfTransform.position;
+                selfTransform.SetParent(parent);
+            }
+        }
+
         public override void OnUpdate(List<Vector3> keyPoints)
         {
             base.OnUpdate(keyPoints);

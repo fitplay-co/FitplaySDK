@@ -39,7 +39,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 charaControl.Move(deltaMovement);
             }*/
 
-            isSdkEnable = standTravelModelManager.GeneralCheck();
+            //isSdkEnable = standTravelModelManager.GeneralCheck();
 
             if (charaControl != null && animatorMover != null)
             {

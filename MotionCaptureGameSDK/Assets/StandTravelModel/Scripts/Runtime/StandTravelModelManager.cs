@@ -74,6 +74,7 @@ namespace StandTravelModel.Scripts.Runtime
         private IMotionModel motionModel;
         private IMotionDataModel motionDataModel;
         public IMotionDataModel motionDataModelReference => motionDataModel;
+        private StandTravelTestUI standTravelTestUI;
         private IModelIKController modelIKController;
 
         private Animator modelAnimator;
@@ -199,6 +200,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             TryInitWeirdHumanConverter();
             TryInitFKModel();
+            InitStandTravelTestUI();
         }
 
         public void Start()
@@ -263,6 +265,7 @@ namespace StandTravelModel.Scripts.Runtime
 #endif
 
             ChangeFkOnRun();
+            TryToggleStandTravelTestUI();
         }
 
         public void LateUpdate()
@@ -353,6 +356,7 @@ namespace StandTravelModel.Scripts.Runtime
                     motionModel = travelModel;
                     travelModel.SetGrounding(false);
                     travelModel.FixAvatarHeight();
+                    travelModel.FixAvatarHorizon();
                     break;
             }
         }
@@ -948,6 +952,23 @@ namespace StandTravelModel.Scripts.Runtime
                 playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
                 playerHeightUI.Initialize(OnPlayerHeightInput);
                 playerHeightUI.Hide();
+            }
+        }
+
+        private void InitStandTravelTestUI()
+        {
+            if(standTravelTestUI == null)
+            {
+                standTravelTestUI = GameObject.FindObjectOfType<StandTravelTestUI>();
+                standTravelTestUI.OccupyTandTravelModelManager(this);
+            }
+        }
+
+        private void TryToggleStandTravelTestUI()
+        {
+            if(standTravelTestUI != null && Input.GetKeyDown(KeyCode.Tab))
+            {
+                standTravelTestUI.Toggle();
             }
         }
     }
