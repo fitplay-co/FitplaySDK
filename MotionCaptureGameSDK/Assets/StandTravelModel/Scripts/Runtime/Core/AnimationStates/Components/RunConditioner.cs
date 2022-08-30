@@ -126,7 +126,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 {
                     if(lastLegChange != 0 && actingTime > 0)
                     {
-                        CompareFreq(ref curState, actingTime, threhold, threholdLow);
+                        CompareDuration(ref curState, actingTime, threhold, threholdLow);
                     }
                 }
                 else if(useOSStepRate)
@@ -142,7 +142,19 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 return curState;
             }
 
-            private void CompareFreq(ref bool curState, float actingTime, float threhold, float threholdLow)
+            private void CompareFreq(ref bool curState, float frequency, float threhold, float threholdLow)
+            {
+                if(!curState)
+                {
+                    curState = frequency > threhold;
+                }
+                else
+                {
+                    curState = actingTime > threholdLow;
+                }
+            }
+
+            private void CompareDuration(ref bool curState, float actingTime, float threhold, float threholdLow)
             {
                 if(!curState)
                 {
