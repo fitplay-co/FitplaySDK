@@ -39,6 +39,7 @@ namespace MotionCaptureBasic.Interface
         MonitorItem GetMonitorData();
         TimeProfiling GetTimeProfilingData();
         GazeTracking GetGazeTrackingData();
+        GeneralDetectionItem GetGeneralDetectionData();
         bool SubscribeGazeTracking();
         bool SubscribeActionDetection();
         bool SubscribeGroundLocation();
@@ -53,6 +54,8 @@ namespace MotionCaptureBasic.Interface
         bool ReleaseFitting();
         void SetDebug(bool isDebug);
         bool ResetGroundLocation();
+        bool SubscribeGeneral();
+        bool ReleaseGeneral();
         bool SetPlayerHeight(int h);
         void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat);
         void ClearIKDataListSimulat();

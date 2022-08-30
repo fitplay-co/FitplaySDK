@@ -7300,7 +7300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: isSelfMoveControl
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: characterController
@@ -7394,6 +7394,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 919132148613035384}
+--- !u!114 &9039311290045051064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039311290045051062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9057330996297348918
 Transform:
   m_ObjectHideFlags: 0
