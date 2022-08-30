@@ -23,5 +23,12 @@ namespace MotionLib.Scripts
         public static Action onLocalPlayerDeath;
 
         public static void DispatchPlayerLocalDeathEvent() => onLocalPlayerDeath?.Invoke();
+        
+        /// <summary>
+        ///识别动作切换
+        /// </summary>
+        public static Action onMotionChanged;
+
+        public static void DispatchMotionChangedEvent() => onMotionChanged?.Invoke();
     }
 }

@@ -131,17 +131,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
-      propertyPath: WristToCrotch
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
-      propertyPath: WristToShoulder
-      value: 0.4
+      propertyPath: howToMotion
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: standTravelModelManager
       value: 
       objectReference: {fileID: 113244908}
+    - target: {fileID: 54761721, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: MoveMinSpeed
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761721, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: ElbowAngleMin
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761721, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: lWristToCrotchXZ
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2996603561660596927, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: m_Name
       value: MotionLibController
@@ -189,6 +197,18 @@ PrefabInstance:
     - target: {fileID: 2996603561660596929, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268482124952004097, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: ElbowAngleMax
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268482124952004097, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: WristToCrotchY
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268482124952004097, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: WristToShoulderY
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aac6c7eea6006654c91881841258eee1, type: 3}
