@@ -224,7 +224,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             }
             else
             {
-                isRunning = !isRunningLeft && !isRunningRight;
+                isRunning = isRunningLeft && isRunningRight;
             }
 
             return isRunning;
