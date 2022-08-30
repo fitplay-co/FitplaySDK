@@ -295,6 +295,7 @@ namespace MotionCaptureBasic.OSConnector
         public GazeTracking gaze_tracking;
         public ActionDetectionItem action_detection;
         public MonitorItem monitor;
+        public StandDetection stand_detection;
        
 
         public KeyPointItem GetJointMessage3D(EJointType jointType)
@@ -531,6 +532,12 @@ namespace MotionCaptureBasic.OSConnector
     {
         public int up;
         public float strength;
+    }
+
+    [Serializable]
+    public class StandDetection
+    {
+        public int mode;
     }
     #endregion
 
