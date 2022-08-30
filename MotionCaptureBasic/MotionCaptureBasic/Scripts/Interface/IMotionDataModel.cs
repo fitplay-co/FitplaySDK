@@ -40,6 +40,7 @@ namespace MotionCaptureBasic.Interface
         TimeProfiling GetTimeProfilingData();
         GazeTracking GetGazeTrackingData();
         GeneralDetectionItem GetGeneralDetectionData();
+        StandDetection GetStandDetectionData();
         bool SubscribeGazeTracking();
         bool SubscribeActionDetection();
         bool SubscribeGroundLocation();
