@@ -114,8 +114,6 @@ namespace StandTravelModel.Scripts.Runtime
         public float currentFrequency => travelModel.currentFrequency;
         public bool isJump => travelModel.isJump;
 
-        private bool enable = true;
-
         public bool Enabled
         {
             get { return enabled; }
@@ -138,6 +136,11 @@ namespace StandTravelModel.Scripts.Runtime
 #else
                     fKPoseModel?.SetEnable(value);
 #endif
+                }
+
+                if (!value)
+                {
+                    travelModel?.selfAnimator.Play("Idle");
                 }
             }
         }
@@ -224,16 +227,11 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
-            InitPlayerHeightUI();
+            ShowPlayerHeightUI();
         }
 
         public void FixedUpdate()
         {
-            if (!enable)
-            {
-                return;
-            }
-
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
@@ -242,11 +240,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
-            if (!enable)
-            {
-                return;
-            }
-            
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -274,11 +267,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void LateUpdate()
         {
-            if (!enable)
-            {
-                return;
-            }
-            
             if(motionModel != null)
             {
                 motionModel.OnLateUpdate();
@@ -308,6 +296,19 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel.Clear();
                 travelModel = null;
             }
+        }
+
+        public bool GeneralCheck()
+        {
+            var generalData = motionDataModel.GetGeneralDetectionData();
+            if (generalData == null)
+            {
+                return false;
+            }
+
+            int generalConfidence = generalData.confidence;
+
+            return generalConfidence == 1;
         }
 
         /// <summary>
@@ -845,6 +846,7 @@ namespace StandTravelModel.Scripts.Runtime
             motionDataModel.SubscribeActionDetection();
             motionDataModel.SubscribeGroundLocation();
             motionDataModel.SubscribeFitting();
+            motionDataModel.SubscribeGeneral();
             _osConnected = true;
         }
 
@@ -917,7 +919,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void ShowPlayerHeightUI()
         {
-            playerHeightUI.Show();
+            // ReSharper disable once Unity.NoNullPropagation
+            playerHeightUI?.Show();
             Enabled = false;
         }
 
@@ -930,11 +933,12 @@ namespace StandTravelModel.Scripts.Runtime
         private void OnPlayerHeightInput(int height)
         {
             motionDataModel?.SetPlayerHeight(height);
-            playerHeightUI.Hide();
+            // ReSharper disable once Unity.NoNullPropagation
+            playerHeightUI?.Hide();
             Enabled = true;
         }
 
-        private void InitPlayerHeightUI()
+        public void InitPlayerHeightUI()
         {
             if(playerHeightUI == null)
             {
@@ -943,7 +947,7 @@ namespace StandTravelModel.Scripts.Runtime
                 var newobj = GameObject.Instantiate(prefab, canvas.transform);
                 playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
                 playerHeightUI.Initialize(OnPlayerHeightInput);
-                Enabled = false;
+                playerHeightUI.Hide();
             }
         }
     }
