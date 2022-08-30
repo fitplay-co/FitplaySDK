@@ -121,7 +121,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             private bool IsExceededThresholdFrequency(ref bool curState, float threhold, float threholdLow, bool useOSStepRate, bool useOSStepRateSeparate, bool useLegActTime, WalkActionItem walkData)
             {
-                Debug.Log(useLegActTime + "|" + useOSStepRate + "|" + useOSStepRateSeparate);
+                //Debug.Log(useLegActTime + "|" + useOSStepRate + "|" + useOSStepRateSeparate);
                 if(useLegActTime)
                 {
                     if(lastLegChange != 0 && actingTime > 0)
