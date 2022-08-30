@@ -208,6 +208,18 @@ namespace MotionCaptureBasic
             return ikBodyUpdateMessage.general_detection;
         }
 
+        public StandDetection GetStandDetectionData()
+        {
+            var bodymessage = httpProtocolHandler.BodyMessageBase;
+
+            if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
+            {
+                return null;
+            }
+
+            return ikBodyUpdateMessage.stand_detection;
+        }
+
         public bool SubscribeGazeTracking()
         {
             return WebsocketOSClient.GetInstance().SubscribeGazeTracking(true);

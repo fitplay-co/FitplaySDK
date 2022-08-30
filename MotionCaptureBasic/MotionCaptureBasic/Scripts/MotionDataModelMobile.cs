@@ -178,6 +178,18 @@ namespace MotionCaptureBasic
 
             return ikBodyUpdateMessage.general_detection;
         }
+        
+        public StandDetection GetStandDetectionData()
+        {
+            var bodymessage = mobileOSHandler.BodyMessageBase;
+
+            if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
+            {
+                return null;
+            }
+
+            return ikBodyUpdateMessage.stand_detection;
+        }
 
         public bool SubscribeGazeTracking()
         {
