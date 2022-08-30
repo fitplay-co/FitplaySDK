@@ -6,27 +6,196 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 {
     public class RunConditioner
     {
-        private float velocity;
-        private Func<float> getRunThrehold;
+        private class RunCacher
+        {
+            private int lastLeg;
+            private bool isLeft;
+            private bool isRunning;
+            private bool isSprinting;
+            private float actingTime;
+            private float lastLegChange;
+            private Func<bool> useFrequencey;
+            private Func<float> getThreholdRun;
+            private Func<float> getThreholdRunLow;
+            private Func<float> getThreholdSprint;
+            private Func<float> getRunThresholdScale;
+            private Func<float> getRunThresholdScaleLow;
+
+            public RunCacher(bool isLeft, Func<float> getThreholdRun, Func<float> getThreholdRunLow, Func<bool> useFrequencey, Func<float> getThreholdSprint, Func<float> getRunThresholdScale, Func<float> getRunThresholdScaleLow)
+            {
+                this.isLeft = isLeft;
+                this.useFrequencey = useFrequencey;
+                this.getThreholdRun = getThreholdRun;
+                this.getThreholdRunLow = getThreholdRunLow;
+                this.getThreholdSprint = getThreholdSprint;
+                this.getRunThresholdScale = getRunThresholdScale;
+                this.getRunThresholdScaleLow = getRunThresholdScaleLow;
+            }
+
+            public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
+            {
+                if(useFrequencey())
+                {
+                    return IsExceededThresholdFrequency(ref isRunning, getThreholdRun(), getThreholdRunLow());
+                }
+                else
+                {
+                    return IsExceededThresholdSpeed(ref isRunning, walkData, walkData.velocityThreshold * getRunThresholdScale(), walkData.velocityThreshold * getRunThresholdScaleLow());
+                }
+            }
+
+            public bool IsEnterSprintReady(WalkActionItem walkData)
+            {
+                if(useFrequencey())
+                {
+                    return IsExceededThresholdFrequency(ref isSprinting, getThreholdSprint(), getThreholdSprint());
+                }
+                else
+                {
+                    return IsExceededThresholdSpeed(ref isSprinting, walkData, getThreholdSprint(), walkData.velocityThreshold * getRunThresholdScaleLow());
+                }
+            }
+
+            public float GetActTime()
+            {
+                return actingTime;
+            }
+
+            public void UpdateFrequency(WalkActionItem walkData)
+            {
+                var curLeft = isLeft ? walkData.GetLeftLeg() : walkData.GetRightLeg();
+                var isActing = lastLeg != 0 && lastLeg != curLeft;
+                if(isActing)
+                {
+                    if(lastLegChange != 0)
+                    {
+                        actingTime = Time.time - lastLegChange;
+                        /* if(lastLeg == -1)
+                        {
+                            actingTime *= 0.5f;
+                        } */
+                    }
+
+                    /* if(isRunning)
+                    {
+                        Debug.Log(lastLeg + "|" + actingTime + "|" + Time.frameCount);
+                    } */
+
+                    lastLegChange = Time.time;
+                }
+                lastLeg = curLeft;
+            }
+
+            public float GetWalkRunPercent(WalkActionItem walkData)
+            {
+                if(useFrequencey())
+                {
+                    return 1 - Mathf.Clamp01(actingTime / getThreholdRun());
+                }
+                else
+                {
+                    return Mathf.Clamp01(walkData.velocity / walkData.velocityThreshold);
+                }
+            }
+
+            private bool IsExceededThresholdSpeed(ref bool curState, WalkActionItem walkData, float threhold, float threholdLow)
+            {
+                //var frequency = isLeft ? walkData.leftFrequency : walkData.rightFrequency;
+                //var stepLength = isLeft ? walkData.leftStepLength : walkData.rightStepLength;
+                if(!curState)
+                {
+                    curState = walkData.velocity >= threhold;
+                }
+                else
+                {
+                    curState = walkData.velocity >= threholdLow;
+                }
+                return curState;
+            }
+
+            private bool IsExceededThresholdFrequency(ref bool curState, float threhold, float threholdLow)
+            {
+                //Debug.Log(GetHashCode() + "|" + Time.frameCount + "|" + curState + "|" + threhold + "|" + threholdLow);
+                if(lastLegChange != 0 && actingTime > 0)
+                {
+                    if(!curState)
+                    {
+                        curState = actingTime < threhold;
+                    }
+                    else
+                    {
+                        curState = actingTime < threholdLow;
+                    }
+                }
+
+                return curState;
+            }
+        }
+
+        private bool isRunning;
+        private RunCacher cacherLeft;
+        private RunCacher cacherRight;
         private StepStrideCacher strideCacher;
 
-        public RunConditioner(Func<float> getRunThrehold, StepStrideCacher strideCacher)
+        public RunConditioner(Func<float> getThreholdRun, Func<float> getThreholdRunLow, Func<float> getThreholdSprint, Func<bool> useFrequencey, Func<float> getRunThresholdScale, Func<float> getRunThresholdScaleLow, StepStrideCacher strideCacher)
         {
+            this.cacherLeft = new RunCacher(true, getThreholdRun, getThreholdRunLow, useFrequencey, getThreholdSprint, getRunThresholdScale, getRunThresholdScaleLow);
+            this.cacherRight = new RunCacher(false, getThreholdRun, getThreholdRunLow, useFrequencey, getThreholdSprint, getRunThresholdScale, getRunThresholdScaleLow);
             this.strideCacher = strideCacher;
-            this.getRunThrehold = getRunThrehold;
+        }
+
+        public void OnUpdate(WalkActionItem walkData)
+        {
+            cacherLeft.UpdateFrequency(walkData);
+            cacherRight.UpdateFrequency(walkData);
+        }
+
+        public float GetActTimeLeft()
+        {
+            return cacherLeft.GetActTime();
+        }
+
+        public float GetActTimeRight()
+        {
+            return cacherRight.GetActTime();
+        }
+
+        public bool IsEnterSprintReady(WalkActionItem walkData)
+        {
+            OnUpdate(walkData);
+            return cacherLeft.IsEnterSprintReady(walkData) || cacherRight.IsEnterSprintReady(walkData);
         }
 
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
         {
-            strideCacher.OnUpdate(walkData.leftLeg, walkData.leftStepLength);
+            OnUpdate(walkData);
+            strideCacher.OnUpdate(walkData.GetLeftLeg(), walkData.leftStepLength);
+
+            var isRunningLeft = cacherLeft.IsEnterRunReady(walkData, debug);
+            var isRunningRight = cacherRight.IsEnterRunReady(walkData, debug);
+
+            /* if(!isRunning)
+            {
+                isRunning = isRunningLeft || isRunningRight;
+            }
+            else
+            {
+                isRunning = isRunningLeft && isRunningRight;
+            } */
+            isRunning = isRunningLeft || isRunningRight;
+
+            return isRunning;
 
             //Debug.Log(walkData.leftFrequency + "|" + walkData.rightFrequency);
             //Debug.Log("velocity -> " + walkData.velocity);
             //Debug.Log($"stepRate -> {walkData.stepRate}");
             //Debug.Log($"stepLen -> {walkData.stepLen}");
-            var speed = walkData.stepRate * walkData.stepLen;
+
+            /* var speed = walkData.stepRate * walkData.stepLen;
             velocity = Mathf.Lerp(velocity, speed, Time.deltaTime * 5);
-            return velocity > getRunThrehold();
+            return velocity > getRunThrehold(); */
+            
+            //return walkData.leftFrequency > getRunThrehold();
           
             //return walkData.leftFrequency * strideCacher.GetStrideSmooth() > getRunThrehold();
 
@@ -59,6 +228,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                 return true;
             }
             return false; */
+        }
+
+        public float GetWalkRunPercent(WalkActionItem walk)
+        {
+            return Mathf.Max(cacherLeft.GetWalkRunPercent(walk), cacherRight.GetWalkRunPercent(walk));
         }
     }
 }

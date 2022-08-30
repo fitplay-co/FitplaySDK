@@ -19,6 +19,7 @@ namespace MotionCaptureBasic.MessageSend
     public class Config
     {
         public int fps;
+        public int height;
     }
 
     public class MessageFitting : MessageBody

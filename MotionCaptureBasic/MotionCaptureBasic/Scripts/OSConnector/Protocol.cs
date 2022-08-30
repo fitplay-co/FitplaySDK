@@ -185,6 +185,7 @@ namespace MotionCaptureBasic.OSConnector
     }
     public class Protocol
     {
+        private static IKBodyUpdateMessage _bodyMsgCache = new IKBodyUpdateMessage();
         public static IKBodyMessageBase UnMarshal(string message)
         {
             try
@@ -212,7 +213,56 @@ namespace MotionCaptureBasic.OSConnector
                 return null;
             }
         }
-        
+
+        private static void CheckBodyMsg(IKBodyUpdateMessage bodyMsg)
+        {
+            var poseLandmarkItem = bodyMsg.pose_landmark;
+            if (poseLandmarkItem != null)
+            {
+                if (poseLandmarkItem.keypoints != null && poseLandmarkItem.keypoints3D != null)
+                {
+                    _bodyMsgCache.pose_landmark = poseLandmarkItem;
+                }
+                else
+                {
+                    _bodyMsgCache.pose_landmark = null;
+                }
+            }
+
+            var fittingItem = bodyMsg.fitting;
+            if (fittingItem != null)
+            {
+                if (fittingItem.rotation != null || fittingItem.localRotation != null)
+                {
+                    _bodyMsgCache.fitting = fittingItem;
+                }
+                else
+                {
+                    _bodyMsgCache.fitting = null;
+                }
+            }
+
+            var actionDetectionItem = bodyMsg.action_detection;
+            if (actionDetectionItem != null)
+            {
+                if (actionDetectionItem.walk != null)
+                {
+                    _bodyMsgCache.action_detection = actionDetectionItem;
+                }
+                else
+                {
+                    _bodyMsgCache.action_detection = null;
+                }
+            }
+
+            //TODO: currently no need to check
+            _bodyMsgCache.timeProfiling = bodyMsg.timeProfiling;
+            _bodyMsgCache.type = bodyMsg.type;
+            _bodyMsgCache.ground_location = bodyMsg.ground_location;
+            _bodyMsgCache.gaze_tracking = bodyMsg.gaze_tracking;
+            _bodyMsgCache.monitor = bodyMsg.monitor;
+        }
+
         private static IKBodyUpdateMessage UpdateMessageHandler(string message)
         {
             var body = JsonUtility.FromJson<IKBodyUpdateMessage>(message);
@@ -432,6 +482,7 @@ namespace MotionCaptureBasic.OSConnector
     [Serializable]
     public class WalkActionItem
     {
+        public static bool useRealtimeData;
         public int legUp;
         public int frequency;
         public float strength;
@@ -446,8 +497,33 @@ namespace MotionCaptureBasic.OSConnector
         public float leftFrequency;
         public float rightFrequency;
         public float velocity;
+        public float velocityThreshold;
         public float stepRate;
         public float stepLen;
+        public int realtimeLeftLeg;
+        public int realtimeRightLeg;
+
+        public int GetLeftLeg()
+        {
+            return useRealtimeData ? realtimeLeftLeg : leftLeg;
+        }
+
+        public int GetRightLeg()
+        {
+            return useRealtimeData ? realtimeRightLeg : rightLeg;
+        }
+
+        public void SetLeftLeg(int value)
+        {
+            leftLeg = value;
+            realtimeLeftLeg = value;
+        }
+
+        public void SetRightLeg(int value)
+        {
+            rightLeg = value;
+            realtimeRightLeg = value;
+        }
     }
     
     [Serializable]

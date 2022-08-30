@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AnimationUprising.Strider;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -8,6 +7,7 @@ using StandTravelModel.Scripts.Runtime.Core.Interface;
 using StandTravelModel.Scripts.Runtime.FK.Scripts;
 using StandTravelModel.Scripts.Runtime.MotionModel;
 using StandTravelModel.Scripts.Runtime.WeirdHumanoid;
+using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
 
 namespace StandTravelModel.Scripts.Runtime
@@ -30,7 +30,8 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("Debug模式开关。如果打开可以打印额外Debug信息，并且显示骨骼点")]
         public bool isDebug;
 
-        [Tooltip("是否启用FK。如果启用IK将无效")] public bool isFKEnabled;
+        [Tooltip("是否启用FK。如果启用IK将无效")]
+        public bool isFKEnabled;
 
         [Tooltip("是否启用非对称映射。如果开启可以匹配非标准人体骨骼的模型")]
         public bool monsterMappingEnable;
@@ -41,7 +42,15 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("是否在跑步时自动进入全身动画。如果启用，播跑步动画时会自动使FK无效")] 
         public bool isFullAnimOnRun;
 
+        [Tooltip("是否使用locomotion实现stand模式局部位移")]
+        public bool useLocomotion;
+        
+        [Tooltip("指定Basic SDK的OS通信模式")]
+        public MotionDataModelType motionDataModelType;
+
+        [Tooltip("初始Motion Mode")]
         public MotionMode initialMode = MotionMode.Stand;
+        
         public AnimationCurve speedCurve;
         public AnimationCurve downCurve;
         public TuningParameterGroup tuningParameters;
@@ -49,24 +58,35 @@ namespace StandTravelModel.Scripts.Runtime
         public AnimatorSettingGroup animatorSettings;
         public Transform selfTransform;
         public StepStateSmoother stepSmoother;
-        public StriderBiped striderBiped;
-        public float runThrehold = 4;
-        public EFKType[] travelFkControlPoints;
+        public StandTravelParamsLoader paramsLoader;
         public float strideScaleRun = 1;
         public float strideScaleWalk = 1;
+#if USE_FK_LOCAL_ROTATION
+        public FKJpintMap[] travelFkControlPoints;
+#else
+        public EFKType[] travelFkControlPoints;
+#endif
+
         #endregion
         
          
         #region Unserializable Variables
         private IMotionModel motionModel;
         private IMotionDataModel motionDataModel;
+        public IMotionDataModel motionDataModelReference => motionDataModel;
         private IModelIKController modelIKController;
 
+        private Animator modelAnimator;
         private AnchorController anchorController;
         private StandModel standModel;
         private TravelModel travelModel;
         private GameObject keyPointsParent;
+#if USE_FK_LOCAL_ROTATION
+        private FKAnimatorJoints fkAnimatorJointsModel;
+#else
         private IFKPoseModel fKPoseModel;
+#endif
+        
 
         private MotionMode _currentMode = MotionMode.Stand;
 
@@ -82,8 +102,9 @@ namespace StandTravelModel.Scripts.Runtime
                     if (value == MotionMode.Stand)
                     {
                         //T强制切回idlestate
-                        travelModel.ChangeState(AnimationList.Idle);
+                        //travelModel.ChangeState(AnimationList.Idle);
                         //travelModel.StopPrevAnimation("");
+                        travelModel?.selfAnimator.Play("Idle");
                     }
                 }
             }
@@ -93,7 +114,7 @@ namespace StandTravelModel.Scripts.Runtime
         public float currentFrequency => travelModel.currentFrequency;
         public bool isJump => travelModel.isJump;
 
-        private bool enable;
+        private bool enable = true;
 
         public bool Enabled
         {
@@ -101,12 +122,23 @@ namespace StandTravelModel.Scripts.Runtime
             set
             {
                 enabled = value;
+                if (!isFKEnabled)
+                {
 #if USE_FINAL_IK
-                fKPoseModel?.SetEnable(value);
-                modelIKSettings.SetEnable(value);
+                    modelIKSettings.SetEnable(value);
 #else
-                modelIKSettings.IKScript.enabled = value;
+                    modelIKSettings.IKScript.enabled = value;
 #endif
+                }
+                else
+                {
+#if USE_FK_LOCAL_ROTATION
+                    // ReSharper disable once Unity.NoNullPropagation
+                    fkAnimatorJointsModel?.SetEnable(value);
+#else
+                    fKPoseModel?.SetEnable(value);
+#endif
+                }
             }
         }
 
@@ -145,13 +177,16 @@ namespace StandTravelModel.Scripts.Runtime
         #endregion
 
         private List<Vector3> keyPointsList;
+        private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
+
 
         public void Awake()
         {
             Application.targetFrameRate = 60;
             _initPosition = this.transform.position;
 
+            InitParamsLoader();
             InitMotionDataModel();
             InitModelIKController();
             InitAnchorController();
@@ -189,10 +224,16 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
+            InitPlayerHeightUI();
         }
 
         public void FixedUpdate()
         {
+            if (!enable)
+            {
+                return;
+            }
+
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
@@ -201,10 +242,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
-			if(motionModel != null)
+            if (!enable)
             {
-                motionModel.UpdateFromMono();
+                return;
             }
+            
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -219,12 +261,24 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 motionModel.OnUpdate(keyPointsList);
             }
+            
+#if USE_FK_LOCAL_ROTATION
+            if (fkAnimatorJointsModel != null)
+            {
+                fkAnimatorJointsModel.UpdateFkInfo(motionDataModel.GetFitting());
+            }
+#endif
 
             ChangeFkOnRun();
         }
 
         public void LateUpdate()
         {
+            if (!enable)
+            {
+                return;
+            }
+            
             if(motionModel != null)
             {
                 motionModel.OnLateUpdate();
@@ -292,9 +346,12 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 case MotionMode.Stand:
                     motionModel = standModel;
+                    standModel.SetGrounding(true);
                     break;
                 case MotionMode.Travel:
                     motionModel = travelModel;
+                    travelModel.SetGrounding(false);
+                    travelModel.FixAvatarHeight();
                     break;
             }
         }
@@ -387,7 +444,14 @@ namespace StandTravelModel.Scripts.Runtime
         /// </summary>
         public void ResetGroundLocation()
         {
-            motionDataModel.ResetGroundLocation();
+            if (useLocomotion)
+            {
+                standModel.ResetLocomotion();
+            }
+            else
+            {
+                motionDataModel.ResetGroundLocation();
+            }
         }
 
         /// <summary>
@@ -397,6 +461,83 @@ namespace StandTravelModel.Scripts.Runtime
         public List<Vector3> GetKeyPointsList()
         {
             return keyPointsList;
+        }
+
+        public float GetRunThrehold()
+        {
+            return paramsLoader.GetRunThrehold();
+        }
+
+        public float GetSprintThrehold()
+        {
+            return paramsLoader.GetSprintThrehold();
+        }
+
+        public float GetSprintSpeedScale()
+        {
+            return paramsLoader.GetSprintSpeedScale();
+        }
+
+        public float GetRunThreholdLow()
+        {
+            return paramsLoader.GetRunThreholdLow();
+        }
+
+        public void SetRunThrehold(float value)
+        {
+            paramsLoader.SetRunThrehold(value);
+        }
+
+        public void SetSprintThrehold(float value)
+        {
+            paramsLoader.SetSprintThrehold(value);
+        }
+
+        public void SetSprintSpeedScale(float value)
+        {
+            paramsLoader.SetSprintSpeedScale(value);
+        }
+
+        public void SetRunThreholdLow(float value)
+        {
+            paramsLoader.SetRunThreholdLow(value);
+        }
+
+        public bool GetUseFrequency()
+        {
+            return paramsLoader.GetUseFrequency();
+        }
+
+        public void SetUseFrequency(bool value)
+        {
+            paramsLoader.SetUseFrequency(value);
+        }
+
+        public bool GetUseSmoothSwitch()
+        {
+            return paramsLoader.GetUseSmoothSwitch();
+        }
+
+        public void SetUseSmoothSwitch(bool value)
+        {
+            paramsLoader.SetUseSmoothSwitch(value);
+        }
+
+        public void SerializeParams()
+        {
+            paramsLoader.Serialize();
+        }
+
+        public void SwitchWalkRunAnimator(bool useSmoothSwitch)
+        {
+            if(useSmoothSwitch)
+            {
+                modelAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Girl Smooth");
+            }
+            else
+            {
+                modelAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Girl");
+            }
         }
 
         private void ChangeIKModelWeight(int weight)
@@ -416,7 +557,12 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel.cacheQueueMax = tuningParameters.CacheStepCount;
                 travelModel.stepMaxInterval = tuningParameters.StepToRunTimeThreshold;
             }
-            
+
+            if (standModel != null)
+            {
+                standModel.IsUseLocomotion(useLocomotion);
+            }
+
             if (modelIKController is ModelFinalIKController modelFinalIKController)
             {
                 modelFinalIKController.skewCorrection = tuningParameters.SkewCorrection;
@@ -424,7 +570,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             if(progress > 0.0001f)
             {
-                GetComponent<Animator>().SetFloat("progress", progress);
+                modelAnimator.SetFloat("progress", progress);
             }
         }
 
@@ -450,7 +596,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void InitMotionModels()
         {
-            var modelAnimator = this.GetComponent<Animator>();
+            this.modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
             var characterHeadNode = modelAnimator.GetBoneTransform(HumanBodyBones.Head);
             InitStandModel(characterHipNode, characterHeadNode);
@@ -460,9 +606,27 @@ namespace StandTravelModel.Scripts.Runtime
         private void InitTravelModel(Transform hip, Transform head)
         {
             stepSmoother = new StepStateSmoother();
-            travelModel = new TravelModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController, animatorSettings, hasExController, speedCurve, downCurve, stepSmoother, striderBiped,
-                () => runThrehold, () => strideScaleWalk, () => strideScaleRun
+            travelModel = new TravelModel(
+                selfTransform : transform,
+                characterHipNode : hip,
+                characterHeadNode : head,
+                keyPointsParent : keyPointsParent.transform,
+                tuningParameters : tuningParameters,
+                motionDataModel : motionDataModel,
+                anchorController : anchorController,
+                animatorSettingGroup : animatorSettings,
+                isExControl : hasExController,
+                speedCurve : speedCurve,
+                downCurve : downCurve,
+                stepSmoother : stepSmoother, 
+                getRunThrehold : paramsLoader.GetRunThrehold,
+                getThreholdRunLow : paramsLoader.GetRunThreholdLow,
+                strideScale : () => strideScaleWalk,
+                strideScaleRun : () => strideScaleRun,
+                useFrequency : paramsLoader.GetUseFrequency,
+                getSprintThrehold : paramsLoader.GetSprintThrehold,
+                getRunThresholdScale : paramsLoader.GetRunThresholdScale,
+                getRunThresholdScaleLow : paramsLoader.GetRunThreholdScaleLow
             );
         }
 
@@ -470,6 +634,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
                 motionDataModel, anchorController);
+            standModel.IsUseLocomotion(useLocomotion);
         }
 
         private void InitAnchorController()
@@ -512,60 +677,89 @@ namespace StandTravelModel.Scripts.Runtime
 
         public bool IsFKEnabled()
         {
+#if USE_FK_LOCAL_ROTATION
+            if (fkAnimatorJointsModel != null)
+            {
+                return fkAnimatorJointsModel.IsEnabled();
+            }
+#else
             if(fKPoseModel != null)
             {
                 return fKPoseModel.IsEnabled();
             }
-
+#endif
             return false;
         }
 
         public void EnableFK()
         {
+#if USE_FK_LOCAL_ROTATION
+            if(fkAnimatorJointsModel != null)
+            {
+                fkAnimatorJointsModel.SetEnable(true);
+                modelIKSettings.SetEnable(false);
+            }
+#else
             if(fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(true);
                 modelIKSettings.SetEnable(false);
             }
+#endif
         }
 
         public void DisableFK()
         {
+#if USE_FK_LOCAL_ROTATION
+            if(fkAnimatorJointsModel != null)
+            {
+                fkAnimatorJointsModel.SetEnable(false);
+                modelIKSettings.SetEnable(true);
+            }
+#else
             if(fKPoseModel != null)
             {
                 fKPoseModel.SetEnable(false);
                 modelIKSettings.SetEnable(true);
             }
+#endif
+            
         }
 
         private void TryInitFKModel()
         {
+#if USE_FK_LOCAL_ROTATION
+            if(fkAnimatorJointsModel == null)
+            {
+                fkAnimatorJointsModel = gameObject.AddComponent<FKAnimatorJoints>();
+                fkAnimatorJointsModel.SetEnable(false);
+            }
+#else
             if(fKPoseModel == null)
             {
                 fKPoseModel = gameObject.AddComponent<FKPoseModel>();
                 fKPoseModel.SetEnable(false);
                 fKPoseModel.Initialize();
             }
+#endif
         }
 
         private void FKBodyUpper()
         {
-            /*fKPoseModel.SetActiveEFKTypes(
-                EFKType.Neck,
-                //EFKType.Head,
-                EFKType.LShoulder,
-                EFKType.RShoulder,
-                EFKType.LArm,
-                EFKType.RArm,
-                EFKType.LWrist,
-                EFKType.RWrist
-            );*/
+#if USE_FK_LOCAL_ROTATION
+            fkAnimatorJointsModel.SetActiveFKJpintTypes(travelFkControlPoints);
+#else
             fKPoseModel.SetActiveEFKTypes(travelFkControlPoints);
+#endif
         }
 
         private void FKBodyFull()
         {
+#if USE_FK_LOCAL_ROTATION
+            fkAnimatorJointsModel.SetFullFKJpintTypes();
+#else
             fKPoseModel.SetFullBodyEFKTypes();
+#endif
         }
 
         private void ChangeFkOnRun()
@@ -579,7 +773,11 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 if (travelModel.isRun)
                 {
+#if USE_FK_LOCAL_ROTATION
+                    fkAnimatorJointsModel.SetActiveFKJpintTypes(new FKJpintMap[] {});
+#else
                     fKPoseModel.SetActiveEFKTypes();
+#endif
                 }
                 else
                 {
@@ -593,9 +791,20 @@ namespace StandTravelModel.Scripts.Runtime
         /// </summary>
         private void InitMotionDataModel()
         {
-            motionDataModel = MotionDataModelFactory.Create(MotionDataModelType.Http);
+            motionDataModel = MotionDataModelFactory.Create(motionDataModelType);
             motionDataModel.SetPreprocessorParameters(tuningParameters.ScaleMotionPos);
-            motionDataModel.AddConnectEvent(SubscribeMessage);
+            switch (motionDataModelType)
+            {
+                case MotionDataModelType.Http:
+                    motionDataModel.AddConnectEvent(SubscribeMessage);
+                    break;
+                case MotionDataModelType.Cpp:
+                    Debug.LogError("cpp方式的os通信还没有实现");
+                    break;
+                case MotionDataModelType.Mobile:
+                    _osConnected = true;
+                    break;
+            }
         }
 
         private void SubscribeMessage()
@@ -621,6 +830,77 @@ namespace StandTravelModel.Scripts.Runtime
             else
             {
                 return Vector3.zero;
+            }
+        }
+
+        public float GetRunSpeedScale()
+        {
+            return paramsLoader.GetRunSpeedScale();
+        }
+
+        public void SetRunSpeedScale(float value)
+        {
+            paramsLoader.SetRunSpeedScale(value);
+        }
+
+        public float GetRunThresholdScale()
+        {
+            return paramsLoader.GetRunThresholdScale();
+        }
+
+        public float GetRunThresholdScaleLow()
+        {
+            return paramsLoader.GetRunThreholdScaleLow();
+        }
+
+        public void SetRunThresholdScaleLow(float value)
+        {
+            paramsLoader.SetRunThreholdScaleLow(value);
+        }
+
+        public void SetRunThresholdScale(float value)
+        {
+            paramsLoader.SetRunThresholdScale(value);
+        }
+
+        public RunConditioner GetRunConditioner()
+        {
+            if(travelModel != null)
+            {
+                return travelModel.GetRunConditioner();
+            }
+            return null;
+        }
+
+        public void ShowPlayerHeightUI()
+        {
+            playerHeightUI.Show();
+            Enabled = false;
+        }
+
+        private void InitParamsLoader()
+        {
+            paramsLoader = new StandTravelParamsLoader();
+            paramsLoader.Deserialize();
+        }
+
+        private void OnPlayerHeightInput(int height)
+        {
+            motionDataModel?.SetPlayerHeight(height);
+            playerHeightUI.Hide();
+            Enabled = true;
+        }
+
+        private void InitPlayerHeightUI()
+        {
+            if(playerHeightUI == null)
+            {
+                var canvas = GameObject.Find("Canvas");
+                var prefab = Resources.Load<GameObject>("PlayerHeightUI");
+                var newobj = GameObject.Instantiate(prefab, canvas.transform);
+                playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
+                playerHeightUI.Initialize(OnPlayerHeightInput);
+                Enabled = false;
             }
         }
     }

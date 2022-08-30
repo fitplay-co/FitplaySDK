@@ -30,15 +30,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         [Tooltip("指定需要控制的characterController")] [SerializeField]
         private CharacterController characterController;
         
-        
         [SerializeField] private int curFootIndex;
-        [SerializeField] private Vector3 footPos;
-        [SerializeField] private Vector3 deltaPos;
-        [SerializeField] private Vector3 anchorPos;
-        [SerializeField] private Transform footLeft;
-        [SerializeField] private Transform footRight;
-        [SerializeField] private float speedMultiplier = 1;
         [SerializeField] private float gravity = -10;
+        [SerializeField] private Vector3 anchorPos;
+
+        private Transform footLeft;
+        private Transform footRight;
 
         private void Awake() {
             var animator = GetComponent<Animator>();
@@ -57,6 +54,16 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         }
 
         private void FixedUpdate() {
+            if (standTravelModelManager.currentMode == MotionMode.Travel)
+            {
+                var fixDeltaTime = Time.fixedDeltaTime;
+                UpdateVerticalMove(fixDeltaTime);
+            }
+        }
+
+        private void Update()
+        {
+            var deltaTime = Time.deltaTime;
             if (standTravelModelManager.currentMode == MotionMode.Stand)
             {
                 _velocity = Vector3.zero;
@@ -64,19 +71,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             }
             else
             {
-                var fixDeltaTime = Time.fixedDeltaTime;
-                UpdateVerticalMove(fixDeltaTime);
                 moverUpdater.OnUpdate();
-                _velocity = moverUpdater.GetMoveSpeed(fixDeltaTime);
+                _velocity = moverUpdater.GetMoveSpeed(deltaTime);
             }
-        }
-
-        private void Update()
-        {
             if (isSelfMoveControl)
             {
-                var dt = Time.deltaTime;
-                var deltaMovement = new Vector3(0, _verticalVelocity * dt, 0);
+                var deltaMovement = new Vector3(0, _verticalVelocity * deltaTime, 0);
                 characterController.Move(deltaMovement);
             }
         }
@@ -87,6 +87,11 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         void OnAnimatorMove()
         {
             //override the root motion
+        }
+
+        public float GetRunSpeedScale()
+        {
+            return standTravelModelManager.GetRunSpeedScale();
         }
 
         private void UpdateVerticalMove(float dt)

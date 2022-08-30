@@ -12,7 +12,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         void Clear();
         AnchorController GetAnchorController();
         List<Vector3> GetKeyPoints();
-        void UpdateFromMono();
         Animator GetAnimator();
     }
 }

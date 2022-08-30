@@ -18,7 +18,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.angleSmoother = new HipAngleSmoother();
         }
 
-        public void GetLegProgress(int leg, float hipAngle, out float progressUp, out float progressDown, out float angleDelta)
+        public void GetLegProgress(int leg, float hipAngle, bool isRun, out float progressUp, out float progressDown, out float angleDelta, bool debug = false)
         {
             /* angleDelta = lastAngle - hipAngle;
 
@@ -51,7 +51,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             else
             {
                 angleSmoother.SwitchLift(leg == 1);
-                angleSmoother.OnUpdate(hipAngle);
+                angleSmoother.OnUpdate(hipAngle, isRun);
                 progressUp = ConvertHipAngleToProgress(angleSmoother.GetAngleCache());
                 progressDown = ConverHipAngleToProgressDown(angleSmoother.GetAngleCache());
 
@@ -65,13 +65,13 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private float ConvertHipAngleToProgress(float angle)
         {
             //return Mathf.Max((180f - angle) / 90f, 0.2f);
-            return Mathf.Max(180f - angle) / 90f;
+            return Mathf.Clamp01(Mathf.Max(180f - angle) / 90f);
         }
 
         private float ConverHipAngleToProgressDown(float angle)
         {
             //return (angle - 120f) / 120f;
-            return 1 - (180f - angle) / 90f;
+            return Mathf.Clamp01(1f - (180f - angle) / 90f);
         }
     }
 }

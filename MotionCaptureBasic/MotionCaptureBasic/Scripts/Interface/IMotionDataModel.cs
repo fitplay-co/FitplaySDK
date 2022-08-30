@@ -53,6 +53,7 @@ namespace MotionCaptureBasic.Interface
         bool ReleaseFitting();
         void SetDebug(bool isDebug);
         bool ResetGroundLocation();
+        bool SetPlayerHeight(int h);
         void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat);
         void ClearIKDataListSimulat();
     }

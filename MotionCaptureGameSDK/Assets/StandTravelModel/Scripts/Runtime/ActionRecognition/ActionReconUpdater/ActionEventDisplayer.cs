@@ -1,4 +1,6 @@
+using System;
 using MotionCaptureBasic;
+using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using StandTravelModel.Scripts.Runtime.ActionRecognition;
@@ -18,9 +20,19 @@ public class ActionEventDisplayer : MonoBehaviour
     private StepStrideCacher strideCacherRight = new StepStrideCacher();
     private ActionDetectionItem actionDetection;
     private StandTravelModelManager standTravelManager;
+    private IMotionDataModel motionDataModel;
+
+    public void Start()
+    {
+        if(standTravelManager == null)
+        {
+            standTravelManager = charAnim.GetComponent<StandTravelModelManager>();
+            motionDataModel = standTravelManager.motionDataModelReference;
+        }
+    }
 
     private void OnGUI() {
-        actionDetection = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+        actionDetection = motionDataModel.GetActionDetectionData();
 
         GetActionIds(out leftId, out rightId);
 
@@ -152,32 +164,32 @@ public class ActionEventDisplayer : MonoBehaviour
 
         if(actionDetection != null && actionDetection.walk != null)
         {
-            if(actionDetection.walk.leftLeg == -1)
+            if(actionDetection.walk.GetLeftLeg() == -1)
             {
                 left = ActionId.LegDownLeft;
             }
 
-            if(actionDetection.walk.leftLeg == 1)
+            if(actionDetection.walk.GetLeftLeg() == 1)
             {
                 left = ActionId.LegUpLeft;
             }
 
-            if(actionDetection.walk.leftLeg == 0)
+            if(actionDetection.walk.GetLeftLeg() == 0)
             {
                 left = ActionId.LegIdleLeft;
             }
 
-            if(actionDetection.walk.rightLeg == -1)
+            if(actionDetection.walk.GetRightLeg() == -1)
             {
                 right = ActionId.LegDownRight;
             }
 
-            if(actionDetection.walk.rightLeg == 1)
+            if(actionDetection.walk.GetRightLeg() == 1)
             {
                 right = ActionId.LegUpRight;
             }
 
-            if(actionDetection.walk.rightLeg == 0)
+            if(actionDetection.walk.GetRightLeg() == 0)
             {
                 right = ActionId.LegIdleRight;
             }
@@ -206,11 +218,6 @@ public class ActionEventDisplayer : MonoBehaviour
 
     private void DrawStepProgress()
     {
-        if(standTravelManager == null)
-        {
-            standTravelManager = charAnim.GetComponent<StandTravelModelManager>();
-        }
-
         var stepProgress = standTravelManager.stepSmoother.GetStepProgress();
         var targetProgress = standTravelManager.stepSmoother.GetTargetProgress();
 
@@ -230,10 +237,10 @@ public class ActionEventDisplayer : MonoBehaviour
 
     private void DrawFootFrequence(ActionDetectionItem actionDetectionItem)
     {
-        if(actionDetectionItem != null)
+        if(actionDetectionItem?.walk != null)
         {
-            strideCacherLeft.OnUpdate(actionDetectionItem.walk.leftLeg, actionDetectionItem.walk.leftStepLength);
-            strideCacherRight.OnUpdate(actionDetectionItem.walk.rightLeg, actionDetectionItem.walk.rightStepLength);
+            strideCacherLeft.OnUpdate(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.leftStepLength);
+            strideCacherRight.OnUpdate(actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.rightStepLength);
 
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 32;
@@ -241,10 +248,10 @@ public class ActionEventDisplayer : MonoBehaviour
 
             var x = 0.3f * Screen.width;
             var y = 0.1f * Screen.height;
-            GUI.Label(new Rect(x, y, 300, 80), strideCacherLeft.GetLeg() + "|" + actionDetectionItem.walk.leftFrequency + "|" + strideCacherLeft.GetStride(), labelStyle);
+            GUI.Label(new Rect(x, y, 500, 80), strideCacherLeft.GetLeg() + "|步频 -> " + actionDetectionItem.walk.leftFrequency + "|" + strideCacherLeft.GetStride(), labelStyle);
 
             x = 0.7f * Screen.width;
-            GUI.Label(new Rect(x, y, 300, 80), strideCacherRight.GetLeg() + "|" + actionDetectionItem.walk.rightFrequency + "|" + strideCacherRight.GetStride(), labelStyle);
+            GUI.Label(new Rect(x, y, 500, 80), strideCacherRight.GetLeg() + "|步频 -> " + actionDetectionItem.walk.rightFrequency + "|" + strideCacherRight.GetStride(), labelStyle);
         }
     }
 }

@@ -6,7 +6,6 @@ using StandTravelModel.Scripts.Runtime.Core;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
-using AnimationUprising.Strider;
 
 namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
@@ -54,6 +53,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public Vector3 moveVelocity => _moveVelocity;
 
         private bool isExControlMode;
+        private RunConditioner runConditioner;
+        private RunConditioner sprintConditioner;
 
         //private TravelModelAnimatorController animatorController;
 
@@ -70,10 +71,14 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             AnimationCurve speedCurve,
             AnimationCurve downCurve,
             StepStateSmoother stepSmoother,
-            StriderBiped striderBiped,
             Func<float> getRunThrehold,
+            Func<float> getThreholdRunLow,
             Func<float> strideScale,
-            Func<float> strideScaleRun
+            Func<float> strideScaleRun,
+            Func<bool> useFrequency,
+            Func<float> getSprintThrehold,
+            Func<float> getRunThresholdScale,
+            Func<float> getRunThresholdScaleLow
         ) : base(
             selfTransform,
             characterHipNode,
@@ -100,17 +105,17 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideCacher = new StepStrideCacher();
-            var strideSetter = new TravelStrideSetter(striderBiped, this);
-            var runConditioner = new RunConditioner(getRunThrehold, strideCacher);
-            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun);
+            var sprintConditioner = new RunConditioner(getRunThrehold, getThreholdRunLow, getSprintThrehold, useFrequency, getRunThresholdScale, getRunThresholdScaleLow, strideCacher);
+            this.runConditioner = new RunConditioner(getRunThrehold, getThreholdRunLow, getSprintThrehold, useFrequency, getRunThresholdScale, getRunThresholdScaleLow, strideCacher);
+            var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun, useFrequency, getSprintThrehold, runConditioner);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
             {
                 {AnimationList.Idle, new TravelIdleState(this, parametersSetter, runConditioner)},
-                {AnimationList.Run, new TravelRunState(this, parametersSetter, strideSetter, runConditioner)},
+                {AnimationList.Run, new TravelRunState(this, parametersSetter, runConditioner, sprintConditioner)},
                 {AnimationList.Jump, new TravelJumpState(this)},
-                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, strideSetter, runConditioner)},
-                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, strideSetter, runConditioner)},
+                {AnimationList.LeftStep, new TravelLeftStepState(this, parametersSetter, runConditioner)},
+                {AnimationList.RightStep, new TravelRightStepState(this, parametersSetter, runConditioner)},
                 {AnimationList.Squat, new TravelSquatState(this)}
             };
             
@@ -131,12 +136,27 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             if (isExControlMode)
             {
                 var newPos = selfTransform.position;
-                newPos.y = groundHeight;
+                if (newPos.y < groundHeight)
+                {
+                    newPos.y = groundHeight;
+                    selfTransform.position = newPos;
+                }
+                
                 anchorController.TravelFollowPoint.transform.position = newPos;
             }
             else
             {
                 base.OnLateUpdate();
+            }
+        }
+
+        public void FixAvatarHeight()
+        {
+            if (isExControlMode)
+            {
+                var newPos = selfTransform.position;
+                newPos.y = groundHeight + 0.1f;
+                selfTransform.position = newPos;
             }
         }
 
@@ -155,10 +175,10 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             }
         }
 		
-		public override void UpdateFromMono()
+		/* public override void UpdateFromMono()
         {
             stateMachine.OnTick(Time.deltaTime);
-        }
+        } */
 
         /// <summary>
         /// 记录11次抬腿。抬腿交错一次才记录一次到队列。总共左右交互记录11次
@@ -237,6 +257,11 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             animatorController.Clear();
             animatorController = null;
         }*/
+
+        public RunConditioner GetRunConditioner()
+        {
+            return runConditioner;
+        }
     }
 
     public struct StepStct

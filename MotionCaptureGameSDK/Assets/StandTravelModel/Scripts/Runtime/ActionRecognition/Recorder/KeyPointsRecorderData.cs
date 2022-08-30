@@ -24,5 +24,9 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
         public int rightLeg;
         public float leftHip;
         public float rightHip;
+        public float rightStepLength;
+        public float leftSteplength;
+        public float rightFrequency;
+        public float leftFrequency;
     }
 }

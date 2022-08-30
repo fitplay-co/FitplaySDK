@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using MotionCaptureBasic;
+using MotionCaptureBasic.Interface;
 using UnityEngine;
 using Newtonsoft.Json;
 using MotionCaptureBasic.OSConnector;
@@ -17,6 +19,18 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         private PointsContainer seContainer;
         private PointsContainer deContainer;
+        
+        private StandTravelModelManager standTravelManager;
+        private IMotionDataModel motionDataModel;
+
+        public void Start()
+        {
+            if(standTravelManager == null)
+            {
+                standTravelManager = GetComponent<StandTravelModelManager>();
+                motionDataModel = standTravelManager.motionDataModelReference;
+            }
+        }
 
         private void Update() {
             if(enableRecord)
@@ -43,7 +57,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     }
                 }
 
-                var pointsData = MotionDataModelHttp.GetInstance().GetIKPointsData(true, true);
+                var pointsData = motionDataModel.GetIKPointsData(true, true);
                 if(pointsData != null)
                 {
                     var points = new Points();
@@ -52,13 +66,13 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     seContainer.points.Add(points);
                 }
 
-                var actionItem = MotionDataModelHttp.GetInstance().GetActionDetectionData();
+                var actionItem = motionDataModel.GetActionDetectionData();
                 if(actionItem != null && actionItem.walk != null)
                 {
                     var walk = new Walk()
                     {
-                        leftLeg = actionItem.walk.leftLeg,
-                        rightLeg = actionItem.walk.rightLeg,
+                        leftLeg = actionItem.walk.GetLeftLeg(),
+                        rightLeg = actionItem.walk.GetRightLeg(),
                         leftHip = actionItem.walk.leftHipAng,
                         rightHip = actionItem.walk.rightHipAng
                     };
@@ -120,11 +134,16 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
                     var item = new ActionDetectionItem();
                     item.walk = new WalkActionItem()
                     {
-                        leftLeg = walk.leftLeg,
-                        rightLeg = walk.rightLeg,
                         leftHipAng = walk.leftHip,
-                        rightHipAng = walk.rightHip
+                        rightHipAng = walk.rightHip,
+                        leftFrequency = walk.leftFrequency,
+                        rightFrequency = walk.rightFrequency,
+                        leftStepLength = walk.leftSteplength,
+                        rightStepLength = walk.rightStepLength,
                     };
+                    item.walk.SetLeftLeg(walk.leftLeg);
+                    item.walk.SetRightLeg(walk.rightLeg);
+
                     return item;
                 }
             }
@@ -157,33 +176,12 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.Recorder
 
         private void LoadKeyPointsList()
         {
-            using(FileStream fileStream = new FileStream(GetFilePath(), FileMode.OpenOrCreate))
-            {
-                using(StreamReader streamReader = new StreamReader(fileStream))
-                {
-                    var json = streamReader.ReadToEnd();
-                    deContainer = JsonConvert.DeserializeObject<PointsContainer>(json);
-                }
-            }
+            deContainer = JsonHelper.Deserialize<PointsContainer>(GetFilePath());
         }
 
         private void DOOutputKeyPointsList(PointsContainer container)
         {
-            using(FileStream fileStream = new FileStream(GetFilePath(), FileMode.Create))
-            {
-                using(StreamWriter streamWriter = new StreamWriter(fileStream))
-                {
-                    streamWriter.Write(
-                        JsonConvert.SerializeObject(
-                            container,
-                            new JsonSerializerSettings()
-                            { 
-                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                            }
-                        )
-                    );
-                }
-            }
+            JsonHelper.Serialize<PointsContainer>(GetFilePath(), container);
         }
     }
 }

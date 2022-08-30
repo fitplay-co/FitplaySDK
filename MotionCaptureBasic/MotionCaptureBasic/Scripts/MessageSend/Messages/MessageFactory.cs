@@ -38,10 +38,26 @@ namespace MotionCaptureBasic.MessageSend
                 type = MessageType.application_control.ToString(),
                 feature_id = MessageControlFeatureId.imu.ToString(),
                 action = MessageControlAction.config.ToString(),
-                data = new Config(){fps = fps}
+                data = new Config(){fps = fps, height = 0}
             };
         }
-        
+
+        /// <summary>
+        /// 配置身高的控制帧
+        /// </summary>
+        /// <param name="h">身高，单位cm</param>
+        /// <returns></returns>
+        public static object CreateHeightSetMessage(int h)
+        {
+            return new MessageConfig()
+            {
+                type = MessageType.application_control.ToString(),
+                feature_id = MessageControlFeatureId.action_detection.ToString(),
+                action = MessageControlAction.set_player.ToString(),
+                data = new Config(){fps = 0, height = h}
+            };
+        }
+
         /// <summary>
         /// 震动
         /// </summary>

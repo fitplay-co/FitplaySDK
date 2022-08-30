@@ -32,6 +32,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>Lib\Newtonsoft.Json.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -60,10 +63,13 @@
         <Compile Include="Scripts\MessageSend\Messages\MessageType.cs" />
         <Compile Include="Scripts\MotionDataModelFactory.cs" />
         <Compile Include="Scripts\MotionDataModelHttp.cs" />
+        <Compile Include="Scripts\MotionDataModelMobile.cs" />
         <Compile Include="Scripts\MotionDataPreprocessor.cs" />
         <Compile Include="Scripts\OSConnector\HttpProtocolHandler.cs" />
+        <Compile Include="Scripts\OSConnector\MobileOSHandler.cs" />
         <Compile Include="Scripts\OSConnector\Protocol.cs" />
         <Compile Include="Scripts\OSConnector\WebsocketOSClient.cs" />
+        <Compile Include="Scripts\OsDataReceiver.cs" />
         <Compile Include="Scripts\UnityWebSocket\Core\CloseEventArgs.cs" />
         <Compile Include="Scripts\UnityWebSocket\Core\CloseStatusCode.cs" />
         <Compile Include="Scripts\UnityWebSocket\Core\ErrorEventArgs.cs" />
@@ -79,6 +85,7 @@
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocketManager.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Lib\Newtonsoft.Json.dll" />
       <Content Include="Lib\UnityEngine.CoreModule.dll" />
       <Content Include="Lib\UnityEngine.JSONSerializeModule.dll" />
     </ItemGroup>

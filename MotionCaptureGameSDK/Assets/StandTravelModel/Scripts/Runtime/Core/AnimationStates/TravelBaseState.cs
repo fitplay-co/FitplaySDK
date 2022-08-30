@@ -19,14 +19,14 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         {
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
 
-            if (actionDetectionData.walk != null)
+            if (actionDetectionData != null && actionDetectionData.walk != null)
             {
                 travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
                 travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
 
-                if (actionDetectionData.walk.leftLeg == 0 && actionDetectionData.walk.rightLeg == 0)
+                if (actionDetectionData.walk.GetLeftLeg() == 0 && actionDetectionData.walk.GetRightLeg() == 0)
                 {
                     travelOwner.ChangeState(AnimationList.Idle);
                     return;

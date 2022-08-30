@@ -21,7 +21,7 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon
                     humanMessageFaker = new ActionReconUpdaterHumanMessageFaker();
                 }
 
-                humanMessageFaker.OnUpdate();
+                humanMessageFaker.OnUpdate(motionDataModel);
             }
         }
 
@@ -46,37 +46,37 @@ namespace StandTravelModel.Scripts.Runtime.ActionRecognition.HumanRecon
             {
                 simulatActionDetectionItem = new ActionDetectionItem();
                 simulatActionDetectionItem.walk = new WalkActionItem();
-                MotionDataModelHttp.GetInstance().SetSimulatActionDetectionData(simulatActionDetectionItem);
+                //motionDataModel.SetSimulatActionDetectionData(simulatActionDetectionItem);
             }
 
             if(actionId == ActionId.LegDownLeft)
             {
-                simulatActionDetectionItem.walk.leftLeg = -1;
+                simulatActionDetectionItem.walk.SetLeftLeg(-1);
             }
 
             if(actionId == ActionId.LegUpLeft)
             {
-                simulatActionDetectionItem.walk.leftLeg = 1;
+                simulatActionDetectionItem.walk.SetLeftLeg(1);
             }
 
             if(actionId == ActionId.LegIdleLeft)
             {
-                simulatActionDetectionItem.walk.leftLeg = 0;
+                simulatActionDetectionItem.walk.SetLeftLeg(0);
             }
 
             if(actionId == ActionId.LegDownRight)
             {
-                simulatActionDetectionItem.walk.rightLeg = -1;
+                simulatActionDetectionItem.walk.SetRightLeg(-1);
             }
 
             if(actionId == ActionId.LegUpRight)
             {
-                simulatActionDetectionItem.walk.rightLeg = 1;
+                simulatActionDetectionItem.walk.SetRightLeg(1);
             }
 
             if(actionId == ActionId.LegIdleRight)
             {
-                simulatActionDetectionItem.walk.rightLeg = 0;
+                simulatActionDetectionItem.walk.SetRightLeg(0);
             }
         }
     }

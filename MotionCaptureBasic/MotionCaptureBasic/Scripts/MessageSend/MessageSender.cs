@@ -1,6 +1,7 @@
 using System.Text;
 using UnityEngine;
 using UnityWebSocket;
+using Newtonsoft.Json;
 
 namespace MotionCaptureBasic.MessageSend
 {
@@ -77,7 +78,17 @@ namespace MotionCaptureBasic.MessageSend
         {
             return SendAsync(MessageFactory.CreateConfigMessage(fps));
         }
-        
+
+        /// <summary>
+        /// 发送身高设置控制帧
+        /// </summary>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public bool SendHeightSetting(int h)
+        {
+            return SendAsync(MessageFactory.CreateHeightSetMessage(h));
+        }
+
         /// <summary>
         /// 手柄震动
         /// </summary>
@@ -115,8 +126,9 @@ namespace MotionCaptureBasic.MessageSend
         {
             if (socket != null)
             {
-                Debug.Log(JsonUtility.ToJson(message));
-                socket.SendAsync(Encoding.UTF8.GetBytes(JsonUtility.ToJson(message)));
+                var strMsg = JsonConvert.SerializeObject(message);
+                Debug.Log(strMsg);
+                socket.SendAsync(Encoding.UTF8.GetBytes(strMsg));
                 return true;
             }
 

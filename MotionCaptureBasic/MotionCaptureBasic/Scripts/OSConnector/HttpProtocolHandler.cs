@@ -69,12 +69,16 @@ namespace MotionCaptureBasic.OSConnector
                 return;
             }
             //imu和input数据处理通道
-            string sType = dataType.sensor_type.ToLower();
-            if (sType == SensorType.IMU || sType == SensorType.INPUT)
+            if (dataType.sensor_type != null)
             {
-                BasicEventHandler.DispatchImuDataEvent(message);
-                return;
+                string sType = dataType.sensor_type.ToLower();
+                if (sType == SensorType.IMU || sType == SensorType.INPUT)
+                {
+                    BasicEventHandler.DispatchImuDataEvent(message);
+                    return;
+                }
             }
+            
             //动捕数据处理通道
             _bodyMessageBase = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
             var d  = _bodyMessageBase.timeProfiling.beforeSendTime - _bodyMessageBase.timeProfiling.startTime;
