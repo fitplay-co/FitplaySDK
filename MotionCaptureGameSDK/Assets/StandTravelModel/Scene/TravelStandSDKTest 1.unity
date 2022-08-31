@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &54380083 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+  m_PrefabInstance: {fileID: 5252686015229239005}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &168595834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -945,7 +950,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 54380083}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1359,11 +1365,21 @@ MonoBehaviour:
   paramsLoader:
     standTravelParams:
       runThrehold: 0.25
+      runThreholdLow: 0.35
+      freqThrehold: 0.25
+      freqThreholdLow: 0.35
       useFrequency: 1
       runSpeedScale: 1
       sprintThrehold: 0.15
+      freqSprintThrehold: 0.15
       runThresholdScale: 1
+      runThresholdScaleLow: 0.8
       sprintSpeedScale: 1.33
+      useSmoothSwitch: 0
+      useOSSpeed: 1
+      useOSStepRate: 0
+      useOSStepRateSeparate: 0
+      useLegActTime: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 
@@ -4055,11 +4071,21 @@ MonoBehaviour:
   paramsLoader:
     standTravelParams:
       runThrehold: 0.25
+      runThreholdLow: 0.35
+      freqThrehold: 0.25
+      freqThreholdLow: 0.35
       useFrequency: 1
       runSpeedScale: 1
       sprintThrehold: 0.15
+      freqSprintThrehold: 0.15
       runThresholdScale: 1
+      runThresholdScaleLow: 0.8
       sprintSpeedScale: 1.33
+      useSmoothSwitch: 0
+      useOSSpeed: 1
+      useOSStepRate: 0
+      useOSStepRateSeparate: 0
+      useLegActTime: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 
@@ -5386,6 +5412,107 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &5252686015229239005
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 867500910}
+    m_Modifications:
+    - target: {fileID: 5252686015211722985, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: standTravelModelManager
+      value: 
+      objectReference: {fileID: 919132148613035384}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -57.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722990, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252686015211722991, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
+      propertyPath: m_Name
+      value: StandTravelTestUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b93605168d1f1cb47beb1c4c1998d24e, type: 3}
 --- !u!4 &5283877103732886418
 Transform:
   m_ObjectHideFlags: 0
@@ -7173,7 +7300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: isSelfMoveControl
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: characterController
@@ -7267,6 +7394,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 919132148613035384}
+--- !u!114 &9039311290045051064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039311290045051062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9057330996297348918
 Transform:
   m_ObjectHideFlags: 0

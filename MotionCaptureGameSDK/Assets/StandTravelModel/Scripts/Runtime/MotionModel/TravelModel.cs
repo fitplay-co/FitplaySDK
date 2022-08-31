@@ -78,7 +78,10 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             Func<bool> useFrequency,
             Func<float> getSprintThrehold,
             Func<float> getRunThresholdScale,
-            Func<float> getRunThresholdScaleLow
+            Func<float> getRunThresholdScaleLow,
+            Func<bool> useOSStepRate,
+            Func<bool> useOSStepRateSeparate,
+            Func<bool> useLegActTime
         ) : base(
             selfTransform,
             characterHipNode,
@@ -105,8 +108,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             _selfAnimator = selfTransform.GetComponent<Animator>();
 
             var strideCacher = new StepStrideCacher();
-            var sprintConditioner = new RunConditioner(getRunThrehold, getThreholdRunLow, getSprintThrehold, useFrequency, getRunThresholdScale, getRunThresholdScaleLow, strideCacher);
-            this.runConditioner = new RunConditioner(getRunThrehold, getThreholdRunLow, getSprintThrehold, useFrequency, getRunThresholdScale, getRunThresholdScaleLow, strideCacher);
+            var sprintConditioner = new RunConditioner(getRunThrehold, getThreholdRunLow, getSprintThrehold, useFrequency, getRunThresholdScale, getRunThresholdScaleLow, useOSStepRate, useOSStepRateSeparate, useLegActTime, strideCacher);
+            this.runConditioner = new RunConditioner(getRunThrehold, getThreholdRunLow, getSprintThrehold, useFrequency, getRunThresholdScale, getRunThresholdScaleLow, useOSStepRate, useOSStepRateSeparate, useLegActTime, strideCacher);
             var parametersSetter = new StepStateAnimatorParametersSetter(this, speedCurve, downCurve, stepSmoother, strideCacher, strideScale, strideScaleRun, useFrequency, getSprintThrehold, runConditioner);
 
             animationStates = new Dictionary<AnimationList, State<MotionModelBase>>
@@ -136,7 +139,12 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             if (isExControlMode)
             {
                 var newPos = selfTransform.position;
-                newPos.y = groundHeight;
+                if (newPos.y < groundHeight)
+                {
+                    newPos.y = groundHeight;
+                    selfTransform.position = newPos;
+                }
+                
                 anchorController.TravelFollowPoint.transform.position = newPos;
             }
             else
@@ -152,6 +160,22 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 var newPos = selfTransform.position;
                 newPos.y = groundHeight + 0.1f;
                 selfTransform.position = newPos;
+            }
+        }
+
+        public void FixAvatarHorizon()
+        {
+            if(isExControlMode)
+            {
+                var parent = selfTransform.parent;
+                if (parent == null)
+                {
+                    return;
+                }
+
+                selfTransform.SetParent(null);
+                parent.position = selfTransform.position;
+                selfTransform.SetParent(parent);
             }
         }
 

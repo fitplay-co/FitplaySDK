@@ -54,6 +54,16 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         }
 
         private void FixedUpdate() {
+            if (standTravelModelManager.currentMode == MotionMode.Travel)
+            {
+                var fixDeltaTime = Time.fixedDeltaTime;
+                UpdateVerticalMove(fixDeltaTime);
+            }
+        }
+
+        private void Update()
+        {
+            var deltaTime = Time.deltaTime;
             if (standTravelModelManager.currentMode == MotionMode.Stand)
             {
                 _velocity = Vector3.zero;
@@ -61,19 +71,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             }
             else
             {
-                var fixDeltaTime = Time.fixedDeltaTime;
-                UpdateVerticalMove(fixDeltaTime);
                 moverUpdater.OnUpdate();
-                _velocity = moverUpdater.GetMoveSpeed(fixDeltaTime);
+                _velocity = moverUpdater.GetMoveSpeed(deltaTime);
             }
-        }
-
-        private void Update()
-        {
             if (isSelfMoveControl)
             {
-                var dt = Time.deltaTime;
-                var deltaMovement = new Vector3(0, _verticalVelocity * dt, 0);
+                var deltaMovement = new Vector3(0, _verticalVelocity * deltaTime, 0);
                 characterController.Move(deltaMovement);
             }
         }

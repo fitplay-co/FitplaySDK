@@ -58,7 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needPause: 0
   speedScaleFromPanel: 0
-  speedScale: 1
+  speedScale: 0.3
   progressLeftStart: 0
   progressLeftEnd: 0.32
   speedCurve:
@@ -837,7 +837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needPause: 0
   speedScaleFromPanel: 0
-  speedScale: 1
+  speedScale: 0.3
   progressLeftStart: 0
   progressLeftEnd: 0.32
   speedCurve:
@@ -1032,6 +1032,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: sprintPercent
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: walkRunPercent
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0

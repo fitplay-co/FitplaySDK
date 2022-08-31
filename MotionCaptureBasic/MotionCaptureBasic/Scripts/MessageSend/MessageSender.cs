@@ -63,6 +63,11 @@ namespace MotionCaptureBasic.MessageSend
             return SendAsync(MessageFactory.CreateMessageFitting(active));
         }
 
+        public bool SubscribeGeneral(bool active)
+        {
+            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.general_detection, active));
+        }
+
         public bool ResetGroundLocation()
         {
             return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location,

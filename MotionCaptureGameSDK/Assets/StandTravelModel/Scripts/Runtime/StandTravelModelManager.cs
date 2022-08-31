@@ -74,8 +74,10 @@ namespace StandTravelModel.Scripts.Runtime
         private IMotionModel motionModel;
         private IMotionDataModel motionDataModel;
         public IMotionDataModel motionDataModelReference => motionDataModel;
+        private StandTravelTestUI standTravelTestUI;
         private IModelIKController modelIKController;
 
+        private Animator modelAnimator;
         private AnchorController anchorController;
         private StandModel standModel;
         private TravelModel travelModel;
@@ -113,8 +115,6 @@ namespace StandTravelModel.Scripts.Runtime
         public float currentFrequency => travelModel.currentFrequency;
         public bool isJump => travelModel.isJump;
 
-        private bool enable = true;
-
         public bool Enabled
         {
             get { return enabled; }
@@ -137,6 +137,11 @@ namespace StandTravelModel.Scripts.Runtime
 #else
                     fKPoseModel?.SetEnable(value);
 #endif
+                }
+
+                if (!value)
+                {
+                    travelModel?.selfAnimator.Play("Idle");
                 }
             }
         }
@@ -195,6 +200,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             TryInitWeirdHumanConverter();
             TryInitFKModel();
+            InitStandTravelTestUI();
         }
 
         public void Start()
@@ -223,16 +229,11 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
-            InitPlayerHeightUI();
+            ShowPlayerHeightUI();
         }
 
         public void FixedUpdate()
         {
-            if (!enable)
-            {
-                return;
-            }
-
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
@@ -241,11 +242,6 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
-            if (!enable)
-            {
-                return;
-            }
-            
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -269,15 +265,11 @@ namespace StandTravelModel.Scripts.Runtime
 #endif
 
             ChangeFkOnRun();
+            TryToggleStandTravelTestUI();
         }
 
         public void LateUpdate()
         {
-            if (!enable)
-            {
-                return;
-            }
-            
             if(motionModel != null)
             {
                 motionModel.OnLateUpdate();
@@ -307,6 +299,19 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel.Clear();
                 travelModel = null;
             }
+        }
+
+        public bool GeneralCheck()
+        {
+            var generalData = motionDataModel.GetGeneralDetectionData();
+            if (generalData == null)
+            {
+                return false;
+            }
+
+            int generalConfidence = generalData.confidence;
+
+            return generalConfidence == 1;
         }
 
         /// <summary>
@@ -351,6 +356,7 @@ namespace StandTravelModel.Scripts.Runtime
                     motionModel = travelModel;
                     travelModel.SetGrounding(false);
                     travelModel.FixAvatarHeight();
+                    travelModel.FixAvatarHorizon();
                     break;
             }
         }
@@ -512,9 +518,61 @@ namespace StandTravelModel.Scripts.Runtime
             paramsLoader.SetUseFrequency(value);
         }
 
+        public bool GetUseSmoothSwitch()
+        {
+            return paramsLoader.GetUseSmoothSwitch();
+        }
+
+        public void SetUseSmoothSwitch(bool value)
+        {
+            paramsLoader.SetUseSmoothSwitch(value);
+        }
+
+        public bool GetUseOSStepRate()
+        {
+            return paramsLoader.GetUseOSStepRate();
+        }
+
+        public void SetUseOSStepRate(bool value)
+        {
+            paramsLoader.SetUseOSStepRate(value);
+        }
+
+        public bool GetUseOSStepRateSeparate()
+        {
+            return paramsLoader.GetUseOSStepRateSeparate();
+        }
+
+        public void SetUseOSStepRateSeparate(bool value)
+        {
+            paramsLoader.SetUseOSStepRateSeparate(value);
+        }
+
+        public bool GetUseLegActTime()
+        {
+            return paramsLoader.GetUseLegActTime();
+        }
+
+        public void SetUseLegActTime(bool value)
+        {
+            paramsLoader.SetUseLegActTime(value);
+        }
+
         public void SerializeParams()
         {
             paramsLoader.Serialize();
+        }
+
+        public void SwitchWalkRunAnimator(bool useSmoothSwitch)
+        {
+            if(useSmoothSwitch)
+            {
+                modelAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Girl Smooth");
+            }
+            else
+            {
+                modelAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animators/Girl");
+            }
         }
 
         private void ChangeIKModelWeight(int weight)
@@ -547,7 +605,7 @@ namespace StandTravelModel.Scripts.Runtime
 
             if(progress > 0.0001f)
             {
-                GetComponent<Animator>().SetFloat("progress", progress);
+                modelAnimator.SetFloat("progress", progress);
             }
         }
 
@@ -573,7 +631,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void InitMotionModels()
         {
-            var modelAnimator = this.GetComponent<Animator>();
+            this.modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
             var characterHeadNode = modelAnimator.GetBoneTransform(HumanBodyBones.Head);
             InitStandModel(characterHipNode, characterHeadNode);
@@ -603,7 +661,10 @@ namespace StandTravelModel.Scripts.Runtime
                 useFrequency : paramsLoader.GetUseFrequency,
                 getSprintThrehold : paramsLoader.GetSprintThrehold,
                 getRunThresholdScale : paramsLoader.GetRunThresholdScale,
-                getRunThresholdScaleLow : paramsLoader.GetRunThreholdScaleLow
+                getRunThresholdScaleLow : paramsLoader.GetRunThreholdScaleLow,
+                useOSStepRate: paramsLoader.GetUseOSStepRate,
+                useOSStepRateSeparate: paramsLoader.GetUseOSStepRateSeparate,
+                useLegActTime: paramsLoader.GetUseLegActTime
             );
         }
 
@@ -789,6 +850,7 @@ namespace StandTravelModel.Scripts.Runtime
             motionDataModel.SubscribeActionDetection();
             motionDataModel.SubscribeGroundLocation();
             motionDataModel.SubscribeFitting();
+            motionDataModel.SubscribeGeneral();
             _osConnected = true;
         }
 
@@ -830,6 +892,11 @@ namespace StandTravelModel.Scripts.Runtime
             return paramsLoader.GetRunThreholdScaleLow();
         }
 
+        public bool GetUseOSSpeed()
+        {
+            return paramsLoader.GetUseOSSpeed();
+        }
+
         public void SetRunThresholdScaleLow(float value)
         {
             paramsLoader.SetRunThreholdScaleLow(value);
@@ -838,6 +905,11 @@ namespace StandTravelModel.Scripts.Runtime
         public void SetRunThresholdScale(float value)
         {
             paramsLoader.SetRunThresholdScale(value);
+        }
+
+        public void SetUseOSSpeed(bool value)
+        {
+            paramsLoader.SetUseOSSpeed(value);
         }
 
         public RunConditioner GetRunConditioner()
@@ -851,7 +923,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void ShowPlayerHeightUI()
         {
-            playerHeightUI.Show();
+            // ReSharper disable once Unity.NoNullPropagation
+            playerHeightUI?.Show();
             Enabled = false;
         }
 
@@ -864,11 +937,12 @@ namespace StandTravelModel.Scripts.Runtime
         private void OnPlayerHeightInput(int height)
         {
             motionDataModel?.SetPlayerHeight(height);
-            playerHeightUI.Hide();
+            // ReSharper disable once Unity.NoNullPropagation
+            playerHeightUI?.Hide();
             Enabled = true;
         }
 
-        private void InitPlayerHeightUI()
+        public void InitPlayerHeightUI()
         {
             if(playerHeightUI == null)
             {
@@ -877,7 +951,24 @@ namespace StandTravelModel.Scripts.Runtime
                 var newobj = GameObject.Instantiate(prefab, canvas.transform);
                 playerHeightUI = newobj.GetComponent<PlayerHeightUI>();
                 playerHeightUI.Initialize(OnPlayerHeightInput);
-                Enabled = false;
+                playerHeightUI.Hide();
+            }
+        }
+
+        private void InitStandTravelTestUI()
+        {
+            if(standTravelTestUI == null)
+            {
+                standTravelTestUI = GameObject.FindObjectOfType<StandTravelTestUI>();
+                standTravelTestUI.OccupyTandTravelModelManager(this);
+            }
+        }
+
+        private void TryToggleStandTravelTestUI()
+        {
+            if(standTravelTestUI != null && Input.GetKeyDown(KeyCode.Tab))
+            {
+                standTravelTestUI.Toggle();
             }
         }
     }

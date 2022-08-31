@@ -166,6 +166,30 @@ namespace MotionCaptureBasic
 
             return ikBodyUpdateMessage.gaze_tracking;
         }
+        
+        public GeneralDetectionItem GetGeneralDetectionData()
+        {
+            var bodymessage = mobileOSHandler.BodyMessageBase;
+
+            if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
+            {
+                return null;
+            }
+
+            return ikBodyUpdateMessage.general_detection;
+        }
+        
+        public StandDetection GetStandDetectionData()
+        {
+            var bodymessage = mobileOSHandler.BodyMessageBase;
+
+            if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
+            {
+                return null;
+            }
+
+            return ikBodyUpdateMessage.stand_detection;
+        }
 
         public bool SubscribeGazeTracking()
         {
@@ -250,6 +274,18 @@ namespace MotionCaptureBasic
         public bool SetPlayerHeight(int h)
         {
             Debug.LogError("SetPlayerHeight is not implemented for mobile instance");
+            return false;
+        }
+
+        public bool SubscribeGeneral()
+        {
+            Debug.LogError("SubscribeGeneral is not implemented for mobile instance");
+            return false;
+        }
+
+        public bool ReleaseGeneral()
+        {
+            Debug.LogError("ReleaseGeneral is not implemented for mobile instance");
             return false;
         }
 

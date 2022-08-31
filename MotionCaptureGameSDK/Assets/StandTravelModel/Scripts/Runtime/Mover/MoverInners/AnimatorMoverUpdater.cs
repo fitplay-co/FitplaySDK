@@ -35,7 +35,6 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 
         public Vector3 GetMoveSpeed(float dt)
         {
-            var deltaTime = Time.deltaTime;
             if(IsValide())
             {
                 return moveDelta / dt;

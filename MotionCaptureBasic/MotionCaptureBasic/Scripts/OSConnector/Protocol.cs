@@ -295,7 +295,8 @@ namespace MotionCaptureBasic.OSConnector
         public GazeTracking gaze_tracking;
         public ActionDetectionItem action_detection;
         public MonitorItem monitor;
-       
+        public StandDetection stand_detection;
+        public GeneralDetectionItem general_detection;
 
         public KeyPointItem GetJointMessage3D(EJointType jointType)
         {
@@ -480,6 +481,13 @@ namespace MotionCaptureBasic.OSConnector
     }
 
     [Serializable]
+    public class GeneralDetectionItem
+    {
+        public string version;
+        public int confidence;
+    }
+
+    [Serializable]
     public class WalkActionItem
     {
         public static bool useRealtimeData;
@@ -531,6 +539,12 @@ namespace MotionCaptureBasic.OSConnector
     {
         public int up;
         public float strength;
+    }
+
+    [Serializable]
+    public class StandDetection
+    {
+        public int mode;
     }
     #endregion
 
