@@ -26,7 +26,7 @@ namespace MotionLib.Scripts
         public float ElbowAngleMin = 160;
 
         [Header("右手向前的最小速度 < MoveMinSpeed 时，第四触发条件成立")] [SerializeField] [Range(0, 50)]
-        public float MoveMinSpeed = 0.1f;
+        public float MoveMinSpeed = 10;
 
 
         private float rightHandXDis;
@@ -84,6 +84,9 @@ namespace MotionLib.Scripts
             rightHandMoveList.Add(new HandMoveData() {deltaTime = Time.deltaTime, zValue = rightHand.z});
             if (rightHandMoveList.Count < 2) return false;
             float allTimes = 0;
+            //保持最多30帧的数据
+            if(rightHandMoveList.Count > 30)
+                rightHandMoveList.RemoveAt(0);
             for (int i = 1; i < rightHandMoveList.Count; i++)
             {
                 allTimes += rightHandMoveList[i].deltaTime;
@@ -91,7 +94,7 @@ namespace MotionLib.Scripts
 
             float allDistances = rightHandMoveList[rightHandMoveList.Count - 1].zValue - rightHandMoveList[0].zValue;
 
-            speed = allDistances / allTimes;
+            speed = (allDistances * 100) / allTimes;
             //Debug.LogError($"allDistances:{allDistances}, allTimes:{allTimes}, rightHand.y:{rightHand.y},rightHand.z:{rightHand.z}");
             return (speed > MoveMinSpeed);
         }
@@ -154,6 +157,8 @@ namespace MotionLib.Scripts
                 isMotioned = true;
                // Debug.LogError("==========YOU ARE IN MOTION TYPE 7 MODE!================");
             }
+            else
+                isMotioned = false;
         }
 
 

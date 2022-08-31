@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 1739797901209209408}
   - component: {fileID: 1739797901209209409}
   - component: {fileID: 919132148613035379}
+  - component: {fileID: 318673285}
   m_Layer: 0
   m_Name: Girl
   m_TagString: Untagged
@@ -1177,12 +1178,20 @@ MonoBehaviour:
     standTravelParams:
       runThrehold: 0.25
       runThreholdLow: 0.35
+      freqThrehold: 0.25
+      freqThreholdLow: 0.35
       useFrequency: 1
       runSpeedScale: 1
       sprintThrehold: 0.15
+      freqSprintThrehold: 0.15
       runThresholdScale: 1
       runThresholdScaleLow: 0.8
       sprintSpeedScale: 1.33
+      useSmoothSwitch: 0
+      useOSSpeed: 1
+      useOSStepRate: 0
+      useOSStepRateSeparate: 0
+      useLegActTime: 1
   strideScaleRun: 1
   strideScaleWalk: 1
   travelFkControlPoints: 00000000020000000300000004000000050000000600000007000000
@@ -1284,6 +1293,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &318673285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505443799433131769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6215aa07fee4ac984c2df8c2dc27306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standTravelModelManager: {fileID: 1739797901209209413}
 --- !u!1 &1706211835198876869
 GameObject:
   m_ObjectHideFlags: 0
