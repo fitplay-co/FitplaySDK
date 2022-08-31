@@ -30,5 +30,11 @@ namespace MotionLib.Scripts
         public static Action onMotionChanged;
 
         public static void DispatchMotionChangedEvent() => onMotionChanged?.Invoke();
+        /// <summary>
+        ///识别到切换StandToTravel
+        /// </summary>
+        public static Action onSwithStandToTravel;
+
+        public static void DispatchSwitchMotionModeEvent() => onSwithStandToTravel?.Invoke();
     }
 }

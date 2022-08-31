@@ -155,7 +155,8 @@ namespace MotionLib.Scripts
             if (isCorrect)
             {
                 isMotioned = true;
-               // Debug.LogError("==========YOU ARE IN MOTION TYPE 7 MODE!================");
+                MotionLibEventHandler.DispatchSwitchMotionModeEvent();
+                // Debug.LogError("==========YOU ARE IN MOTION TYPE 7 MODE!================");
             }
             else
                 isMotioned = false;
