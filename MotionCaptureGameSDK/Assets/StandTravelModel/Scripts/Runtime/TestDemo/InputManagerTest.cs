@@ -16,27 +16,12 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         public void Update()
         {
-            var changed = false;
-
-            if(!changed)
-            {
-                changed = ProcessInput();
-            }
+            ProcessInput();
         }
 
-        private bool ProcessInput()
+        private void ProcessInput()
         {
-            bool isChangeMode = false;
             float deltaTime = Time.deltaTime;
-
-            isChangeMode |= Input.GetKeyDown(joystick_button_0);
-            isChangeMode |= Input.GetKeyDown(KeyCode.Z);
-
-            if (isChangeMode)
-            {
-                standTravelModelManager.SwitchStandTravel();
-            }
-
             var mode = standTravelModelManager.currentMode;
 
             if (mode == MotionMode.Travel)
@@ -75,8 +60,6 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             {
                 standTravelModelManager.ShowPlayerHeightUI();
             }
-
-            return isChangeMode;
         }
     }
 }

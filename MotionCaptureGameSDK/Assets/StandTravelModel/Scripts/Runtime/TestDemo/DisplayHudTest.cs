@@ -37,11 +37,17 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             switch (standTravelModelManager.currentMode)
             {
                 case MotionMode.Stand:
-                    GUI.Label(new Rect(20, 40, 300, 40), "Stand模式", labelStyle);
+                    GUI.Label(new Rect(20, 40, 200, 40), "Stand模式", labelStyle);
                     break;
                 case MotionMode.Travel:
-                    GUI.Label(new Rect(20, 40, 300, 40), "Travel模式", labelStyle);
+                    GUI.Label(new Rect(20, 40, 200, 40), "Travel模式", labelStyle);
                     break;
+            }
+
+            var standDetection = motionDataModel.GetStandDetectionData();
+            if (standDetection != null) 
+            {
+                GUI.Label(new Rect(240, 40, 300, 40), $"OS识别模式:{standDetection.mode}", labelStyle);
             }
 
             var actionData = motionDataModel.GetActionDetectionData();
