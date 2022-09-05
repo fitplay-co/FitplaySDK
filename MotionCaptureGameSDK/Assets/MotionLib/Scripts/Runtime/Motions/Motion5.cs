@@ -213,13 +213,13 @@ namespace MotionLib.Scripts
         }
 
 
-        private int startYOffset = 50;
+        private int startYOffset = 80;
         private int startXOffset = 800;
 
 
         public void OnGUI()
         {
-            if (!isRunning) return;
+            if (!isRunning || !isDebug) return;
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 40;
             labelStyle.normal.textColor = Color.red;

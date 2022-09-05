@@ -115,12 +115,51 @@ namespace StandTravelModel.Scripts.Runtime
         public float currentFrequency => travelModel.currentFrequency;
         public bool isJump => travelModel.isJump;
 
-        public bool Enabled
+        //用于判断是否ui呼出，呼出中需要停止sdk功能
+        private bool _noUiActive = true;
+        public bool noUiActive
         {
-            get { return enabled; }
+            get => _noUiActive;
             set
             {
-                enabled = value;
+                if (_noUiActive != value)
+                {
+                    _noUiActive = value;
+                }
+            }
+        }
+
+        //用于判断os识别是否有效，os识别无效时需要停止sdk功能
+        private bool _osValidCheck = true;
+        public bool osValidCheck => _osValidCheck;
+
+        //供上层游戏业务层调用的sdk控制开关
+        private bool _Enabled = true;
+        public bool Enabled
+        {
+            get => _Enabled;
+            set
+            {
+                if (_Enabled != value)
+                {
+                    _Enabled = value;
+                }
+            }
+        }
+
+        //用于整体判断sdk是否启用的开关
+        private bool _overallEnable = true;
+        private bool overallEnable
+        {
+            get => _overallEnable;
+            set
+            {
+                if (_overallEnable == value)
+                {
+                    return;
+                }
+
+                _overallEnable = value;
                 if (!isFKEnabled)
                 {
 #if USE_FINAL_IK
@@ -139,8 +178,10 @@ namespace StandTravelModel.Scripts.Runtime
 #endif
                 }
 
+                //如果检测到sdk不启用，需要强制重置动画状态机到idle
                 if (!value)
                 {
+                    travelModel?.ChangeState(AnimationList.Idle);
                     travelModel?.selfAnimator.Play("Idle");
                 }
             }
@@ -234,6 +275,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void FixedUpdate()
         {
+            if (!overallEnable)
+            {
+                return;
+            }
+
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
@@ -242,6 +288,15 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
+            _osValidCheck = GeneralCheck();
+            //检查sdk是否启用
+            overallEnable = _noUiActive && _osValidCheck && _Enabled;
+
+            if (!overallEnable)
+            {
+                return;
+            }
+
             keyPointsList = motionDataModel.GetIKPointsData(true, true);
             if (keyPointsList == null)
             {
@@ -270,7 +325,12 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void LateUpdate()
         {
-            if(motionModel != null)
+            if (!overallEnable)
+            {
+                return;
+            }
+
+            if (motionModel != null)
             {
                 motionModel.OnLateUpdate();
             }
@@ -301,7 +361,7 @@ namespace StandTravelModel.Scripts.Runtime
             }
         }
 
-        public bool GeneralCheck()
+        private bool GeneralCheck()
         {
             var generalData = motionDataModel.GetGeneralDetectionData();
             if (generalData == null)
@@ -925,7 +985,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             // ReSharper disable once Unity.NoNullPropagation
             playerHeightUI?.Show();
-            Enabled = false;
+            noUiActive = false;
         }
 
         private void InitParamsLoader()
@@ -939,7 +999,7 @@ namespace StandTravelModel.Scripts.Runtime
             motionDataModel?.SetPlayerHeight(height);
             // ReSharper disable once Unity.NoNullPropagation
             playerHeightUI?.Hide();
-            Enabled = true;
+            noUiActive = true;
         }
 
         public void InitPlayerHeightUI()

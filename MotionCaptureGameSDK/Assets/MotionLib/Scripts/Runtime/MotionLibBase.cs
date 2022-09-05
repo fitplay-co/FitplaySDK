@@ -11,6 +11,8 @@ namespace MotionLib.Scripts
         [HideInInspector]
         public bool isRunning = false;
         [HideInInspector]
+        public bool isDebug;
+        [HideInInspector]
         public MotionLibController.MotionMode motionMode =  MotionLibController.MotionMode.None;
         public abstract void CheckMotion(List<Vector3> keyPointList);
         public abstract void Enabled(bool isEnabled);

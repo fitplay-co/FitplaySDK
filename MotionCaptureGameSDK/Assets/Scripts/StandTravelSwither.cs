@@ -36,6 +36,12 @@ namespace Scripts
                 return;
             }
 
+            if (standTravelSwitchOpt == null)
+            {
+                Debug.LogError("StandTravelSwitchOpt is not found in Scene");
+                return;
+            }
+
             var dropdownValue = standTravelSwitchOpt.value;
 
             switch (dropdownValue) 

@@ -14,6 +14,7 @@ namespace MotionLib.Scripts
     {
         [SerializeField] private StandTravelModelManager standTravelModelManager;
         public List<MotionLibBase> motionList;
+        public bool isDebug;
 
         public MotionMode motionResult = MotionMode.None;
         public MotionMode howToMotion = MotionMode.Motion5;
@@ -49,6 +50,18 @@ namespace MotionLib.Scripts
             standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
             ChangeMode();
             lastMotion = howToMotion;
+            foreach (MotionLibBase motion in motionList)
+            {
+                motion.isDebug = isDebug;
+            }
+        }
+
+        private void OnValidate()
+        {
+            foreach (MotionLibBase motion in motionList)
+            {
+                motion.isDebug = isDebug;
+            }
         }
 
         protected void OnEnable()

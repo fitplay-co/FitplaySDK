@@ -78,6 +78,8 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
             var isRun = standTravelModelManager.isRun;
             GUI.Label(new Rect(20, 320, 300, 40), isRun ? "跑起来了" : "没跑", labelStyle);
+
+            GUI.Label(new Rect(860, 980, 300, 40), standTravelModelManager.osValidCheck?"OS有识别到人":"OS未识别到人", labelStyle);
         }
     }
 }
