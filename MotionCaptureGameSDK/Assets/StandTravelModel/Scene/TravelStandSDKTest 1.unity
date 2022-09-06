@@ -7458,38 +7458,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Girl
       objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: isSelfMoveControl
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: characterController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: initialMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: useLocomotion
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: tuningParameters.HipPosOffset.y
-      value: 0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: tuningParameters.LocalShiftScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: tuningParameters.LocalShiftScale.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: tuningParameters.LocalShiftScale.z
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2283247514099838019, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -7550,10 +7518,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9039311290045051062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a85a5db66ef2b5d44a9b23c858c9c8cc, type: 3}
+  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postureTimeout: 10
 --- !u!114 &9039311290045051064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7563,9 +7530,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9039311290045051062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e6215aa07fee4ac984c2df8c2dc27306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standTravelModelManager: {fileID: 919132148613035384}
 --- !u!4 &9057330996297348918
 Transform:
   m_ObjectHideFlags: 0

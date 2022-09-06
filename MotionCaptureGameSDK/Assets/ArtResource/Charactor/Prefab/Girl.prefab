@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 1739797901209209408}
   - component: {fileID: 1739797901209209409}
   - component: {fileID: 919132148613035379}
-  - component: {fileID: 318673285}
+  - component: {fileID: 9039311290045051063}
   m_Layer: 0
   m_Name: Girl
   m_TagString: Untagged
@@ -1068,7 +1068,7 @@ MonoBehaviour:
   isFullAnimOnRun: 0
   useLocomotion: 1
   motionDataModelType: 0
-  initialMode: 0
+  initialMode: 1
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fc4eb50637445f9a68bbe79f84fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &318673285
+--- !u!114 &9039311290045051063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1302,10 +1302,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1505443799433131769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6215aa07fee4ac984c2df8c2dc27306, type: 3}
+  m_Script: {fileID: 11500000, guid: a85a5db66ef2b5d44a9b23c858c9c8cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standTravelModelManager: {fileID: 1739797901209209413}
+  postureTimeout: 10
 --- !u!1 &1706211835198876869
 GameObject:
   m_ObjectHideFlags: 0
