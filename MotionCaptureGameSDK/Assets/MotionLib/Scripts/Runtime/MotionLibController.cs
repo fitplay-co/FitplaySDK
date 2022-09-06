@@ -105,6 +105,10 @@ namespace MotionLib.Scripts
 
         void FixedUpdate()
         {
+            if (standTravelModelManager == null)
+            {
+                return;
+            }
             var keyPointList = standTravelModelManager.GetKeyPointsList();
             //var motionDataModel = standTravelModelManager.motionDataModelReference;
             //var keyRotationList = motionDataModel.GetFitting()?.rotation;
