@@ -61,12 +61,6 @@ MonoBehaviour:
   speedScale: 0.3
   progressLeftStart: 0
   progressLeftEnd: 0.32
-  speedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   compensators: []
 --- !u!114 &-7343880160710489793
 MonoBehaviour:
@@ -85,12 +79,6 @@ MonoBehaviour:
   speedScale: 1
   progressLeftStart: 0
   progressLeftEnd: 0.37
-  speedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   compensators: []
 --- !u!114 &-7138410935704715319
 MonoBehaviour:
@@ -143,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  speedScale: 1.5
+  sprintScale: 1.5
 --- !u!114 &-5808355487123029028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,57 +149,6 @@ MonoBehaviour:
   speedScale: 2
   progressLeftStart: 0.75
   progressLeftEnd: 0.25
-  speedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 2
-      inWeight: 0
-      outWeight: 0.7376623
-    - serializedVersion: 3
-      time: 0.25
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.75
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.0026740844
-      outSlope: 0.0026740844
-      tangentMode: 0
-      weightedMode: 1
-      inWeight: 0.6283097
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   compensators: []
 --- !u!1101 &-5799610524185277959
 AnimatorStateTransition:
@@ -840,12 +777,6 @@ MonoBehaviour:
   speedScale: 0.3
   progressLeftStart: 0
   progressLeftEnd: 0.32
-  speedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   compensators: []
 --- !u!1101 &-28896735616830082
 AnimatorStateTransition:
@@ -1324,12 +1255,6 @@ MonoBehaviour:
   speedScale: 1
   progressLeftStart: 0
   progressLeftEnd: 0.37
-  speedCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   compensators: []
 --- !u!1101 &1806367930709512951
 AnimatorStateTransition:
@@ -1861,7 +1786,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: cadence
     m_Mirror: 0
-  m_BlendParameter: sprintPercent
+  m_BlendParameter: cadence
   m_BlendParameterY: cadence
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -1972,57 +1897,6 @@ MonoBehaviour:
   speedScale: 1
   progressLeftStart: 0.75
   progressLeftEnd: 0.25
-  speedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-      weightedMode: 2
-      inWeight: 0
-      outWeight: 0.7376623
-    - serializedVersion: 3
-      time: 0.25
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.75
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.0026740844
-      outSlope: 0.0026740844
-      tangentMode: 0
-      weightedMode: 1
-      inWeight: 0.6283097
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   compensators: []
 --- !u!1101 &6836489417735735330
 AnimatorStateTransition:
