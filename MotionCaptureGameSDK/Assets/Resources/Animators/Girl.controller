@@ -62,6 +62,24 @@ MonoBehaviour:
   progressLeftStart: 0
   progressLeftEnd: 0.32
   compensators: []
+--- !u!114 &-7375278989691634025
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b314bd8492d38745846321a1f215d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  speedScaleFromPanel: 1
+  speedScale: 1.5
+  progressLeftStart: 0.75
+  progressLeftEnd: 0.25
+  compensators: []
 --- !u!114 &-7343880160710489793
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 188f6364ac8635f449047b2cc16d2fe9, type: 3}
   m_Name: 
@@ -1676,6 +1694,7 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: -5808355487123029028}
   - {fileID: -5958274109460338272}
+  - {fileID: -7375278989691634025}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
