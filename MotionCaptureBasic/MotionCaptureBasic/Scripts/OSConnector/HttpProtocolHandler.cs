@@ -7,25 +7,42 @@ namespace MotionCaptureBasic.OSConnector
     public class HttpProtocolHandler
     {
         private static HttpProtocolHandler instance;
-        
         private static readonly object _Synchronized = new object();
 
         private bool isDebug;
         private float lastTime;
         private Action onConnect;
+        private Action onClosed;
+        private Action onError;
         private IKBodyUpdateMessage _bodyMessageBase;
 
         public IKBodyUpdateMessage BodyMessageBase => _bodyMessageBase;
 
         private HttpProtocolHandler()
         {
-            var app = WebsocketOSClient.GetInstance();
-            app.OnReceived += OnReceived;
-            app.OnConnect += OnConnect;
+           
+        }
+        
+        public enum ConnectStatus
+        {
+            OnConnected,
+            OnError,
+            OnDisConnect
+            
         }
 
         ~HttpProtocolHandler()
         {
+        }
+
+        public void StartWebSocket(string url)
+        {
+            var app = WebsocketOSClient.GetInstance();
+            app.InitConnect(url);
+            app.OnReceived += OnReceived;
+            app.OnConnect += OnConnect;
+            app.OnClosed += OnClosed;
+            app.OnError += OnError;
         }
 
         public static HttpProtocolHandler GetInstance()
@@ -44,9 +61,11 @@ namespace MotionCaptureBasic.OSConnector
             return instance;
         }
         
-        public void AddConnectEvent(Action onConnect)
+        public void AddConnectEvent(Action onConnect, Action onClosed = null, Action onError = null)
         {
             this.onConnect += onConnect;
+            this.onClosed += onClosed;
+            this.onError += onError;
         }
 
         public void SetDebug(bool isDebug)
@@ -89,6 +108,16 @@ namespace MotionCaptureBasic.OSConnector
         }
 
         private void OnConnect()
+        {
+            onConnect?.Invoke();
+        }
+        
+        private void OnClosed()
+        {
+            onConnect?.Invoke();
+        }
+        
+        private void OnError()
         {
             onConnect?.Invoke();
         }

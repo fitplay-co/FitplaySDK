@@ -10,30 +10,29 @@ namespace MotionCaptureBasic.OSConnector
         public delegate void ReceiveAction(string message);
 
         public event Action OnConnect;
+        public event Action OnClosed;
+        public event Action OnError;
         public event ReceiveAction OnReceived;
-        
 
-        private string url = "ws://127.0.0.1:8181/";
+
         private IWebSocket socket;
-        private MessageSender messageSubscriber;  
+        private MessageSender messageSubscriber;
 
         private WebsocketOSClient()
         {
-            InitConnect();
-            InitMessageSubscriber(socket);
         }
-        
+
         private static WebsocketOSClient instance;
-        
+
         private static readonly object _Synchronized = new object();
 
         public static WebsocketOSClient GetInstance()
         {
             if (instance == null)
             {
-                lock(_Synchronized)
+                lock (_Synchronized)
                 {
-                    if(instance == null)
+                    if (instance == null)
                     {
                         instance = new WebsocketOSClient();
                     }
@@ -42,13 +41,10 @@ namespace MotionCaptureBasic.OSConnector
 
             return instance;
         }
-        
+
         ~WebsocketOSClient()
         {
-            if (socket != null && socket.ReadyState != UnityWebSocket.WebSocketState.Closed)
-            {
-                socket.CloseAsync();
-            }
+            Close();
             Console.WriteLine("WebSocket closed.");
         }
 
@@ -58,6 +54,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SendMessageRegister();
             }
+
             return false;
         }
 
@@ -67,6 +64,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SubscribeGazeTracking(active);
             }
+
             return false;
         }
 
@@ -76,6 +74,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SubscribeGroundLocation(active);
             }
+
             return false;
         }
 
@@ -85,6 +84,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SubscribeActionDetection(active);
             }
+
             return false;
         }
 
@@ -129,6 +129,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SendFrameRateControl(fps);
             }
+
             return false;
         }
 
@@ -161,9 +162,10 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SendVibrationControl(deviceId, vibrationType, strength);
             }
+
             return false;
         }
-        
+
         /// <summary>
         ///重置imu
         /// </summary>
@@ -175,6 +177,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SendImuResetControl(deviceId);
             }
+
             return false;
         }
 
@@ -190,51 +193,71 @@ namespace MotionCaptureBasic.OSConnector
             {
                 return messageSubscriber.SendHeartControl(deviceId, command);
             }
+
             return false;
         }
+
         //start
-        private void InitConnect()
+        public void InitConnect(string webSocketUrl)
         {
+            string url = $"ws://{webSocketUrl}:8181/";
+            Debug.Log($"url:{url}");
+            if (IsConnected) Close();
             socket = new UnityWebSocket.WebSocket(url);
             socket.OnOpen += Socket_OnOpen;
             socket.OnMessage += Socket_OnMessage;
             socket.OnClose += Socket_OnClose;
             socket.OnError += Socket_OnError;
             socket.ConnectAsync();
+
+            InitMessageSubscriber(socket);
+        }
+
+        private void Close()
+        {
+            if (IsConnected)
+                socket.CloseAsync();
+        }
+
+        private bool IsConnected
+        {
+            get => (socket != null && socket.ReadyState != UnityWebSocket.WebSocketState.Connecting);
         }
 
         private void InitMessageSubscriber(IWebSocket webSocket)
         {
             messageSubscriber = new MessageSender(webSocket);
         }
-        
+
         private void Socket_OnOpen(object sender, OpenEventArgs e)
         {
             messageSubscriber.SendMessageRegister();
-            
+
             OnConnect?.Invoke();
         }
-        
+
         private void Socket_OnMessage(object sender, MessageEventArgs e)
         {
             if (e.IsBinary)
             {
-           //     Debug.LogError(string.Format("Receive Bytes ({1}): {0}", e.Data, e.RawData.Length));
+                //Debug.LogError(string.Format("Receive Bytes ({1}): {0}", e.Data, e.RawData.Length));
             }
             else if (e.IsText)
             {
-               // Debug.LogError(string.Format("Receive: {0}", e.Data));
+                // Debug.LogError(string.Format("Receive: {0}", e.Data));
                 OnReceived?.Invoke(e.Data);
             }
         }
-        
+
         private void Socket_OnClose(object sender, CloseEventArgs e)
         {
+            OnClosed?.Invoke();
             Console.WriteLine("Closed: StatusCode: {0}, Reason: {1}", e.StatusCode, e.Reason);
         }
 
         private void Socket_OnError(object sender, UnityWebSocket.ErrorEventArgs e)
         {
+            OnError?.Invoke();
             Console.WriteLine("Error: {0}", e.Message);
         }
     }
