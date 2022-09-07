@@ -48,6 +48,9 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
 
+        [Tooltip("如果用http模式OS，需要指定ip")]
+        public string httpOsAddress;
+
         [Tooltip("初始Motion Mode")]
         public MotionMode initialMode = MotionMode.Stand;
         
@@ -894,6 +897,7 @@ namespace StandTravelModel.Scripts.Runtime
             switch (motionDataModelType)
             {
                 case MotionDataModelType.Http:
+                    HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress);
                     motionDataModel.AddConnectEvent(SubscribeMessage);
                     break;
                 case MotionDataModelType.Cpp:
