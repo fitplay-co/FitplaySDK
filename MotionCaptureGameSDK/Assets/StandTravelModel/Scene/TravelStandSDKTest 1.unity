@@ -7464,10 +7464,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Girl
       objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: httpOsAddress
-      value: 127.0.0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2283247514099838019, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: m_RootOrder
       value: 11
