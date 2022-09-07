@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/StandTravelModel/Scene/TravelStandSDKTest_MotionLib.unity
-    guid: 61b932f6d23101a4e9b9b590efde5a66
+    path: Assets/StandTravelModel/Scene/TravelStandSDKTest 1.unity
+    guid: 1ba5b3ca58fe3467ab34205a1d815932
   m_configObjects: {}
