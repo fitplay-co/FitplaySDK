@@ -1861,19 +1861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AxisValue: 0.5
   inputField: {fileID: 6384779308383213143}
-  ButtonList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ButtonList: []
   IsInputMode: 1
 --- !u!1 &6384779307319928884
 GameObject:
