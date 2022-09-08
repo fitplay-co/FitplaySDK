@@ -7,11 +7,23 @@ using UnityEngine.UI;
 
 namespace AppleTvOs
 {
-    public class AppleTvOsInit : MonoBehaviour
+    public class AppleTvOsInput : MonoBehaviour
     {
+        [Tooltip("输入窗口的标题")] [SerializeField] private string Title = "";
+        [Tooltip("输入框的默认值")] [SerializeField] private string DefaultInputText = "";
+
+        [Tooltip("Commit按钮的默认文字")] [SerializeField]
+        private string DefaultOKButtonText = "";
+
+        [Tooltip("Connect按钮的默认文字")] [SerializeField]
+        private string DefaultConnectButtonText = "";
+
+        [Tooltip("提示信息文字")] [SerializeField] private string DefaultNoticeText = "";
         [SerializeField] private float AxisValue = 0.5f;
         [SerializeField] private InputField inputField;
+        [SerializeField] private Button commitButton;
         [SerializeField] private List<VirtualButton> ButtonList;
+        [SerializeField] private bool isIPAddress;
 
         private List<string> AlphaBetList = new List<string>()
             {".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "CONNECT"};
@@ -36,13 +48,27 @@ namespace AppleTvOs
             inputHud.SetActive(true);
             displayHud = transform.Find("DisplayHud").gameObject;
             displayHud.SetActive(false);
-            buttonGroup = inputHud.transform.Find("buttonGroup");
+
+            inputHud.transform.Find("Title").GetComponent<Text>().text = Title;
             notice = inputHud.transform.Find("Notice").GetComponent<Text>();
+            notice.text = DefaultNoticeText;
+            commitButton.GetComponentInChildren<Text>().text = DefaultOKButtonText;
+            inputField.text = DefaultInputText;
+
+            buttonGroup = inputHud.transform.Find("buttonGroup");
+
+
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
             buttonGroup.gameObject.SetActive(false);
-            notice.text = "如果IP输入错误，可以用\"BackSpace\"键删除，IP输入完成后可以使用\"Enter\"键连接服务器！";
+            commitButton.gameObject.SetActive(true);
+            commitButton.onClick.AddListener(() => { CheckInputAndSubmit(); });
+            if(isIPAddress)
+                notice.text = "如果IP输入错误，可以用\"BackSpace\"键删除，IP输入完成后可以使用\"Enter\"键连接服务器！";
 #else
-            notice.text = "如果IP输入错误，请直接CONNECT，然后通过确定键再次呼叫出输入UI，重新输入.";
+            buttonGroup.gameObject.SetActive(true);
+            commitButton.gameObject.SetActive(false);
+            if(isIPAddress)
+                notice.text = "如果IP输入错误，请直接CONNECT，然后通过确定键再次呼叫出输入UI，重新输入.";
             totalButtons = buttonGroup.childCount;
             if (buttonGroup == null) return;
             for (int i = 0; i < totalButtons; i++)
@@ -81,22 +107,27 @@ namespace AppleTvOs
             return (ipAddress != "" && validPretext.IsMatch(ipAddress.Trim())) ? true : false;
         }
 
+        private void CheckInputAndSubmit()
+        {
+            if (ValidateIPAddress(inputField.text))
+            {
+                displayHud.SetActive(true);
+                HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text);
+                Invoke(nameof(Disabled), 0.1f);
+            }
+            else
+            {
+                Debug.LogError("输入的IP地址有误！");
+            }
+        }
+
         void Update()
         {
             if (!inputHud.gameObject.activeSelf) return;
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
-                if (ValidateIPAddress(inputField.text))
-                {
-                    displayHud.SetActive(true);
-                    HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text);
-                    Invoke(nameof(Disabled), 0.1f);
-                }
-                else
-                {
-                    Debug.LogError("输入的IP地址有误！");
-                }
+                CheckInputAndSubmit();
             }
 #else
             if (Input.GetKeyDown(joystickButton14))
@@ -113,12 +144,7 @@ namespace AppleTvOs
                     inputField.text += AlphaBetList[IndexId];
                 else
                 {
-                    if (ValidateIPAddress(inputField.text))
-                    {
-                        displayHud.SetActive(true);
-                        HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text);
-                        Invoke(nameof(Disabled), 0.1f);
-                    }
+                   CheckInputAndSubmit();
                 }
 
                 return;
