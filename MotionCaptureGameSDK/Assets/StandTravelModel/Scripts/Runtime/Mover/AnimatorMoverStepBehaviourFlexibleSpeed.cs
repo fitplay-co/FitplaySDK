@@ -13,12 +13,12 @@ public class AnimatorMoverStepBehaviourFlexibleSpeed : AnimatorMoverStepBehaviou
     private IAnimatorMoverBiped curMover;
     private AnimatorMoverOSSpeed moverOSSpeed;
     private StandTravelModelManager standTravelModelManager;
-    private AnimatorMoverBipedStepProgress moverBipedStepProgress;
+    private AnimatorMoverBipedAdaption moverBipedStepAdaption;
 
     protected override IAnimatorMoverBiped CreateAnimatorMover(Animator animator)
     {
         moverOSSpeed = new AnimatorMoverOSSpeed(GetSpeed, animator.transform);
-        moverBipedStepProgress = new AnimatorMoverBipedStepProgress(animator.transform, progressLeftStart, progressLeftEnd, compensators, speedScale, speedScaleFromPanel);
+        moverBipedStepAdaption = new AnimatorMoverBipedAdaption(animator.transform);
         standTravelModelManager = animator.GetComponent<StandTravelModelManager>();
         return TrySwitchMover(standTravelModelManager.GetUseOSSpeed());
     }
@@ -38,6 +38,6 @@ public class AnimatorMoverStepBehaviourFlexibleSpeed : AnimatorMoverStepBehaviou
         {
             return moverOSSpeed;
         }
-        return moverBipedStepProgress;
+        return moverBipedStepAdaption;
     }
 }
