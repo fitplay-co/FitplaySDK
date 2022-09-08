@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 455491603}
   - component: {fileID: 455491602}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Commit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1804,7 +1804,7 @@ GameObject:
   - component: {fileID: 6384779307185592532}
   - component: {fileID: 6384779307185592539}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2060,9 +2060,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5cd4b02a8b2034089f233b95c2c9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Title: "\u8BF7\u8F93\u5165\u670D\u52A1\u5668IP\u5730\u5740"
+  DefaultInputText: 127.0.0.1
+  DefaultOKButtonText: "\u8FDE\u63A5"
+  DefaultConnectButtonText: "\u8FDE\u63A5"
+  DefaultNoticeText: "IP\u8F93\u5165\u83DC\u5355\u53EF\u901A\u8FC7\u786E\u5B9A\u952E\u518D\u6B21\u547C\u53EB\u51FA\u6765\uFF01"
   AxisValue: 0.5
   inputField: {fileID: 6384779308383213143}
+  commitButton: {fileID: 455491602}
   ButtonList: []
+  isIPAddress: 1
   IsInputMode: 1
 --- !u!1 &6384779307319928884
 GameObject:

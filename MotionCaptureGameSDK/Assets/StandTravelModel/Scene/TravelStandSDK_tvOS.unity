@@ -1397,6 +1397,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: motionList.Array.data[3]
+      value: 
+      objectReference: {fileID: 988594862}
     - target: {fileID: 2996603561660596927, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: m_Name
       value: MotionLibController
@@ -1447,6 +1451,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+--- !u!114 &988594862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2220281385964143226, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+  m_PrefabInstance: {fileID: 988594861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86722de05ecd9494caf5ed223fe1c110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1185131559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3534188852481087812, guid: 7fb71cd59574e5749ad1a7a46eb3b5ec, type: 3}

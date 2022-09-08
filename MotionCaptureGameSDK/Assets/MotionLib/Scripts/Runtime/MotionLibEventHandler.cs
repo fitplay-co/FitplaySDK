@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using UnityEngine.Events;
 
 namespace MotionLib.Scripts
@@ -36,5 +37,13 @@ namespace MotionLib.Scripts
         public static Action onSwithStandToTravel;
 
         public static void DispatchSwitchMotionModeEvent() => onSwithStandToTravel?.Invoke();
+        
+        //public static Action<MotionLibController.MotionMode> onMotionDetected;
+
+        //public static void DispatchMotionDetectionEvent() => onMotionDetected?.Invoke(MotionLibController.MotionMode.None);
+        
+        public delegate void EventMotionDetected(MotionLibController.MotionMode mode);
+        public static EventMotionDetected OnMotionDetected;
+        public static void DispatchMotionDetectionEvent(MotionLibController.MotionMode mode) => OnMotionDetected?.Invoke(mode);
     }
 }

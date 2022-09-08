@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMotioned: 0
   isRunning: 0
+  isDebug: 0
   motionMode: 0
   rWristToShoulderXY: 0.1
   lWristToCrotchXZ: 0.2
@@ -81,6 +82,7 @@ Transform:
   - {fileID: 3945082665588257455}
   - {fileID: 4339649334792981559}
   - {fileID: 2713492230397617478}
+  - {fileID: 6762867086648084821}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,6 +102,9 @@ MonoBehaviour:
   motionList:
   - {fileID: 7268482124952004097}
   - {fileID: 54761721}
+  - {fileID: 7278842338143320212}
+  - {fileID: 2220281385964143226}
+  isDebug: 0
   motionResult: 0
   howToMotion: 3
 --- !u!1 &3375276306811146316
@@ -147,10 +152,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMotioned: 0
   isRunning: 0
+  isDebug: 0
   motionMode: 0
   HandElowToShoulderY: 0.1
   lWristToShoulderZ: 0.1
   rWristToShoulderZ: 0.2
+--- !u!1 &7030640972188134603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6762867086648084821}
+  - component: {fileID: 2220281385964143226}
+  m_Layer: 0
+  m_Name: Motion7_L
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6762867086648084821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030640972188134603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2996603561660596929}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2220281385964143226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030640972188134603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86722de05ecd9494caf5ed223fe1c110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMotioned: 0
+  isRunning: 0
+  isDebug: 0
+  motionMode: 0
+  lWristToShoulderXY: 0.1
+  rWristToCrotchXZ: 0.1
+  ElbowAngleMin: 120
+  MoveMinSpeed: 10
 --- !u!1 &9076003748235689006
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMotioned: 0
   isRunning: 0
+  isDebug: 0
   motionMode: 0
   WristToShoulderX: 0.1
   WristToCrotchY: 0.3

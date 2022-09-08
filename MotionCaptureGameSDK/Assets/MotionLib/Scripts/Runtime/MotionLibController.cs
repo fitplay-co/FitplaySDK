@@ -24,6 +24,7 @@ namespace MotionLib.Scripts
             None,
             Motion5,
             Motion7,
+            Motion7_L,
             MotionBack
         }
         
