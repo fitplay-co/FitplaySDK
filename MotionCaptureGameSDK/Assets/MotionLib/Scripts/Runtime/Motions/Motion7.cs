@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MotionCaptureBasic.Interface;
-using MotionCaptureBasic.OSConnector;
-using MotionLib.Scripts;
-using StandTravelModel.Scripts.Runtime;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MotionLib.Scripts
 {

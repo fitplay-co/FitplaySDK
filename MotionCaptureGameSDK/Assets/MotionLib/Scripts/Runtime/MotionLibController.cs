@@ -23,7 +23,8 @@ namespace MotionLib.Scripts
         {
             None,
             Motion5,
-            Motion7
+            Motion7,
+            MotionBack
         }
         
         /// <summary>
@@ -33,7 +34,9 @@ namespace MotionLib.Scripts
         {
             if (howToMotion == MotionMode.Motion7)
                 howToMotion = MotionMode.Motion5;
-            else
+            else if (howToMotion == MotionMode.Motion5)
+                howToMotion = MotionMode.MotionBack;
+            else if (howToMotion == MotionMode.MotionBack)
                 howToMotion = MotionMode.Motion7;
         }
 
