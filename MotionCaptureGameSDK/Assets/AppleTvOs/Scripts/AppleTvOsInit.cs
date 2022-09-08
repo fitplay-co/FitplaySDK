@@ -83,6 +83,7 @@ namespace AppleTvOs
 
         void Update()
         {
+            if (!inputHud.gameObject.activeSelf) return;
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
