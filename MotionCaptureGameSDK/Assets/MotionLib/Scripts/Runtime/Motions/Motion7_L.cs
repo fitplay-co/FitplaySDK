@@ -16,10 +16,10 @@ namespace MotionLib.Scripts
         public float lWristToShoulderXY = 0.1f;
 
         [Header("右手腕到肩的X,Z轴最小距离 < lWristToCrotchXZ 时，第二触发条件成立")] [SerializeField] [Range(0, 1)]
-        public float rWristToCrotchXZ = 0.1f;
+        public float rWristToCrotchXZ = 0.2f;
 
         [Header("ElbowAngleMin < 右侧肘关节夹角 时，第三触发条件成立")] [SerializeField] [Range(0, 180)]
-        public float ElbowAngleMin = 160;
+        public float ElbowAngleMin = 120;
 
         [Header("左手向前的最小速度 < MoveMinSpeed 时，第四触发条件成立")] [SerializeField] [Range(0, 50)]
         public float MoveMinSpeed = 10;
@@ -34,11 +34,11 @@ namespace MotionLib.Scripts
 
         private float leftHandXDis;
         private float leftHandYDis;
-        private bool HandToShoulderXZCorrect(Vector3 leftHand, Vector3 leftShoulder)
+        private bool HandToShoulderXZCorrect(Vector3 leftHandX, Vector3 leftShoulder)
         {
-            leftHandXDis = leftHand.x - leftShoulder.x;
-            leftHandYDis = leftHand.y - leftShoulder.y;
-            return (leftHandXDis > lWristToShoulderXY && leftHandYDis > lWristToShoulderXY);
+            leftHandXDis = leftHandX.x - leftShoulder.x;
+            leftHandYDis = leftHandX.y - leftShoulder.y;
+            return (-leftHandXDis > lWristToShoulderXY && leftHandYDis > lWristToShoulderXY);
         }
 
         private float rightHandXDis;
@@ -144,8 +144,9 @@ namespace MotionLib.Scripts
             if (isCorrect)
             {
                 isMotioned = true;
+                MotionLibEventHandler.DispatchSwitchCharacterEvent();
                 MotionLibEventHandler.DispatchMotionDetectionEvent(motionMode);
-                // Debug.LogError("==========YOU ARE IN MOTION TYPE 7 MODE!================");
+                Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
             }
             else
                 isMotioned = false;

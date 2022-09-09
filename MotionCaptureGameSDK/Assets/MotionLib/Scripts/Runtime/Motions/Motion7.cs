@@ -16,10 +16,10 @@ namespace MotionLib.Scripts
         public float rWristToShoulderXY = 0.1f;
 
         [Header("左手腕到肩的X,Z轴最小距离 < lWristToCrotchXZ 时，第二触发条件成立")] [SerializeField] [Range(0, 1)]
-        public float lWristToCrotchXZ = 0.1f;
+        public float lWristToCrotchXZ = 0.2f;
 
         [Header("ElbowAngleMin < 左侧肘关节夹角 时，第三触发条件成立")] [SerializeField] [Range(0, 180)]
-        public float ElbowAngleMin = 160;
+        public float ElbowAngleMin = 120;
 
         [Header("右手向前的最小速度 < MoveMinSpeed 时，第四触发条件成立")] [SerializeField] [Range(0, 50)]
         public float MoveMinSpeed = 10;
@@ -152,7 +152,8 @@ namespace MotionLib.Scripts
             {
                 isMotioned = true;
                 MotionLibEventHandler.DispatchSwitchMotionModeEvent();
-                // Debug.LogError("==========YOU ARE IN MOTION TYPE 7 MODE!================");
+                MotionLibEventHandler.DispatchMotionDetectionEvent(motionMode);
+                Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
             }
             else
                 isMotioned = false;
