@@ -31,11 +31,6 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             UpdatePosWithAnchor();
         }
 
-        public void RefreshAnchorPos(Vector3 delta)
-        {
-            anchorPos += delta;
-        }
-
         protected virtual int GetTouchingFoot(AnimatorStateInfo stateInfo)
         {
             var heightGap = footLeft.position.y - footRight.position.y;
@@ -60,7 +55,7 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             return deltaPos;
         }
 
-        private void UpdatePosWithAnchor()
+        protected virtual void UpdatePosWithAnchor()
         {
             if(curFootIndex != 0)
             {
@@ -79,7 +74,7 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             }
         }
 
-        private Transform GetAnchor(int foot)
+        protected Transform GetAnchor(int foot)
         {
             if(foot == footIndexRight)
             {
@@ -99,7 +94,7 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             return transform.InverseTransformPoint(GetAnchor(foot).position);
         }
 
-        private Vector3 GetFootPos(int foot)
+        protected Vector3 GetFootPos(int foot)
         {
             return transform.InverseTransformPoint(GetAnchor(foot).position);
         }

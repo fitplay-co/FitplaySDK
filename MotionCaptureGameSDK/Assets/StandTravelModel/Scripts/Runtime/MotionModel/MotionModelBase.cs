@@ -15,7 +15,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
         protected static float groundHeight;
-        protected static FKAnimatorBasedLocomotion locomotionComp;
+        protected FKAnimatorBasedLocomotion locomotionComp;
 
         private Transform characterHipNode;
         private Transform characterHeadNode;
@@ -50,6 +50,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 layerMask = 1 << layerIndex;
             }
 
+            locomotionComp = this.selfTransform.gameObject.GetComponent<FKAnimatorBasedLocomotion>();
             if (locomotionComp == null)
             {
                 locomotionComp = this.selfTransform.gameObject.AddComponent<FKAnimatorBasedLocomotion>();
