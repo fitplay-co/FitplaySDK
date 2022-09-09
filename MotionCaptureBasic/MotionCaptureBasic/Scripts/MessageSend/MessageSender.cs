@@ -8,12 +8,18 @@ namespace MotionCaptureBasic.MessageSend
     public class MessageSender
     {
         private IWebSocket socket;
+        private bool isDebug;
 
         public MessageSender(IWebSocket socket)
         {
             this.socket = socket;
         }
 
+        public void SetDebug(bool isDebug)
+        {
+            this.isDebug = isDebug;
+        }
+        
         /// <summary>
         /// 发送注册帧
         /// </summary>
@@ -132,7 +138,11 @@ namespace MotionCaptureBasic.MessageSend
             if (socket != null)
             {
                 var strMsg = JsonConvert.SerializeObject(message);
-                Debug.Log(strMsg);
+                if (isDebug)
+                {
+                    Debug.Log(strMsg);
+                }
+                
                 socket.SendAsync(Encoding.UTF8.GetBytes(strMsg));
                 return true;
             }

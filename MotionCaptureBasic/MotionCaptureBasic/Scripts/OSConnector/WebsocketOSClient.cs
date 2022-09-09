@@ -260,5 +260,10 @@ namespace MotionCaptureBasic.OSConnector
             OnError?.Invoke();
             Console.WriteLine("Error: {0}", e.Message);
         }
+
+        public void SetDebug(bool isDebug)
+        {
+            messageSubscriber.SetDebug(isDebug);
+        }
     }
 }

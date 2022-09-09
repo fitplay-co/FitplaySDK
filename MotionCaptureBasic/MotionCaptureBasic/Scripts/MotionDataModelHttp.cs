@@ -344,6 +344,7 @@ namespace MotionCaptureBasic
         public void SetDebug(bool isDebug)
         {
             httpProtocolHandler.SetDebug(isDebug);
+            WebsocketOSClient.GetInstance().SetDebug(isDebug);
         }
 
         public void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat)
