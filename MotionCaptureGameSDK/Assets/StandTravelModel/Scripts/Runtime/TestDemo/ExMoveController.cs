@@ -11,7 +11,18 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
 
         public void Awake()
         {
-            charaControl = GetComponent<CharacterController>();
+            if (charaControl == null)
+            {
+                charaControl = GetComponent<CharacterController>();
+            }
+
+            if (charaControl == null)
+            {
+                if (transform.parent != null)
+                {
+                    charaControl = transform.parent.GetComponent<CharacterController>();
+                }
+            }
             standTravelModelManager = GetComponent<StandTravelModelManager>();
             animatorMover = GetComponent<AnimatorMover>();
             standTravelModelManager.InitPlayerHeightUI();

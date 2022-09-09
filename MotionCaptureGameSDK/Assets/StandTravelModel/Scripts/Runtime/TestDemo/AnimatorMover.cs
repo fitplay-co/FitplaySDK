@@ -44,7 +44,15 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             {
                 characterController = GetComponent<CharacterController>();
             }
-            
+
+            if (characterController == null)
+            {
+                if (transform.parent != null)
+                {
+                    characterController = transform.parent.GetComponent<CharacterController>();
+                }
+            }
+
             standTravelModelManager = GetComponent<StandTravelModelManager>();
             footLeft = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
             footRight = animator.GetBoneTransform(HumanBodyBones.RightFoot);

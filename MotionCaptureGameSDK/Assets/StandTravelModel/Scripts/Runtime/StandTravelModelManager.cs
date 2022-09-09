@@ -640,7 +640,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void ChangeIKModelWeight(int weight)
         {
-            modelIKController.ChangeLowerBodyIKWeight(weight);
+            modelIKController?.ChangeLowerBodyIKWeight(weight);
         }
         
         private void UpdateModelParameters()
