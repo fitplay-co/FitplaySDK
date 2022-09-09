@@ -116,6 +116,8 @@ namespace MotionLib.Scripts
             isCorrect = RightHandElbowZCorrect(rightHand, rightElbow, rightShoulder);
             if (!isCorrect) return;
             isMotioned = true;
+            MotionLibEventHandler.DispatchMotionDetectionEvent(motionMode);
+            Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
         }
 
 
@@ -125,7 +127,7 @@ namespace MotionLib.Scripts
 
         public void OnGUI()
         {
-            if (!isRunning) return;
+            if (!isRunning || !isDebug) return;
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 40;
             labelStyle.normal.textColor = Color.red;

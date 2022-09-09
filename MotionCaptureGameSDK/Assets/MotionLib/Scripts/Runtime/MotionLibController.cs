@@ -22,6 +22,7 @@ namespace MotionLib.Scripts
         public enum MotionMode 
         {
             None,
+            All,
             Motion5,
             Motion7,
             Motion7_L,
@@ -33,19 +34,27 @@ namespace MotionLib.Scripts
         /// </summary>
         public void SwitchMotionMode()
         {
+            if (howToMotion == MotionMode.All)
+                howToMotion = MotionMode.Motion7;
             if (howToMotion == MotionMode.Motion7)
+                howToMotion = MotionMode.Motion7_L;
+            else if (howToMotion == MotionMode.Motion7_L)
                 howToMotion = MotionMode.Motion5;
             else if (howToMotion == MotionMode.Motion5)
                 howToMotion = MotionMode.MotionBack;
             else if (howToMotion == MotionMode.MotionBack)
-                howToMotion = MotionMode.Motion7;
+                howToMotion = MotionMode.All;
         }
 
         private void ChangeMode()
         {
             foreach (MotionLibBase motion in motionList)
             {
-                motion.Enabled(motion.motionMode == howToMotion);
+                motion.isDebug = isDebug;
+                if(howToMotion == MotionMode.All || motion.motionMode == howToMotion)
+                    motion.Enabled(true);
+                else
+                    motion.Enabled(false);
             }
         }
         
@@ -54,10 +63,6 @@ namespace MotionLib.Scripts
             standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
             ChangeMode();
             lastMotion = howToMotion;
-            foreach (MotionLibBase motion in motionList)
-            {
-                motion.isDebug = isDebug;
-            }
         }
 
         private void OnValidate()
@@ -114,9 +119,6 @@ namespace MotionLib.Scripts
                 return;
             }
             var keyPointList = standTravelModelManager.GetKeyPointsList();
-            //var motionDataModel = standTravelModelManager.motionDataModelReference;
-            //var keyRotationList = motionDataModel.GetFitting()?.rotation;
-
             if (keyPointList != null)
             {
                 foreach (MotionLibBase motion in motionList)

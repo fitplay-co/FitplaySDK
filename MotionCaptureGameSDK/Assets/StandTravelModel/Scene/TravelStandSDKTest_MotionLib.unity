@@ -131,13 +131,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: howToMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: motionList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: motionList.Array.data[2]
       value: 
       objectReference: {fileID: 54761719}
+    - target: {fileID: 54761720, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: motionList.Array.data[3]
+      value: 
+      objectReference: {fileID: 2144314586}
+    - target: {fileID: 54761721, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220281385964143226, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220281385964143226, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: rWristToCrotchXZ
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2996603561660596927, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: m_Name
       value: MotionLibController
@@ -185,6 +209,14 @@ PrefabInstance:
     - target: {fileID: 2996603561660596929, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268482124952004097, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278842338143320212, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+      propertyPath: isDebug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7278842338143320212, guid: aac6c7eea6006654c91881841258eee1, type: 3}
       propertyPath: lWristToShoulderZ
@@ -4852,6 +4884,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3974640161986673759, guid: e24fd3349e5f99d428330d8193e12cc0, type: 3}
   m_PrefabInstance: {fileID: 1938538260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2144314586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2220281385964143226, guid: aac6c7eea6006654c91881841258eee1, type: 3}
+  m_PrefabInstance: {fileID: 54761718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86722de05ecd9494caf5ed223fe1c110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &15250034268902494
 GameObject:
   m_ObjectHideFlags: 0

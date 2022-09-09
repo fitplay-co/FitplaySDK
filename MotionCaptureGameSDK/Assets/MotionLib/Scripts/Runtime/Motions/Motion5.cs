@@ -198,8 +198,9 @@ namespace MotionLib.Scripts
                 WristToShoulderYCorrect(leftHand, rightHand, leftHip, rightHip, leftShoulder, rightShoulder);
             if (motionType != Motion5Type.None)
             {
-                isMotioned = true;//MotionMode.Motion5;
-                //Debug.LogError("==========YOU ARE IN MOTION TYPE 5 MODE!================");
+                isMotioned = true;
+                MotionLibEventHandler.DispatchMotionDetectionEvent(motionMode);
+                Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
             }
             else
             {
