@@ -23,8 +23,9 @@ namespace MotionLib.Scripts
 
         [Header("左手向前的最小速度 < MoveMinSpeed 时，第四触发条件成立")] [SerializeField] [Range(0, 50)]
         public float MoveMinSpeed = 10;
-
-
+        
+        [Header("识别间隔事件")] [SerializeField]
+        private float IntervalTime = 2;
         
 
         private void Awake()
@@ -48,7 +49,7 @@ namespace MotionLib.Scripts
         {
             rightHandXDis = Math.Abs(rightShoulder.x - rightHand.x);
             rightHandZDis = Math.Abs(rightShoulder.z - rightHand.z);
-            return (leftHandXDis < rWristToCrotchXZ && rightHandZDis < rWristToCrotchXZ);
+            return (rightHandXDis < rWristToCrotchXZ && rightHandZDis < rWristToCrotchXZ);
         }
 
         private float angleL;
@@ -91,9 +92,11 @@ namespace MotionLib.Scripts
         public override void Enabled(bool isEnabled)
         {
             isRunning = isEnabled;
+            //this.isDebug = true;
         }
 
         private Vector3 leftHand;
+        private float lastDetectedTime = 0;
         public override void CheckMotion(List<Vector3> keyPointList)
         {
             if (!isRunning) return;
@@ -106,10 +109,6 @@ namespace MotionLib.Scripts
             //手腕
             leftHand = keyPointList[(int) GameKeyPointsType.LeftHand];
             var rightHand = keyPointList[(int) GameKeyPointsType.RightHand];
-            //rightHand.z += rightHand.y * -0.1f;
-            //var leftHandQua = keyRotationList[8].Rotation();
-            //var leftElbowQua = keyRotationList[6].Rotation();
-            //var leftShoulderQua = keyRotationList[2].Rotation();
             //计算 右手腕部X值Z值接近肩部
             bool isCorrect = RightHandXZCorrect(rightHand, rightShoulder);
             if (!isCorrect)
@@ -118,7 +117,6 @@ namespace MotionLib.Scripts
                 isMotioned = false;
                 return;
             }
-
             //计算 右手上臂-小臂夹角接近180°
             //LeftElbowAngleCorrect2(leftShoulderQua, leftElbowQua);
             isCorrect = RightElbowAngleCorrect(rightHand, rightElbow, rightShoulder);
@@ -128,7 +126,6 @@ namespace MotionLib.Scripts
                 isMotioned = false;
                 return;
             }
-
             //计算 左手腕到肩的X,Y轴最小距离
             isCorrect = HandToShoulderXZCorrect(leftHand, leftShoulder);
             if (!isCorrect)
@@ -138,15 +135,15 @@ namespace MotionLib.Scripts
                 return;
             }
 
-
             //计算 小臂向前的移动速度
             isCorrect = LeftHandMovingCorrect(leftHand);
-            if (isCorrect)
+            if (isCorrect && Time.fixedUnscaledTime - lastDetectedTime > IntervalTime)
             {
                 isMotioned = true;
+                lastDetectedTime = Time.fixedUnscaledTime;
                 MotionLibEventHandler.DispatchSwitchCharacterEvent();
                 MotionLibEventHandler.DispatchMotionDetectionEvent(motionMode);
-                Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
+                //Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
             }
             else
                 isMotioned = false;

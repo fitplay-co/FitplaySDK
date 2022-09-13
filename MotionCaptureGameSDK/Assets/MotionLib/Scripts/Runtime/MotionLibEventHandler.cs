@@ -34,15 +34,19 @@ namespace MotionLib.Scripts
         /// <summary>
         ///识别到切换StandToTravel
         /// </summary>
-        public static Action onSwithStandToTravel;
+        public static Action onSwitchStandToTravel;
 
-        public static void DispatchSwitchMotionModeEvent() => onSwithStandToTravel?.Invoke();
+        public static void DispatchSwitchMotionModeEvent() => onSwitchStandToTravel?.Invoke();
         
         /// <summary>
         ///识别到切换角色
         /// </summary>
-        public static Action onSwithCharacter;
-        public static void DispatchSwitchCharacterEvent() => onSwithCharacter?.Invoke();
+        public static Action onSwitchCharacter;
+        public static void DispatchSwitchCharacterEvent() => onSwitchCharacter?.Invoke();
+        
+        /// <summary>
+        /// 识别到了动作
+        /// </summary>
         public delegate void EventMotionDetected(MotionLibController.MotionMode mode);
         public static EventMotionDetected OnMotionDetected;
         public static void DispatchMotionDetectionEvent(MotionLibController.MotionMode mode) => OnMotionDetected?.Invoke(mode);
