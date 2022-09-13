@@ -153,7 +153,7 @@ namespace MotionLib.Scripts
                 isMotioned = true;
                 MotionLibEventHandler.DispatchSwitchMotionModeEvent();
                 MotionLibEventHandler.DispatchMotionDetectionEvent(motionMode);
-                Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
+                //Debug.LogError($"==========YOU ARE IN MOTION TYPE {motionMode} !================");
             }
             else
                 isMotioned = false;

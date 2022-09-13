@@ -10,7 +10,6 @@ namespace MotionLib.Scripts
         public bool isMotioned = false;
         [HideInInspector]
         public bool isRunning = false;
-        [HideInInspector]
         public bool isDebug;
         [HideInInspector]
         public MotionLibController.MotionMode motionMode =  MotionLibController.MotionMode.None;

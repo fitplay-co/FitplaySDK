@@ -95,7 +95,6 @@ namespace MotionLib.Scripts
                 .GetComponentInChildren<StandTravelModelManager>();
         }
         
-        
         private void OnChangedMotion()
         {
             SwitchMotionMode();

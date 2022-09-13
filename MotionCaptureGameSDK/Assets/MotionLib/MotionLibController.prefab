@@ -106,7 +106,7 @@ MonoBehaviour:
   - {fileID: 2220281385964143226}
   isDebug: 0
   motionResult: 0
-  howToMotion: 3
+  howToMotion: 1
 --- !u!1 &3375276306811146316
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,9 +154,9 @@ MonoBehaviour:
   isRunning: 0
   isDebug: 0
   motionMode: 0
-  HandElowToShoulderY: 0.1
-  lWristToShoulderZ: 0.1
-  rWristToShoulderZ: 0.2
+  HandElowToShoulderY: 0.2
+  lWristToShoulderZ: 0.2
+  rWristToShoulderZ: 0.56
 --- !u!1 &7030640972188134603
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
   isDebug: 0
   motionMode: 0
   lWristToShoulderXY: 0.1
-  rWristToCrotchXZ: 0.1
+  rWristToCrotchXZ: 0.2
   ElbowAngleMin: 120
   MoveMinSpeed: 10
 --- !u!1 &9076003748235689006
