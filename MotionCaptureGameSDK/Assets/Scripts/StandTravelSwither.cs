@@ -23,7 +23,7 @@ namespace Scripts
         {
             standTravelSwitchOpt = GameObject.Find("StandTravelSwitchOpt").GetComponent<Dropdown>();
             standTravelModelManager = GetComponent<StandTravelModelManager>();
-            MotionLibEventHandler.onSwithStandToTravel += OnSwitchStandTravel;
+            MotionLibEventHandler.onSwitchStandToTravel += OnSwitchStandTravel;
             //MotionLibEventHandler.onMotionChanged += OnSwitchStandTravel;
         }
 
