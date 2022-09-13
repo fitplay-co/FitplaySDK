@@ -1354,6 +1354,7 @@ MonoBehaviour:
   hasExController: 0
   isFullAnimOnRun: 0
   useLocomotion: 0
+  manualInputTall: 0
   motionDataModelType: 0
   httpOsAddress: 
   initialMode: 1
@@ -4061,6 +4062,7 @@ MonoBehaviour:
   hasExController: 0
   isFullAnimOnRun: 0
   useLocomotion: 0
+  manualInputTall: 0
   motionDataModelType: 0
   httpOsAddress: 
   initialMode: 1
@@ -7463,6 +7465,10 @@ PrefabInstance:
     - target: {fileID: 1505443799433131769, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: m_Name
       value: Girl
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: manualInputTall
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2283247514099838019, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: m_RootOrder

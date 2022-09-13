@@ -44,6 +44,9 @@ namespace StandTravelModel.Scripts.Runtime
 
         [Tooltip("是否使用locomotion实现stand模式局部位移")]
         public bool useLocomotion;
+
+        [Tooltip("是否手动输入身高。如果开启，在游戏进入时需要先输入身高")]
+        public bool manualInputTall;
         
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
@@ -135,6 +138,10 @@ namespace StandTravelModel.Scripts.Runtime
         //用于判断os识别是否有效，os识别无效时需要停止sdk功能
         private bool _osValidCheck = true;
         public bool osValidCheck => _osValidCheck;
+        //用于辅助os数据有效性判断的timeout
+        private const int osTimeOut = 3;
+        private long prevOsTime;
+        private float osTimeOutProgress = 0;
 
         //供上层游戏业务层调用的sdk控制开关
         private bool _Enabled = true;
@@ -273,7 +280,6 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
-            ShowPlayerHeightUI();
         }
 
         public void FixedUpdate()
@@ -291,7 +297,8 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Update()
         {
-            _osValidCheck = GeneralCheck();
+            var deltaTime = Time.deltaTime;
+            _osValidCheck = GeneralCheck(deltaTime);
             //检查sdk是否启用
             overallEnable = _noUiActive && _osValidCheck && _Enabled;
 
@@ -364,7 +371,7 @@ namespace StandTravelModel.Scripts.Runtime
             }
         }
 
-        private bool GeneralCheck()
+        private bool GeneralCheck(float dt)
         {
             var generalData = motionDataModel.GetGeneralDetectionData();
             if (generalData == null)
@@ -372,9 +379,26 @@ namespace StandTravelModel.Scripts.Runtime
                 return false;
             }
 
+            var timeProfiling = motionDataModel.GetTimeProfilingData();
+            if (timeProfiling == null) 
+            {
+                return false;
+            }
+
+            var currentOsTime = timeProfiling.beforeSendTime;
+            if (currentOsTime == prevOsTime)
+            {
+                osTimeOutProgress += dt;
+            }
+            else 
+            {
+                prevOsTime = currentOsTime;
+                osTimeOutProgress = 0;
+            }
+
             int generalConfidence = generalData.confidence;
 
-            return generalConfidence == 1;
+            return generalConfidence == 1 && osTimeOutProgress < osTimeOut;
         }
 
         /// <summary>
@@ -916,6 +940,15 @@ namespace StandTravelModel.Scripts.Runtime
             motionDataModel.SubscribeFitting();
             motionDataModel.SubscribeGeneral();
             _osConnected = true;
+            //OS连接成功后开启输入身高的UI
+            if (manualInputTall)
+            {
+                ShowPlayerHeightUI();
+            }
+            else
+            {
+                motionDataModel.SetPlayerHeight(175);
+            }
         }
 
         public void ResetAnchorPosition()
