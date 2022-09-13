@@ -231,6 +231,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         #endregion
 
+        private bool destroyed;
         private List<Vector3> keyPointsList;
         private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
@@ -369,6 +370,7 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel.Clear();
                 travelModel = null;
             }
+            destroyed = true;
         }
 
         private bool GeneralCheck(float dt)
@@ -935,19 +937,22 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void SubscribeMessage()
         {
-            motionDataModel.SubscribeActionDetection();
-            motionDataModel.SubscribeGroundLocation();
-            motionDataModel.SubscribeFitting();
-            motionDataModel.SubscribeGeneral();
-            _osConnected = true;
-            //OS连接成功后开启输入身高的UI
-            if (manualInputTall)
+            if(!destroyed)
             {
-                ShowPlayerHeightUI();
-            }
-            else
-            {
-                motionDataModel.SetPlayerHeight(175);
+                motionDataModel.SubscribeActionDetection();
+                motionDataModel.SubscribeGroundLocation();
+                motionDataModel.SubscribeFitting();
+                motionDataModel.SubscribeGeneral();
+                _osConnected = true;
+                //OS连接成功后开启输入身高的UI
+                if (manualInputTall)
+                {
+                    ShowPlayerHeightUI();
+                }
+                else 
+                {
+                    motionDataModel.SetPlayerHeight(175);
+                }
             }
         }
 
@@ -1056,7 +1061,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             if(standTravelTestUI == null)
             {
-                standTravelTestUI = GameObject.FindObjectOfType<StandTravelTestUI>();
+                standTravelTestUI = GameObject.FindObjectOfType<StandTravelTestUI>(true);
                 standTravelTestUI.OccupyTandTravelModelManager(this);
             }
         }

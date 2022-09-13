@@ -8,13 +8,15 @@ public class PlayerHeightUI : MonoBehaviour
     [SerializeField] private InputField inputField;
 
     private Action<int> onFieldInput;
-
-    private void Awake() {
+    private const string joystickButton14 = "joystick button 14";
+    private void Awake()
+    {
         confirmButton.onClick.AddListener(OnComfirmClick);
         inputField.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         confirmButton.onClick.RemoveListener(OnComfirmClick);
         inputField.onValueChanged.RemoveListener(OnValueChanged);
     }
@@ -40,7 +42,7 @@ public class PlayerHeightUI : MonoBehaviour
     private void OnEndEdit(string content)
     {
         var number = 0;
-        if(int.TryParse(content, out number))
+        if (int.TryParse(content, out number))
         {
             onFieldInput(number);
         }
@@ -50,6 +52,22 @@ public class PlayerHeightUI : MonoBehaviour
     {
     }
 
+    void Update()
+    {
+        if (!gameObject.activeSelf) return;
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            OnEndEdit(inputField.text);
+        }
+#else
+        if (Input.GetKeyDown(joystickButton14))
+        {
+            OnEndEdit(inputField.text);
+        }
+        
+#endif
+}
     private void OnComfirmClick()
     {
         OnEndEdit(inputField.text);
