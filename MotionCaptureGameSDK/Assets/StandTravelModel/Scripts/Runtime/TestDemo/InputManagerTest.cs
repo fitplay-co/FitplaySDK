@@ -41,7 +41,10 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 {
                     horizontalAngle = Input.MCTurnValue;
                 }
-                standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
+                if (standTravelModelManager.osValidCheck)
+                {
+                    standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
+                }
             }
             else if (mode == MotionMode.Stand)
             {

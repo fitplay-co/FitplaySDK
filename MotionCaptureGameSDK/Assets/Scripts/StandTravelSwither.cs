@@ -10,7 +10,8 @@ namespace Scripts
 {
     public class StandTravelSwither : MonoBehaviour
     {
-        public float postureTimeout = 10;
+        [Tooltip("手势切换，自动回stand的timeout。单位秒")]
+        public float postureTimeout = 2;
 
         private Dropdown standTravelSwitchOpt;
         private StandTravelModelManager standTravelModelManager;
@@ -18,13 +19,14 @@ namespace Scripts
         private const string joystick_button_0 = "joystick button 0";
         private float timeProgress = 0;
 
+        private int standTravelSwitchMode = 2;
+
         // Start is called before the first frame update
         public void Start()
         {
-            standTravelSwitchOpt = GameObject.Find("StandTravelSwitchOpt").GetComponent<Dropdown>();
+            standTravelSwitchOpt = GameObject.Find("StandTravelSwitchOpt")?.GetComponent<Dropdown>();
             standTravelModelManager = GetComponent<StandTravelModelManager>();
             MotionLibEventHandler.onSwitchStandToTravel += OnSwitchStandTravel;
-            //MotionLibEventHandler.onMotionChanged += OnSwitchStandTravel;
         }
 
         // Update is called once per frame
@@ -36,15 +38,12 @@ namespace Scripts
                 return;
             }
 
-            if (standTravelSwitchOpt == null)
+            if (standTravelSwitchOpt != null)
             {
-                Debug.LogError("StandTravelSwitchOpt is not found in Scene");
-                return;
+                standTravelSwitchMode = standTravelSwitchOpt.value;
             }
 
-            var dropdownValue = standTravelSwitchOpt.value;
-
-            switch (dropdownValue) 
+            switch (standTravelSwitchMode) 
             {
                 case 0:
                     SwitchByKeyInput();
@@ -122,7 +121,7 @@ namespace Scripts
 
         private void OnSwitchStandTravel()
         {
-            if (standTravelSwitchOpt.value != 2) 
+            if (standTravelSwitchMode != 2) 
             {
                 return;
             }
