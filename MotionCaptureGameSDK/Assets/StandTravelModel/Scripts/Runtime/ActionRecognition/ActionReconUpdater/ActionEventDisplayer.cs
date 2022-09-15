@@ -239,8 +239,8 @@ public class ActionEventDisplayer : MonoBehaviour
     {
         if(actionDetectionItem?.walk != null)
         {
-            strideCacherLeft.OnUpdate(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.leftStepLength);
-            strideCacherRight.OnUpdate(actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.rightStepLength);
+            strideCacherLeft.OnUpdate(actionDetectionItem.walk.GetLeftLeg(), actionDetectionItem.walk.stepLen);
+            strideCacherRight.OnUpdate(actionDetectionItem.walk.GetRightLeg(), actionDetectionItem.walk.stepLen);
 
             GUIStyle labelStyle = new GUIStyle("label");
             labelStyle.fontSize = 32;
