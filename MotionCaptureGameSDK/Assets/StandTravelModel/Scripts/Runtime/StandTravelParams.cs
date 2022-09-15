@@ -10,6 +10,7 @@ public class StandTravelParams
     public float freqThreholdLow = 0.35f;
     public bool useFrequency = true;
     public float runSpeedScale = 1;
+    public float walkSpeedScale = 1;
     public float sprintThrehold = 0.15f;
     public float  freqSprintThrehold = 0.15f;
     public float runThresholdScale = 1;

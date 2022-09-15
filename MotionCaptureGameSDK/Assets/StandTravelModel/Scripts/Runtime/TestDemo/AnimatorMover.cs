@@ -171,5 +171,10 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         {
 
         }
+
+        public float GetWalkSpeedScale()
+        {
+            return standTravelModelManager.GetWalkSpeedScale();
+        }
     }
 }

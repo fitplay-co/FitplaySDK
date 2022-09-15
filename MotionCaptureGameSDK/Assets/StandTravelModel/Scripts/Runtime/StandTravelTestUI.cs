@@ -16,6 +16,7 @@ public class StandTravelTestUI : MonoBehaviour
     [SerializeField] private InputField speedThreholdScaleLow;
     [SerializeField] private InputField sprintThrehold;
     [SerializeField] private InputField speedScale;
+    [SerializeField] private InputField walkSpeedScale;
     [SerializeField] private InputField sprintSpeedScale;
     [SerializeField] private StandTravelModelManager standTravelModelManager;
 
@@ -58,6 +59,7 @@ public class StandTravelTestUI : MonoBehaviour
         speedThreholdScaleLow.onEndEdit.AddListener(OnInputSpeedThreholdScaleLow);
         sprintThrehold.onEndEdit.AddListener(OnInputSprintThrehold);
         speedScale.onEndEdit.AddListener(OnInputSpeedScale);
+        walkSpeedScale.onEndEdit.AddListener(OnInputeWalkSpeedScale);
         sprintSpeedScale.onEndEdit.AddListener(OnInputSprintSpeedScale);
 
         saveButton.onClick.AddListener(Save);
@@ -78,6 +80,7 @@ public class StandTravelTestUI : MonoBehaviour
         UpdateInputField(sprintThrehold, standTravelModelManager.GetSprintThrehold());
         UpdateInputField(speedScale, standTravelModelManager.GetRunSpeedScale());
         UpdateInputField(sprintSpeedScale, standTravelModelManager.GetSprintSpeedScale());
+        UpdateInputField(walkSpeedScale, standTravelModelManager.GetWalkSpeedScale());
     }
 
     private void RefreshToggles()
@@ -177,6 +180,11 @@ public class StandTravelTestUI : MonoBehaviour
     private void OnInputSpeedScale(string content)
     {
         DOInput(content, standTravelModelManager.SetRunSpeedScale);
+    }
+
+    private void OnInputeWalkSpeedScale(string content)
+    {
+        DOInput(content, standTravelModelManager.SetWalkSpeedScale);
     }
 
     private void OnInputSprintSpeedScale(string content)

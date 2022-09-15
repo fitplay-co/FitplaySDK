@@ -7,5 +7,6 @@ namespace StandTravelModel.Scripts.Runtime.Mover
         void SetAnimatorDelta(Vector3 moveDest);
         void OnAnimatorMoveStart();
         float GetRunSpeedScale();
+        float GetWalkSpeedScale();
     }
 }

@@ -56,13 +56,18 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
             return compensation;
         }
 
-        private float GetSpeedScaleFromPanel()
+        protected virtual float GetSpeedScaleFromPanel()
         {
             if(speedScaleFromPanel)
             {
                 return GetRunSpeedScale();
             }
             return 1;
+        }
+
+        protected bool UseSpeedScaleFromPanel()
+        {
+            return speedScaleFromPanel;
         }
     }
 }
