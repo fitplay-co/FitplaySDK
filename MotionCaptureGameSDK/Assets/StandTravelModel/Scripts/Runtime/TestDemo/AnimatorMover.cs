@@ -76,6 +76,7 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             {
                 _velocity = Vector3.zero;
                 _verticalVelocity = 0;
+                return;
             }
             else
             {

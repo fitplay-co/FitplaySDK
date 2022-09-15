@@ -21,12 +21,21 @@ namespace Scripts
 
         private int standTravelSwitchMode = 2;
 
+        public void OnEnable()
+        {
+            MotionLibEventHandler.onSwitchStandToTravel += OnSwitchStandTravel;
+        }
+
+        public void OnDisable()
+        {
+            MotionLibEventHandler.onSwitchStandToTravel -= OnSwitchStandTravel;
+        }
+
         // Start is called before the first frame update
         public void Start()
         {
             standTravelSwitchOpt = GameObject.Find("StandTravelSwitchOpt")?.GetComponent<Dropdown>();
             standTravelModelManager = GetComponent<StandTravelModelManager>();
-            MotionLibEventHandler.onSwitchStandToTravel += OnSwitchStandTravel;
         }
 
         // Update is called once per frame

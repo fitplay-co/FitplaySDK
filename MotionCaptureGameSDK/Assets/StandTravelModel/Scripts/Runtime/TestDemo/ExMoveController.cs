@@ -36,6 +36,11 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
                 charaControl.Move(deltaMovement);
             }*/
 
+            if (standTravelModelManager.currentMode == MotionMode.Stand)
+            {
+                return;
+            }
+
             if (charaControl != null && animatorMover != null)
             {
                 deltaMovement = animatorMover.velocity * Time.deltaTime;

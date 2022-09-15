@@ -139,7 +139,7 @@ namespace StandTravelModel.Scripts.Runtime
         private bool _osValidCheck = true;
         public bool osValidCheck => _osValidCheck;
         //用于辅助os数据有效性判断的timeout
-        private const int osTimeOut = 3;
+        private const int osTimeOut = 1;
         private long prevOsTime;
         private float osTimeOutProgress = 0;
 
@@ -193,6 +193,7 @@ namespace StandTravelModel.Scripts.Runtime
                 {
                     travelModel?.ChangeState(AnimationList.Idle);
                     travelModel?.selfAnimator.Play("Idle");
+                    standModel?.AdjustTransformHeight();
                 }
             }
         }

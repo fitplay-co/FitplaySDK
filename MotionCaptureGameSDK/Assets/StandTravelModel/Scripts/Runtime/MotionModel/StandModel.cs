@@ -42,6 +42,13 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             locomotionComp.ResetLocomotion();
         }
 
+        public void AdjustTransformHeight() 
+        {
+            var currentPos = selfTransform.position;
+            currentPos.y = groundHeight;
+            selfTransform.position = currentPos;
+        }
+
         public override void OnUpdate(List<Vector3> keyPoints)
         {
             base.OnUpdate(keyPoints);
