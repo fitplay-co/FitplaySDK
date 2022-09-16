@@ -1024,6 +1024,16 @@ namespace StandTravelModel.Scripts.Runtime
             return null;
         }
 
+        public float GetWalkSpeedScale()
+        {
+            return paramsLoader.GetWalkSpeedScale();
+        }
+
+        public void SetWalkSpeedScale(float value)
+        {
+            paramsLoader.SetWalkSpeedScale(value);
+        }
+
         public void ShowPlayerHeightUI()
         {
             // ReSharper disable once Unity.NoNullPropagation

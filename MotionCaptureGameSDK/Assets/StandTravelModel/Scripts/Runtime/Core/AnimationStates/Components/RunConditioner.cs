@@ -203,7 +203,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         public bool IsEnterRunReady(WalkActionItem walkData, bool debug)
         {
             OnUpdate(walkData);
-            strideCacher.OnUpdate(walkData.GetLeftLeg(), walkData.leftStepLength);
+            strideCacher.OnUpdate(walkData.GetLeftLeg(), walkData.stepLen);
 
             var isRunningLeft = cacherLeft.IsEnterRunReady(walkData, debug);
             var isRunningRight = cacherRight.IsEnterRunReady(walkData, debug);

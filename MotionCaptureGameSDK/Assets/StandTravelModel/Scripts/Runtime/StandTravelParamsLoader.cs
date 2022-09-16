@@ -82,6 +82,16 @@ public class StandTravelParamsLoader
         standTravelParams.runSpeedScale = value;
     }
 
+    public float GetWalkSpeedScale()
+    {
+        return standTravelParams.walkSpeedScale;
+    }
+
+    public void SetWalkSpeedScale(float value)
+    {
+        standTravelParams.walkSpeedScale = value;
+    }
+
     public float GetSprintThrehold()
     {
         return standTravelParams.GetSprintThrehold();

@@ -56,7 +56,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needPause: 0
   speedScaleFromPanel: 0
   speedScale: 0.3
   progressLeftStart: 0
@@ -92,7 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0
@@ -162,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needPause: 0
   speedScaleFromPanel: 1
   speedScale: 2
   progressLeftStart: 0.75
@@ -790,7 +787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needPause: 0
   speedScaleFromPanel: 0
   speedScale: 0.3
   progressLeftStart: 0
@@ -987,6 +983,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: walkRunPercent
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: temp
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1268,7 +1270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needPause: 0
   speedScaleFromPanel: 0
   speedScale: 1
   progressLeftStart: 0
@@ -1631,7 +1632,7 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 1827226128182048838, guid: 6f4ec3ee9cbb3c74fbcc3d8184ed963a, type: 3}
-    m_Threshold: 0.85
+    m_Threshold: 0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1639,7 +1640,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 1827226128182048838, guid: d91777fa6fa1aa642bc4dead1ece309f, type: 3}
-    m_Threshold: 1.4
+    m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1647,9 +1648,9 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: stridePercentRun
   m_BlendParameterY: Blend
-  m_MinThreshold: 0.85
-  m_MaxThreshold: 1.4
-  m_UseAutomaticThresholds: 1
+  m_MinThreshold: 0.5
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
 --- !u!1101 &5488503266573071676
@@ -1805,7 +1806,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: cadence
     m_Mirror: 0
-  m_BlendParameter: cadence
+  m_BlendParameter: temp
   m_BlendParameterY: cadence
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -1911,8 +1912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d920b0c83cf362746816c8e82e246fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needPause: 0
-  speedScaleFromPanel: 0
+  speedScaleFromPanel: 1
   speedScale: 1
   progressLeftStart: 0.75
   progressLeftEnd: 0.25

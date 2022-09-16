@@ -1,3 +1,4 @@
+using System;
 using StandTravelModel.Scripts.Runtime.Mover.MoverInners;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ public class AnimatorMoverBipedAdaption : AnimatorMoverBiped
     {
         var deltaLeft = curFootLocalPosLeft - lastFootLocalPosLeft;
         var deltaRight = curFootLocalPosRight - lastFootLocalPosRight;
-        var delta = Mathf.Min(deltaLeft.z, deltaRight.z);
+        var delta = Mathf.Min(deltaLeft.z, deltaRight.z) * GetRunSpeedScale();
         return Vector3.forward * delta;
     }
 }

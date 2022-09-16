@@ -108,5 +108,10 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
         {
             return moverReactor.GetRunSpeedScale();
         }
+
+        protected float GetWalkSpeedScale()
+        {
+            return moverReactor.GetWalkSpeedScale();
+        }
     }
 }

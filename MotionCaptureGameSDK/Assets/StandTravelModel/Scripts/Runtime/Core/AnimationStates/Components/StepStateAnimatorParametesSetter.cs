@@ -190,7 +190,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private void TrySetStridePercent()
         {
             //var stridePercent = Mathf.Clamp01(strideCacher.GetStrideSmooth() * 0.75f);
-            var stridePercent = strideCacher.GetStrideSmooth() * 0.75f;
+            var stridePercent = strideCacher.GetStride() * 0.75f;
             travelOwner.selfAnimator.SetFloat(animIdStridePercent, stridePercent * strideScale());
             travelOwner.selfAnimator.SetFloat(animIdStrideRunPercent, stridePercent * strideScaleRun());
         }
