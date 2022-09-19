@@ -25,6 +25,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         private int lastUpLeg;
         private float zeroDelayed;
+        private float groundedTime;
 
         private TravelModel travelOwner;
         private RunConditioner runConditioner;
@@ -41,6 +42,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother, StepStrideCacher strideCacher, Func<float> strideScale, Func<float> strideScaleRun, Func<bool> useFreqSprint, Func<float> getSprintThrehold, RunConditioner runConditioner)
         {
+            WalkActionItem.useRealtimeData = true;
             this.strideScale = strideScale;
             this.travelOwner = travelOwner;
             this.stepSmoother = stepSmoother;
@@ -68,6 +70,26 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdStepProgressDownRight = Animator.StringToHash("progressDownRight");
         }
 
+        public void TryPredicateIdle()
+        {
+            /* actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
+            if(actionDetectionItem != null && actionDetectionItem.walk != null)
+            {
+                var idleAngle = 159f;
+                if(actionDetectionItem.walk.leftHipAng < idleAngle || actionDetectionItem.walk.rightHipAng < idleAngle)
+                {
+                    groundedTime = 0;
+                }
+            }
+            groundedTime += Time.deltaTime;
+            if(IsGrounded())
+            {
+                travelOwner.selfAnimator.SetInteger(animIdLegLeft, 0);
+                travelOwner.selfAnimator.SetInteger(animIdLegRight, 0);
+                travelOwner.selfAnimator.SetFloat(animIdZeroDelayed, groundedTime);
+            } */
+        }
+
         private void TrySetParametersLegs()
         {
             actionDetectionItem = travelOwner.selfMotionDataModel.GetActionDetectionData();
@@ -80,7 +102,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
                 if(leftLeg == 0 && rightLeg == 0)
                 {
-                    //lastUpLeg = 0;
                     zeroDelayed += Time.deltaTime;
                 }
                 else
@@ -104,6 +125,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 lastUpLeg = 1;
             }
+
             travelOwner.selfAnimator.SetInteger(animIdLastLegUp, lastUpLeg);
         }
 
@@ -234,6 +256,11 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             stepSmoother.OnUpdate(progressUpLeft, progressDownLeft, progressUpRight, progressDownRight);
 
             travelOwner.selfAnimator.SetFloat(animIdStepProgress, stepSmoother.GetStepProgress());
+        }
+
+        private bool IsGrounded()
+        {
+            return groundedTime > 0.15f;
         }
     }
 }
