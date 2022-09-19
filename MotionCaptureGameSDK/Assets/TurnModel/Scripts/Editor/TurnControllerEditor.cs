@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 using UnityEditor;
 
@@ -9,7 +10,8 @@ namespace TurnModel.Scripts.Editor
         private TurnController script;
         private GUIStyle tempFontStyle;
         private GUIStyle normalFontStyle;
-
+        private bool isChanged = true;
+        private int lastTimeId = 0;
         private void OnEnable()
         {
             script = (TurnController) target;
@@ -66,26 +68,68 @@ namespace TurnModel.Scripts.Editor
                     "____________________________________________________________________________________________________________________________________________________________________________________________");
                 normalFontStyle.alignment = TextAnchor.MiddleLeft;
                 normalFontStyle.normal.textColor = Color.yellow;
-                EditorGUILayout.LabelField($"A < angle < B时，avatar的转向速率从0开始增加", normalFontStyle);
-                EditorGUILayout.Space();
-                if (script.HowToTurn == TurnController.TurnMode.UseLeftAndRight)
-                {
-                    script.SetValuesByMode();
-                    script.A = EditorGUILayout.Slider("最小检测角度:", script.A, 0, 100);
+                if (script.HowToTurn == TurnController.TurnMode.UseTorsoRotation && script.TurnData == TurnController.TurnDataType.AndXShoulder)
+                {  
+                    EditorGUILayout.LabelField($"B < |X轴肩宽| < A时，Avatar的转向速率从1开始衰减。", normalFontStyle);
+                    EditorGUILayout.LabelField($"肩宽越小转动速度越快! (AB为肩宽值，必须B < A)", normalFontStyle);
                     EditorGUILayout.Space();
-                    script.B = EditorGUILayout.Slider("最大检测角度:", script.B, 0, 100);
-                }
-                else if (script.HowToTurn == TurnController.TurnMode.UseTorsoRotation)
-                {
-                    script.A = EditorGUILayout.Slider("最小检测角度:", script.A, 0, 100);
+                    script.XShoulderModeZValue = EditorGUILayout.Slider("启动肩宽计算的Z轴差值:", script.XShoulderModeZValue, 0, 1);
                     EditorGUILayout.Space();
-                    script.B = EditorGUILayout.Slider("最大检测角度:", script.B, 0, 100);
+                    script.A = EditorGUILayout.Slider("最小检测值A(m):", script.A, 0, 2);
+                    EditorGUILayout.Space();
+                    script.B = EditorGUILayout.Slider("最大检测值B(m):", script.B, 0, 1);
+                    if(lastTimeId != 1)
+                        script.SetValuesByMode();
+                    lastTimeId = 1;
                 }
-
+                else
+                {
+                    EditorGUILayout.LabelField($"A < |angle| < B时，Avatar的转向速率从0开始增加", normalFontStyle);
+                    EditorGUILayout.Space();
+                    script.A = EditorGUILayout.Slider("最小检测值A(°):", script.A, 0, 30);
+                    EditorGUILayout.Space();
+                    script.B = EditorGUILayout.Slider("最大检测值A(°):", script.B, 0, 90);
+                   
+                    if(lastTimeId == 1)
+                        script.SetValuesByMode();
+                    lastTimeId = script.HowToTurn == TurnController.TurnMode.UseLeftAndRight ? 2 : 3;
+                }
+                
+              
                 EditorGUILayout.Space();
                 script.Wmax = EditorGUILayout.Slider("最大转动速度:", script.Wmax, 0, 200);
                 EditorGUILayout.Space();
                 script.SpeedCurve = EditorGUILayout.CurveField("速度曲线设定：", script.SpeedCurve);
+                EditorGUILayout.Space();
+                if(GUILayout.Button($"保存数据", GUILayout.Height(40)))
+                {
+                    if (script.HowToTurn == TurnController.TurnMode.UseLeftAndRight)
+                    {
+                        script.A_LR = script.A;
+                        script.B_LR = script.B; 
+                    }
+                    else
+                    {
+                        if (script.TurnData == TurnController.TurnDataType.AndXShoulder)
+                        {
+                            script.A_SX = script.A;
+                            script.B_SX = script.B;
+                        }
+                        else
+                        {
+                            script.A_FB = script.A;
+                            script.B_FB = script.B;    
+                        }
+                    }
+                    
+                    script.SetValuesByMode();
+                    //EditorUtility.SetDirty(script);
+                    //AssetDatabase.SaveAssets();
+                    if (PrefabUtility.GetPrefabParent(script) != null)
+                    {
+                        PrefabUtility.ReplacePrefab(script.gameObject, PrefabUtility.GetPrefabParent(script), ReplacePrefabOptions.ConnectToPrefab);
+                    }
+                }
                 EditorGUILayout.Space();
             }
 

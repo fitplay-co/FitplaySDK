@@ -11,21 +11,26 @@ namespace TurnModel.Scripts
     {
         [SerializeField] private StandTravelModelManager standTravelModelManager;
 
-        [Header("A < angle < B时，avatar的转向速率从0开始增加")] [SerializeField] [Range(0, 30)]
-        public float A = 5;
+        [Header("A < angle < B时，avatar的转向速率从0开始增加")] 
+        [SerializeField] [Range(0, 30)] public float A = 5;
 
         [SerializeField] [Range(0, 90)] public float B = 20;
 
-        [Header("左右转身的A ~ B数据")] [SerializeField] [Range(0, 30)]
-        public float A_LR = 5;
+        [Header("左右转身的A ~ B数据")] [SerializeField] [Range(0, 30)] public float A_LR = 5;
 
         [SerializeField] [Range(0, 90)] public float B_LR = 20;
 
-        [Header("躯干转身的A ~ B数据")] [SerializeField] [Range(0, 30)]
-        public float A_FB = 10;
+        [Header("躯干转身的A ~ B数据")] [SerializeField] [Range(0, 30)] public float A_FB = 10;
 
         [SerializeField] [Range(0, 90)] public float B_FB = 60;
 
+        [Header("躯干转身 - 计算肩宽的A ~ B数据")] [SerializeField] [Range(0, 2)] public float A_SX = 0.4f;
+
+        [SerializeField] [Range(0, 1)] public float B_SX = 0.2f;
+
+        [Header("躯干转身 - 启动肩宽计算的Z轴差值")]
+        [SerializeField] [Range(0, 1)] public  float XShoulderModeZValue = 0.12f;
+        
         [Header("最大转动速度值")] [SerializeField] [Range(0, 200)]
         public float Wmax = 120;
 
@@ -61,7 +66,8 @@ namespace TurnModel.Scripts
         {
             OnlyYshoulder,
             OnlyYcrotch,
-            BothYshoulderAndYcrotch
+            BothYshoulderAndYcrotch,
+            AndXShoulder
         }
 
         /// <summary>
@@ -69,7 +75,15 @@ namespace TurnModel.Scripts
         /// </summary>
         private void Start()
         {
-            standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
+            if (standTravelModelManager == null)
+            {
+                standTravelModelManager = GameObject.FindObjectOfType<StandTravelModelManager>();
+            }
+        }
+
+        public void SetStandTravelModelManager(StandTravelModelManager comp)
+        {
+            standTravelModelManager = comp;
         }
 
         protected void OnEnable()
@@ -116,8 +130,17 @@ namespace TurnModel.Scripts
             }
             else
             {
-                A = A_FB;
-                B = B_FB;
+                if (TurnData == TurnDataType.AndXShoulder)
+                {
+                    A = A_SX;
+                    B = B_SX;
+                }
+                else
+                {
+                    A = A_FB;
+                    B = B_FB;    
+                }
+                
             }
         }
         
@@ -129,11 +152,11 @@ namespace TurnModel.Scripts
             if (HowToTurn == TurnMode.UseTorsoRotation)
             {
                 if (TurnData == TurnDataType.OnlyYshoulder)
-                {
                     TurnData = TurnDataType.OnlyYcrotch;
-                }
                 else if (TurnData == TurnDataType.OnlyYcrotch)
                     TurnData = TurnDataType.BothYshoulderAndYcrotch;
+                else if (TurnData == TurnDataType.BothYshoulderAndYcrotch)
+                    TurnData = TurnDataType.AndXShoulder;
                 else
                     TurnData = TurnDataType.OnlyYshoulder;
             }
@@ -189,20 +212,58 @@ namespace TurnModel.Scripts
             {
                 case TurnDataType.OnlyYshoulder:
                     angle = CalcTurnAngle(rightShoulder, leftShoulder);
+                    CalcTurnValueByAngle();
                     break;
                 case TurnDataType.OnlyYcrotch:
                     angle = CalcTurnAngle(rightHip, leftHip);
+                    CalcTurnValueByAngle();
                     break;
                 case TurnDataType.BothYshoulderAndYcrotch:
                     var angleShoulder = CalcTurnAngle(rightShoulder, leftShoulder);
                     var angleHip = CalcTurnAngle(rightHip, leftHip);
                     angle = Math.Min(angleShoulder, angleHip);
+                    CalcTurnValueByAngle();
+                    break;
+                case TurnDataType.AndXShoulder:
+                    Turn turnMode =  CanTurnInXShoulderMode(leftShoulder, rightShoulder);
+                    angle = rightShoulder.x - leftShoulder.x;
+                    CalcTurnValueByXWidth(angle, turnMode);
+                    //Debug.Log($"angle:{angle}, turnMode:{turnMode.ToString()}, turnValue:{turnValue}");
                     break;
             }
 
-            CalcTurnValueByAngle();
         }
 
+        /// <summary>
+        /// 左右肩膀Z轴数据是否存在差值
+        /// </summary>
+        /// <param name="shoulderL"></param>
+        /// <param name="shoulderR"></param>
+        /// <returns></returns>
+        private Turn CanTurnInXShoulderMode(Vector3 shoulderL, Vector3 shoulderR)
+        {
+            var distanceZ = shoulderR.z - shoulderL.z;
+            //Debug.Log($"distanceZ:{distanceZ}");
+            if (distanceZ > XShoulderModeZValue)
+                return Turn.Left;
+            else if (distanceZ < -XShoulderModeZValue)
+                return Turn.Right;
+            else
+                return Turn.None;
+        }
+
+        /// <summary>
+        /// 计算左肩膀与右肩膀X轴数据的差值
+        /// </summary>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        private float CalcTurnValue(float width)
+        {
+            if (width > A) width = A;
+            if (width < B) width = B;
+            return (A - width) / (A - B);
+        }
+        
         /// <summary>
         /// 计算转动角度
         /// </summary>
@@ -213,6 +274,42 @@ namespace TurnModel.Scripts
         {
             var targetDir = new Vector3(to.x, 0, to.z) - new Vector3(from.x, 0, from.z);
             return -(Vector3.Angle(targetDir, transform.forward) - 90);
+        }
+        
+        /// <summary>
+        /// 根据肩宽计算转动速度
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="turnMode"></param>
+        private void CalcTurnValueByXWidth(float width, Turn turnMode)
+        {
+            if (turnMode == Turn.Right)
+            {
+                //turn right
+                turnValue = CalcTurnValue(width);
+                if(SpeedCurve.length > 0)
+                    turnValue = SpeedCurve.Evaluate(turnValue);
+                turnLeftOrRight = Turn.Right;
+                Input.MCTurnValue = turnValue;
+            }
+            else if (turnMode == Turn.Left)
+            {
+                //turn left
+                turnValue = CalcTurnValue(width);
+                if (SpeedCurve.length > 0)
+                    turnValue = -SpeedCurve.Evaluate(turnValue);
+                else
+                    turnValue = -turnValue;
+                turnLeftOrRight = Turn.Left;
+                Input.MCTurnValue = turnValue;
+            }
+            else
+            {
+                //no turn
+                turnLeftOrRight = Turn.None;
+                turnValue = 0;
+                Input.MCTurnValue = 0;
+            }
         }
 
         /// <summary>
