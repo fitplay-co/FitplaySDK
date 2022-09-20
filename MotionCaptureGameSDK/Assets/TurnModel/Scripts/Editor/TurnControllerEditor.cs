@@ -95,9 +95,11 @@ namespace TurnModel.Scripts.Editor
                     lastTimeId = script.HowToTurn == TurnController.TurnMode.UseLeftAndRight ? 2 : 3;
                 }
                 
-              
+                
                 EditorGUILayout.Space();
                 script.Wmax = EditorGUILayout.Slider("最大转动速度:", script.Wmax, 0, 200);
+                EditorGUILayout.Space();
+                script.ReturnWmax = EditorGUILayout.Slider("回正角速度阈值:", script.ReturnWmax, 0, 30);
                 EditorGUILayout.Space();
                 script.SpeedCurve = EditorGUILayout.CurveField("速度曲线设定：", script.SpeedCurve);
                 EditorGUILayout.Space();

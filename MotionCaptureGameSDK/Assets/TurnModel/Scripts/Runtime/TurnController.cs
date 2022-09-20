@@ -34,6 +34,9 @@ namespace TurnModel.Scripts
         [Header("最大转动速度值")] [SerializeField] [Range(0, 200)]
         public float Wmax = 120;
 
+        [Header("回正角速度阈值")] [SerializeField] [Range(0, 30)]
+        public float ReturnWmax = 0;
+
         [Header("速度曲线设定")] public AnimationCurve SpeedCurve = AnimationCurve.Linear(0,0, 1,1);
         [HideInInspector] public float angle = 0;
         [HideInInspector] public Turn turnLeftOrRight = Turn.None;
@@ -48,6 +51,8 @@ namespace TurnModel.Scripts
         private Vector3 rightHip;
         private Vector3 centerHip;
         private Vector3 centerShoulder;
+
+        private float prevAngle;
 
         public enum Turn
         {
@@ -317,6 +322,7 @@ namespace TurnModel.Scripts
         /// </summary>
         private void CalcTurnValueByAngle()
         {
+            prevAngle = angle;
             if (angle > A)
             {
                 //turn right
