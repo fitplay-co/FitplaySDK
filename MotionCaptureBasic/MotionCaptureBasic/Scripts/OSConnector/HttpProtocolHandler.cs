@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using UnityEngine;
 
 namespace MotionCaptureBasic.OSConnector
@@ -78,7 +79,16 @@ namespace MotionCaptureBasic.OSConnector
             var diff = Time.time - lastTime;
             lastTime = Time.time;
             if (string.IsNullOrEmpty(message)) return;
-            if (isDebug) Debug.Log(message);
+            if (isDebug)
+            {
+                using (FileStream fileStream = new FileStream("Logs/OsMsgLog.log", FileMode.Append))
+                {
+                    using (StreamWriter streamWriter = new StreamWriter(fileStream))
+                    {
+                        streamWriter.WriteLine(message);
+                    }
+                }
+            }
             //只解析数据类型
             //目前有三种类型数据，camera, imu, input
             MessageType dataType = Protocol.UnMarshalType(message);
