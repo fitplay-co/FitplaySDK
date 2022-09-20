@@ -177,6 +177,11 @@ namespace TurnModel.Scripts
                     standTravelModelManager.currentMode == MotionMode.Travel);//standTravelModelManager.Enabled &&
         }
 
+        bool IsTurnStandMode() 
+        {
+            return standTravelModelManager != null && standTravelModelManager.turnCharaStandMode;
+        }
+
         /// <summary>
         /// 根据选择启用检测模式
         /// </summary>
@@ -354,7 +359,7 @@ namespace TurnModel.Scripts
 
         void FixedUpdate()
         {
-            if (IsTraveMode())
+            if (IsTraveMode() || IsTurnStandMode())
             {
                 var keyPointList = standTravelModelManager.GetKeyPointsList();
                 if (keyPointList == null) return;

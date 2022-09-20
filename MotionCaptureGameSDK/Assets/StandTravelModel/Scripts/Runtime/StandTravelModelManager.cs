@@ -47,6 +47,9 @@ namespace StandTravelModel.Scripts.Runtime
 
         [Tooltip("是否手动输入身高。如果开启，在游戏进入时需要先输入身高")]
         public bool manualInputTall;
+
+        [Tooltip("是否启用stand模式下turn character")]
+        public bool turnCharaStandMode;
         
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
@@ -527,10 +530,15 @@ namespace StandTravelModel.Scripts.Runtime
         /// <param name="dt"></param>
         public void TurnCharacter(float angle, float dt)
         {
+            if (!turnCharaStandMode && currentMode == MotionMode.Stand) 
+            {
+                return;
+            }
+
             if(motionModel != null)
             {
                 var deltaRotation = Quaternion.Euler(0,tuningParameters.RotationSensitivity * angle * dt, 0);
-                motionModel.GetAnchorController().TurnControlPoints(deltaRotation);
+                anchorController.TurnControlPoints(deltaRotation);
             }
         }
 

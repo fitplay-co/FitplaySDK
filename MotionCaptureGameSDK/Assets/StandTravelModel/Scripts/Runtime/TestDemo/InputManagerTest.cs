@@ -24,29 +24,27 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
             float deltaTime = Time.deltaTime;
             var mode = standTravelModelManager.currentMode;
 
-            if (mode == MotionMode.Travel)
+            float horizontalAngle = 0;
+            var lsh = Input.GetAxis(L_Stick_H);
+            var horizontal = Input.GetAxis(Horizontal);
+            if (lsh != 0)
             {
-                float horizontalAngle = 0;
-                var lsh = Input.GetAxis(L_Stick_H);
-                var horizontal = Input.GetAxis(Horizontal);
-                if (lsh != 0)
-                {
-                    horizontalAngle = lsh;
-                }
-                else if (horizontal != 0)
-                {
-                    horizontalAngle = horizontal;
-                }
-                else if (Input.MCTurnValue != 0)
-                {
-                    horizontalAngle = Input.MCTurnValue;
-                }
-                if (standTravelModelManager.osValidCheck)
-                {
-                    standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
-                }
+                horizontalAngle = lsh;
             }
-            else if (mode == MotionMode.Stand)
+            else if (horizontal != 0)
+            {
+                horizontalAngle = horizontal;
+            }
+            else if (Input.MCTurnValue != 0)
+            {
+                horizontalAngle = Input.MCTurnValue;
+            }
+            if (standTravelModelManager.osValidCheck)
+            {
+                standTravelModelManager.TurnCharacter(horizontalAngle, deltaTime);
+            }
+            
+            if (mode == MotionMode.Stand)
             {
                 bool isResetLocalShift = false;
                 
