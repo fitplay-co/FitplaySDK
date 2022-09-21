@@ -69,7 +69,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             }
             else
             {
-                groundHeight = 0;
+                groundHeight = -10000;
             }
         }
 
