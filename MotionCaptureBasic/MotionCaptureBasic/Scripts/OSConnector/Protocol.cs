@@ -275,7 +275,7 @@ namespace MotionCaptureBasic.OSConnector
         private static MessageType UpdateMessageTypeHandler(string message)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<MessageType>(message);
-            return JsonUtility.FromJson<MessageType>(message);
+            //return JsonUtility.FromJson<MessageType>(message);
         }
     }
 
