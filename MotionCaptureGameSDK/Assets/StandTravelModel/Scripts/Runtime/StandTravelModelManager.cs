@@ -924,7 +924,10 @@ namespace StandTravelModel.Scripts.Runtime
             switch (motionDataModelType)
             {
                 case MotionDataModelType.Http:
-                    HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress);
+                    if (httpOsAddress != "")
+                    {
+                        HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress);
+                    }
                     motionDataModel.AddConnectEvent(SubscribeMessage);
                     break;
                 case MotionDataModelType.Cpp:

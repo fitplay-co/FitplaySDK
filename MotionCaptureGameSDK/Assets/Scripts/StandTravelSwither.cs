@@ -10,7 +10,7 @@ namespace Scripts
 {
     public class StandTravelSwither : MonoBehaviour
     {
-        [Tooltip("手势切换，自动回stand的timeout。单位秒")]
+        [Tooltip("鎵嬪娍鍒囨崲锛岃嚜鍔ㄥ洖stand鐨則imeout銆傚崟浣嶇")]
         public float postureTimeout = 2;
 
         private Dropdown standTravelSwitchOpt;
@@ -19,7 +19,7 @@ namespace Scripts
         private const string joystick_button_0 = "joystick button 0";
         private float timeProgress = 0;
 
-        private int standTravelSwitchMode = 2;
+        private int standTravelSwitchMode = 1;
 
         public void OnEnable()
         {
