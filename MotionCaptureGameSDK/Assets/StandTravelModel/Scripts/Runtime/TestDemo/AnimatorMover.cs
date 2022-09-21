@@ -25,14 +25,14 @@ namespace StandTravelModel.Scripts.Runtime.TestDemo
         private float _terminalVelocity = -53.0f;
 
         [Tooltip("是否利用AnimatorMover来移动。如果不勾则不通过该脚本控制移动")]
-        [SerializeField] private bool isSelfMoveControl;
+        public bool isSelfMoveControl;
 
-        [Tooltip("指定需要控制的characterController")] [SerializeField]
-        private CharacterController characterController;
+        [Tooltip("指定需要控制的characterController")]
+        public CharacterController characterController;
         
-        [SerializeField] private int curFootIndex;
-        [SerializeField] private float gravity = -10;
-        [SerializeField] private Vector3 anchorPos;
+        public int curFootIndex;
+        public float gravity = -10;
+        public Vector3 anchorPos;
 
         private Transform footLeft;
         private Transform footRight;
