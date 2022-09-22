@@ -333,7 +333,7 @@ namespace TurnModel.Scripts
             var targetOmega = (angle - prevAngle) / deltaTime;
             smoothOmega = Mathf.Lerp(smoothOmega, targetOmega, deltaTime * SmoothRate);
             prevAngle = angle;
-            Debug.Log($"Angle: {angle}, Turn omega: {smoothOmega}");
+            //Debug.Log($"Angle: {angle}, Turn omega: {smoothOmega}");
             if (angle > A && smoothOmega > -ReturnWmax)
             {
                 //turn right
