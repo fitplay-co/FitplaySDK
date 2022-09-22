@@ -7470,6 +7470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Girl
       objectReference: {fileID: 0}
+    - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
+      propertyPath: isSelfMoveControl
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: manualInputTall
       value: 1
@@ -7529,18 +7533,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1505443799433131769, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
   m_PrefabInstance: {fileID: 9039311290045051061}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9039311290045051063
-MonoBehaviour:
+--- !u!143 &9039311290045051063
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9039311290045051062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.29
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.01
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &9039311290045051064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7554,6 +7564,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standTravelModelManager: {fileID: 919132148613035384}
+--- !u!114 &9039311290045051065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039311290045051062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02984168fa94e83bc7876b1cfbea1b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9057330996297348918
 Transform:
   m_ObjectHideFlags: 0

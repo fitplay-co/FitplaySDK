@@ -4,23 +4,23 @@ using UnityEngine;
 [Serializable]
 public class StandTravelParams
 {
-    public float runThrehold = 0.25f;
-    public float runThreholdLow = 0.35f;
-    public float freqThrehold = 0.25f;
-    public float freqThreholdLow = 0.35f;
+    public float runThrehold = 1.2f;
+    public float runThreholdLow = 0.8f;
+    public float freqThrehold = 2.5f;
+    public float freqThreholdLow = 2.3f;
     public bool useFrequency = true;
-    public float runSpeedScale = 1;
-    public float walkSpeedScale = 1;
-    public float sprintThrehold = 0.15f;
-    public float  freqSprintThrehold = 0.15f;
-    public float runThresholdScale = 1;
-    public float runThresholdScaleLow = 0.8f;
-    public float sprintSpeedScale = 1.33f;
+    public float runSpeedScale = 3;
+    public float walkSpeedScale = 1.5f;
+    public float sprintThrehold = 0.8f;
+    public float  freqSprintThrehold = 0.14f;
+    public float runThresholdScale = 0.9f;
+    public float runThresholdScaleLow = 0.75f;
+    public float sprintSpeedScale = 1.5f;
     public bool useSmoothSwitch = false;
-    public bool useOSSpeed = true;
-    public bool useOSStepRate = false;
+    public bool useOSSpeed = false;
+    public bool useOSStepRate = true;
     public bool useOSStepRateSeparate = false;
-    public bool useLegActTime = true;
+    public bool useLegActTime = false;
 
     public float GetRunThrehold()
     {
