@@ -34,7 +34,7 @@ namespace TurnModel.Scripts
         [Header("最大转动速度值")] [SerializeField] [Range(0, 200)]
         public float Wmax = 120;
 
-        [Header("回正角速度阈值")] [SerializeField] [Range(0, 30)]
+        [Header("回正角速度阈值")] [SerializeField] [Range(0, 180)]
         public float ReturnWmax = 0;
 
         [Header("速度曲线设定")] public AnimationCurve SpeedCurve = AnimationCurve.Linear(0,0, 1,1);
@@ -53,6 +53,9 @@ namespace TurnModel.Scripts
         private Vector3 centerShoulder;
 
         private float prevAngle;
+        private float deltaTime;
+        private float smoothOmega;
+        private const float SmoothRate = 1;
 
         public enum Turn
         {
@@ -327,8 +330,11 @@ namespace TurnModel.Scripts
         /// </summary>
         private void CalcTurnValueByAngle()
         {
+            var targetOmega = (angle - prevAngle) / deltaTime;
+            smoothOmega = Mathf.Lerp(smoothOmega, targetOmega, deltaTime * SmoothRate);
             prevAngle = angle;
-            if (angle > A)
+            Debug.Log($"Angle: {angle}, Turn omega: {smoothOmega}");
+            if (angle > A && smoothOmega > -ReturnWmax)
             {
                 //turn right
                 turnValue = (angle - A) / (B - A);
@@ -337,7 +343,7 @@ namespace TurnModel.Scripts
                 turnLeftOrRight = Turn.Right;
                 Input.MCTurnValue = turnValue;
             }
-            else if (angle < -A)
+            else if (angle < -A && smoothOmega < ReturnWmax)
             {
                 //turn left
                 turnValue = -(angle + A) / (B - A);
@@ -359,6 +365,7 @@ namespace TurnModel.Scripts
 
         void FixedUpdate()
         {
+            deltaTime = Time.fixedDeltaTime;
             if (IsTraveMode() || IsTurnStandMode())
             {
                 var keyPointList = standTravelModelManager.GetKeyPointsList();
