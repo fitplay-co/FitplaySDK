@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace MotionCaptureBasic.OSConnector
@@ -79,6 +80,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             var diff = Time.time - lastTime;
             lastTime = Time.time;
+            message = RemoveBetween(message, "\"flatbuffersData\":{", "},");
             if (string.IsNullOrEmpty(message)) return;
             if (isDebug)
             {
@@ -116,6 +118,24 @@ namespace MotionCaptureBasic.OSConnector
            
             //     Console.WriteLine("本级时间戳-startTime:" + (nowTime -  _bodyMessageBase.timeProfiling.startTime) + "，" + nowTime + " ，" + _bodyMessageBase.timeProfiling.startTime);
             //     Console.WriteLine($"上一帧和当前帧相差时间：{diff * 1000} 毫秒,服务器处理的时间：{d } 毫秒");
+        }
+        
+        private string RemoveBetween(string s, string begin, string end) 
+        {
+            Regex r = new Regex(begin);
+            Match m = r.Match(s); 
+            if (m.Success)
+            {
+                int start = m.Index;
+                r = new Regex(end);
+                m = r.Match(s, start + begin.Length);
+                if (m.Success)
+                {
+                    int e = m.Index;
+                    return s.Remove(start, e - start + end.Length);
+                }
+            }
+            return s;
         }
 
         private void OnConnect()
