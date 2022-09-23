@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnController: {fileID: 882148806070276347}
+  standTravelModelManager: {fileID: 0}
 --- !u!114 &882148806070276347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +65,11 @@ MonoBehaviour:
   B_LR: 20
   A_FB: 10
   B_FB: 60
+  A_SX: 0.35
+  B_SX: 0.25
+  XShoulderModeZValue: 0.12
   Wmax: 120
+  ReturnWmax: 0
   SpeedCurve:
     serializedVersion: 2
     m_Curve:

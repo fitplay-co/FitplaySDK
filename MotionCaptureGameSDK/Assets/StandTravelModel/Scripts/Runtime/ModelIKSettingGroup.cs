@@ -17,6 +17,7 @@ namespace StandTravelModel.Scripts.Runtime
         public void SetEnable(bool active)
         {
             FinalIKComponent.enabled = active;
+            IKScript.enabled = active;
             //FinalIKLookAtComponent.enabled = active;
             if(!active)
             {

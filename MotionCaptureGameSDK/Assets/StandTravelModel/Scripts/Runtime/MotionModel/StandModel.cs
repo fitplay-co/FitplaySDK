@@ -34,6 +34,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 anchorController.StandFollowPoint.transform.position + localShift;
             /*selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation *
                                         predictBodyRotation;*/
+            selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+
             base.OnLateUpdate();
         }
 

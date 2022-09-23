@@ -263,17 +263,22 @@ namespace MotionCaptureBasic.OSConnector
             _bodyMsgCache.monitor = bodyMsg.monitor;
         }
 
+        
         private static IKBodyUpdateMessage UpdateMessageHandler(string message)
         {
-            var body = JsonUtility.FromJson<IKBodyUpdateMessage>(message);
+            message = message.Replace("μs", "");
+            var body = Newtonsoft.Json.JsonConvert.DeserializeObject<IKBodyUpdateMessage>(message);
+            //var body = JsonUtility.FromJson<IKBodyUpdateMessage>(message);
             return body;
         }
         
         private static MessageType UpdateMessageTypeHandler(string message)
         {
-            return JsonUtility.FromJson<MessageType>(message);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<MessageType>(message);
+            //return JsonUtility.FromJson<MessageType>(message);
         }
     }
+
     
     [Serializable]
     public class MessageType : HandleMessageBase
@@ -342,7 +347,7 @@ namespace MotionCaptureBasic.OSConnector
         public string sensor_type;
         public string version;
         public uint device_id;
-        public uint timestamp;
+        public long timestamp;
         public uint seq;
 
         public Keys keys;
@@ -406,12 +411,12 @@ namespace MotionCaptureBasic.OSConnector
         public float watchData_y;
     }
 
-    [Serializable]
+    [Serializable]  
     public class PoseLandmarkItem
     {
         public List<KeyPointItem> keypoints;
         public List<KeyPointItem> keypoints3D;
-        public int timestamp;
+        public long timestamp;
         public string version;
     }
 
