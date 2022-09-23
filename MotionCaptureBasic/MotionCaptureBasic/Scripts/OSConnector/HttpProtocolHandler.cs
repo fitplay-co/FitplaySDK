@@ -36,9 +36,10 @@ namespace MotionCaptureBasic.OSConnector
         {
         }
 
-        public void StartWebSocket(string url)
+        public void StartWebSocket(string url, bool useJson)
         {
             var app = WebsocketOSClient.GetInstance();
+            app.SetUseJson(useJson);
             app.InitConnect(url);
             app.OnReceived += OnReceived;
             app.OnConnect += OnConnect;
@@ -124,12 +125,12 @@ namespace MotionCaptureBasic.OSConnector
         
         private void OnClosed()
         {
-            onConnect?.Invoke();
+            onClosed?.Invoke();
         }
         
         private void OnError()
         {
-            onConnect?.Invoke();
+            onError?.Invoke();
         }
     }
 }

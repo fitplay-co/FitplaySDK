@@ -24,9 +24,9 @@ namespace MotionCaptureBasic.MessageSend
         /// 发送注册帧
         /// </summary>
         /// <returns></returns>
-        public bool SendMessageRegister()
+        public bool SendMessageRegister(bool useJson)
         {
-            return SendAsync(MessageFactory.CreateMessageRegister());
+            return SendAsync(MessageFactory.CreateMessageRegister(useJson));
         }
 
         /// <summary>

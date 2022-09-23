@@ -112,7 +112,7 @@ namespace AppleTvOs
             if (ValidateIPAddress(inputField.text))
             {
                 displayHud.SetActive(true);
-                HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text);
+                HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text, true);
                 Invoke(nameof(Disabled), 0.1f);
             }
             else

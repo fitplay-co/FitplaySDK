@@ -14,6 +14,8 @@ namespace MotionCaptureBasic.MessageSend
     public class MessageRegister
     {
         public string type;
+        public string id;
+        public bool useJson;
     }
 
     public class Config

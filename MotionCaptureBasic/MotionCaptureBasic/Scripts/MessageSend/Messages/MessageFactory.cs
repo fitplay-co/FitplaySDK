@@ -2,11 +2,13 @@ namespace MotionCaptureBasic.MessageSend
 {
     public static class MessageFactory
     {
-        public static object CreateMessageRegister()
+        public static object CreateMessageRegister(bool useJson)
         {
-            return new MessageBody()
+            return new MessageRegister()
             {
-                type = MessageType.application_client.ToString()
+                type = MessageType.application_client.ToString(),
+                id = "application_id",
+                useJson = useJson
             };
         }
 

@@ -17,6 +17,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private IWebSocket socket;
         private MessageSender messageSubscriber;
+        private bool isUseJson = false;
 
         private WebsocketOSClient()
         {
@@ -48,14 +49,19 @@ namespace MotionCaptureBasic.OSConnector
             Console.WriteLine("WebSocket closed.");
         }
 
-        public bool SendMessageRegister()
+        public bool SendMessageRegister(bool useJson)
         {
             if (messageSubscriber != null)
             {
-                return messageSubscriber.SendMessageRegister();
+                return messageSubscriber.SendMessageRegister(useJson);
             }
 
             return false;
+        }
+
+        public void SetUseJson(bool useJson)
+        {
+            isUseJson = useJson;
         }
 
         public bool SubscribeGazeTracking(bool active)
@@ -231,7 +237,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private void Socket_OnOpen(object sender, OpenEventArgs e)
         {
-            messageSubscriber.SendMessageRegister();
+            messageSubscriber.SendMessageRegister(isUseJson);
 
             OnConnect?.Invoke();
         }
@@ -240,6 +246,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             if (e.IsBinary)
             {
+                
                 //Debug.LogError(string.Format("Receive Bytes ({1}): {0}", e.Data, e.RawData.Length));
             }
             else if (e.IsText)
