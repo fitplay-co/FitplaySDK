@@ -245,6 +245,10 @@ namespace StandTravelModel.Scripts.Runtime
         {
             Application.targetFrameRate = 60;
             _initPosition = this.transform.position;
+            if (selfTransform == null)
+            {
+                selfTransform = transform;
+            }
 
             InitParamsLoader();
             InitMotionDataModel();
