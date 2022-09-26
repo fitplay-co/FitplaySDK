@@ -80,7 +80,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             var diff = Time.time - lastTime;
             lastTime = Time.time;
-            message = RemoveBetween(message, "\"flatbuffersData\":{", "},");
+            //message = RemoveBetween(message, "\"flatbuffersData\":{", "},");
             if (string.IsNullOrEmpty(message)) return;
             if (isDebug)
             {
