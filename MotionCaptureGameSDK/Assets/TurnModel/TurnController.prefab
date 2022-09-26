@@ -69,7 +69,7 @@ MonoBehaviour:
   B_SX: 0.25
   XShoulderModeZValue: 0.12
   Wmax: 120
-  ReturnWmax: 0
+  ReturnWmax: 20
   SpeedCurve:
     serializedVersion: 2
     m_Curve:
