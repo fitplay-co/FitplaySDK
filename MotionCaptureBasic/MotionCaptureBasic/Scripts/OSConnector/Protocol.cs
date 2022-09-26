@@ -267,6 +267,7 @@ namespace MotionCaptureBasic.OSConnector
         private static IKBodyUpdateMessage UpdateMessageHandler(string message)
         {
             message = message.Replace("μs", "");
+            message = message.Replace("us", "");
             var body = Newtonsoft.Json.JsonConvert.DeserializeObject<IKBodyUpdateMessage>(message);
             //var body = JsonUtility.FromJson<IKBodyUpdateMessage>(message);
             return body;
