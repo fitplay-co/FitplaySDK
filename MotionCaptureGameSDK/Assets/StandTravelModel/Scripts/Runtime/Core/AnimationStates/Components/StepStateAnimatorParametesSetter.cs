@@ -9,6 +9,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
     {
         private int animIdLegLeft;
         private int animIdRunSpeed;
+        private int animIdStableLeftLeg;
+        private int animIdStableRightLeg;
         private int animIdSprintPercent;
         private int animIdWalkRunPercent;
         private int animIdLegRight;
@@ -57,6 +59,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdRunSpeed = Animator.StringToHash("runSpeed");
             this.animIdLegRight = Animator.StringToHash("rightLeg");
             this.animIdLastLegUp = Animator.StringToHash("lastLegUp");
+            this.animIdStableLeftLeg = Animator.StringToHash("stableLeftLeg");
+            this.animIdStableRightLeg = Animator.StringToHash("stableRightLeg");
             this.animIdZeroDelayed = Animator.StringToHash("zeroDelayed");
             this.animIdStepProgress = Animator.StringToHash("stepProgress");
             this.animIdSprintPercent = Animator.StringToHash("sprintPercent");
@@ -97,8 +101,12 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             {
                 var leftLeg = actionDetectionItem.walk.GetLeftLeg();
                 var rightLeg = actionDetectionItem.walk.GetRightLeg();
+                var stableLeftLeg = actionDetectionItem.walk.leftLeg;
+                var stableRightLeg = actionDetectionItem.walk.rightLeg;
                 travelOwner.selfAnimator.SetInteger(animIdLegLeft, leftLeg);
                 travelOwner.selfAnimator.SetInteger(animIdLegRight, rightLeg);
+                travelOwner.selfAnimator.SetInteger(animIdStableLeftLeg, stableLeftLeg);
+                travelOwner.selfAnimator.SetInteger(animIdStableRightLeg, stableRightLeg);
 
                 if(leftLeg == 0 && rightLeg == 0)
                 {
