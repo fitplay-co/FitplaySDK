@@ -32,6 +32,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="FlatBuffers">
+          <HintPath>Lib\FlatBuffers.dll</HintPath>
+        </Reference>
         <Reference Include="Newtonsoft.Json">
           <HintPath>Lib\Newtonsoft.Json.dll</HintPath>
         </Reference>
@@ -49,6 +52,34 @@
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Scripts\Event\BasicEventHandler.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Action.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Fitting.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\FkLandmark.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Gaze.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\General.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Ground.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Joint.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Jump.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Squat.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Stand.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ActionData\Walk.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ApplicationClient\Client.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ApplicationControl\Control.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ApplicationControl\ControlData.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\FeatureConfigs\FeatureConfig.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\FeatureConfigs\FeatureConfigList.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ImuData\Imu.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ImuData\Vec3.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\ImuData\Vec4.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Input\InputMessage.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Input\MessageType.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Output\OutputMessage.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Output\TimeProfiling.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\PoseData\Point.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\PoseData\Pose.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Sensor\SensorClient.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Sensor\SensorControl.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\Sensor\SensorFrame.cs" />
         <Compile Include="Scripts\FSM\IState.cs" />
         <Compile Include="Scripts\FSM\IStateMachine.cs" />
         <Compile Include="Scripts\FSM\State.cs" />
@@ -85,6 +116,7 @@
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocketManager.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Lib\FlatBuffers.dll" />
       <Content Include="Lib\Newtonsoft.Json.dll" />
       <Content Include="Lib\UnityEngine.CoreModule.dll" />
       <Content Include="Lib\UnityEngine.JSONSerializeModule.dll" />
