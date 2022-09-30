@@ -71,10 +71,10 @@
         <Compile Include="Scripts\FlatBuffersProto\ImuData\Imu.cs" />
         <Compile Include="Scripts\FlatBuffersProto\ImuData\Vec3.cs" />
         <Compile Include="Scripts\FlatBuffersProto\ImuData\Vec4.cs" />
-        <Compile Include="Scripts\FlatBuffersProto\Input\InputMessage.cs" />
-        <Compile Include="Scripts\FlatBuffersProto\Input\MessageType.cs" />
-        <Compile Include="Scripts\FlatBuffersProto\Output\OutputMessage.cs" />
-        <Compile Include="Scripts\FlatBuffersProto\Output\TimeProfiling.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\OsInput\InputMessage.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\OsInput\MessageType.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\OsOutput\OutputMessage.cs" />
+        <Compile Include="Scripts\FlatBuffersProto\OsOutput\TimeProfiling.cs" />
         <Compile Include="Scripts\FlatBuffersProto\PoseData\Point.cs" />
         <Compile Include="Scripts\FlatBuffersProto\PoseData\Pose.cs" />
         <Compile Include="Scripts\FlatBuffersProto\Sensor\SensorClient.cs" />

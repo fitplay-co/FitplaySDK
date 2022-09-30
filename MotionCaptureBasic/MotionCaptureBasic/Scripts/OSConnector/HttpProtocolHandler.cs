@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using FlatBuffers;
-using Output;
+using OsOutput;
 using PoseData;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -334,8 +334,8 @@ namespace MotionCaptureBasic.OSConnector
                 walkItem.velocityThreshold = walkData.Value.VelocityThreshold;
                 walkItem.stepRate = walkData.Value.StepRate;
                 walkItem.stepLen = walkData.Value.StepLen;
-                walkItem.realtimeLeftLeg = (int) walkData.Value.RealtimeLeftLeg;
-                walkItem.realtimeRightLeg = (int) walkData.Value.RealtimeRightLeg;
+                walkItem.realtimeLeftLeg = walkData.Value.RealtimeLeftLeg;
+                walkItem.realtimeRightLeg = walkData.Value.RealtimeRightLeg;
                 actionDetectionItem.walk = walkItem;
             }
             else
@@ -348,7 +348,7 @@ namespace MotionCaptureBasic.OSConnector
             {
                 var jumpItem = actionDetectionItem.jump;
                 jumpItem.velocity = jumpData.Value.Velocity;
-                jumpItem.onTheGround = (int) jumpData.Value.OnTheGround;
+                jumpItem.onTheGround = jumpData.Value.OnTheGround;
                 actionDetectionItem.jump = jumpItem;
             }
             else
@@ -366,7 +366,7 @@ namespace MotionCaptureBasic.OSConnector
             if (standDetectionData != null)
             {
                 var standDetectionItem = _bodyMessageBase.stand_detection;
-                standDetectionItem.mode = (int) standDetectionData.Value.Mode;
+                standDetectionItem.mode = standDetectionData.Value.Mode;
                 _bodyMessageBase.stand_detection = standDetectionItem;
             }
             else

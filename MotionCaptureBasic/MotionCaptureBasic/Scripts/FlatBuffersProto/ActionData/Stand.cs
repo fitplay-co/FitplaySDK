@@ -19,17 +19,17 @@ public struct Stand : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public Stand __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public float Mode { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int Mode { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<ActionData.Stand> CreateStand(FlatBufferBuilder builder,
-      float mode = 0.0f) {
+      int mode = 0) {
     builder.StartTable(1);
     Stand.AddMode(builder, mode);
     return Stand.EndStand(builder);
   }
 
   public static void StartStand(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddMode(FlatBufferBuilder builder, float mode) { builder.AddFloat(0, mode, 0.0f); }
+  public static void AddMode(FlatBufferBuilder builder, int mode) { builder.AddInt(0, mode, 0); }
   public static Offset<ActionData.Stand> EndStand(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<ActionData.Stand>(o);

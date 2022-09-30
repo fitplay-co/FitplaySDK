@@ -34,8 +34,8 @@ public struct Walk : IFlatbufferObject
   public float StepLen { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public float Velocity { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public float VelocityThreshold { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float RealtimeLeftLeg { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float RealtimeRightLeg { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public int RealtimeLeftLeg { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public int RealtimeRightLeg { get { int o = __p.__offset(36); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<ActionData.Walk> CreateWalk(FlatBufferBuilder builder,
       int leftLeg = 0,
@@ -53,8 +53,8 @@ public struct Walk : IFlatbufferObject
       float stepLen = 0.0f,
       float velocity = 0.0f,
       float velocityThreshold = 0.0f,
-      float realtimeLeftLeg = 0.0f,
-      float realtimeRightLeg = 0.0f) {
+      int realtimeLeftLeg = 0,
+      int realtimeRightLeg = 0) {
     builder.StartTable(17);
     Walk.AddRealtimeRightLeg(builder, realtimeRightLeg);
     Walk.AddRealtimeLeftLeg(builder, realtimeLeftLeg);
@@ -92,8 +92,8 @@ public struct Walk : IFlatbufferObject
   public static void AddStepLen(FlatBufferBuilder builder, float stepLen) { builder.AddFloat(12, stepLen, 0.0f); }
   public static void AddVelocity(FlatBufferBuilder builder, float velocity) { builder.AddFloat(13, velocity, 0.0f); }
   public static void AddVelocityThreshold(FlatBufferBuilder builder, float velocityThreshold) { builder.AddFloat(14, velocityThreshold, 0.0f); }
-  public static void AddRealtimeLeftLeg(FlatBufferBuilder builder, float realtimeLeftLeg) { builder.AddFloat(15, realtimeLeftLeg, 0.0f); }
-  public static void AddRealtimeRightLeg(FlatBufferBuilder builder, float realtimeRightLeg) { builder.AddFloat(16, realtimeRightLeg, 0.0f); }
+  public static void AddRealtimeLeftLeg(FlatBufferBuilder builder, int realtimeLeftLeg) { builder.AddInt(15, realtimeLeftLeg, 0); }
+  public static void AddRealtimeRightLeg(FlatBufferBuilder builder, int realtimeRightLeg) { builder.AddInt(16, realtimeRightLeg, 0); }
   public static Offset<ActionData.Walk> EndWalk(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<ActionData.Walk>(o);
