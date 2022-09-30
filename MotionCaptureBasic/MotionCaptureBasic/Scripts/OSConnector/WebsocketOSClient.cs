@@ -13,6 +13,7 @@ namespace MotionCaptureBasic.OSConnector
         public event Action OnClosed;
         public event Action OnError;
         public event ReceiveAction OnReceived;
+        public event Action<byte[]> OnReceivedBytes;
 
 
         private IWebSocket socket;
@@ -53,7 +54,7 @@ namespace MotionCaptureBasic.OSConnector
         {
             if (messageSubscriber != null)
             {
-                return messageSubscriber.SendMessageRegister(useJson);
+                return messageSubscriber.SendMessageRegister();
             }
 
             return false;
@@ -232,12 +233,12 @@ namespace MotionCaptureBasic.OSConnector
 
         private void InitMessageSubscriber(IWebSocket webSocket)
         {
-            messageSubscriber = new MessageSender(webSocket);
+            messageSubscriber = new MessageSender(webSocket, isUseJson);
         }
 
         private void Socket_OnOpen(object sender, OpenEventArgs e)
         {
-            messageSubscriber.SendMessageRegister(isUseJson);
+            messageSubscriber.SendMessageRegister();
 
             OnConnect?.Invoke();
         }
@@ -246,8 +247,8 @@ namespace MotionCaptureBasic.OSConnector
         {
             if (e.IsBinary)
             {
-                
                 //Debug.LogError(string.Format("Receive Bytes ({1}): {0}", e.Data, e.RawData.Length));
+                OnReceivedBytes?.Invoke(e.RawData);
             }
             else if (e.IsText)
             {

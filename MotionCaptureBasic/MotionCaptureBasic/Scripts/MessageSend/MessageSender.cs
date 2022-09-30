@@ -8,11 +8,13 @@ namespace MotionCaptureBasic.MessageSend
     public class MessageSender
     {
         private IWebSocket socket;
+        private bool isUseJson;
         private bool isDebug;
 
-        public MessageSender(IWebSocket socket)
+        public MessageSender(IWebSocket socket, bool useJson)
         {
             this.socket = socket;
+            isUseJson = useJson;
         }
 
         public void SetDebug(bool isDebug)
@@ -24,9 +26,18 @@ namespace MotionCaptureBasic.MessageSend
         /// 发送注册帧
         /// </summary>
         /// <returns></returns>
-        public bool SendMessageRegister(bool useJson)
+        public bool SendMessageRegister()
         {
-            return SendAsync(MessageFactory.CreateMessageRegister(useJson));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageRegister(isUseJson));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -36,7 +47,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeGazeTracking(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.gaze_tracking, active));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.gaze_tracking, active));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -46,7 +66,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeGroundLocation(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location, active));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location, active));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -56,7 +85,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeActionDetection(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.action_detection, active));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.action_detection, active));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -66,18 +104,45 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeFitting(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageFitting(active));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageFitting(active));
+            }
+            else
+            {
+                
+            }
         }
 
         public bool SubscribeGeneral(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.general_detection, active));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.general_detection, active));
+            }
+            else
+            {
+                
+            }
         }
 
         public bool ResetGroundLocation()
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location,
-                MessageControlAction.reset));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location,
+                    MessageControlAction.reset));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -87,7 +152,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendFrameRateControl(int fps)
         {
-            return SendAsync(MessageFactory.CreateConfigMessage(fps));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateConfigMessage(fps));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -97,7 +171,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendHeightSetting(int h)
         {
-            return SendAsync(MessageFactory.CreateHeightSetMessage(h));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateHeightSetMessage(h));
+            }
+            else
+            {
+                
+            }
         }
 
         /// <summary>
@@ -109,7 +192,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendVibrationControl(int deviceId, int vibrationType, int strength)
         {
-            return SendAsync(MessageFactory.CreateVibrationMessage(deviceId, vibrationType, strength));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateVibrationMessage(deviceId, vibrationType, strength));
+            }
+            else
+            {
+                
+            }
         }
         
         /// <summary>
@@ -119,7 +211,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendImuResetControl(int deviceId)
         {
-            return SendAsync(MessageFactory.CreateImuResetMessage(deviceId));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateImuResetMessage(deviceId));
+            }
+            else
+            {
+                
+            }
         }
         
         /// <summary>
@@ -130,7 +231,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendHeartControl(int deviceId, int command)
         {
-            return SendAsync(MessageFactory.CreateHeartMessage(deviceId, command));
+            //TODO: 实现flatbuffers版发送数据
+            // if (isUseJson)
+            if (true)
+            {
+                return SendAsync(MessageFactory.CreateHeartMessage(deviceId, command));
+            }
+            else
+            {
+                
+            }
         }
 
         private bool SendAsync(object message)

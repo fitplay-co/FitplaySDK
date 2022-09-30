@@ -50,6 +50,9 @@ namespace StandTravelModel.Scripts.Runtime
 
         [Tooltip("是否启用stand模式下turn character")]
         public bool turnCharaStandMode;
+
+        [Tooltip("是否使用json与os交互")] 
+        public bool isUseJson;
         
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
@@ -938,7 +941,7 @@ namespace StandTravelModel.Scripts.Runtime
                 case MotionDataModelType.Http:
                     if (httpOsAddress != "")
                     {
-                        HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, true);
+                        HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
                     }
                     motionDataModel.AddConnectEvent(SubscribeMessage);
                     break;

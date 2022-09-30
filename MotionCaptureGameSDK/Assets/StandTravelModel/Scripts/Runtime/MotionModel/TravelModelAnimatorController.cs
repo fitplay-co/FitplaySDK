@@ -8,11 +8,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public class TravelModelAnimatorController
     {
-        public int currentLeg => _currentLeg;
-        public float currentFrequency => _currentFrequency;
-
-        private int _currentLeg;
-        private float _currentFrequency;
         private string prevAnimationTransitionState;
         private IMotionDataModel motionDataModel;
         private AnchorController anchorController;
@@ -70,9 +65,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 string animationPlaySpeedParam = "";
                 float animationPlaySpeed = 0f;
                 float movingSpeed = 0f;
-
-                _currentLeg = walkDetectionData.legUp;
-                _currentFrequency = walkDetectionData.frequency / 60f;
 
                 /*for (int i = 0; i < runLevels; i++)
                 {

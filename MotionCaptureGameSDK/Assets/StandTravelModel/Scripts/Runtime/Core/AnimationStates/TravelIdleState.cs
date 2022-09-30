@@ -50,18 +50,8 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
             {
                 parametersSetter.TrySetIdleParameters();
 
-                travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
-                travelOwner.currentLeg = actionDetectionData.walk.legUp;
-                //Debug.LogError($"Leg: {actionDetectionData.walk.legUp}, Frequency: {actionDetectionData.walk.frequency}, Strength: {actionDetectionData.walk.strength}");
-
                 var isRunReady = runConditioner.IsEnterRunReady(actionDetectionData.walk, false);
                 isRunReady = false;         //for debuging
-
-                if (actionDetectionData.walk.legUp != 0 && isRunReady)
-                {
-                    travelOwner.ChangeState(AnimationList.Run);
-                    return;
-                }
 
                 if (actionDetectionData.walk.GetLeftLeg() != 0)
                 {

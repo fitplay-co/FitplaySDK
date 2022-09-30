@@ -1356,6 +1356,7 @@ MonoBehaviour:
   useLocomotion: 0
   manualInputTall: 0
   turnCharaStandMode: 0
+  isUseJson: 0
   motionDataModelType: 0
   httpOsAddress: 
   initialMode: 1
@@ -4066,6 +4067,7 @@ MonoBehaviour:
   useLocomotion: 0
   manualInputTall: 0
   turnCharaStandMode: 0
+  isUseJson: 0
   motionDataModelType: 0
   httpOsAddress: 
   initialMode: 1
