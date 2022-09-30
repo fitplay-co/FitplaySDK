@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using FlatBuffers;
+using Newtonsoft.Json;
 using OsOutput;
 using PoseData;
 using UnityEngine;
@@ -115,6 +116,17 @@ namespace MotionCaptureBasic.OSConnector
             this.isDebug = isDebug;
         }
 
+        private void WriteLogFile(string logContent)
+        {
+            using (FileStream fileStream = new FileStream("Logs/OsMsgLog.log", FileMode.Append))
+            {
+                using (StreamWriter streamWriter = new StreamWriter(fileStream))
+                {
+                    streamWriter.WriteLine(logContent);
+                }
+            }
+        }
+
         private void OnReceived(string message)
         {
             //var diff = Time.time - lastTime;
@@ -123,13 +135,7 @@ namespace MotionCaptureBasic.OSConnector
             if (string.IsNullOrEmpty(message)) return;
             if (isDebug)
             {
-                using (FileStream fileStream = new FileStream("Logs/OsMsgLog.log", FileMode.Append))
-                {
-                    using (StreamWriter streamWriter = new StreamWriter(fileStream))
-                    {
-                        streamWriter.WriteLine(message);
-                    }
-                }
+                WriteLogFile(message);
             }
             //只解析数据类型
             //目前有三种类型数据，camera, imu, input
@@ -219,8 +225,8 @@ namespace MotionCaptureBasic.OSConnector
             if (fittingData?.RotationLength != FittingLength ||
                 fittingData.Value.LocalRotationLength != FittingLength ||
                 fittingData.Value.MirrorRotationLength != FittingLength ||
-                fittingData.Value.MirrorLocalRotationLength != FittingLength ||
-                fittingData.Value.FittedLandmarksLength != FittingLength)
+                fittingData.Value.MirrorLocalRotationLength != FittingLength/* ||
+                fittingData.Value.FittedLandmarksLength != FittingLength*/)
             {
                 Debug.LogError("flatbuffers data invalid, fitting data has error");
                 return;
@@ -236,7 +242,7 @@ namespace MotionCaptureBasic.OSConnector
             fittingItem.mirrorLocalRotation =
                 FKJointListConverter(fittingItem.mirrorLocalRotation, fittingData.Value.MirrorLocalRotation);
 
-            var fkKeypoints3D = fittingItem.keypoints3D;
+            /*var fkKeypoints3D = fittingItem.keypoints3D;
             for (int i = 0; i < FittingLength; i++)
             {
                 var fkLandmark = fittingData.Value.FittedLandmarks(i);
@@ -252,7 +258,7 @@ namespace MotionCaptureBasic.OSConnector
                 }
             }
 
-            fittingItem.keypoints3D = fkKeypoints3D;
+            fittingItem.keypoints3D = fkKeypoints3D;*/
 
             _bodyMessageBase.fitting = fittingItem;
 
@@ -267,9 +273,9 @@ namespace MotionCaptureBasic.OSConnector
                 timeProfilingItem.processingTime = timeProfilingData.Value.ProcessingTime;
                 _bodyMessageBase.timeProfiling = timeProfilingItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, time profiling data has error");
+                Debug.LogWarning("no time profiling data");
             }
 
             #endregion
@@ -288,9 +294,9 @@ namespace MotionCaptureBasic.OSConnector
                 groundLocationItem.legLength = groundLocationData.Value.LegLength;
                 _bodyMessageBase.ground_location = groundLocationItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, ground location data has error");
+                Debug.LogWarning("no ground location data");
             }
 
             #endregion
@@ -307,9 +313,9 @@ namespace MotionCaptureBasic.OSConnector
                 gazeTrackingItem.z = gazeTrackingData.Value.Z;
                 _bodyMessageBase.gaze_tracking = gazeTrackingItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, gaze tracking data has error");
+                Debug.LogWarning("no gaze tracking data");
             }
 
             #endregion
@@ -338,9 +344,9 @@ namespace MotionCaptureBasic.OSConnector
                 walkItem.realtimeRightLeg = walkData.Value.RealtimeRightLeg;
                 actionDetectionItem.walk = walkItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, walk data has error");
+                Debug.LogWarning("no walk data");
             }
 
             var jumpData = actionData?.Jump;
@@ -351,9 +357,9 @@ namespace MotionCaptureBasic.OSConnector
                 jumpItem.onTheGround = jumpData.Value.OnTheGround;
                 actionDetectionItem.jump = jumpItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, jump data has error");
+                Debug.LogWarning("no jump data");
             }
 
             _bodyMessageBase.action_detection = actionDetectionItem;
@@ -369,9 +375,9 @@ namespace MotionCaptureBasic.OSConnector
                 standDetectionItem.mode = standDetectionData.Value.Mode;
                 _bodyMessageBase.stand_detection = standDetectionItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, stand detection data has error");
+                Debug.LogWarning("no stand detection data");
             }
 
             #endregion
@@ -385,12 +391,19 @@ namespace MotionCaptureBasic.OSConnector
                 generalDetectionItem.confidence = (int) generalDetectionData.Value.Confidence;
                 _bodyMessageBase.general_detection = generalDetectionItem;
             }
-            else
+            else if (isDebug)
             {
-                Debug.LogError("flatbuffers data invalid, general detection data has error");
+                Debug.LogWarning("no general detection data");
             }
 
             #endregion
+
+            if (isDebug)
+            {
+                var jsonData = JsonConvert.SerializeObject(_bodyMessageBase/*, Formatting.None,
+                    new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore}*/);
+                WriteLogFile(jsonData);
+            }
         }
 
         private delegate PoseData.Point? GetPointDelegate(int i);

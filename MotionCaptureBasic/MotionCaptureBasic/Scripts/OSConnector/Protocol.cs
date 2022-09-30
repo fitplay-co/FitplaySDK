@@ -430,21 +430,14 @@ namespace MotionCaptureBasic.OSConnector
         public float score;
         public string name;
         
-        public Vector3 Position
+        public Vector3 Position()
         {
-            get
-            {
-                var position = new Vector3(-x, -y, -z);
-                return position;
-            }
+            return new Vector3(-x, -y, -z);
         }
         
-        public Quaternion Rotation
+        public Quaternion Rotation()
         {
-            get
-            {
-                return Quaternion.identity;
-            }
+            return Quaternion.identity;
         }
     }
 
