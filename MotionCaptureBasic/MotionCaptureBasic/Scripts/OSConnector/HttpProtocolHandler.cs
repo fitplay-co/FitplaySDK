@@ -17,7 +17,7 @@ namespace MotionCaptureBasic.OSConnector
         private static readonly object _Synchronized = new object();
 
         private bool isDebug;
-        private float lastTime;
+        //private float lastTime;
         private Action onConnect;
         private Action onClosed;
         private Action onError;
@@ -117,8 +117,8 @@ namespace MotionCaptureBasic.OSConnector
 
         private void OnReceived(string message)
         {
-            var diff = Time.time - lastTime;
-            lastTime = Time.time;
+            //var diff = Time.time - lastTime;
+            //lastTime = Time.time;
             //message = RemoveBetween(message, "\"flatbuffersData\":{", "},");
             if (string.IsNullOrEmpty(message)) return;
             if (isDebug)
@@ -152,8 +152,8 @@ namespace MotionCaptureBasic.OSConnector
             
             //动捕数据处理通道
             _bodyMessageBase = Protocol.UnMarshal(message) as IKBodyUpdateMessage;
-            var d  = _bodyMessageBase.timeProfiling.beforeSendTime - _bodyMessageBase.timeProfiling.startTime;
-            var nowTime = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000;
+            //var d  = _bodyMessageBase.timeProfiling.beforeSendTime - _bodyMessageBase.timeProfiling.startTime;
+            //var nowTime = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000;
            
             //     Console.WriteLine("本级时间戳-startTime:" + (nowTime -  _bodyMessageBase.timeProfiling.startTime) + "，" + nowTime + " ，" + _bodyMessageBase.timeProfiling.startTime);
             //     Console.WriteLine($"上一帧和当前帧相差时间：{diff * 1000} 毫秒,服务器处理的时间：{d } 毫秒");
@@ -205,7 +205,8 @@ namespace MotionCaptureBasic.OSConnector
             var poseLandmarkItem = _bodyMessageBase.pose_landmark;
 
             poseLandmarkItem.keypoints = KeyPointListConverter(poseLandmarkItem.keypoints, poseData.Value.Keypoints);
-            poseLandmarkItem.keypoints3D = KeyPointListConverter(poseLandmarkItem.keypoints3D, poseData.Value.Keypoints3D);
+            poseLandmarkItem.keypoints3D =
+                KeyPointListConverter(poseLandmarkItem.keypoints3D, poseData.Value.Keypoints3D);
 
             _bodyMessageBase.pose_landmark = poseLandmarkItem;
 
@@ -259,37 +260,135 @@ namespace MotionCaptureBasic.OSConnector
 
             #region Convert time profiling data
 
-            
+            if (timeProfilingData != null)
+            {
+                var timeProfilingItem = _bodyMessageBase.timeProfiling;
+                timeProfilingItem.beforeSendTime = timeProfilingData.Value.BeforeSendTime;
+                timeProfilingItem.processingTime = timeProfilingData.Value.ProcessingTime;
+                _bodyMessageBase.timeProfiling = timeProfilingItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, time profiling data has error");
+            }
 
             #endregion
 
             #region Convert ground location data
 
-            
+            var groundLocationData = actionData?.Ground;
+
+            if (groundLocationData != null)
+            {
+                var groundLocationItem = _bodyMessageBase.ground_location;
+                groundLocationItem.x = groundLocationData.Value.X;
+                groundLocationItem.y = groundLocationData.Value.Y;
+                groundLocationItem.z = groundLocationData.Value.Z;
+                //groundLocationItem.tracing = groundLocationData.Value.Tracing;
+                groundLocationItem.legLength = groundLocationData.Value.LegLength;
+                _bodyMessageBase.ground_location = groundLocationItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, ground location data has error");
+            }
 
             #endregion
 
             #region Convert gaze tracking data
 
-            
+            var gazeTrackingData = actionData?.Gaze;
+
+            if (gazeTrackingData != null)
+            {
+                var gazeTrackingItem = _bodyMessageBase.gaze_tracking;
+                gazeTrackingItem.x = gazeTrackingData.Value.X;
+                gazeTrackingItem.y = gazeTrackingData.Value.Y;
+                gazeTrackingItem.z = gazeTrackingData.Value.Z;
+                _bodyMessageBase.gaze_tracking = gazeTrackingItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, gaze tracking data has error");
+            }
 
             #endregion
 
             #region Convert action detection data
 
+            var actionDetectionItem = _bodyMessageBase.action_detection;
             
+            var walkData = actionData?.Walk;
+            if (walkData != null)
+            {
+                var walkItem = actionDetectionItem.walk;
+                walkItem.leftLeg = walkData.Value.LeftLeg;
+                walkItem.rightLeg = walkData.Value.RightLeg;
+                walkItem.leftStepLength = walkData.Value.LeftStepLength;
+                walkItem.rightStepLength = walkData.Value.RightStepLength;
+                walkItem.leftHipAng = walkData.Value.LeftHipAng;
+                walkItem.rightHipAng = walkData.Value.RightHipAng;
+                walkItem.leftFrequency = walkData.Value.LeftFrequency;
+                walkItem.rightFrequency = walkData.Value.RightFrequency;
+                walkItem.velocity = walkData.Value.Velocity;
+                walkItem.velocityThreshold = walkData.Value.VelocityThreshold;
+                walkItem.stepRate = walkData.Value.StepRate;
+                walkItem.stepLen = walkData.Value.StepLen;
+                walkItem.realtimeLeftLeg = (int) walkData.Value.RealtimeLeftLeg;
+                walkItem.realtimeRightLeg = (int) walkData.Value.RealtimeRightLeg;
+                actionDetectionItem.walk = walkItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, walk data has error");
+            }
+
+            var jumpData = actionData?.Jump;
+            if (jumpData != null)
+            {
+                var jumpItem = actionDetectionItem.jump;
+                jumpItem.velocity = jumpData.Value.Velocity;
+                jumpItem.onTheGround = (int) jumpData.Value.OnTheGround;
+                actionDetectionItem.jump = jumpItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, jump data has error");
+            }
+
+            _bodyMessageBase.action_detection = actionDetectionItem;
 
             #endregion
 
             #region Convert stand detection data
 
-            
+            var standDetectionData = actionData?.Stand;
+            if (standDetectionData != null)
+            {
+                var standDetectionItem = _bodyMessageBase.stand_detection;
+                standDetectionItem.mode = (int) standDetectionData.Value.Mode;
+                _bodyMessageBase.stand_detection = standDetectionItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, stand detection data has error");
+            }
 
             #endregion
 
             #region Convert general detection data
 
-            
+            var generalDetectionData = actionData?.General;
+            if (generalDetectionData != null)
+            {
+                var generalDetectionItem = _bodyMessageBase.general_detection;
+                generalDetectionItem.confidence = (int) generalDetectionData.Value.Confidence;
+                _bodyMessageBase.general_detection = generalDetectionItem;
+            }
+            else
+            {
+                Debug.LogError("flatbuffers data invalid, general detection data has error");
+            }
 
             #endregion
         }
