@@ -19,6 +19,8 @@ namespace MotionCaptureBasic
         
         private List<Vector3> ikPointsDataListSimulat;
 
+        private Fitting simulateFittingData;
+
         private MotionDataModelHttp()
         {
             httpProtocolHandler = HttpProtocolHandler.GetInstance();
@@ -141,6 +143,11 @@ namespace MotionCaptureBasic
         public void SetSimulatActionDetectionData(ActionDetectionItem simulatActionDetectionItem)
         {
             this.simulatActionDetectionItem = simulatActionDetectionItem;
+        }
+
+        public void ClearSimulatActionDetectionData()
+        {
+            simulatActionDetectionItem = null;
         }
 
         public ActionDetectionItem GetActionDetectionData()
@@ -333,6 +340,11 @@ namespace MotionCaptureBasic
 
         public Fitting GetFitting()
         {
+            if (simulateFittingData != null)
+            {
+                return simulateFittingData;
+            }
+
             return httpProtocolHandler.BodyMessageBase?.fitting;
         }
 
@@ -355,6 +367,16 @@ namespace MotionCaptureBasic
         public void ClearIKDataListSimulat()
         {
             this.ikPointsDataListSimulat = null;
+        }
+
+        public void SetSimulateFittingData(Fitting simulateFittingData)
+        {
+            this.simulateFittingData = simulateFittingData;
+        }
+
+        public void ClearSimulateFittingData()
+        {
+            simulateFittingData = null;
         }
     }
 }

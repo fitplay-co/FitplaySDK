@@ -60,5 +60,10 @@ namespace MotionCaptureBasic.Interface
         bool SetPlayerHeight(int h);
         void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat);
         void ClearIKDataListSimulat();
+        void SetSimulatActionDetectionData(ActionDetectionItem simulatActionDetectionItem);
+        void ClearSimulatActionDetectionData();
+        void SetSimulateFittingData(Fitting simulateFittingData);
+        void ClearSimulateFittingData();
+
     }
 }
