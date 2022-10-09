@@ -4,6 +4,7 @@ namespace MotionCaptureBasic.MessageSend
 {
     public static class MessageFlatbufferFactory
     {
+        public const string Version = "0.1.0";
         /// <summary>
         /// 生成注册帧消息的flatbuffer字节流
         /// </summary>
@@ -17,9 +18,19 @@ namespace MotionCaptureBasic.MessageSend
             string id = MessageApplicationId.game_app.ToString();
             StringOffset idOffset = builder.CreateString(id);
             
-            var result = ApplicationClient.Client.CreateClient(builder, idOffset, useJson);
+            //生成注册帧client字段的offset
+            var clientOffset = ApplicationClient.Client.CreateClient(builder, idOffset, useJson);
+
+            StringOffset versionOffset = builder.CreateString(Version);
             
-            ApplicationClient.Client.FinishClientBuffer(builder, result);
+            //生成注册帧input message的offset
+            OsInput.InputMessage.StartInputMessage(builder);
+            OsInput.InputMessage.AddVersion(builder, versionOffset);
+            OsInput.InputMessage.AddType(builder, OsInput.MessageType.ApplicationClient);
+            OsInput.InputMessage.AddClient(builder, clientOffset);
+            var result = OsInput.InputMessage.EndInputMessage(builder);
+            
+            OsInput.InputMessage.FinishInputMessageBuffer(builder, result);
 
             return builder.SizedByteArray();
         }
@@ -40,9 +51,18 @@ namespace MotionCaptureBasic.MessageSend
             string featureId = controlFeatureId.ToString();
             StringOffset featureIdOffset = builder.CreateString(featureId);
 
-            var result = ApplicationControl.Control.CreateControl(builder, featureIdOffset, actionOffset);
+            var controlOffset = ApplicationControl.Control.CreateControl(builder, featureIdOffset, actionOffset);
             
-            ApplicationControl.Control.FinishControlBuffer(builder, result);
+            StringOffset versionOffset = builder.CreateString(Version);
+            
+            //生成订阅帧input message的offset
+            OsInput.InputMessage.StartInputMessage(builder);
+            OsInput.InputMessage.AddVersion(builder, versionOffset);
+            OsInput.InputMessage.AddType(builder, OsInput.MessageType.ApplicationControl);
+            OsInput.InputMessage.AddControl(builder, controlOffset);
+            var result = OsInput.InputMessage.EndInputMessage(builder);
+            
+            OsInput.InputMessage.FinishInputMessageBuffer(builder, result);
             
             return builder.SizedByteArray();
         }
@@ -70,13 +90,20 @@ namespace MotionCaptureBasic.MessageSend
 
             var controlData = ApplicationControl.ControlData.CreateControlData(builder, 0, h);
 
-            var result = ApplicationControl.Control.CreateControl(builder, featureIdOffset, actionOffset, controlData);
+            var controlOffset = ApplicationControl.Control.CreateControl(builder, featureIdOffset, actionOffset, controlData);
             
-            ApplicationControl.Control.FinishControlBuffer(builder, result);
+            StringOffset versionOffset = builder.CreateString(Version);
+            
+            //生成配置身高的控制帧input message的offset
+            OsInput.InputMessage.StartInputMessage(builder);
+            OsInput.InputMessage.AddVersion(builder, versionOffset);
+            OsInput.InputMessage.AddType(builder, OsInput.MessageType.ApplicationControl);
+            OsInput.InputMessage.AddControl(builder, controlOffset);
+            var result = OsInput.InputMessage.EndInputMessage(builder);
+            
+            OsInput.InputMessage.FinishInputMessageBuffer(builder, result);
             
             return builder.SizedByteArray();
         }
-        
-        
     }
 }
