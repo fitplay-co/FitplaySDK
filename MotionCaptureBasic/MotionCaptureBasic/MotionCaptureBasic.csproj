@@ -86,11 +86,13 @@
         <Compile Include="Scripts\FSM\StateMachine.cs" />
         <Compile Include="Scripts\Interface\IMotionDataModel.cs" />
         <Compile Include="Scripts\MessageSend\MessageSender.cs" />
+        <Compile Include="Scripts\MessageSend\Messages\MessageAppId.cs" />
         <Compile Include="Scripts\MessageSend\Messages\MessageBody.cs" />
         <Compile Include="Scripts\MessageSend\Messages\MessageControlAction.cs" />
         <Compile Include="Scripts\MessageSend\Messages\MessageControlFeatureId.cs" />
         <Compile Include="Scripts\MessageSend\Messages\MessageFactory.cs" />
         <Compile Include="Scripts\MessageSend\Messages\MessageFittingType.cs" />
+        <Compile Include="Scripts\MessageSend\Messages\MessageFlatbufferFactory.cs" />
         <Compile Include="Scripts\MessageSend\Messages\MessageType.cs" />
         <Compile Include="Scripts\MotionDataModelFactory.cs" />
         <Compile Include="Scripts\MotionDataModelHttp.cs" />
