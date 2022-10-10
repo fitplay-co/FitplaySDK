@@ -298,5 +298,25 @@ namespace MotionCaptureBasic
         {
             this.ikPointsDataListSimulat = null;
         }
+
+        public void SetSimulatActionDetectionData(ActionDetectionItem simulatActionDetectionItem)
+        {
+            Debug.LogError("SetSimulatActionDetectionData is not implemented for mobile instance");
+        }
+
+        public void ClearSimulatActionDetectionData()
+        {
+            Debug.LogError("ClearSimulatActionDetectionData is not implemented for mobile instance");
+        }
+
+        public void SetSimulateFittingData(Fitting simulateFittingData)
+        {
+            Debug.LogError("SetSimulateFittingData is not implemented for mobile instance");
+        }
+
+        public void ClearSimulateFittingData()
+        {
+            Debug.LogError("ClearSimulateFittingData is not implemented for mobile instance");
+        }
     }
 }

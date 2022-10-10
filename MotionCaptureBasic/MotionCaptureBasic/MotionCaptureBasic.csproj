@@ -97,6 +97,7 @@
         <Compile Include="Scripts\MotionDataModelFactory.cs" />
         <Compile Include="Scripts\MotionDataModelHttp.cs" />
         <Compile Include="Scripts\MotionDataModelMobile.cs" />
+        <Compile Include="Scripts\MotionDataModelNetwork.cs" />
         <Compile Include="Scripts\MotionDataPreprocessor.cs" />
         <Compile Include="Scripts\OSConnector\HttpProtocolHandler.cs" />
         <Compile Include="Scripts\OSConnector\MobileOSHandler.cs" />

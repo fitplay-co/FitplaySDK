@@ -8,7 +8,8 @@ namespace MotionCaptureBasic
     {
         Http = 0,
         Cpp,
-        Mobile
+        Mobile,
+        Network
     }
 
     public class MotionDataModelFactory
@@ -23,6 +24,8 @@ namespace MotionCaptureBasic
                     return null;
                 case MotionDataModelType.Mobile:
                     return MotionDataModelMobile.GetInstance();
+                case MotionDataModelType.Network:
+                    return new MotionDataModelNetwork();
                 default:
                     return null;
             }
