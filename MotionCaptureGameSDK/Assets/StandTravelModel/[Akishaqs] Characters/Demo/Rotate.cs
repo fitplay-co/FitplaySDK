@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotate : MonoBehaviour {
+public class Rotate2 : MonoBehaviour {
 
 	public int speed = 5;
 

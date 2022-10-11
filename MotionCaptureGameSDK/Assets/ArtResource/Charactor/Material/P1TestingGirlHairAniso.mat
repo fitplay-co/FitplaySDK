@@ -15,18 +15,19 @@ MonoBehaviour:
   version: 4
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: P1TestingGirlHairAniso
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _NORMALMAP _SPECULARHIGHLIGHTS_OFF _SPECULAR_COLOR
+  m_Shader: {fileID: 4800000, guid: 01fd5c198023b724aaad2417c882f984, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -89,10 +90,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AnistropyScale: 14.2
-    - _AnistropyShift: 0.06
+    - _AnistropyScale: 2.1
+    - _AnistropyShift: 0.39
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -115,7 +117,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shininess: 0
-    - _Smoothness: 0.655
+    - _Smoothness: 0.3
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -130,5 +132,5 @@ Material:
     - _BaseColor: {r: 0.95283014, g: 0.79364365, b: 0.7856355, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.043137256, g: 0.043137256, b: 0.043137256, a: 1}
+    - _SpecColor: {r: 0.3803905, g: 0.1849742, b: 0.1849742, a: 1}
   m_BuildTextureStacks: []
