@@ -318,5 +318,10 @@ namespace MotionCaptureBasic
         {
             Debug.LogError("ClearSimulateFittingData is not implemented for mobile instance");
         }
+        
+        public MotionDataModelType GetMotionDataModelType()
+        {
+            return MotionDataModelType.Mobile;
+        }
     }
 }

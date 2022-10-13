@@ -64,6 +64,6 @@ namespace MotionCaptureBasic.Interface
         void ClearSimulatActionDetectionData();
         void SetSimulateFittingData(Fitting simulateFittingData);
         void ClearSimulateFittingData();
-
+        MotionDataModelType GetMotionDataModelType();
     }
 }

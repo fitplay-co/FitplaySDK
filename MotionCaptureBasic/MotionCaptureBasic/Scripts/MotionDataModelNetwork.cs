@@ -177,5 +177,10 @@ namespace MotionCaptureBasic
         {
             simulateFittingData = null;
         }
+        
+        public MotionDataModelType GetMotionDataModelType()
+        {
+            return MotionDataModelType.Network;
+        }
     }
 }
