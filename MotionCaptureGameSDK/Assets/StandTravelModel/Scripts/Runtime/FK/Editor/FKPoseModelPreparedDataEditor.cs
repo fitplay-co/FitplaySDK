@@ -12,7 +12,7 @@ namespace StandTravelModel.Scripts.Runtime.FK.Editor
         {
             base.OnInspectorGUI();
             
-            if(GUILayout.Button("BakeData"))
+            if(Application.isPlaying && GUILayout.Button("BakeData"))
             {
                 var preparedData = target as FKPoseModelPreparedData;
                 preparedData.BakeData();
