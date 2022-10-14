@@ -757,7 +757,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.2
+    m_EventTreshold: 0.25
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: 1
@@ -1894,7 +1894,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: zeroDelayed
-    m_EventTreshold: 0.2
+    m_EventTreshold: 0.25
   - m_ConditionMode: 6
     m_ConditionEvent: lastLegUp
     m_EventTreshold: -1
