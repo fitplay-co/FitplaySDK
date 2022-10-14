@@ -8,11 +8,13 @@ namespace MotionCaptureBasic.MessageSend
     public class MessageSender
     {
         private IWebSocket socket;
+        private bool isUseJson;
         private bool isDebug;
 
-        public MessageSender(IWebSocket socket)
+        public MessageSender(IWebSocket socket, bool useJson)
         {
             this.socket = socket;
+            isUseJson = useJson;
         }
 
         public void SetDebug(bool isDebug)
@@ -24,9 +26,17 @@ namespace MotionCaptureBasic.MessageSend
         /// 发送注册帧
         /// </summary>
         /// <returns></returns>
-        public bool SendMessageRegister(bool useJson)
+        public bool SendMessageRegister()
         {
-            return SendAsync(MessageFactory.CreateMessageRegister(useJson));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageRegister(isUseJson));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(MessageFlatbufferFactory.CreateFlatbufferRegister(isUseJson));
+            }
         }
 
         /// <summary>
@@ -36,7 +46,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeGazeTracking(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.gaze_tracking, active));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.gaze_tracking, active));
+            }
+            else
+            {
+                Debug.Log("订阅GazeTracking的控制帧未实现");
+                return false;
+            }
         }
 
         /// <summary>
@@ -46,7 +65,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeGroundLocation(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location, active));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location, active));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(
+                    MessageFlatbufferFactory.CreateFlatbufferControl(MessageControlFeatureId.ground_location, active));
+            }
         }
 
         /// <summary>
@@ -56,7 +84,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeActionDetection(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.action_detection, active));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.action_detection, active));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(
+                    MessageFlatbufferFactory.CreateFlatbufferControl(MessageControlFeatureId.action_detection, active));
+            }
         }
 
         /// <summary>
@@ -66,18 +103,46 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SubscribeFitting(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageFitting(active));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageFitting(active));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(
+                    MessageFlatbufferFactory.CreateFlatbufferControl(MessageControlFeatureId.fitting, active));
+            }
         }
 
         public bool SubscribeGeneral(bool active)
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.general_detection, active));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.general_detection, active));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(
+                    MessageFlatbufferFactory.CreateFlatbufferControl(MessageControlFeatureId.general_detection,
+                        active));
+            }
         }
 
         public bool ResetGroundLocation()
         {
-            return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location,
-                MessageControlAction.reset));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateMessageControl(MessageControlFeatureId.ground_location,
+                    MessageControlAction.reset));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(
+                    MessageFlatbufferFactory.CreateFlatbufferControl(MessageControlFeatureId.ground_location, MessageControlAction.reset));
+            }
         }
 
         /// <summary>
@@ -87,7 +152,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendFrameRateControl(int fps)
         {
-            return SendAsync(MessageFactory.CreateConfigMessage(fps));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateConfigMessage(fps));
+            }
+            else
+            {
+                Debug.Log("控制帧率未实现");
+                return false;
+            }
         }
 
         /// <summary>
@@ -97,7 +171,15 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendHeightSetting(int h)
         {
-            return SendAsync(MessageFactory.CreateHeightSetMessage(h));
+            if (isUseJson) 
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateHeightSetMessage(h));
+            }
+            else
+            {
+                return SendAsyncFlatbuffer(MessageFlatbufferFactory.CreateHeightSetFlatbuffer(h));
+            }
         }
 
         /// <summary>
@@ -109,7 +191,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendVibrationControl(int deviceId, int vibrationType, int strength)
         {
-            return SendAsync(MessageFactory.CreateVibrationMessage(deviceId, vibrationType, strength));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateVibrationMessage(deviceId, vibrationType, strength));
+            }
+            else
+            {
+                Debug.Log("手柄震动未实现");
+                return false;
+            }
         }
         
         /// <summary>
@@ -119,7 +210,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendImuResetControl(int deviceId)
         {
-            return SendAsync(MessageFactory.CreateImuResetMessage(deviceId));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateImuResetMessage(deviceId));
+            }
+            else
+            {
+                Debug.Log("imu重置为实现");
+                return false;
+            }
         }
         
         /// <summary>
@@ -130,7 +230,16 @@ namespace MotionCaptureBasic.MessageSend
         /// <returns></returns>
         public bool SendHeartControl(int deviceId, int command)
         {
-            return SendAsync(MessageFactory.CreateHeartMessage(deviceId, command));
+            if (isUseJson)
+            //if (true)
+            {
+                return SendAsync(MessageFactory.CreateHeartMessage(deviceId, command));
+            }
+            else
+            {
+                Debug.Log("心率计控制命令未实现");
+                return false;
+            }
         }
 
         private bool SendAsync(object message)
@@ -144,6 +253,17 @@ namespace MotionCaptureBasic.MessageSend
                 }
                 
                 socket.SendAsync(Encoding.UTF8.GetBytes(strMsg));
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool SendAsyncFlatbuffer(byte[] buf)
+        {
+            if (socket != null)
+            {
+                socket.SendAsync(buf);
                 return true;
             }
 

@@ -430,21 +430,14 @@ namespace MotionCaptureBasic.OSConnector
         public float score;
         public string name;
         
-        public Vector3 Position
+        public Vector3 Position()
         {
-            get
-            {
-                var position = new Vector3(-x, -y, -z);
-                return position;
-            }
+            return new Vector3(-x, -y, -z);
         }
         
-        public Quaternion Rotation
+        public Quaternion Rotation()
         {
-            get
-            {
-                return Quaternion.identity;
-            }
+            return Quaternion.identity;
         }
     }
 
@@ -497,13 +490,8 @@ namespace MotionCaptureBasic.OSConnector
     public class WalkActionItem
     {
         public static bool useRealtimeData;
-        public int legUp;
-        public int frequency;
-        public float strength;
         public int leftLeg;
         public int rightLeg;
-        public float leftStrength;
-        public float rightStrength;
         public float leftStepLength;
         public float rightStepLength;
         public float leftHipAng;
@@ -543,8 +531,8 @@ namespace MotionCaptureBasic.OSConnector
     [Serializable]
     public class JumpActionItem
     {
-        public int up;
-        public float strength;
+        public int onTheGround;
+        public float velocity;
     }
 
     [Serializable]

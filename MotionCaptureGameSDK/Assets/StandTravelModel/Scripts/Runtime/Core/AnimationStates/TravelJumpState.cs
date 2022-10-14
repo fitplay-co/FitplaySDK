@@ -23,12 +23,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates
             var actionDetectionData = travelOwner.selfMotionDataModel.GetActionDetectionData();
             if (actionDetectionData.jump != null)
             {
-                Debug.LogError($"Leg: {actionDetectionData.jump.up}, Strength: {actionDetectionData.jump.strength}");
-                if (actionDetectionData.jump.up == 0)
-                {
-                    travelOwner.ChangePrevState();
-                    return;
-                }
+                //TODO: implement jump
             }
         }
 

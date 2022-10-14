@@ -7,18 +7,18 @@ namespace MotionCaptureBasic.MessageSend
             return new MessageRegister()
             {
                 type = MessageType.application_client.ToString(),
-                id = "application_id",
+                id = MessageApplicationId.game_app.ToString(),
                 useJson = useJson
             };
         }
 
-        public static object CreateMessageControl(MessageControlFeatureId controlFeatureIdId, MessageControlAction controlAction)
+        public static object CreateMessageControl(MessageControlFeatureId controlFeatureId, MessageControlAction controlAction)
         {
             return new MessageBody()
             {
                 type = MessageType.application_control.ToString(),
                 action = controlAction.ToString(),
-                feature_id = controlFeatureIdId.ToString(),
+                feature_id = controlFeatureId.ToString(),
             };
         }
 
