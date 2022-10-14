@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -242,7 +243,8 @@ namespace StandTravelModel.Scripts.Runtime
         private List<Vector3> keyPointsList;
         private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
-
+        private bool isWaitForReconnect;
+        private const int DelayTime = 3000;
 
         public void Awake()
         {
@@ -943,7 +945,7 @@ namespace StandTravelModel.Scripts.Runtime
                     {
                         HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
                     }
-                    motionDataModel.AddConnectEvent(SubscribeMessage);
+                    motionDataModel.AddConnectEvent(SubscribeMessage, ReConnectOs, WaitToReConnectOs);
                     break;
                 case MotionDataModelType.Cpp:
                     Debug.LogError("cpp方式的os通信还没有实现");
@@ -973,6 +975,25 @@ namespace StandTravelModel.Scripts.Runtime
                     motionDataModel.SetPlayerHeight(175);
                 }
             }
+        }
+
+        private void ReConnectOs()
+        {
+            Debug.Log("Os disconnected, try to connect again");
+            HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
+        }
+
+        private void WaitToReConnectOs()
+        {
+            Debug.Log("Os connect error, try to connect again later");
+            Task.Run(() => DelayToReConnectOs());
+        }
+
+        async Task DelayToReConnectOs()
+        {
+            await Task.Delay(DelayTime);
+            Debug.Log("Try to reconnect os");
+            HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
         }
 
         public void ResetAnchorPosition()

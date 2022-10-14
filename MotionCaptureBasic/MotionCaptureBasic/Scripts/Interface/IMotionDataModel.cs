@@ -48,7 +48,7 @@ namespace MotionCaptureBasic.Interface
         bool SubscribeFitting();
         void SetPreprocessorParameters(Vector3 motionScaling);
         Fitting GetFitting();
-        void AddConnectEvent(Action onConnect);
+        void AddConnectEvent(Action onConnect, Action onClosed = null, Action onError = null);
         bool ReleaseGazeTracking();
         bool ReleaseActionDetection();
         bool ReleaseGroundLocation();
