@@ -46,7 +46,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother, StepStrideCacher strideCacher, Func<float> strideScale, Func<float> strideScaleRun, Func<bool> useFreqSprint, Func<float> getSprintThrehold, RunConditioner runConditioner)
         {
-            WalkActionItem.useRealtimeData = true;
+            //WalkActionItem.useRealtimeData = true;
             this.strideScale = strideScale;
             this.travelOwner = travelOwner;
             this.stepSmoother = stepSmoother;
