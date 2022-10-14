@@ -5,6 +5,7 @@ public class UnityWebSocketScript : MonoBehaviour
 {
 #if UNITY_ANDROID
     [SerializeField] private string webSocketUrl = "172.10.10.49"; //"ws://127.0.0.1:8181/";
+    [SerializeField] private bool isUseJson;
 
     private int StartX = 50;
 
@@ -24,7 +25,7 @@ public class UnityWebSocketScript : MonoBehaviour
         webSocketUrl = GUI.TextField(new Rect(StartX, StartY, 200, 40), webSocketUrl, labelStyle);
         if (GUI.Button(new Rect(StartX, StartY + 50, 200, 40), "连接WebSocket"))
         {
-             HttpProtocolHandler.GetInstance().StartWebSocket(webSocketUrl);
+             HttpProtocolHandler.GetInstance().StartWebSocket(webSocketUrl, isUseJson);
              //HttpProtocolHandler.GetInstance().SetDebug(true);
         }
     }

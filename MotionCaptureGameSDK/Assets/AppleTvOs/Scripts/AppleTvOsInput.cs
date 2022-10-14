@@ -41,6 +41,7 @@ namespace AppleTvOs
         private GameObject displayHud;
         private Text notice;
         public bool IsInputMode = true;
+        public bool isUseJson;
 
         void Start()
         {
@@ -112,7 +113,7 @@ namespace AppleTvOs
             if (ValidateIPAddress(inputField.text))
             {
                 displayHud.SetActive(true);
-                HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text, true);
+                HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text, isUseJson);
                 Invoke(nameof(Disabled), 0.1f);
             }
             else

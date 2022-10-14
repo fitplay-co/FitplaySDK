@@ -21,8 +21,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
             if (actionDetectionData != null && actionDetectionData.walk != null)
             {
-                travelOwner.EnqueueStep(actionDetectionData.walk.legUp);
-                travelOwner.currentLeg = actionDetectionData.walk.legUp;
                 travelOwner.currentFrequency = actionDetectionData.walk.leftFrequency;
                 travelOwner.UpdateAnimatorCadence();
 
@@ -38,14 +36,6 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     travelOwner.ChangeState(AnimationList.Run);
                     return;
                 }
-
-                if (actionDetectionData.walk.legUp != GetCurrentLeg())
-                {
-                    travelOwner.ChangeState(GetLegAnimationListOpps());
-                    return;
-                }
-
-                travelOwner.selfAnimator.SetFloat(animStrideId, Mathf.Clamp01(actionDetectionData.walk.strength * 10));
             }
         }
 
