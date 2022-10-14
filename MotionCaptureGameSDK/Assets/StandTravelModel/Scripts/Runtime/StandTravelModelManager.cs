@@ -985,8 +985,14 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void WaitToReConnectOs()
         {
+            if (isWaitForReconnect)
+            {
+                return;
+            }
+
             Debug.Log("Os connect error, try to connect again later");
             Task.Run(() => DelayToReConnectOs());
+            isWaitForReconnect = true;
         }
 
         async Task DelayToReConnectOs()
@@ -994,6 +1000,7 @@ namespace StandTravelModel.Scripts.Runtime
             await Task.Delay(DelayTime);
             Debug.Log("Try to reconnect os");
             HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
+            isWaitForReconnect = false;
         }
 
         public void ResetAnchorPosition()
