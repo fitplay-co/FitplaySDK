@@ -348,9 +348,9 @@ namespace MotionCaptureBasic
             return httpProtocolHandler.BodyMessageBase?.fitting;
         }
 
-        public void AddConnectEvent(Action onConnect)
+        public void AddConnectEvent(Action onConnect, Action onClosed = null, Action onError = null)
         {
-            httpProtocolHandler.AddConnectEvent(onConnect);
+            httpProtocolHandler.AddConnectEvent(onConnect, onClosed, onError);
         }
 
         public void SetDebug(bool isDebug)

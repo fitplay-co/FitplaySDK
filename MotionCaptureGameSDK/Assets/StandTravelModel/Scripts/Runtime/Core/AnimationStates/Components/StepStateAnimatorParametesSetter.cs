@@ -16,6 +16,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int animIdLegRight;
         private int animIdLastLegUp;
         private int animIdZeroDelayed;
+        private int animIdZeroDelayedStable;
         private int animIdStepProgress;
         private int animIdStridePercent;
         private int animIdStrideRunPercent;
@@ -28,6 +29,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
         private int lastUpLeg;
         private float zeroDelayed;
         private float groundedTime;
+        private float zeroDelayedStable;
 
         private TravelModel travelOwner;
         private RunConditioner runConditioner;
@@ -44,7 +46,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
 
         public StepStateAnimatorParametersSetter(TravelModel travelOwner, AnimationCurve speedCurve, AnimationCurve downCurve, StepStateSmoother stepSmoother, StepStrideCacher strideCacher, Func<float> strideScale, Func<float> strideScaleRun, Func<bool> useFreqSprint, Func<float> getSprintThrehold, RunConditioner runConditioner)
         {
-            WalkActionItem.useRealtimeData = true;
+            //WalkActionItem.useRealtimeData = true;
             this.strideScale = strideScale;
             this.travelOwner = travelOwner;
             this.stepSmoother = stepSmoother;
@@ -68,6 +70,7 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
             this.animIdStridePercent = Animator.StringToHash("stridePercent");
             this.animIdStrideRunPercent = Animator.StringToHash("stridePercentRun");
             this.animIdFootHeightDiff = Animator.StringToHash("footHeightDiff");
+            this.animIdZeroDelayedStable = Animator.StringToHash("zeroDelayedStable");
             this.animIdStepProgressUpLeft = Animator.StringToHash("progressUpLeft");
             this.animIdStepProgressDownLeft = Animator.StringToHash("progressDownLeft");
             this.animIdStepProgressUpRight = Animator.StringToHash("progressUpRight");
@@ -117,7 +120,17 @@ namespace StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components
                     zeroDelayed = 0;
                 }
 
+                if(stableLeftLeg == 0 && stableRightLeg == 0)
+                {
+                    zeroDelayedStable += Time.deltaTime;
+                }
+                else
+                {
+                    zeroDelayedStable = 0;
+                }
+
                 travelOwner.selfAnimator.SetFloat(animIdZeroDelayed, zeroDelayed);
+                travelOwner.selfAnimator.SetFloat(animIdZeroDelayedStable, zeroDelayedStable);
                 stepSmoother.UpdateTargetFrameArea(leftLeg, rightLeg);
                 SetLastUpLeg(leftLeg, rightLeg);
             }

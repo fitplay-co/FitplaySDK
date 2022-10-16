@@ -98,7 +98,7 @@ namespace MotionCaptureBasic
             return null;
         }
 
-        public void AddConnectEvent(Action onConnect)
+        public void AddConnectEvent(Action onConnect, Action onClosed = null, Action onError = null)
         {
             return;
         }
