@@ -166,7 +166,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         //用于整体判断sdk是否启用的开关
         private bool _overallEnable = true;
-        private bool overallEnable
+        public bool overallEnable
         {
             get => _overallEnable;
             set
@@ -179,11 +179,7 @@ namespace StandTravelModel.Scripts.Runtime
                 _overallEnable = value;
                 if (!isFKEnabled)
                 {
-#if USE_FINAL_IK
                     modelIKSettings.SetEnable(value);
-#else
-                    modelIKSettings.IKScript.enabled = value;
-#endif
                 }
                 else
                 {
@@ -224,6 +220,9 @@ namespace StandTravelModel.Scripts.Runtime
         private Vector3 _initPosition;
         public Vector3 initPosition => _initPosition;
 
+        private Quaternion _initRotation;
+        public Quaternion initRotation => _initRotation;
+
         public bool isRun
         {
             get
@@ -248,12 +247,14 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Awake()
         {
-            Application.targetFrameRate = 60;
-            _initPosition = this.transform.position;
+            //Application.targetFrameRate = 60;
             if (selfTransform == null)
             {
                 selfTransform = transform;
             }
+            
+            _initPosition = selfTransform.position;
+            _initRotation = selfTransform.rotation;
 
             InitParamsLoader();
             InitMotionDataModel();
@@ -270,15 +271,18 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void Start()
         {
+            if (motionDataModelType != MotionDataModelType.Network)
+            {
 #if USE_FINAL_IK
-            modelIKSettings.IKScript.enabled = false;
+                modelIKSettings.IKScript.enabled = false;
 #else
-            modelIKSettings.SetEnable(false);
+                modelIKSettings.SetEnable(false);
 #endif
-            transform.rotation = Quaternion.identity;
+                //transform.rotation = Quaternion.identity;
 
-            modelIKController.InitializeIKTargets(keyPointsParent.transform);
-
+                modelIKController.InitializeIKTargets(keyPointsParent.transform);
+            }
+            
             if (isFKEnabled)
             {
                 EnableFK();
@@ -312,24 +316,30 @@ namespace StandTravelModel.Scripts.Runtime
         public void Update()
         {
             var deltaTime = Time.deltaTime;
-            _osValidCheck = GeneralCheck(deltaTime);
-            //检查sdk是否启用
-            overallEnable = _noUiActive && _osValidCheck && _Enabled;
+            if (motionDataModelType != MotionDataModelType.Network)
+            {
+                _osValidCheck = GeneralCheck(deltaTime);
+                //检查sdk是否启用
+                overallEnable = _noUiActive && _osValidCheck && _Enabled;
+            }
 
             if (!overallEnable)
             {
                 return;
             }
 
-            keyPointsList = motionDataModel.GetIKPointsData(true, true);
-            if (keyPointsList == null)
+            if (motionDataModelType != MotionDataModelType.Network)
             {
-                return;
+                keyPointsList = motionDataModel.GetIKPointsData(true, true);
+                if (keyPointsList == null)
+                {
+                    return;
+                }
+
+                TryConvertKeyPoints(keyPointsList);
+
+                modelIKController.UpdateIKTargetsData(keyPointsList);
             }
-
-            TryConvertKeyPoints(keyPointsList);
-
-            modelIKController.UpdateIKTargetsData(keyPointsList);
 
             if(motionModel != null)
             {
@@ -349,7 +359,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void LateUpdate()
         {
-            if (!overallEnable)
+            if (!overallEnable || motionDataModelType == MotionDataModelType.Network)
             {
                 return;
             }
@@ -362,6 +372,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void OnValidate()
         {
+            if (motionDataModelType == MotionDataModelType.Network)
+            {
+                return;
+            }
+
             UpdateModelParameters();
         }
 
@@ -726,6 +741,11 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void TryInitWeirdHumanConverter()
         {
+            if (motionDataModelType == MotionDataModelType.Network)
+            {
+                return;
+            }
+
             if(monsterMappingEnable)
             {
                 var locater = GetComponent<WeirdHumanoidPointsLocater>();
@@ -738,14 +758,24 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void InitMotionModels()
         {
+            keyPointsParent = new GameObject("KeyPointsParent");
+            //keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
+            //TODO: 暂时将keyPoints父节点设置为角色模型的transform。后续还需要测试优化确认有没其他问题
+            keyPointsParent.transform.parent = selfTransform;
             this.modelAnimator = this.GetComponent<Animator>();
             var characterHipNode = modelAnimator.GetBoneTransform(HumanBodyBones.Hips);
             var characterHeadNode = modelAnimator.GetBoneTransform(HumanBodyBones.Head);
-            InitStandModel(characterHipNode, characterHeadNode);
-            InitTravelModel(characterHipNode, characterHeadNode);
+            MotionModelInteractData interactData = new MotionModelInteractData
+            {
+                localShift = Vector3.zero,
+                groundHeight = 0,
+                isUseLocomotion = false
+            };
+            InitStandModel(characterHipNode, characterHeadNode, interactData);
+            InitTravelModel(characterHipNode, characterHeadNode, interactData);
         }
 
-        private void InitTravelModel(Transform hip, Transform head)
+        private void InitTravelModel(Transform hip, Transform head, MotionModelInteractData interactData)
         {
             stepSmoother = new StepStateSmoother();
             travelModel = new TravelModel(
@@ -756,6 +786,7 @@ namespace StandTravelModel.Scripts.Runtime
                 tuningParameters : tuningParameters,
                 motionDataModel : motionDataModel,
                 anchorController : anchorController,
+                interactData : interactData,
                 animatorSettingGroup : animatorSettings,
                 isExControl : hasExController,
                 speedCurve : speedCurve,
@@ -775,24 +806,29 @@ namespace StandTravelModel.Scripts.Runtime
             );
         }
 
-        private void InitStandModel(Transform hip, Transform head)
+        private void InitStandModel(Transform hip, Transform head, MotionModelInteractData interactData)
         {
             standModel = new StandModel(transform, hip, head, keyPointsParent.transform, tuningParameters,
-                motionDataModel, anchorController);
+                motionDataModel, anchorController, interactData);
             standModel.IsUseLocomotion(useLocomotion);
         }
 
         private void InitAnchorController()
         {
-            anchorController = new AnchorController(transform.position);
-            keyPointsParent = new GameObject("KeyPointsParent");
-            //keyPointsParent.transform.parent = anchorController.TravelFollowPoint.transform;
-            //TODO: 暂时将keyPoints父节点设置为角色模型的transform。后续还需要测试优化确认有没其他问题
-            keyPointsParent.transform.parent = transform;
+            if (motionDataModelType == MotionDataModelType.Network)
+            {
+                return;
+            }
+
+            anchorController = new AnchorController(_initPosition, _initRotation);
         }
 
         private void InitModelIKController()
         {
+            if (motionDataModelType == MotionDataModelType.Network)
+            {
+                return;
+            }
             GameObject fakeNodeObj;
             if (isDebug)
             {
@@ -953,6 +989,9 @@ namespace StandTravelModel.Scripts.Runtime
                 case MotionDataModelType.Mobile:
                     _osConnected = true;
                     break;
+                case MotionDataModelType.Network:
+                    _osConnected = true;
+                    break;
             }
         }
 
@@ -976,7 +1015,7 @@ namespace StandTravelModel.Scripts.Runtime
                 }
             }
         }
-
+        
         private void ReConnectOs()
         {
             Debug.Log("Os disconnected, try to connect again");
@@ -1116,10 +1155,15 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void InitStandTravelTestUI()
         {
+            if (motionDataModelType == MotionDataModelType.Network)
+            {
+                return;
+            }
             if(standTravelTestUI == null)
             {
                 standTravelTestUI = GameObject.FindObjectOfType<StandTravelTestUI>(true);
-                standTravelTestUI.OccupyTandTravelModelManager(this);
+                if (standTravelTestUI != null)
+                    standTravelTestUI.OccupyTandTravelModelManager(this);
             }
         }
 

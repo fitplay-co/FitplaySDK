@@ -22,19 +22,23 @@ namespace StandTravelModel.Scripts.Runtime.Core
         private GameObject standLookAtPoint;
         public GameObject StandLookAtPoint => standLookAtPoint;
 
-        public AnchorController(Vector3 initialPosition)
+        public AnchorController(Vector3 initialPosition, Quaternion initialRotation)
         {
             this.travelFollowPoint = new GameObject("TravelFollowPoint");
             travelFollowPoint.transform.position = initialPosition;
+            travelFollowPoint.transform.rotation = initialRotation;
 
             this.standFollowPoint = new GameObject("StandFollowPoint");
             standFollowPoint.transform.position = initialPosition;
+            standFollowPoint.transform.rotation = initialRotation;
             
             this.travelLookAtPoint = new GameObject("TravelLookAtPoint");
             travelLookAtPoint.transform.position = initialPosition;
+            travelLookAtPoint.transform.rotation = initialRotation;
 
             this.standLookAtPoint = new GameObject("StandLookAtPoint");
             standLookAtPoint.transform.position = initialPosition;
+            standLookAtPoint.transform.rotation = initialRotation;
             
             travelLookAtPoint.transform.SetParent(travelFollowPoint.transform);
             standLookAtPoint.transform.SetParent(standFollowPoint.transform);

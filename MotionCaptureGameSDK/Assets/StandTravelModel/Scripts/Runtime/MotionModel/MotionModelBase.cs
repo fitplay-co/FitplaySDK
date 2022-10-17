@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MotionCaptureBasic;
 using MotionCaptureBasic.FSM;
 using MotionCaptureBasic.Interface;
 using StandTravelModel.Scripts.Runtime.Core;
@@ -10,11 +11,9 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 {
     public abstract class MotionModelBase : IMotionModel
     {
-        protected static Vector3 localShift;
         protected Transform selfTransform;
         protected AnchorController anchorController;
         protected TuningParameterGroup tuningParameters;
-        protected static float groundHeight;
         protected FKAnimatorBasedLocomotion locomotionComp;
 
         private Transform characterHipNode;
@@ -23,14 +22,14 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         private Transform keyPointsParent;
         private int layerMask;
         private List<Vector3> keyPoints;
-        private static bool isUseLocomotion;
 
         protected IMotionDataModel motionDataModel;
         protected StateMachine<MotionModelBase> stateMachine;
         protected Dictionary<AnimationList, State<MotionModelBase>> animationStates;
+        protected MotionModelInteractData interactData;
 
         public MotionModelBase(Transform selfTransform, Transform characterHipNode, Transform characterHeadNode, Transform keyPointsParent,
-            TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController)
+            TuningParameterGroup tuningParameters, IMotionDataModel motionDataModel, AnchorController anchorController, MotionModelInteractData interactData)
         {
             this.selfTransform = selfTransform;
             this.keyPointsParent = keyPointsParent;
@@ -39,6 +38,12 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             this.characterHipNode = characterHipNode;
             this.characterHeadNode = characterHeadNode;
             this.anchorController = anchorController;
+            this.interactData = interactData;
+
+            if (this.motionDataModel.GetMotionDataModelType() == MotionDataModelType.Network)
+            {
+                return;
+            }
 
             var layerIndex = LayerMask.NameToLayer("Ground");
             if (layerIndex == -1)
@@ -60,21 +65,31 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         public virtual void OnFixedUpdate()
         {
+            if (motionDataModel.GetMotionDataModelType() == MotionDataModelType.Network)
+            {
+                return;
+            }
+
             var startPos = characterHeadNode.position;
 
             if (Physics.Raycast(startPos, Vector3.down, out var hit, 100, layerMask))
             {
-                groundHeight = hit.point.y;
+                interactData.groundHeight = hit.point.y;
                 //Debug.LogError($"Ray Cast Ground Height: {groundHeight}");
             }
             else
             {
-                groundHeight = -10000;
+                interactData.groundHeight = -10000;
             }
         }
 
         public virtual void OnUpdate(List<Vector3> keyPoints)
         {
+            if (motionDataModel.GetMotionDataModelType() == MotionDataModelType.Network)
+            {
+                return;
+            }
+
             this.keyPoints = keyPoints;
             PrepareData();
         }
@@ -85,8 +100,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             var standPos = anchorController.StandFollowPoint.transform.position;
             var travelPos = anchorController.TravelFollowPoint.transform.position;
 
-            standPos.y = groundHeight;
-            travelPos.y = groundHeight;
+            standPos.y = interactData.groundHeight;
+            travelPos.y = interactData.groundHeight;
 
             anchorController.StandFollowPoint.transform.position = standPos;
             anchorController.TravelFollowPoint.transform.position = travelPos;
@@ -94,6 +109,13 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             selfTransform.position += Vector3.Scale(predictHipPos, tuningParameters.ScaleMotionPos) +
                                       tuningParameters.HipPosOffset - characterHipNode.position +
                                       travelPos;
+
+            var parent = selfTransform.parent;
+            if (parent != null)
+            {
+                parent.position = selfTransform.position;
+                selfTransform.localPosition = Vector3.zero;
+            }
         }
 
         public virtual void Clear()
@@ -109,12 +131,15 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         
         public void SetGrounding(bool isGrounding)
         {
-            locomotionComp.grounding = isGrounding;
+            if (motionDataModel.GetMotionDataModelType() != MotionDataModelType.Network)
+            {
+                locomotionComp.grounding = isGrounding;
+            }
         }
 
         public void IsUseLocomotion(bool flag)
         {
-            isUseLocomotion = flag;
+            interactData.isUseLocomotion = flag;
         }
 
         /// <summary>
@@ -137,13 +162,13 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             
             //计算局部位移
             Vector3 planeShift;
-            if (isUseLocomotion)
+            if (interactData.isUseLocomotion)
             {
                 locomotionComp.updateGroundLocationHint(motionDataModel);
                 locomotionComp.UpdateLocomotion();
-                localShift = new Vector3(locomotionComp.locomotionOffset.x * tuningParameters.LocalShiftScale.x, 0,
+                interactData.localShift = new Vector3(locomotionComp.locomotionOffset.x * tuningParameters.LocalShiftScale.x, 0,
                     locomotionComp.locomotionOffset.z * tuningParameters.LocalShiftScale.z);
-                //Debug.Log($"local shift: {localShift}");
+                //Debug.Log($"local shift: {interactData.localShift}");
                 return;
             }
 #if NOT_USE_GROUND_LOCATION
@@ -158,7 +183,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 2 + 0.5f;
             var shiftZ = (leftHipNode.z + rightHipNode.z) / 2 + tuningParameters.LocalShiftZOffset;
             planeShift = new Vector3(shiftX * tuningParameters.LocalShiftScale.x, 0, shiftZ * tuningParameters.LocalShiftScale.z);
-            localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
+            interactData.localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
             
             //Debug.Log($"Local Shift: x={shiftX}, z={shiftZ}. Hip Height: {predictHipPos.y}");
 #else
@@ -167,7 +192,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 planeShift = new Vector3(-groundLocationData.x * tuningParameters.LocalShiftScale.x, 0,
                     -groundLocationData.z * tuningParameters.LocalShiftScale.z);
 
-                localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
+                interactData.localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
             }
 #endif
         }
@@ -194,7 +219,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         public float GetGroundHeight()
         {
-            return groundHeight;
+            return interactData.groundHeight;
         }
 
         public void ChangeState(AnimationList animationState)
@@ -226,5 +251,12 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         {
             return selfTransform.GetComponent<Animator>();
         }
+    }
+
+    public class MotionModelInteractData
+    {
+        public Vector3 localShift;
+        public float groundHeight;
+        public bool isUseLocomotion;
     }
 }

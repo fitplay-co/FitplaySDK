@@ -16,7 +16,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             Transform keyPointsParent,
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
-            AnchorController anchorController)
+            AnchorController anchorController,
+            MotionModelInteractData interactData)
             : base(
                 selfTransform,
                 characterHipNode,
@@ -24,17 +25,26 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 keyPointsParent,
                 tuningParameters,
                 motionDataModel,
-                anchorController)
+                anchorController,
+                interactData)
         {
         }
 
         public override void OnLateUpdate()
         {
             anchorController.TravelFollowPoint.transform.position =
-                anchorController.StandFollowPoint.transform.position + localShift;
+                anchorController.StandFollowPoint.transform.position + interactData.localShift;
             /*selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation *
                                         predictBodyRotation;*/
-            selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            var parent = selfTransform.parent;
+            if (parent == null)
+            {
+                selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            }
+            else
+            {
+                parent.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            }
 
             base.OnLateUpdate();
         }
@@ -47,8 +57,17 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public void AdjustTransformHeight() 
         {
             var currentPos = selfTransform.position;
-            currentPos.y = groundHeight;
-            selfTransform.position = currentPos;
+            currentPos.y = interactData.groundHeight;
+            
+            var parent = selfTransform.parent;
+            if (parent == null)
+            {
+                selfTransform.position = currentPos;
+            }
+            else
+            {
+                parent.position = currentPos;
+            }
         }
 
         public override void OnUpdate(List<Vector3> keyPoints)

@@ -57,6 +57,11 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 
         protected virtual void UpdatePosWithAnchor()
         {
+            if (moverReactor == null)
+            {
+                return;
+            }
+
             if(curFootIndex != 0)
             {
                 var deltaPos = GetMoveDelta();
@@ -101,17 +106,36 @@ namespace StandTravelModel.Scripts.Runtime.Mover.MoverInners
 
         public void OnStart()
         {
+            if (moverReactor == null)
+            {
+                return;
+            }
+
             moverReactor.OnAnimatorMoveStart();
         }
 
         protected float GetRunSpeedScale()
         {
-            return moverReactor.GetRunSpeedScale();
+            if (moverReactor == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return moverReactor.GetWalkSpeedScale();
+            }
         }
 
         protected float GetWalkSpeedScale()
         {
-            return moverReactor.GetWalkSpeedScale();
+            if (moverReactor == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return moverReactor.GetWalkSpeedScale();
+            }
         }
     }
 }

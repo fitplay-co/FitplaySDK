@@ -66,6 +66,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             TuningParameterGroup tuningParameters,
             IMotionDataModel motionDataModel,
             AnchorController anchorController,
+            MotionModelInteractData interactData,
             AnimatorSettingGroup animatorSettingGroup,
             bool isExControl,
             AnimationCurve speedCurve,
@@ -89,7 +90,8 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             keyPointsParent,
             tuningParameters,
             motionDataModel,
-            anchorController
+            anchorController,
+            interactData
         )
         {
             /*animatorController = new TravelModelAnimatorController(selfTransform.GetComponent<Animator>(),
@@ -133,15 +135,23 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public override void OnLateUpdate()
         {
             anchorController.StandFollowPoint.transform.position =
-                anchorController.TravelFollowPoint.transform.position - localShift;
-            selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
-
+                anchorController.TravelFollowPoint.transform.position - interactData.localShift;
+            var parent = selfTransform.parent;
+            if (parent == null)
+            {
+                selfTransform.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            }
+            else
+            {
+                parent.rotation = anchorController.TravelFollowPoint.transform.rotation;
+            }
+            
             if (isExControlMode)
             {
                 var newPos = selfTransform.position;
-                if (newPos.y < groundHeight)
+                if (newPos.y < interactData.groundHeight)
                 {
-                    newPos.y = groundHeight;
+                    newPos.y = interactData.groundHeight;
                     selfTransform.position = newPos;
                 }
                 
@@ -158,7 +168,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             if (isExControlMode)
             {
                 var newPos = selfTransform.position;
-                newPos.y = groundHeight + 0.1f;
+                newPos.y = interactData.groundHeight + 0.1f;
                 selfTransform.position = newPos;
             }
         }
