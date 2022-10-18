@@ -88,7 +88,7 @@ namespace MotionCaptureBasic.OSConnector
             app.OnError += OnError;
         }
 
-        private void ReleaseWebSocket()
+        public void ReleaseWebSocket()
         {
             var app = WebsocketOSClient.GetInstance();
             app.OnReceived -= OnReceived;
@@ -96,6 +96,7 @@ namespace MotionCaptureBasic.OSConnector
             app.OnConnect -= OnConnect;
             app.OnClosed -= OnClosed;
             app.OnError -= OnError;
+            app.ReleaseConnect();
         }
 
         public static HttpProtocolHandler GetInstance()

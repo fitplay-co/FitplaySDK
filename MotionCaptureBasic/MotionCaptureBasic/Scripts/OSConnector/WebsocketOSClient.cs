@@ -226,6 +226,15 @@ namespace MotionCaptureBasic.OSConnector
                 socket.CloseAsync();
         }
 
+        public void ReleaseConnect()
+        {
+            socket.OnOpen -= Socket_OnOpen;
+            socket.OnMessage -= Socket_OnMessage;
+            socket.OnClose -= Socket_OnClose;
+            socket.OnError -= Socket_OnError;
+            socket = null;
+        }
+
         private bool IsConnected
         {
             get => (socket != null && socket.ReadyState != UnityWebSocket.WebSocketState.Connecting);

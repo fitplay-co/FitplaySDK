@@ -383,6 +383,8 @@ namespace StandTravelModel.Scripts.Runtime
         public void OnDestroy()
         {
             Destroy(keyPointsParent);
+            ReleaseMessage();
+            HttpProtocolHandler.GetInstance().ReleaseWebSocket();
             motionDataModel = null;
             modelIKController?.ClearFakeNodes();
             modelIKController = null;
@@ -1015,7 +1017,18 @@ namespace StandTravelModel.Scripts.Runtime
                 }
             }
         }
-        
+
+        private void ReleaseMessage()
+        {
+            if (!destroyed)
+            {
+                motionDataModel.ReleaseActionDetection();
+                motionDataModel.ReleaseGroundLocation();
+                motionDataModel.ReleaseFitting();
+                motionDataModel.ReleaseGeneral();
+            }
+        }
+
         private void ReConnectOs()
         {
             Debug.Log("Os disconnected, try to connect again");
