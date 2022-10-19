@@ -165,7 +165,7 @@ namespace StandTravelModel.Scripts.Runtime
         }
 
         //用于整体判断sdk是否启用的开关
-        private bool _overallEnable = false;
+        private bool _overallEnable = true;
         public bool overallEnable
         {
             get => _overallEnable;
