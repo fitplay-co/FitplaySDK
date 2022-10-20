@@ -167,6 +167,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         public void FixAvatarHeight()
         {
+            CheckGroundHeight();
             if (isExControlMode)
             {
                 var newPos = selfTransform.position;
