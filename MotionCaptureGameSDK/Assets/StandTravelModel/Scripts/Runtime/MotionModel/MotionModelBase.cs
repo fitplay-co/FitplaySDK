@@ -85,12 +85,15 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
             var standPos = anchorController.StandFollowPoint.transform.position;
             var travelPos = anchorController.TravelFollowPoint.transform.position;
 
-            standPos.y = interactData.groundHeight;
-            travelPos.y = interactData.groundHeight;
+            if (interactData.isGroundCheckOnStand)
+            {
+                standPos.y = interactData.groundHeight;
+                travelPos.y = interactData.groundHeight;
 
-            anchorController.StandFollowPoint.transform.position = standPos;
-            anchorController.TravelFollowPoint.transform.position = travelPos;
-
+                anchorController.StandFollowPoint.transform.position = standPos;
+                anchorController.TravelFollowPoint.transform.position = travelPos;
+            }
+            
             selfTransform.position += Vector3.Scale(predictHipPos, tuningParameters.ScaleMotionPos) +
                                       tuningParameters.HipPosOffset - characterHipNode.position +
                                       travelPos;
