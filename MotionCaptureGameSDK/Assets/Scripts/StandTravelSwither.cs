@@ -19,7 +19,7 @@ namespace Scripts
         private const string joystick_button_0 = "joystick button 0";
         private float timeProgress = 0;
 
-        private int standTravelSwitchMode = 1;
+        public int standTravelSwitchMode = 1;
 
         public void OnEnable()
         {
