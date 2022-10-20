@@ -65,22 +65,7 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         public virtual void OnFixedUpdate()
         {
-            if (motionDataModel.GetMotionDataModelType() == MotionDataModelType.Network)
-            {
-                return;
-            }
 
-            var startPos = characterHeadNode.position;
-
-            if (Physics.Raycast(startPos, Vector3.down, out var hit, 100, layerMask))
-            {
-                interactData.groundHeight = hit.point.y;
-                //Debug.LogError($"Ray Cast Ground Height: {groundHeight}");
-            }
-            else
-            {
-                interactData.groundHeight = -10000;
-            }
         }
 
         public virtual void OnUpdate(List<Vector3> keyPoints)
@@ -140,6 +125,26 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public void IsUseLocomotion(bool flag)
         {
             interactData.isUseLocomotion = flag;
+        }
+
+        protected void CheckGroundHeight()
+        {
+            if (motionDataModel.GetMotionDataModelType() == MotionDataModelType.Network)
+            {
+                return;
+            }
+
+            var startPos = characterHeadNode.position;
+
+            if (Physics.Raycast(startPos, Vector3.down, out var hit, 100, layerMask))
+            {
+                interactData.groundHeight = hit.point.y;
+                //Debug.LogError($"Ray Cast Ground Height: {groundHeight}");
+            }
+            else
+            {
+                interactData.groundHeight = -10000;
+            }
         }
 
         /// <summary>
@@ -258,5 +263,6 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
         public Vector3 localShift;
         public float groundHeight;
         public bool isUseLocomotion;
+        public bool isGroundCheckOnStand;
     }
 }

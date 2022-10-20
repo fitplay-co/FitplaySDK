@@ -1388,6 +1388,7 @@ MonoBehaviour:
   manualInputTall: 0
   turnCharaStandMode: 0
   isUseJson: 0
+  groundCheckOnStand: 1
   motionDataModelType: 0
   httpOsAddress: 
   initialMode: 1
@@ -4138,6 +4139,7 @@ MonoBehaviour:
   manualInputTall: 0
   turnCharaStandMode: 0
   isUseJson: 0
+  groundCheckOnStand: 1
   motionDataModelType: 0
   httpOsAddress: 
   initialMode: 1
@@ -7638,10 +7640,6 @@ PrefabInstance:
     - target: {fileID: 1739797901209209409, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: isSelfMoveControl
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: isDebug
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: manualInputTall

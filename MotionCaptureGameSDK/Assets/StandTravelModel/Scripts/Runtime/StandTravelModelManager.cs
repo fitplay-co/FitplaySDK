@@ -54,6 +54,9 @@ namespace StandTravelModel.Scripts.Runtime
 
         [Tooltip("是否使用json与os交互")] 
         public bool isUseJson;
+
+        [Tooltip("是否在stand模式进行贴地计算")]
+        public bool groundCheckOnStand = true;
         
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
@@ -302,7 +305,7 @@ namespace StandTravelModel.Scripts.Runtime
 
         public void FixedUpdate()
         {
-            if (!overallEnable)
+            /*if (!overallEnable)
             {
                 return;
             }
@@ -310,7 +313,7 @@ namespace StandTravelModel.Scripts.Runtime
             if (motionModel != null)
             {
                 motionModel.OnFixedUpdate();
-            }
+            }*/
         }
 
         public void Update()
@@ -383,8 +386,11 @@ namespace StandTravelModel.Scripts.Runtime
         public void OnDestroy()
         {
             Destroy(keyPointsParent);
-            ReleaseMessage();
-            HttpProtocolHandler.GetInstance().ReleaseWebSocket();
+            if (motionDataModel.GetMotionDataModelType() != MotionDataModelType.Network)
+            {
+                ReleaseMessage();
+                HttpProtocolHandler.GetInstance().ReleaseWebSocket();
+            }
             motionDataModel = null;
             modelIKController?.ClearFakeNodes();
             modelIKController = null;
@@ -771,7 +777,8 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 localShift = Vector3.zero,
                 groundHeight = 0,
-                isUseLocomotion = false
+                isUseLocomotion = false,
+                isGroundCheckOnStand = groundCheckOnStand
             };
             InitStandModel(characterHipNode, characterHeadNode, interactData);
             InitTravelModel(characterHipNode, characterHeadNode, interactData);

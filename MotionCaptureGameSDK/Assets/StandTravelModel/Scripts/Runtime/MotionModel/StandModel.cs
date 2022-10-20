@@ -46,6 +46,11 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 parent.rotation = anchorController.TravelFollowPoint.transform.rotation;
             }
 
+            if (interactData.isGroundCheckOnStand)
+            {
+                CheckGroundHeight();
+            }
+            
             base.OnLateUpdate();
         }
 
