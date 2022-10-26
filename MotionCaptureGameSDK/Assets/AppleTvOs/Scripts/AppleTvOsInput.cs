@@ -113,7 +113,8 @@ namespace AppleTvOs
             if (ValidateIPAddress(inputField.text))
             {
                 displayHud.SetActive(true);
-                HttpProtocolHandler.GetInstance().StartWebSocket(inputField.text, isUseJson);
+                PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, inputField.text);
+                HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
                 Invoke(nameof(Disabled), 0.1f);
             }
             else

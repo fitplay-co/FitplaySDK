@@ -48,6 +48,9 @@
         <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>Lib\UnityEngine.JSONSerializeModule.dll</HintPath>
         </Reference>
+        <Reference Include="websocket-sharp">
+          <HintPath>Lib\websocket-sharp.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,12 +120,16 @@
         <Compile Include="Scripts\UnityWebSocket\Implementation\NoWebGL\WebSocketManager.cs" />
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocket.cs" />
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocketManager.cs" />
+        <Compile Include="Scripts\UnityWebSocket\Server\IPManager.cs" />
+        <Compile Include="Scripts\UnityWebSocket\Server\WebSocketServerBase.cs" />
+        <Compile Include="Scripts\UnityWebSocket\Server\WebSocketServerBehavior.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="Lib\FlatBuffers.dll" />
       <Content Include="Lib\Newtonsoft.Json.dll" />
       <Content Include="Lib\UnityEngine.CoreModule.dll" />
       <Content Include="Lib\UnityEngine.JSONSerializeModule.dll" />
+      <Content Include="Lib\websocket-sharp.dll" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

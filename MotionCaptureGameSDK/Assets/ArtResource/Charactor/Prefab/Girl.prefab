@@ -1066,8 +1066,10 @@ MonoBehaviour:
   manualInputTall: 0
   turnCharaStandMode: 0
   isUseJson: 0
+  groundCheckOnStand: 1
   motionDataModelType: 0
-  httpOsAddress: 127.0.0.1
+  connectOsAuto: 1
+  connectDefaultIp: 0
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -1307,6 +1309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postureTimeout: 2
+  standTravelSwitchMode: 1
 --- !u!1 &1706211835198876869
 GameObject:
   m_ObjectHideFlags: 0

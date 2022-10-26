@@ -29,6 +29,8 @@ namespace MotionCaptureBasic.OSConnector
 
         public IKBodyUpdateMessage BodyMessageBase => _bodyMessageBase;
 
+        public static readonly string OsIpKeyName = "OsAddress";
+
         private HttpProtocolHandler()
         {
             _bodyMessageBase = new IKBodyUpdateMessage

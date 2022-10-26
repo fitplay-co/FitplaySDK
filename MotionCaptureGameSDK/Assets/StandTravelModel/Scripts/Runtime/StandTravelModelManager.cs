@@ -61,8 +61,11 @@ namespace StandTravelModel.Scripts.Runtime
         [Tooltip("指定Basic SDK的OS通信模式")]
         public MotionDataModelType motionDataModelType;
 
-        [Tooltip("如果用http模式OS，需要指定ip")]
-        public string httpOsAddress;
+        [Tooltip("是否自动连接OS")]
+        public bool connectOsAuto;
+        
+        [Tooltip("如果用http模式OS，启用该开关会自动连接localhost的OS")]
+        public bool connectDefaultIp;
 
         [Tooltip("初始Motion Mode")]
         public MotionMode initialMode = MotionMode.Stand;
@@ -301,6 +304,11 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             OnStandTravelSwitch();
+
+            if (connectOsAuto)
+            {
+                TryToConnectOs();
+            }
         }
 
         public void FixedUpdate()
@@ -407,6 +415,15 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel = null;
             }
             destroyed = true;
+        }
+
+        private void TryToConnectOs()
+        {
+            if (connectDefaultIp)
+            {
+                PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "127.0.0.1");
+            }
+            HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
         }
 
         private bool GeneralCheck(float dt)
@@ -986,10 +1003,6 @@ namespace StandTravelModel.Scripts.Runtime
             switch (motionDataModelType)
             {
                 case MotionDataModelType.Http:
-                    if (httpOsAddress != "")
-                    {
-                        HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
-                    }
                     motionDataModel.AddConnectEvent(SubscribeMessage, ReConnectOs, WaitToReConnectOs);
                     break;
                 case MotionDataModelType.Cpp:
@@ -1039,7 +1052,7 @@ namespace StandTravelModel.Scripts.Runtime
         private void ReConnectOs()
         {
             Debug.Log("Os disconnected, try to connect again");
-            HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
+            TryToConnectOs();
         }
 
         private void WaitToReConnectOs()
@@ -1058,7 +1071,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             await Task.Delay(DelayTime);
             Debug.Log("Try to reconnect os");
-            HttpProtocolHandler.GetInstance().StartWebSocket(httpOsAddress, isUseJson);
+            TryToConnectOs();
             isWaitForReconnect = false;
         }
 
