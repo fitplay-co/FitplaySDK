@@ -13,10 +13,11 @@ namespace UnityWebSocket.Server
         private OnMessageBytesDelegate onMessageBytes;
         private OnCloseDelegate onClose;
     
-        public delegate void OnOpenDelegate();
+        public delegate void OnOpenDelegate(string ip);
         public delegate void OnMessageDelegate(string data);
         public delegate void OnMessageBytesDelegate(byte[] data);
         public delegate void OnCloseDelegate();
+        
     
         public void SetContext(SynchronizationContext context, 
             OnOpenDelegate onOpenDelegate, 
@@ -33,9 +34,11 @@ namespace UnityWebSocket.Server
  
         protected override void OnOpen()
         {
+            string currentIp = Context.UserEndPoint.Address.MapToIPv4().ToString();
+            this.
             context?.Post(_ =>
             {
-                onOpen?.Invoke();
+                onOpen?.Invoke(currentIp);
             }, null);
         }
  

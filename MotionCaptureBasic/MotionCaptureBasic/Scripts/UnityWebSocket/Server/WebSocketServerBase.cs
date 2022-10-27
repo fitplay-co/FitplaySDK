@@ -49,7 +49,7 @@ namespace UnityWebSocket.Server
             }
         }
 
-        protected virtual void OnOpen()
+        protected virtual void OnOpen(string userIp)
         {
             if (isDebug)
             {
