@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EasySocketConnection;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityWebSocket.Server;
 
-public class QRConnectionTest : WebSocketServerBase
+public class QRConnectionTest : SocketServerBase
 {
     public QRCodeEncodeController e_qrController;
     public RawImage qrCodeImage;
@@ -42,7 +43,7 @@ public class QRConnectionTest : WebSocketServerBase
             Encode();
         }
         
-        StartServer(this.path, this.port);
+        StartServer(this.path, this.Port);
     }
     
     void QrEncodeFinished(Texture2D tex)
@@ -61,7 +62,7 @@ public class QRConnectionTest : WebSocketServerBase
             qrDisplayGroup.SetActive(false);
         }
         
-        StopServer();
+        Close();
     }
 
     public void OnConnectOs()
@@ -102,8 +103,8 @@ public class QRConnectionTest : WebSocketServerBase
         }
     }
 
-    protected override void OnReceived(string data)
-    {
-        //TODO: 解析OS数据，把OS的IP写到PlayerPrefs里
-    }
+    // protected override void OnReceived(string data)
+    // {
+    //     //TODO: 解析OS数据，把OS的IP写到PlayerPrefs里
+    // }
 }
