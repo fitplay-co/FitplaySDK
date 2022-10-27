@@ -394,7 +394,7 @@ namespace StandTravelModel.Scripts.Runtime
         public void OnDestroy()
         {
             Destroy(keyPointsParent);
-            if (motionDataModel.GetMotionDataModelType() != MotionDataModelType.Network)
+            if (motionDataModel.GetMotionDataModelType() != MotionDataModelType.Network && _osConnected)
             {
                 ReleaseMessage();
                 HttpProtocolHandler.GetInstance().ReleaseWebSocket();

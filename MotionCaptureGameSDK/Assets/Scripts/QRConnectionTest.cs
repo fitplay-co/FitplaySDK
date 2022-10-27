@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityWebSocket.Server;
@@ -9,7 +10,9 @@ public class QRConnectionTest : WebSocketServerBase
 {
     public QRCodeEncodeController e_qrController;
     public RawImage qrCodeImage;
+    public GameObject qrDisplayGroup;
 
+    private bool isUseJson = false;
     private string localIpAddress;
 
     private void Awake()
@@ -19,7 +22,52 @@ public class QRConnectionTest : WebSocketServerBase
 #else
         localIpAddress = IPManager.GetLocalIPAddress();
 #endif
-        Debug.Log(localIpAddress);
+        Debug.Log("local address: " + localIpAddress);
+    }
+
+    public void OnOpenButton()
+    {
+        //打开画布，生成二维码，启动Websocket服务器
+        if (qrDisplayGroup == null || qrCodeImage == null)
+        {
+            Debug.LogWarning("没有QR code显示相关ui组件");
+            return;
+        }
+        
+        qrDisplayGroup.SetActive(true);
+
+        if (e_qrController != null)
+        {
+            e_qrController.onQREncodeFinished += QrEncodeFinished;
+            Encode();
+        }
+        
+        StartServer(this.path, this.port);
+    }
+    
+    void QrEncodeFinished(Texture2D tex)
+    {
+        if (tex != null)
+        {
+            qrCodeImage.texture = tex;
+        }
+    }
+
+    public void OnCloseButton()
+    {
+        //关闭画布，关闭服务器
+        if (qrDisplayGroup != null)
+        {
+            qrDisplayGroup.SetActive(false);
+        }
+        
+        StopServer();
+    }
+
+    public void OnConnectOs()
+    {
+        //读取PlayerPrefs的IP连接OS
+        HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
     }
 
     private void Encode()
@@ -52,5 +100,10 @@ public class QRConnectionTest : WebSocketServerBase
                 Debug.Log("Encode successfully !");
             }
         }
+    }
+
+    protected override void OnReceived(string data)
+    {
+        //TODO: 解析OS数据，把OS的IP写到PlayerPrefs里
     }
 }

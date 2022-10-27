@@ -18,6 +18,9 @@ namespace UnityWebSocket.Server
 
         protected void StartServer(string path = "/", int port = 8080)
         {
+            this.path = path;
+            this.port = port;
+            
             context = SynchronizationContext.Current;
  
             server = new WebSocketServer(port);

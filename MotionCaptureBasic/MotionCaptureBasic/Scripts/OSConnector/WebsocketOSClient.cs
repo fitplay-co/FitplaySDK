@@ -46,7 +46,7 @@ namespace MotionCaptureBasic.OSConnector
 
         ~WebsocketOSClient()
         {
-            Close();
+            ReleaseConnect();
             Console.WriteLine("WebSocket closed.");
         }
 
@@ -209,7 +209,10 @@ namespace MotionCaptureBasic.OSConnector
         {
             string url = $"ws://{webSocketUrl}:8181/";
             Debug.Log($"url:{url}");
-            if (IsConnected) Close();
+            if (IsConnected)
+            {
+                ReleaseConnect();
+            }
             socket = new UnityWebSocket.WebSocket(url);
             socket.OnOpen += Socket_OnOpen;
             socket.OnMessage += Socket_OnMessage;
@@ -220,14 +223,9 @@ namespace MotionCaptureBasic.OSConnector
             InitMessageSubscriber(socket);
         }
 
-        private void Close()
-        {
-            if (IsConnected)
-                socket.CloseAsync();
-        }
-
         public void ReleaseConnect()
         {
+            socket.CloseAsync();
             socket.OnOpen -= Socket_OnOpen;
             socket.OnMessage -= Socket_OnMessage;
             socket.OnClose -= Socket_OnClose;
@@ -235,7 +233,7 @@ namespace MotionCaptureBasic.OSConnector
             socket = null;
         }
 
-        private bool IsConnected
+        public bool IsConnected
         {
             get => (socket != null && socket.ReadyState != UnityWebSocket.WebSocketState.Connecting);
         }

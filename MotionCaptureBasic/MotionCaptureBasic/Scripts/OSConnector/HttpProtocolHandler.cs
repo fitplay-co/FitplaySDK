@@ -80,6 +80,11 @@ namespace MotionCaptureBasic.OSConnector
 
         public void StartWebSocket(string url, bool useJson)
         {
+            if (WebsocketOSClient.GetInstance().IsConnected)
+            {
+                return;
+            }
+
             var app = WebsocketOSClient.GetInstance();
             app.SetUseJson(useJson);
             app.InitConnect(url);
