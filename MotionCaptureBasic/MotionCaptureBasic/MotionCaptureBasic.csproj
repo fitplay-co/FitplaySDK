@@ -121,7 +121,6 @@
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocket.cs" />
         <Compile Include="Scripts\UnityWebSocket\Implementation\WebGL\WebSocketManager.cs" />
         <Compile Include="Scripts\UnityWebSocket\Server\IPManager.cs" />
-        <Compile Include="Scripts\UnityWebSocket\Server\SocketServerBase.cs" />
         <Compile Include="Scripts\UnityWebSocket\Server\WebSocketServerBase.cs" />
         <Compile Include="Scripts\UnityWebSocket\Server\WebSocketServerBehavior.cs" />
     </ItemGroup>
