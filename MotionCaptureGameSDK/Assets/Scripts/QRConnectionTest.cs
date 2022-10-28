@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using EasySocketConnection;
+using System.Net;
+using System.Net.Sockets;
+using FitPlay;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +32,7 @@ public class QRConnectionTest : SocketServerBase
         {
             Close();
         }
+
         PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "");
     }
 
@@ -44,7 +44,7 @@ public class QRConnectionTest : SocketServerBase
             Debug.LogWarning("没有QR code显示相关ui组件");
             return;
         }
-        
+
         qrDisplayGroup.SetActive(true);
 
         if (e_qrController != null)
@@ -52,11 +52,25 @@ public class QRConnectionTest : SocketServerBase
             e_qrController.onQREncodeFinished += QrEncodeFinished;
             Encode();
         }
+
+        StartServer(Path, Port);
         
-        StartServer(this.path, this.Port);
         isServerStart = true;
     }
-    
+
+    protected override void OnAccept(Socket client, string ip)
+    {
+        if (client == null)
+        {
+            Debug.LogError($"Client is invalid while accepted");
+            return;
+        }
+        
+        Debug.Log($"Client Accepted : {ip}");
+        HttpProtocolHandler.GetInstance().StartWebSocket(ip, isUseJson);
+        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, ip);
+    }
+
     void QrEncodeFinished(Texture2D tex)
     {
         if (tex != null)
@@ -72,7 +86,7 @@ public class QRConnectionTest : SocketServerBase
         {
             qrDisplayGroup.SetActive(false);
         }
-        
+
         Close();
         isServerStart = false;
     }
@@ -91,32 +105,43 @@ public class QRConnectionTest : SocketServerBase
 
     private void Encode()
     {
-        if (e_qrController != null)
+        if (e_qrController == null)
         {
-            int errorlog = e_qrController.Encode(localIpAddress);
-            if (errorlog == -13)
-            {
-                Debug.LogError("Must contain 12 digits,the 13th digit is automatically added !");
-            }
-            else if (errorlog == -8)
-            {
-                Debug.LogError("Must contain 7 digits,the 8th digit is automatically added !");
-            }
-            else if (errorlog == -39)
-            {
-                Debug.LogError("Only support digits");
-            }
-            else if (errorlog == -128)
+            return;
+        }
+
+        int errorlog = e_qrController.Encode(localIpAddress);
+        switch (errorlog)
+        {
+            case -128:
             {
                 Debug.LogError("Contents length should be between 1 and 80 characters !");
+                break;
             }
-            else if (errorlog == -1)
+            case -39:
+            {
+                Debug.LogError("Only support digits");
+                break;
+            }
+            case -13:
+            {
+                Debug.LogError("Must contain 12 digits,the 13th digit is automatically added !");
+                break;
+            }
+            case -8:
+            {
+                Debug.LogError("Must contain 7 digits,the 8th digit is automatically added !");
+                break;
+            }
+            case -1:
             {
                 Debug.LogError("Please select one code type !");
+                break;
             }
-            else if (errorlog == 0)
+            case 0:
             {
                 Debug.Log("Encode successfully !");
+                break;
             }
         }
     }

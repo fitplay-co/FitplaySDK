@@ -1,52 +1,97 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using UnityEngine;
-using WebSocketSharp;
-using WebSocketSharp.Server;
 
-namespace EasySocketConnection
+namespace Fitplay
 {
-
     public abstract class SocketServerBase : MonoBehaviour
     {
-        private struct ReceiveState
+        protected struct ReceiveState
         {
-            public Socket clientSocket;
+            public string clientIP;
             public byte[] buffer;
         }
 
-        [SerializeField] protected string path = "/";
-        [SerializeField] protected bool isDebug;
-        
-        private const int MaxCnt = 5;
-        [SerializeField]  protected  int Port = 10086;
-        private Socket m_ServerSocket;
-        private Dictionary<string, Socket> m_ClientDict = new Dictionary<string, Socket>();
-        private Dictionary<Socket, byte[]> m_ClientBuffer = new Dictionary<Socket, byte[]>();
-        private const string DEBUGLOG_PREFIX = "[<color=#FF9654>WSServer</color>]";
+        [SerializeField]
+        protected string Path = ROOT_PATH;
 
-        protected void StartServer(string path = "/", int port = 8080)
+        [SerializeField]
+        protected int ConnectionLength = 5;
+
+        [SerializeField]
+        protected int Port = DEFAULT_PORT;
+
+        const string DEBUGLOG_PREFIX = "[<color=#FF9654>WebSocketServer</color>]";
+        const string ROOT_PATH = "/";
+        const int DATA_LENGTH = 1024;
+        const int DEFAULT_PORT = 8080;
+
+        Socket m_ServerSocket;
+        byte[] m_Data = new byte[DATA_LENGTH];
+
+        protected virtual void StartServer(string InPath = ROOT_PATH, int port = DEFAULT_PORT)
         {
-            this.path = path;
-            this.Port = port;
+            Path = InPath;
+            Port = port;
             Open(Port);
-
         }
-        
+
+        protected virtual void OnAccept(Socket client, string ip) { }
+
+        protected virtual void OnReceive(Socket client, byte[] data, int length)
+        {
+            client.BeginReceive(data, 0, data.Length, SocketFlags.None, asyncResult =>
+            {
+                int newLength = client.EndReceive(asyncResult);
+                OnReceive(client, data, newLength);
+            }, null);
+        }
+
+        protected virtual void OnSend(Socket client, int length) { }
+
         public void Open(int port)
         {
-            m_ServerSocket = new Socket(AddressFamily.InterNetwork,SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, port);
+            m_ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             m_ServerSocket.Bind(ipEndPoint);
-            m_ServerSocket.Listen(MaxCnt);
-            m_ServerSocket.BeginAccept(OnAccept, m_ServerSocket);
-            if (isDebug)
+            m_ServerSocket.Listen(ConnectionLength);
+            Debug.Log($"{DEBUGLOG_PREFIX} Start path={Path}, port={port}");
+            m_ServerSocket.BeginAccept(ar =>
             {
-                Debug.Log($"{DEBUGLOG_PREFIX} Start path={path}, port={port}");
+                Socket client = m_ServerSocket.EndAccept(ar);
+                Debug.Log($"{DEBUGLOG_PREFIX} Client Request Connection {GetAddress(client)}");
+                OnAccept(client, GetAddress(client));
+                SendData(client, "Hello");
+                client.BeginReceive(m_Data, 0, m_Data.Length, SocketFlags.None, (asyncResult) =>
+                {
+                    int length = client.EndReceive(asyncResult);
+                    OnReceive(client, m_Data, length);
+                }, null);
+            }, null);
+        }
+
+        public void SendData(Socket client, string data)
+        {
+            if (client == null || string.IsNullOrEmpty(data))
+            {
+                return;
+            }
+
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            try
+            {
+                client.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, (ar) =>
+                {
+                    int sendLength = client.EndSend(ar);
+                    OnSend(client, sendLength);
+                    Debug.Log($"{DEBUGLOG_PREFIX} Client Send data length {sendLength.ToString()}");
+                }, null);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
         }
 
@@ -55,158 +100,9 @@ namespace EasySocketConnection
             m_ServerSocket.Close();
         }
 
-        private void OnAccept(IAsyncResult result)
+        static string GetAddress(Socket client)
         {
-            Socket serverSocket = (Socket)result.AsyncState;
-            Socket clientSocket = serverSocket.EndAccept(result);
-            string clientIp = clientSocket.RemoteEndPoint.ToString();
-            m_ClientDict.Add(clientIp, clientSocket);
-            //Console.WriteLine("{clientIp}连接上服务器，当前连接数:{m_ClientDict.Count}");
-            ReceiveData(clientSocket);
-            if (isDebug)
-            {
-                Debug.Log($"{DEBUGLOG_PREFIX} OnOpen at IP{clientIp}");
-            }
-            // 继续等待其他客户端连接
-            serverSocket.BeginAccept(OnAccept, serverSocket);
-            
-        }
-
-        private void ReceiveData(Socket client)
-        {
-            if (!m_ClientBuffer.TryGetValue(client, out byte[] buffer))
-            {
-                buffer = new byte[1024];
-                m_ClientBuffer.Add(client, buffer);
-            }
-
-            client.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, EndReceive, new ReceiveState
-            {
-                clientSocket = client,
-                buffer = buffer
-            });
-        }
-
-        private void EndReceive(IAsyncResult result)
-        {
-            ReceiveState state = (ReceiveState)result.AsyncState;
-            Socket client = state.clientSocket;
-            byte[] buffer = state.buffer;
-            try
-            {
-                int length = client.EndReceive(result);
-                string msgString = Encoding.Default.GetString(buffer, 0, length);
-                Console.WriteLine($"客户端{((IPEndPoint)client.RemoteEndPoint).Address.MapToIPv4()}发来信息 {msgString}");
-                ReceiveData(client);
-
-                Send("服务器回复的心跳包", client);
-            }
-            catch (SocketException e)
-            {
-                m_ClientBuffer.Remove(client);
-                m_ClientDict.Remove(client.RemoteEndPoint.ToString());
-                Console.WriteLine($"{client.RemoteEndPoint} 下线,剩余连接数{m_ClientDict.Count}");
-            }
-            catch (FormatException e)
-            {
-                //Console.WriteLine("{client.RemoteEndPoint} 发来的数据无法解析......");
-            }
-        }
-
-        public void Send(string msg, Socket client)
-        {
-            byte[] msgBytes = Encoding.Default.GetBytes(msg);
-            client.BeginSend(msgBytes, 0, msgBytes.Length, SocketFlags.None, OnEndSend, client);
-        }
-
-        private void OnEndSend(IAsyncResult result)
-        {
-            Socket client = (Socket)result.AsyncState;
-            int cnt = client.EndSend(result);
+            return client == null ? string.Empty : ((IPEndPoint)client.RemoteEndPoint).Address.MapToIPv4().ToString();
         }
     }
 }
-//
-// namespace UnityWebSocket.Server
-// {
-//     public abstract class SocketServerBase : MonoBehaviour
-//     {
-//         [SerializeField] protected string path = "/";
-//         [SerializeField] protected int port = 8080;
-//         [SerializeField] protected bool isDebug;
-//
-//         private Socket server;
-//         private WebSocketServer
-//         private IPEndPoint ipEnd;
-//         private SynchronizationContext context;
-//
-//         private const string DEBUGLOG_PREFIX = "[<color=#FF9654>WSServer</color>]";
-//
-//         protected void StartServer(string path = "/", int port = 8080)
-//         {
-//             this.path = path;
-//             this.port = port;
-//             
-//             context = SynchronizationContext.Current;
-//
-//             ipEnd = new IPEndPoint(IPAddress.Any, port);
-//             server = new Socket(AddressFamily.InterNetwork,SocketType.Stream,ProtocolType.Tcp);
-//             server.
-//             server.AddWebSocketService<WebSocketServerBehavior>(path, serverBehavior =>
-//             {
-//                 serverBehavior.SetContext(context, OnOpen, OnReceived, OnReceivedBytes, OnClose);
-//             });
-//  
-//             server.Start();
-//
-//             if (isDebug)
-//             {
-//                 Debug.Log($"{DEBUGLOG_PREFIX} Start path={path}, port={port}");
-//             }
-//         }
-//         
-//         protected void StopServer()
-//         {
-//             server.Stop();
-//             server.RemoveWebSocketService(path);
-//             server = null;
-//
-//             if (isDebug)
-//             {
-//                 Debug.Log($"{DEBUGLOG_PREFIX} Stop path={path}, port={port}");
-//             }
-//         }
-//
-//         protected virtual void OnOpen()
-//         {
-//             if (isDebug)
-//             {
-//                 Debug.Log($"{DEBUGLOG_PREFIX} OnOpen");
-//             }
-//         }
-//  
-//         protected virtual void OnReceived(string data)
-//         {
-//             if (isDebug)
-//             {
-//                 Debug.Log($"{DEBUGLOG_PREFIX} Received message: {data}");
-//             }
-//         }
-//
-//         protected virtual void OnReceivedBytes(byte[] data)
-//         {
-//             if (isDebug)
-//             {
-//                 Debug.Log($"{DEBUGLOG_PREFIX} Received message: {data.Length}");
-//             }
-//         }
-//
-//         protected virtual void OnClose()
-//         {
-//             if (isDebug)
-//             {
-//                 Debug.Log($"{DEBUGLOG_PREFIX} OnClose");
-//             }
-//         }
-//     }
-// }
