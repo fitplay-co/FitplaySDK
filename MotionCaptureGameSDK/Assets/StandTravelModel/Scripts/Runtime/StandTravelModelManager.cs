@@ -24,9 +24,8 @@ namespace StandTravelModel.Scripts.Runtime
     /// </summary>
     public class StandTravelModelManager : MonoBehaviour
     {
-        [Range(0, 1)] public float progress;
-
         #region Serializable Variables
+        [Range(0, 1)] public float progress;
 
         [Tooltip("Debug模式开关。如果打开可以打印额外Debug信息，并且显示骨骼点")]
         public bool isDebug;
@@ -241,15 +240,15 @@ namespace StandTravelModel.Scripts.Runtime
                 return false;
             }
         }
-
-        #endregion
-
+        
         private bool destroyed;
         private List<Vector3> keyPointsList;
         private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
         private bool isWaitForReconnect;
         private const int DelayTime = 3000;
+
+        #endregion
 
         public void Awake()
         {
