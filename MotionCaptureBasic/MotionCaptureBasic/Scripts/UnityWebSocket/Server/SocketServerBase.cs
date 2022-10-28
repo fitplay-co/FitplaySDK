@@ -4,16 +4,10 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-namespace Fitplay
+namespace UnityWebSocket.SocketServer
 {
     public abstract class SocketServerBase : MonoBehaviour
     {
-        protected struct ReceiveState
-        {
-            public string clientIP;
-            public byte[] buffer;
-        }
-
         [SerializeField]
         protected string Path = ROOT_PATH;
 

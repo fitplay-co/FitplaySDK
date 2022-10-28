@@ -1,10 +1,10 @@
-using System.Net;
+
 using System.Net.Sockets;
-using FitPlay;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityWebSocket.Server;
+using UnityWebSocket.SocketServer;
 
 public class QRConnectionTest : SocketServerBase
 {
