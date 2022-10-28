@@ -15,6 +15,7 @@ public class QRConnectionTest : SocketServerBase
 
     private bool isUseJson = false;
     private string localIpAddress;
+    private bool isServerStart;
 
     private void Awake()
     {
@@ -24,6 +25,15 @@ public class QRConnectionTest : SocketServerBase
         localIpAddress = IPManager.GetLocalIPAddress();
 #endif
         Debug.Log("local address: " + localIpAddress);
+    }
+
+    private void OnDestroy()
+    {
+        if (isServerStart)
+        {
+            StopServer();
+        }
+        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "");
     }
 
     public void OnOpenButton()
@@ -44,6 +54,7 @@ public class QRConnectionTest : SocketServerBase
         }
         
         StartServer(this.path, this.Port);
+        isServerStart = true;
     }
     
     void QrEncodeFinished(Texture2D tex)
@@ -63,10 +74,17 @@ public class QRConnectionTest : SocketServerBase
         }
         
         Close();
+        isServerStart = false;
     }
 
     public void OnConnectOs()
     {
+        if (PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName) == "")
+        {
+            Debug.Log("OS IP为空，无法连接OS");
+            return;
+        }
+
         //读取PlayerPrefs的IP连接OS
         HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
     }
@@ -103,8 +121,9 @@ public class QRConnectionTest : SocketServerBase
         }
     }
 
-    // protected override void OnReceived(string data)
-    // {
-    //     //TODO: 解析OS数据，把OS的IP写到PlayerPrefs里
-    // }
+    //protected override void OnOpen(string userIp)
+    //{
+    //    Debug.Log($"当前连接的用户ip: {userIp}");
+    //    PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, userIp);
+    //}
 }
