@@ -1,4 +1,5 @@
-
+using System;
+using System.Collections;
 using System.Net.Sockets;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
@@ -12,29 +13,12 @@ public class QRConnectionTest : SocketServerBase
     public RawImage qrCodeImage;
     public GameObject qrDisplayGroup;
 
+    [SerializeField]
     private bool isUseJson = false;
+
+    private string loginIP;
     private string localIpAddress;
     private bool isServerStart;
-
-    private void Awake()
-    {
-#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-        localIpAddress = IPManager.GetLocalIPAddressWin();
-#else
-        localIpAddress = IPManager.GetLocalIPAddress();
-#endif
-        Debug.Log("local address: " + localIpAddress);
-    }
-
-    private void OnDestroy()
-    {
-        if (isServerStart)
-        {
-            Close();
-        }
-
-        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "");
-    }
 
     public void OnOpenButton()
     {
@@ -54,29 +38,7 @@ public class QRConnectionTest : SocketServerBase
         }
 
         StartServer(Path, Port);
-        
         isServerStart = true;
-    }
-
-    protected override void OnAccept(Socket client, string ip)
-    {
-        if (client == null)
-        {
-            Debug.LogError($"Client is invalid while accepted");
-            return;
-        }
-        
-        Debug.Log($"Client Accepted : {ip}");
-        HttpProtocolHandler.GetInstance().StartWebSocket(ip, isUseJson);
-        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, ip);
-    }
-
-    void QrEncodeFinished(Texture2D tex)
-    {
-        if (tex != null)
-        {
-            qrCodeImage.texture = tex;
-        }
     }
 
     public void OnCloseButton()
@@ -93,14 +55,75 @@ public class QRConnectionTest : SocketServerBase
 
     public void OnConnectOs()
     {
-        if (PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName) == "")
+        if (string.IsNullOrEmpty(loginIP))
         {
-            Debug.Log("OS IP为空，无法连接OS");
+            Debug.Log("OS IP为空，无法连接OS，检查二维码生成问题");
             return;
         }
 
         //读取PlayerPrefs的IP连接OS
-        HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
+        HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+    }
+
+    protected override void OnAccept(Socket client, string ip)
+    {
+        if (client == null)
+        {
+            Debug.LogError($"Client is invalid while accepted");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(ip))
+        {
+            Debug.LogError("Client ip is not valid");
+            return;
+        }
+
+        loginIP = ip;
+        Debug.Log($"Client Accepted : {ip}");
+        Close();
+    }
+
+    void Awake()
+    {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        localIpAddress = IPManager.GetLocalIPAddressWin();
+#else
+        localIpAddress = IPManager.GetLocalIPAddress();
+#endif
+        Debug.Log("local address: " + localIpAddress);
+    }
+
+    void OnDestroy()
+    {
+        if (isServerStart)
+        {
+            Close();
+        }
+
+        StopAllCoroutines();
+    }
+
+    void Update()
+    {
+        if (string.IsNullOrEmpty(loginIP))
+        {
+            return;
+        }
+
+        Debug.Log($"Start Login : {loginIP}");
+        HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, loginIP);
+        loginIP = string.Empty;
+        qrDisplayGroup.SetActive(false);
+    }
+
+    void QrEncodeFinished(Texture2D tex)
+    {
+        if (tex != null)
+        {
+            qrCodeImage.texture = tex;
+        }
     }
 
     private void Encode()
