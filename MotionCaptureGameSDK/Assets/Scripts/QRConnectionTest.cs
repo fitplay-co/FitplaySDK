@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using EasySocketConnection;
+using System.Net.Sockets;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityWebSocket.Server;
+using UnityWebSocket.SocketServer;
 
 public class QRConnectionTest : SocketServerBase
 {
@@ -13,28 +13,12 @@ public class QRConnectionTest : SocketServerBase
     public RawImage qrCodeImage;
     public GameObject qrDisplayGroup;
 
+    [SerializeField]
     private bool isUseJson = false;
+
+    private string loginIP;
     private string localIpAddress;
     private bool isServerStart;
-
-    private void Awake()
-    {
-#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-        localIpAddress = IPManager.GetLocalIPAddressWin();
-#else
-        localIpAddress = IPManager.GetLocalIPAddress();
-#endif
-        Debug.Log("local address: " + localIpAddress);
-    }
-
-    private void OnDestroy()
-    {
-        if (isServerStart)
-        {
-            Close();
-        }
-        //PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "");
-    }
 
     public void OnOpenButton()
     {
@@ -44,7 +28,7 @@ public class QRConnectionTest : SocketServerBase
             Debug.LogWarning("没有QR code显示相关ui组件");
             return;
         }
-        
+
         qrDisplayGroup.SetActive(true);
 
         if (e_qrController != null)
@@ -52,17 +36,9 @@ public class QRConnectionTest : SocketServerBase
             e_qrController.onQREncodeFinished += QrEncodeFinished;
             Encode();
         }
-        
-        StartServer(this.path, this.Port);
+
+        StartServer(Path, Port);
         isServerStart = true;
-    }
-    
-    void QrEncodeFinished(Texture2D tex)
-    {
-        if (tex != null)
-        {
-            qrCodeImage.texture = tex;
-        }
     }
 
     public void OnCloseButton()
@@ -72,51 +48,123 @@ public class QRConnectionTest : SocketServerBase
         {
             qrDisplayGroup.SetActive(false);
         }
-        
+
         Close();
         isServerStart = false;
     }
 
     public void OnConnectOs()
     {
-        if (PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName) == "")
+        if (string.IsNullOrEmpty(loginIP))
         {
-            Debug.Log("OS IP为空，无法连接OS");
+            Debug.Log("OS IP为空，无法连接OS，检查二维码生成问题");
             return;
         }
 
         //读取PlayerPrefs的IP连接OS
-        HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
+        HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+    }
+
+    protected override void OnAccept(Socket client, string ip)
+    {
+        if (client == null)
+        {
+            Debug.LogError($"Client is invalid while accepted");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(ip))
+        {
+            Debug.LogError("Client ip is not valid");
+            return;
+        }
+
+        loginIP = ip;
+        Debug.Log($"Client Accepted : {ip}");
+        Close();
+    }
+
+    void Awake()
+    {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        localIpAddress = IPManager.GetLocalIPAddressWin();
+#else
+        localIpAddress = IPManager.GetLocalIPAddress();
+#endif
+        Debug.Log("local address: " + localIpAddress);
+    }
+
+    void OnDestroy()
+    {
+        if (isServerStart)
+        {
+            Close();
+        }
+
+        StopAllCoroutines();
+    }
+
+    void Update()
+    {
+        if (string.IsNullOrEmpty(loginIP))
+        {
+            return;
+        }
+
+        Debug.Log($"Start Login : {loginIP}");
+        HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, loginIP);
+        loginIP = string.Empty;
+        qrDisplayGroup.SetActive(false);
+    }
+
+    void QrEncodeFinished(Texture2D tex)
+    {
+        if (tex != null)
+        {
+            qrCodeImage.texture = tex;
+        }
     }
 
     private void Encode()
     {
-        if (e_qrController != null)
+        if (e_qrController == null)
         {
-            int errorlog = e_qrController.Encode(localIpAddress);
-            if (errorlog == -13)
-            {
-                Debug.LogError("Must contain 12 digits,the 13th digit is automatically added !");
-            }
-            else if (errorlog == -8)
-            {
-                Debug.LogError("Must contain 7 digits,the 8th digit is automatically added !");
-            }
-            else if (errorlog == -39)
-            {
-                Debug.LogError("Only support digits");
-            }
-            else if (errorlog == -128)
+            return;
+        }
+
+        int errorlog = e_qrController.Encode(localIpAddress);
+        switch (errorlog)
+        {
+            case -128:
             {
                 Debug.LogError("Contents length should be between 1 and 80 characters !");
+                break;
             }
-            else if (errorlog == -1)
+            case -39:
+            {
+                Debug.LogError("Only support digits");
+                break;
+            }
+            case -13:
+            {
+                Debug.LogError("Must contain 12 digits,the 13th digit is automatically added !");
+                break;
+            }
+            case -8:
+            {
+                Debug.LogError("Must contain 7 digits,the 8th digit is automatically added !");
+                break;
+            }
+            case -1:
             {
                 Debug.LogError("Please select one code type !");
+                break;
             }
-            else if (errorlog == 0)
+            case 0:
             {
                 Debug.Log("Encode successfully !");
+                break;
             }
         }
     }

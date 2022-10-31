@@ -65,6 +65,7 @@ namespace StandTravelModel.Scripts.Runtime
         
         [Tooltip("如果用http模式OS，启用该开关会自动连接localhost的OS")]
         public bool connectDefaultIp;
+        public string defaultIP;
 
         [Tooltip("初始Motion Mode")]
         public MotionMode initialMode = MotionMode.Stand;
@@ -396,7 +397,7 @@ namespace StandTravelModel.Scripts.Runtime
             if (motionDataModel.GetMotionDataModelType() != MotionDataModelType.Network && _osConnected)
             {
                 ReleaseMessage();
-                HttpProtocolHandler.GetInstance().ReleaseWebSocket();
+                HttpProtocolHandler.GetInstance()?.ReleaseWebSocket();
             }
             motionDataModel = null;
             modelIKController?.ClearFakeNodes();
@@ -420,8 +421,9 @@ namespace StandTravelModel.Scripts.Runtime
         {
             if (connectDefaultIp)
             {
-                PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "127.0.0.1");
+                PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, defaultIP);
             }
+            
             HttpProtocolHandler.GetInstance().StartWebSocket(PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName), isUseJson);
         }
 

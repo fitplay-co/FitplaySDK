@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI.csproj", "{7d3b8a83-e1ba-6204-6ba5-7c03a71a1f97}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionCapture.StandTravelModel", "MotionCapture.StandTravelModel.csproj", "{f594b386-7592-c036-fbde-ebe2d6068588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI.csproj", "{7d3b8a83-e1ba-6204-6ba5-7c03a71a1f97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalIK", "FinalIK.csproj", "{d489bbd6-f6a0-6d89-6359-61c782305f94}"
 EndProject
@@ -58,10 +58,10 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7d3b8a83-e1ba-6204-6ba5-7c03a71a1f97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7d3b8a83-e1ba-6204-6ba5-7c03a71a1f97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{f594b386-7592-c036-fbde-ebe2d6068588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{f594b386-7592-c036-fbde-ebe2d6068588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7d3b8a83-e1ba-6204-6ba5-7c03a71a1f97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7d3b8a83-e1ba-6204-6ba5-7c03a71a1f97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{d489bbd6-f6a0-6d89-6359-61c782305f94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{d489bbd6-f6a0-6d89-6359-61c782305f94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{fc8c7018-a27f-4a25-aae6-b95958ee9f0c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
