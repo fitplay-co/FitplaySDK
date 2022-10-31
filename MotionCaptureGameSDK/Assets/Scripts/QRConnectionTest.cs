@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
@@ -89,7 +91,14 @@ public class QRConnectionTest : SocketServerBase
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         localIpAddress = IPManager.GetLocalIPAddressWin();
 #else
-        localIpAddress = IPManager.GetLocalIPAddress();
+        localIpAddress = IPManager.GetLocalIPAddress(item =>
+        {
+            const NetworkInterfaceType type1 = NetworkInterfaceType.Wireless80211;
+            const NetworkInterfaceType type2 = NetworkInterfaceType.Ethernet;
+            return (item.NetworkInterfaceType == type1 || item.NetworkInterfaceType == type2)
+                   && item.OperationalStatus == OperationalStatus.Up
+                   && item.NetworkInterfaceType != NetworkInterfaceType.Loopback;
+        });
 #endif
         Debug.Log("local address: " + localIpAddress);
     }
@@ -130,6 +139,12 @@ public class QRConnectionTest : SocketServerBase
     {
         if (e_qrController == null)
         {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(localIpAddress))
+        {
+            Debug.Log("IP is not null or empty before Encode");
             return;
         }
 
