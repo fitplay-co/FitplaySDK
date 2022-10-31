@@ -33,7 +33,7 @@ public class QRConnectionTest : SocketServerBase
         {
             Close();
         }
-        PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "");
+        //PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, "");
     }
 
     public void OnOpenButton()

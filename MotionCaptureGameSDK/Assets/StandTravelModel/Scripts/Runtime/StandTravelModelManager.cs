@@ -246,7 +246,7 @@ namespace StandTravelModel.Scripts.Runtime
         private PlayerHeightUI playerHeightUI;
         private IKeyPointsConverter keyPointsConverter;
         private bool isWaitForReconnect;
-        private const int DelayTime = 3000;
+        private const float DelayTime = 3;
 
         #endregion
 
@@ -1062,13 +1062,12 @@ namespace StandTravelModel.Scripts.Runtime
             }
 
             Debug.Log("Os connect error, try to connect again later");
-            Task.Run(() => DelayToReConnectOs());
+            Invoke(nameof(DelayToReConnectOs), DelayTime);
             isWaitForReconnect = true;
         }
 
-        async Task DelayToReConnectOs()
+        private void DelayToReConnectOs()
         {
-            await Task.Delay(DelayTime);
             Debug.Log("Try to reconnect os");
             TryToConnectOs();
             isWaitForReconnect = false;
