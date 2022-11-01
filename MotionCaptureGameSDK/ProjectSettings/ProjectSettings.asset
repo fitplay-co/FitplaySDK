@@ -749,7 +749,7 @@ PlayerSettings:
     WebGL: UNITY_POST_PROCESSING_STACK_V2
     Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2
     XboxOne: UNITY_POST_PROCESSING_STACK_V2
-    tvOS: UNITY_POST_PROCESSING_STACK_V2
+    tvOS: UNITY_POST_PROCESSING_STACK_V2;USE_FINAL_IK;NOT_USE_GROUND_LOCATION
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

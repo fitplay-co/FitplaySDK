@@ -103,6 +103,11 @@ public class QRConnectionTest : SocketServerBase
         Debug.Log("local address: " + localIpAddress);
     }
 
+    void Start()
+    {
+        OnOpenButton();
+    }
+
     void OnDestroy()
     {
         if (isServerStart)

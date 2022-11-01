@@ -85,10 +85,10 @@ public class QREncodeTest : MonoBehaviour {
     
     public void SaveCode()
     {
-        if (codeTex != null)
+        /*if (codeTex != null)
         {
             GalleryController.SaveImageToGallery(codeTex);
-        }
+        }*/
 
     }
 }

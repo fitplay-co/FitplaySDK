@@ -1810,12 +1810,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2b290bcadfead4dac284f09b8934ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: /
-  isDebug: 1
+  Path: /
+  ConnectionLength: 5
   Port: 8282
   e_qrController: {fileID: 580076609}
   qrCodeImage: {fileID: 481426022}
   qrDisplayGroup: {fileID: 401408708}
+  isUseJson: 0
 --- !u!1 &1553991531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,6 +2238,7 @@ MonoBehaviour:
   motionDataModelType: 0
   connectOsAuto: 0
   connectDefaultIp: 0
+  defaultIP: 
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -5203,6 +5205,7 @@ MonoBehaviour:
   motionDataModelType: 0
   connectOsAuto: 0
   connectDefaultIp: 0
+  defaultIP: 
   initialMode: 1
   speedCurve:
     serializedVersion: 2
@@ -8705,10 +8708,6 @@ PrefabInstance:
     - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: connectOsAuto
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
-      propertyPath: manualInputTall
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1739797901209209413, guid: 5d5e947f71b80c846afecdf1cc57752d, type: 3}
       propertyPath: turnCharaStandMode
