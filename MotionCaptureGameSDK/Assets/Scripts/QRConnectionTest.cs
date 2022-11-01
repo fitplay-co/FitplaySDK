@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using MotionCaptureBasic.OSConnector;
@@ -57,14 +54,15 @@ public class QRConnectionTest : SocketServerBase
 
     public void OnConnectOs()
     {
-        if (string.IsNullOrEmpty(loginIP))
+        string ip = PlayerPrefs.GetString(HttpProtocolHandler.OsIpKeyName);
+        if (string.IsNullOrEmpty(ip))
         {
             Debug.Log("OS IP为空，无法连接OS，检查二维码生成问题");
             return;
         }
 
         //读取PlayerPrefs的IP连接OS
-        HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+        HttpProtocolHandler.GetInstance().StartWebSocket(ip, isUseJson);
     }
 
     protected override void OnAccept(Socket client, string ip)
@@ -83,7 +81,6 @@ public class QRConnectionTest : SocketServerBase
 
         loginIP = ip;
         Debug.Log($"Client Accepted : {ip}");
-        Close();
     }
 
     void Awake()
@@ -130,6 +127,7 @@ public class QRConnectionTest : SocketServerBase
         PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, loginIP);
         loginIP = string.Empty;
         qrDisplayGroup.SetActive(false);
+        Close();
     }
 
     void QrEncodeFinished(Texture2D tex)
