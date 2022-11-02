@@ -11,17 +11,13 @@ namespace MotionCaptureBasic.MessageSend
         private bool isUseJson;
         private bool isDebug;
 
-        public MessageSender(IWebSocket socket, bool useJson)
+        public MessageSender(IWebSocket socket, bool useJson, bool isDebug)
         {
             this.socket = socket;
-            isUseJson = useJson;
-        }
-
-        public void SetDebug(bool isDebug)
-        {
+            this.isUseJson = useJson;
             this.isDebug = isDebug;
         }
-        
+
         /// <summary>
         /// 发送注册帧
         /// </summary>

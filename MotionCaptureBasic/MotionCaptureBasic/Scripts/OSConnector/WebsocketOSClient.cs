@@ -19,6 +19,7 @@ namespace MotionCaptureBasic.OSConnector
         private IWebSocket socket;
         private MessageSender messageSubscriber;
         private bool isUseJson = false;
+        private bool isDebug;
 
         private WebsocketOSClient()
         {
@@ -240,7 +241,7 @@ namespace MotionCaptureBasic.OSConnector
 
         private void InitMessageSubscriber(IWebSocket webSocket)
         {
-            messageSubscriber = new MessageSender(webSocket, isUseJson);
+            messageSubscriber = new MessageSender(webSocket, this.isUseJson, this.isDebug);
         }
 
         private void Socket_OnOpen(object sender, OpenEventArgs e)
@@ -278,7 +279,7 @@ namespace MotionCaptureBasic.OSConnector
 
         public void SetDebug(bool isDebug)
         {
-            messageSubscriber.SetDebug(isDebug);
+            this.isDebug = isDebug;
         }
     }
 }
