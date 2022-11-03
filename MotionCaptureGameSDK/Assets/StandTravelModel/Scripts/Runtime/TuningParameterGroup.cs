@@ -17,6 +17,10 @@ namespace StandTravelModel.Scripts.Runtime
         
         //局部位移缩放量
         public Vector3 LocalShiftScale = Vector3.one;
+        
+        //局部位移限制空间
+        public bool IsClampLocalShift;
+        public Vector3 LocalShiftClamper;
 
         //计步器记录步数
         public int CacheStepCount = 5;

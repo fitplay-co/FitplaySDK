@@ -177,6 +177,10 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 interactData.localShift = new Vector3(locomotionComp.locomotionOffset.x * tuningParameters.LocalShiftScale.x, 0,
                     locomotionComp.locomotionOffset.z * tuningParameters.LocalShiftScale.z);
                 //Debug.Log($"local shift: {interactData.localShift}");
+                if (tuningParameters.IsClampLocalShift)
+                {
+                    ClampLocalShift();
+                }
                 return;
             }
 #if NOT_USE_GROUND_LOCATION
@@ -203,6 +207,23 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
                 interactData.localShift = anchorController.TravelFollowPoint.transform.rotation * planeShift;
             }
 #endif
+            if (tuningParameters.IsClampLocalShift)
+            {
+                ClampLocalShift();
+            }
+        }
+
+        private void ClampLocalShift()
+        {
+            var x = Mathf.Clamp(interactData.localShift.x, -tuningParameters.LocalShiftClamper.x,
+                tuningParameters.LocalShiftClamper.x);
+            
+            var y = Mathf.Clamp(interactData.localShift.y, -tuningParameters.LocalShiftClamper.y,
+                tuningParameters.LocalShiftClamper.y);
+
+            var z = Mathf.Clamp(interactData.localShift.z, -tuningParameters.LocalShiftClamper.z,
+                tuningParameters.LocalShiftClamper.z);
+            interactData.localShift = new Vector3(x, y, z);
         }
 
         private float GetMinY(List<Vector3> keyPoints3D)
