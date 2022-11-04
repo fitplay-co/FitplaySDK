@@ -58,6 +58,11 @@ namespace StandTravelModel.Scripts.Runtime.MotionModel
 
         public void AdjustTransformHeight() 
         {
+            if (!interactData.isGroundCheckOnStand)
+            {
+                return;
+            }
+            
             CheckGroundHeight();
             var currentPos = selfTransform.position;
             currentPos.y = interactData.groundHeight;
