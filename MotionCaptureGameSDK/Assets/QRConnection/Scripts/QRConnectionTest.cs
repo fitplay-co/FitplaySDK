@@ -11,6 +11,7 @@ public class QRConnectionTest : SocketServerBase
     public QRCodeEncodeController e_qrController;
     public RawImage qrCodeImage;
     public GameObject qrDisplayGroup;
+    public bool isAutoConnectOs;
 
     [SerializeField]
     private bool isUseJson = false;
@@ -123,10 +124,15 @@ public class QRConnectionTest : SocketServerBase
         }
 
         Debug.Log($"Start Login : {loginIP}");
-        HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+        if (isAutoConnectOs)
+        {
+            HttpProtocolHandler.GetInstance().StartWebSocket(loginIP, isUseJson);
+        }
+        
         PlayerPrefs.SetString(HttpProtocolHandler.OsIpKeyName, loginIP);
         loginIP = string.Empty;
         qrDisplayGroup.SetActive(false);
+        qrDisplayGroup.transform.parent.gameObject.SetActive(false);
         Close();
     }
 
