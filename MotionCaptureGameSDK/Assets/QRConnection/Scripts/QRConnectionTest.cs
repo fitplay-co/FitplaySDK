@@ -47,6 +47,7 @@ public class QRConnectionTest : SocketServerBase
         if (qrDisplayGroup != null)
         {
             qrDisplayGroup.SetActive(false);
+            qrDisplayGroup.transform.parent.gameObject.SetActive(false);
         }
 
         Close();
