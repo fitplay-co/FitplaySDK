@@ -248,6 +248,8 @@ namespace StandTravelModel.Scripts.Runtime
         private IKeyPointsConverter keyPointsConverter;
         private bool isWaitForReconnect;
         private const float DelayTime = 3;
+        private const int MaxRetry = 3;
+        private int retryCount;
 
         #endregion
 
@@ -1022,6 +1024,7 @@ namespace StandTravelModel.Scripts.Runtime
         {
             if(!destroyed)
             {
+                retryCount = 0;
                 motionDataModel.SubscribeActionDetection();
                 motionDataModel.SubscribeGroundLocation();
                 motionDataModel.SubscribeFitting();
@@ -1070,7 +1073,13 @@ namespace StandTravelModel.Scripts.Runtime
 
         private void DelayToReConnectOs()
         {
-            Debug.Log("Try to reconnect os");
+            retryCount += 1;
+            if (retryCount > MaxRetry)
+            {
+                return;
+            }
+
+            Debug.Log($"Try to reconnect os. Retry count: {retryCount}");
             TryToConnectOs();
             isWaitForReconnect = false;
         }
