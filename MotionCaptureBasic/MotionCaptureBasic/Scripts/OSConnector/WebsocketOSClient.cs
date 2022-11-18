@@ -226,6 +226,11 @@ namespace MotionCaptureBasic.OSConnector
 
         public void ReleaseConnect()
         {
+            if (socket == null)
+            {
+                return;
+            }
+
             socket.CloseAsync();
             socket.OnOpen -= Socket_OnOpen;
             socket.OnMessage -= Socket_OnMessage;
