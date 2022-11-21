@@ -129,6 +129,13 @@ namespace MotionCaptureBasic.OSConnector
             this.onError += onError;
         }
 
+        public void ReleaseConnectEvent()
+        {
+            onConnect = null;
+            onClosed = null;
+            onError = null;
+        }
+
         public void SetDebug(bool isDebug)
         {
             this.isDebug = isDebug;

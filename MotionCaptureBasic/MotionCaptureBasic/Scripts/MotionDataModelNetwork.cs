@@ -103,6 +103,11 @@ namespace MotionCaptureBasic
             return;
         }
 
+        public void ReleaseConnectEvent()
+        {
+            return;
+        }
+
         public bool ReleaseGazeTracking()
         {
             return false;

@@ -236,6 +236,11 @@ namespace MotionCaptureBasic
             Debug.LogError("AddConnectEvent is not implemented for mobile instance");
         }
 
+        public void ReleaseConnectEvent()
+        {
+            Debug.LogError("ReleaseConnectEvent is not implemented for mobile instance");
+        }
+
         public bool ReleaseGazeTracking()
         {
             Debug.LogError("ReleaseGazeTracking is not implemented for mobile instance");

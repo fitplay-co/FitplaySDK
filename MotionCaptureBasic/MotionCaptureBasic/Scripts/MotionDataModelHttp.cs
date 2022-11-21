@@ -247,6 +247,11 @@ namespace MotionCaptureBasic
             return WebsocketOSClient.GetInstance().SubscribeFitting(true);
         }
 
+        public void ReleaseConnectEvent()
+        {
+            httpProtocolHandler.ReleaseConnectEvent();
+        }
+
         public bool ReleaseGazeTracking()
         {
             return WebsocketOSClient.GetInstance().SubscribeGazeTracking(false);
