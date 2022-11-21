@@ -1,5 +1,6 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using MotionCaptureBasic;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
@@ -10,6 +11,7 @@ using StandTravelModel.Scripts.Runtime.MotionModel;
 using StandTravelModel.Scripts.Runtime.WeirdHumanoid;
 using StandTravelModel.Scripts.Runtime.Core.AnimationStates.Components;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace StandTravelModel.Scripts.Runtime
 {
@@ -398,6 +400,7 @@ namespace StandTravelModel.Scripts.Runtime
             Destroy(keyPointsParent);
             if (motionDataModel.GetMotionDataModelType() != MotionDataModelType.Network && _osConnected)
             {
+                motionDataModel.ReleaseConnectEvent();
                 ReleaseMessage();
                 HttpProtocolHandler.GetInstance()?.ReleaseWebSocket();
             }
@@ -417,6 +420,7 @@ namespace StandTravelModel.Scripts.Runtime
                 travelModel = null;
             }
             destroyed = true;
+            StopAllCoroutines();
         }
 
         private void TryToConnectOs()
@@ -525,7 +529,7 @@ namespace StandTravelModel.Scripts.Runtime
         /// <returns></returns>
         public Transform GetTravelAnchor()
         {
-            if (anchorController != null)
+            if (anchorController != null && anchorController.TravelFollowPoint != null)
             {
                 return anchorController.TravelFollowPoint.transform;
             }
@@ -539,7 +543,7 @@ namespace StandTravelModel.Scripts.Runtime
         /// <returns></returns>
         public Transform GetStandAnchor()
         {
-            if (anchorController != null)
+            if (anchorController != null && anchorController.StandFollowPoint != null)
             {
                 return anchorController.StandFollowPoint.transform;
             }
@@ -553,7 +557,7 @@ namespace StandTravelModel.Scripts.Runtime
         /// <returns></returns>
         public Transform GetStandLookAt()
         {
-            if (anchorController != null)
+            if (anchorController != null && anchorController.StandLookAtPoint != null)
             {
                 return anchorController.StandLookAtPoint.transform;
             }
@@ -567,7 +571,7 @@ namespace StandTravelModel.Scripts.Runtime
         /// <returns></returns>
         public Transform GetTravelLookAt()
         {
-            if (anchorController != null)
+            if (anchorController != null && anchorController.TravelLookAtPoint != null)
             {
                 return anchorController.TravelLookAtPoint.transform;
             }
@@ -1065,20 +1069,29 @@ namespace StandTravelModel.Scripts.Runtime
             {
                 return;
             }
-
-            Debug.Log("Os connect error, try to connect again later");
-            Invoke(nameof(DelayToReConnectOs), DelayTime);
-            isWaitForReconnect = true;
-        }
-
-        private void DelayToReConnectOs()
-        {
+            
             retryCount += 1;
             if (retryCount > MaxRetry)
             {
                 return;
             }
 
+            Debug.Log("Os connect error, try to connect again later");
+            try
+            {
+                StartCoroutine(DelayToReConnectOs());
+            }
+            catch (Exception e)
+            {
+                Debug.Log("StandTravelModelManager was destroyed");
+            }
+
+            isWaitForReconnect = true;
+        }
+
+        IEnumerator DelayToReConnectOs()
+        {
+            yield return new WaitForSeconds(DelayTime);
             Debug.Log($"Try to reconnect os. Retry count: {retryCount}");
             TryToConnectOs();
             isWaitForReconnect = false;
