@@ -12,7 +12,7 @@ namespace UnityWebSocket
     public class WebSocket : IWebSocket
     {
         public string Address { get; private set; }
-
+        public string SocketName { get; private set; }
         public WebSocketState ReadyState
         {
             get
@@ -45,9 +45,10 @@ namespace UnityWebSocket
         private bool isOpening => socket != null && socket.State == System.Net.WebSockets.WebSocketState.Open;
 
         #region APIs
-        public WebSocket(string address)
+        public WebSocket(string address,string name)
         {
             this.Address = address;
+            this.SocketName = name;
         }
 
         public void ConnectAsync()

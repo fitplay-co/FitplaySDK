@@ -10,12 +10,14 @@ namespace MotionCaptureBasic.MessageSend
         private IWebSocket socket;
         private bool isUseJson;
         private bool isDebug;
+        private string name;
 
-        public MessageSender(IWebSocket socket, bool useJson, bool isDebug)
+        public MessageSender(IWebSocket socket, bool useJson, string name, bool isDebug)
         {
             this.socket = socket;
             this.isUseJson = useJson;
             this.isDebug = isDebug;
+            this.name = name;
         }
 
         /// <summary>

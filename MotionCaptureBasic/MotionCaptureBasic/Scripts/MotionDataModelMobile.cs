@@ -23,6 +23,11 @@ namespace MotionCaptureBasic
             motionDataPreprocessor = new MotionDataPreprocessor();
         }
         
+        public HttpProtocolHandler GetHttpProtocol()
+        {
+            return null;
+        }
+        
         public static MotionDataModelMobile GetInstance()
         {
             if (instance == null)

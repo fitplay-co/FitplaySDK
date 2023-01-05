@@ -13,6 +13,10 @@ namespace MotionCaptureBasic
         private Fitting simulateFittingData;
         public EventImuHandler OnImuReceived { get; }
 
+        public HttpProtocolHandler GetHttpProtocol()
+        {
+            return null;
+        }
         public List<Vector3> GetIKPointsData(bool isLocalCoordinates, bool isPreprocessed)
         {
             return null;

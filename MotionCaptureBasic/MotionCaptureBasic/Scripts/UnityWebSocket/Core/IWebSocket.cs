@@ -98,7 +98,7 @@ namespace UnityWebSocket
         /// get the address which to connect.
         /// </summary>
         string Address { get; }
-
+        string SocketName { get; }
         /// <summary>
         /// Gets the current state of the connection.
         /// </summary>

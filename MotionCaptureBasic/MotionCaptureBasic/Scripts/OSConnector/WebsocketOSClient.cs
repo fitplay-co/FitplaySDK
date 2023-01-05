@@ -7,43 +7,43 @@ namespace MotionCaptureBasic.OSConnector
 {
     public class WebsocketOSClient
     {
-        public delegate void ReceiveAction(string message);
+        public delegate void ReceiveAction(string message, string client);
 
         public event Action OnConnect;
-        public event Action OnClosed;
-        public event Action OnError;
+        public event Action<string> OnClosed;
+        public event Action<string> OnError;
         public event ReceiveAction OnReceived;
         public event Action<byte[]> OnReceivedBytes;
 
-
+        public string SocketName { get; set; }
         private IWebSocket socket;
         private MessageSender messageSubscriber;
         private bool isUseJson = false;
         private bool isDebug;
 
-        private WebsocketOSClient()
+        public WebsocketOSClient()
         {
         }
 
-        private static WebsocketOSClient instance;
+        //private static WebsocketOSClient instance;
 
-        private static readonly object _Synchronized = new object();
+        //private static readonly object _Synchronized = new object();
 
-        public static WebsocketOSClient GetInstance()
-        {
-            if (instance == null)
-            {
-                lock (_Synchronized)
-                {
-                    if (instance == null)
-                    {
-                        instance = new WebsocketOSClient();
-                    }
-                }
-            }
-
-            return instance;
-        }
+        //public static WebsocketOSClient GetInstance()
+        //{
+        //    if (instance == null)
+        //    {
+        //        lock (_Synchronized)
+        //        {
+        //            if (instance == null)
+        //            {
+        //                instance = new WebsocketOSClient();
+        //            }
+        //        }
+        //    }
+//
+        //    return instance;
+        //}
 
         ~WebsocketOSClient()
         {
@@ -206,22 +206,22 @@ namespace MotionCaptureBasic.OSConnector
         }
 
         //start
-        public void InitConnect(string webSocketUrl)
+        public void InitConnect(string webSocketUrl, string socketName)
         {
+            SocketName = socketName;
             string url = $"ws://{webSocketUrl}:8181/";
             Debug.Log($"url:{url}");
             if (IsConnected)
             {
                 ReleaseConnect();
             }
-            socket = new UnityWebSocket.WebSocket(url);
+            socket = new UnityWebSocket.WebSocket(url, socketName);
             socket.OnOpen += Socket_OnOpen;
             socket.OnMessage += Socket_OnMessage;
             socket.OnClose += Socket_OnClose;
             socket.OnError += Socket_OnError;
             socket.ConnectAsync();
-
-            InitMessageSubscriber(socket);
+            InitMessageSubscriber(socket, socketName);
         }
 
         public void ReleaseConnect()
@@ -244,9 +244,9 @@ namespace MotionCaptureBasic.OSConnector
             get => (socket != null && socket.ReadyState != UnityWebSocket.WebSocketState.Connecting);
         }
 
-        private void InitMessageSubscriber(IWebSocket webSocket)
+        private void InitMessageSubscriber(IWebSocket webSocket, string name)
         {
-            messageSubscriber = new MessageSender(webSocket, this.isUseJson, this.isDebug);
+            messageSubscriber = new MessageSender(webSocket, this.isUseJson, name, this.isDebug);
         }
 
         private void Socket_OnOpen(object sender, OpenEventArgs e)
@@ -266,19 +266,19 @@ namespace MotionCaptureBasic.OSConnector
             else if (e.IsText)
             {
                 // Debug.LogError(string.Format("Receive: {0}", e.Data));
-                OnReceived?.Invoke(e.Data);
+                OnReceived?.Invoke(e.Data, e.name);
             }
         }
 
         private void Socket_OnClose(object sender, CloseEventArgs e)
         {
-            OnClosed?.Invoke();
+            OnClosed?.Invoke(((IWebSocket) sender).SocketName);
             Console.WriteLine("Closed: StatusCode: {0}, Reason: {1}", e.StatusCode, e.Reason);
         }
 
         private void Socket_OnError(object sender, UnityWebSocket.ErrorEventArgs e)
         {
-            OnError?.Invoke();
+            OnError?.Invoke(((IWebSocket) sender).SocketName);
             Console.WriteLine("Error: {0}", e.Message);
         }
 

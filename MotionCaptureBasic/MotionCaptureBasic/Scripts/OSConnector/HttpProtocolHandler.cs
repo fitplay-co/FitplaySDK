@@ -14,8 +14,8 @@ namespace MotionCaptureBasic.OSConnector
 {
     public class HttpProtocolHandler
     {
-        private static HttpProtocolHandler instance;
-        private static readonly object _Synchronized = new object();
+        //private static HttpProtocolHandler instance;
+        //private static readonly object _Synchronized = new object();
 
         private bool isDebug;
         //private float lastTime;
@@ -26,13 +26,16 @@ namespace MotionCaptureBasic.OSConnector
 
         private const int PoseLandmarkLength = 33;
         private const int FittingLength = 18;
-
+        private string SocketName { get; set; }
+        public WebsocketOSClient Websocket { get; set; }
+        //public Dictionary<string, HttpProtocolHandler> HttpProtocolDic;
         public IKBodyUpdateMessage BodyMessageBase => _bodyMessageBase;
 
         public static readonly string OsIpKeyName = "OsAddress";
 
-        private HttpProtocolHandler()
+        public HttpProtocolHandler(string socketName)
         {
+            SocketName = socketName;
             _bodyMessageBase = new IKBodyUpdateMessage
             {
                 fitting = new Fitting
@@ -64,6 +67,7 @@ namespace MotionCaptureBasic.OSConnector
                 stand_detection = new StandDetection(),
                 general_detection = new GeneralDetectionItem()
             };
+            //WebsocketOSClientDic = new Dictionary<string, WebsocketOSClient>(2);
         }
         
         public enum ConnectStatus
@@ -76,51 +80,58 @@ namespace MotionCaptureBasic.OSConnector
 
         ~HttpProtocolHandler()
         {
+            //WebsocketOSClientDic.Clear();
+            //HttpProtocolDic.Clear();
         }
 
-        public void StartWebSocket(string url, bool useJson)
+        public void StartWebSocket(string url, string name, bool useJson)
         {
-            if (WebsocketOSClient.GetInstance().IsConnected)
+            //if (WebsocketOSClientDic.ContainsKey(name))
+            //    return;
+            if (Websocket != null && Websocket.IsConnected)
             {
                 return;
             }
-
-            var app = WebsocketOSClient.GetInstance();
-            app.SetUseJson(useJson);
-            app.InitConnect(url);
-            app.OnReceived += OnReceived;
-            app.OnReceivedBytes += OnReceivedBytes;
-            app.OnConnect += OnConnect;
-            app.OnClosed += OnClosed;
-            app.OnError += OnError;
+            Websocket =  new WebsocketOSClient();
+            Websocket.SetUseJson(useJson);
+            Websocket.InitConnect(url, name);
+            Websocket.OnReceived += OnReceived;
+            Websocket.OnReceivedBytes += OnReceivedBytes;
+            Websocket.OnConnect += OnConnect;
+            Websocket.OnClosed += OnClosed;
+            Websocket.OnError += OnError;
+            //WebsocketOSClientDic.Add(name, app);
         }
 
-        public void ReleaseWebSocket()
+        public void ReleaseWebSocket(string name)
         {
-            var app = WebsocketOSClient.GetInstance();
-            app.OnReceived -= OnReceived;
-            app.OnReceivedBytes -= OnReceivedBytes;
-            app.OnConnect -= OnConnect;
-            app.OnClosed -= OnClosed;
-            app.OnError -= OnError;
-            app.ReleaseConnect();
+            //if (!WebsocketOSClientDic.ContainsKey(name)) return;
+            //var app = WebsocketOSClientDic[name];
+            if (Websocket == null) return;
+            Websocket.OnReceived -= OnReceived;
+            Websocket.OnReceivedBytes -= OnReceivedBytes;
+            Websocket.OnConnect -= OnConnect;
+            Websocket.OnClosed -= OnClosed;
+            Websocket.OnError -= OnError;
+            Websocket.ReleaseConnect();
+            //WebsocketOSClientDic.Remove(name);
         }
 
-        public static HttpProtocolHandler GetInstance()
-        {
-            if (instance == null)
-            {
-                lock(_Synchronized)
-                {
-                    if(instance == null)
-                    {
-                        instance = new HttpProtocolHandler();
-                    }
-                }
-            }
-
-            return instance;
-        }
+        //public static HttpProtocolHandler GetInstance()
+        //{
+        //    if (instance == null)
+        //    {
+        //        lock(_Synchronized)
+        //        {
+        //            if(instance == null)
+        //            {
+        //                instance = new HttpProtocolHandler();
+        //            }
+        //        }
+        //    }
+//
+        //    return instance;
+        //}
         
         public void AddConnectEvent(Action onConnect, Action onClosed = null, Action onError = null)
         {
@@ -152,7 +163,7 @@ namespace MotionCaptureBasic.OSConnector
             }
         }
 
-        private void OnReceived(string message)
+        private void OnReceived(string message, string socketName)
         {
             //var diff = Time.time - lastTime;
             //lastTime = Time.time;
@@ -493,15 +504,15 @@ namespace MotionCaptureBasic.OSConnector
             onConnect?.Invoke();
         }
         
-        private void OnClosed()
+        private void OnClosed(string clientName)
         {
-            ReleaseWebSocket();
+            ReleaseWebSocket(clientName);
             onClosed?.Invoke();
         }
         
-        private void OnError()
+        private void OnError(string clientName)
         {
-            ReleaseWebSocket();
+            ReleaseWebSocket(clientName);
             onError?.Invoke();
         }
     }

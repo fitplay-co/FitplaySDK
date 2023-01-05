@@ -41,6 +41,7 @@ namespace MotionCaptureBasic.Interface
         GazeTracking GetGazeTrackingData();
         GeneralDetectionItem GetGeneralDetectionData();
         StandDetection GetStandDetectionData();
+        HttpProtocolHandler GetHttpProtocol();
         bool SubscribeGazeTracking();
         bool SubscribeActionDetection();
         bool SubscribeGroundLocation();

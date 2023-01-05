@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using MotionCaptureBasic.Interface;
 using MotionCaptureBasic.OSConnector;
 using UnityEngine;
@@ -9,39 +8,63 @@ namespace MotionCaptureBasic
 {
     public class MotionDataModelHttp : IMotionDataModel
     {
-        private static MotionDataModelHttp instance;
+        //private static MotionDataModelHttp instance;
         
-        private static readonly object _Synchronized = new object();
-
+        //private static readonly object _Synchronized = new object();
         private ActionDetectionItem simulatActionDetectionItem;
-        private HttpProtocolHandler httpProtocolHandler;
+        private HttpProtocolHandler httpProtocol;
         private MotionDataPreprocessor montionDataPreprocessor;
         
         private List<Vector3> ikPointsDataListSimulat;
-
+    
         private Fitting simulateFittingData;
 
-        private MotionDataModelHttp()
+        //private static Dictionary<string, MotionDataModelHttp> motionDataDic = new Dictionary<string, MotionDataModelHttp>();
+        //private MotionDataModelHttp(string socketName)
+        //{
+        //    httpProtocolHandler = new HttpProtocolHandler(socketName);//HttpProtocolHandler.GetInstance();
+        //    montionDataPreprocessor = new MotionDataPreprocessor();
+        //}
+        
+        public MotionDataModelHttp(string socketName)
         {
-            httpProtocolHandler = HttpProtocolHandler.GetInstance();
+            httpProtocol = new HttpProtocolHandler(socketName);//HttpProtocolHandler.GetInstance();
             montionDataPreprocessor = new MotionDataPreprocessor();
         }
         
-        public static MotionDataModelHttp GetInstance()
+        ~MotionDataModelHttp()
         {
-            if (instance == null)
-            {
-                lock(_Synchronized)
-                {
-                    if(instance == null)
-                    {
-                        instance = new MotionDataModelHttp();
-                    }
-                }
-            }
-
-            return instance;
+            simulatActionDetectionItem = null;
+            montionDataPreprocessor = null;
+            ikPointsDataListSimulat.Clear();
+            ikPointsDataListSimulat = null;
+            simulateFittingData = null;
+            httpProtocol = null;
+            //motionDataDic.Clear();
+            //motionDataDic = null;
         }
+
+        public HttpProtocolHandler GetHttpProtocol()
+        {
+            return httpProtocol;
+        }
+
+        //public static MotionDataModelHttp GetInstance(string socketName)
+        //{
+        //    if (motionDataDic.ContainsKey(socketName))
+        //        return motionDataDic[socketName];
+        //    var instance = new MotionDataModelHttp(socketName);
+        //    motionDataDic.Add(socketName, instance);
+        //    //    lock(_Synchronized)
+        //    //    {
+        //    //        if(instance == null)
+        //    //        {
+        //    //            instance = new MotionDataModelHttp();
+        //    //        }
+        //    //    }
+        //    //}
+        //    return instance;
+        //}
 
         public void SetPreprocessorParameters(Vector3 motionScaling)
         {
@@ -65,7 +88,7 @@ namespace MotionCaptureBasic
                 return ikPointsDataListSimulat;
             }
             
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -130,7 +153,7 @@ namespace MotionCaptureBasic
         /// <returns></returns>
         public GroundLocationItem GetGroundLocationData()
         {
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -157,7 +180,7 @@ namespace MotionCaptureBasic
                 return simulatActionDetectionItem;
             }
             
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -169,7 +192,7 @@ namespace MotionCaptureBasic
 
         public MonitorItem GetMonitorData()
         {
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -181,7 +204,7 @@ namespace MotionCaptureBasic
 
         public TimeProfiling GetTimeProfilingData()
         {
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -193,7 +216,7 @@ namespace MotionCaptureBasic
 
         public GazeTracking GetGazeTrackingData()
         {
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -205,7 +228,7 @@ namespace MotionCaptureBasic
         
         public GeneralDetectionItem GetGeneralDetectionData()
         {
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -217,7 +240,7 @@ namespace MotionCaptureBasic
 
         public StandDetection GetStandDetectionData()
         {
-            var bodymessage = httpProtocolHandler.BodyMessageBase;
+            var bodymessage = httpProtocol.BodyMessageBase;
 
             if (!(bodymessage is IKBodyUpdateMessage ikBodyUpdateMessage))
             {
@@ -229,22 +252,22 @@ namespace MotionCaptureBasic
 
         public bool SubscribeGazeTracking()
         {
-            return WebsocketOSClient.GetInstance().SubscribeGazeTracking(true);
+            return httpProtocol.Websocket.SubscribeGazeTracking(true);
         }
 
         public bool SubscribeActionDetection()
         {
-            return WebsocketOSClient.GetInstance().SubscribeActionDetection(true);
+            return httpProtocol.Websocket.SubscribeActionDetection(true);
         }
 
         public bool SubscribeGroundLocation()
         {
-            return WebsocketOSClient.GetInstance().SubscribeGroundLocation(true);
+            return httpProtocol.Websocket.SubscribeGroundLocation(true);
         }
 
         public bool SubscribeFitting()
         {
-            return WebsocketOSClient.GetInstance().SubscribeFitting(true);
+            return httpProtocol.Websocket.SubscribeFitting(true);
         }
 
         public void ReleaseConnectEvent()
@@ -254,52 +277,53 @@ namespace MotionCaptureBasic
 
         public bool ReleaseGazeTracking()
         {
-            return WebsocketOSClient.GetInstance().SubscribeGazeTracking(false);
+            return httpProtocol.Websocket.SubscribeGazeTracking(false);
         }
 
         public bool ReleaseActionDetection()
         {
-            return WebsocketOSClient.GetInstance().SubscribeActionDetection(false);
+            return httpProtocol.Websocket.SubscribeActionDetection(false);
         }
 
         public bool ReleaseGroundLocation()
         {
-            return WebsocketOSClient.GetInstance().SubscribeGroundLocation(false);
+            return httpProtocol.Websocket.SubscribeGroundLocation(false);
         }
 
         public bool ReleaseFitting()
         {
-            return WebsocketOSClient.GetInstance().SubscribeFitting(false);
+            return httpProtocol.Websocket.SubscribeFitting(false);
         }
 
         public bool ResetGroundLocation()
         {
-            return WebsocketOSClient.GetInstance().ResetGroundLocation();
+            return httpProtocol.Websocket.ResetGroundLocation();
         }
         
         public bool SubscribeGeneral()
         {
-            return WebsocketOSClient.GetInstance().SubscribeGeneral(true);
+            return httpProtocol.Websocket.SubscribeGeneral(true);
         }
 
         public bool ReleaseGeneral()
         {
-            return WebsocketOSClient.GetInstance().SubscribeGeneral(false);
+            return httpProtocol.Websocket.SubscribeGeneral(false);
         }
 
         /// <summary>
         /// 设置FPS
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="fps"></param>
         /// <returns></returns>
         public bool SendFrameRateControl(int fps)
         {
-            return WebsocketOSClient.GetInstance().SendFrameRateControl(fps);
+            return httpProtocol.Websocket.SendFrameRateControl(fps);
         }
 
         public bool SetPlayerHeight(int h)
         {
-            return WebsocketOSClient.GetInstance().SendHeightSetting(h);
+            return httpProtocol.Websocket.SendHeightSetting(h);
         }
 
 
@@ -312,7 +336,7 @@ namespace MotionCaptureBasic
         /// <returns></returns>
         public bool SendVibrationControl(int deviceId, int vibrationType, int strength)
         {
-            return WebsocketOSClient.GetInstance().SendVibrationControl(deviceId, vibrationType, strength);
+            return httpProtocol.Websocket.SendVibrationControl(deviceId, vibrationType, strength);
         }
         
         /// <summary>
@@ -322,7 +346,7 @@ namespace MotionCaptureBasic
         /// <returns></returns>
         public bool SendImuResetControl(int deviceId)
         {
-            return WebsocketOSClient.GetInstance().SendImuResetControl(deviceId);
+            return httpProtocol.Websocket.SendImuResetControl(deviceId);
         }
 
         /// <summary>
@@ -333,7 +357,7 @@ namespace MotionCaptureBasic
         /// <returns></returns>
         public bool SendHeartControl(int deviceId, int command)
         {
-            return WebsocketOSClient.GetInstance().SendHeartControl(deviceId, command);
+            return httpProtocol.Websocket.SendHeartControl(deviceId, command);
         }
         
 
@@ -350,18 +374,18 @@ namespace MotionCaptureBasic
                 return simulateFittingData;
             }
 
-            return httpProtocolHandler.BodyMessageBase?.fitting;
+            return httpProtocol.BodyMessageBase?.fitting;
         }
 
         public void AddConnectEvent(Action onConnect, Action onClosed = null, Action onError = null)
         {
-            httpProtocolHandler.AddConnectEvent(onConnect, onClosed, onError);
+            httpProtocol.AddConnectEvent(onConnect, onClosed, onError);
         }
 
         public void SetDebug(bool isDebug)
         {
-            httpProtocolHandler.SetDebug(isDebug);
-            WebsocketOSClient.GetInstance().SetDebug(isDebug);
+            httpProtocol.SetDebug(isDebug);
+            httpProtocol.Websocket.SetDebug(isDebug);
         }
 
         public void SetIKDataListSimulat(List<Vector3> ikPointsDataListSimulat)

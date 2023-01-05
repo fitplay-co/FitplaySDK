@@ -14,12 +14,12 @@ namespace MotionCaptureBasic
 
     public class MotionDataModelFactory
     {
-        public static IMotionDataModel Create(MotionDataModelType type)
+        public static IMotionDataModel Create(MotionDataModelType type, string socketName)
         {
             switch (type)
             {
                 case MotionDataModelType.Http:
-                    return MotionDataModelHttp.GetInstance();
+                    return new MotionDataModelHttp(socketName);
                 case MotionDataModelType.Cpp:
                     return null;
                 case MotionDataModelType.Mobile:

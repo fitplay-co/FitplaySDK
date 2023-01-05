@@ -7,6 +7,7 @@ namespace UnityWebSocket
     {
         private byte[] _rawData;
         private string _data;
+        public string name;
 
         internal MessageEventArgs(Opcode opcode, byte[] rawData)
         {
